@@ -1,0 +1,32 @@
+package_name_override: _generated
+project_name_override: proxyrequest-generated
+package_version_override: 1.0.0
+use_path_prefixes_for_title_model_names: true
+generate_all_tags: false
+docstrings_on_attributes: true
+literal_enums: false
+content_type_overrides:
+  application/pdf: application/octet-stream
+post_hooks: []
+class_overrides:
+  LoginRequestRequest:
+    class_name: LoginRequest
+    module_name: login_request
+  InvoiceCreateRequestRequest:
+    class_name: InvoiceCreateRequest
+    module_name: invoice_create_request
+  RewardClaimRequestRequest:
+    class_name: RewardClaimRequest
+    module_name: reward_claim_request
+  TokenRefreshRequestRequest:
+    class_name: TokenRefreshRequest
+    module_name: token_refresh_request
+  UserPasswordResetRequestRequest:
+    class_name: UserPasswordResetRequest
+    module_name: user_password_reset_request
+  PaginatedAPIKeyListList:
+    class_name: PaginatedAPIKeyList
+    module_name: paginated_api_key_list
+  PaginatedWebhookListList:
+    class_name: PaginatedWebhookList
+    module_name: paginated_webhook_list

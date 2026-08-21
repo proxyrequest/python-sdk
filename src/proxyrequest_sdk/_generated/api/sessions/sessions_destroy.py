@@ -1,0 +1,251 @@
+from http import HTTPStatus
+from typing import Any, cast
+from urllib.parse import quote
+
+import httpx
+
+from ...client import AuthenticatedClient, Client
+from ...types import Response, UNSET
+from ... import errors
+
+from ...models.session_delete_response import SessionDeleteResponse
+from ...models.sessions_destroy_response_400 import SessionsDestroyResponse400
+from ...models.sessions_destroy_response_401 import SessionsDestroyResponse401
+from ...models.sessions_destroy_response_403 import SessionsDestroyResponse403
+from ...models.sessions_destroy_response_404 import SessionsDestroyResponse404
+from ...types import UNSET, Unset
+from typing import cast
+
+
+def _get_kwargs(
+    id: str,
+    *,
+    accept_language: str | Unset = UNSET,
+) -> dict[str, Any]:
+    headers: dict[str, Any] = {}
+    if not isinstance(accept_language, Unset):
+        headers["Accept-Language"] = accept_language
+
+    _kwargs: dict[str, Any] = {
+        "method": "delete",
+        "url": "/sessions/{id}".format(
+            id=quote(str(id), safe=""),
+        ),
+    }
+
+    _kwargs["headers"] = headers
+    return _kwargs
+
+
+def _parse_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> (
+    SessionDeleteResponse
+    | SessionsDestroyResponse400
+    | SessionsDestroyResponse401
+    | SessionsDestroyResponse403
+    | SessionsDestroyResponse404
+    | None
+):
+    if response.status_code == 200:
+        response_200 = SessionDeleteResponse.from_dict(response.json())
+
+        return response_200
+
+    if response.status_code == 400:
+        response_400 = SessionsDestroyResponse400.from_dict(response.json())
+
+        return response_400
+
+    if response.status_code == 401:
+        response_401 = SessionsDestroyResponse401.from_dict(response.json())
+
+        return response_401
+
+    if response.status_code == 403:
+        response_403 = SessionsDestroyResponse403.from_dict(response.json())
+
+        return response_403
+
+    if response.status_code == 404:
+        response_404 = SessionsDestroyResponse404.from_dict(response.json())
+
+        return response_404
+
+    if client.raise_on_unexpected_status:
+        raise errors.UnexpectedStatus(response.status_code, response.content)
+    else:
+        return None
+
+
+def _build_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[
+    SessionDeleteResponse
+    | SessionsDestroyResponse400
+    | SessionsDestroyResponse401
+    | SessionsDestroyResponse403
+    | SessionsDestroyResponse404
+]:
+    return Response(
+        status_code=HTTPStatus(response.status_code),
+        content=response.content,
+        headers=response.headers,
+        parsed=_parse_response(client=client, response=response),
+    )
+
+
+def sync_detailed(
+    id: str,
+    *,
+    client: AuthenticatedClient,
+    accept_language: str | Unset = UNSET,
+) -> Response[
+    SessionDeleteResponse
+    | SessionsDestroyResponse400
+    | SessionsDestroyResponse401
+    | SessionsDestroyResponse403
+    | SessionsDestroyResponse404
+]:
+    """Revoke a proxy session
+
+     Deletes matching sticky-session keys owned by the authenticated username. The path value is treated
+    as the session identifier fragment.
+
+    Args:
+        id (str):
+        accept_language (str | Unset):  Defaults to the client language.
+
+    Raises:
+        errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
+        httpx.TimeoutException: If the request takes longer than Client.timeout.
+
+    Returns:
+        Response[SessionDeleteResponse | SessionsDestroyResponse400 | SessionsDestroyResponse401 | SessionsDestroyResponse403 | SessionsDestroyResponse404]
+    """
+
+    kwargs = _get_kwargs(
+        id=id,
+        accept_language=accept_language,
+    )
+
+    response = client.get_httpx_client().request(
+        **kwargs,
+    )
+
+    return _build_response(client=client, response=response)
+
+
+def sync(
+    id: str,
+    *,
+    client: AuthenticatedClient,
+    accept_language: str | Unset = UNSET,
+) -> (
+    SessionDeleteResponse
+    | SessionsDestroyResponse400
+    | SessionsDestroyResponse401
+    | SessionsDestroyResponse403
+    | SessionsDestroyResponse404
+    | None
+):
+    """Revoke a proxy session
+
+     Deletes matching sticky-session keys owned by the authenticated username. The path value is treated
+    as the session identifier fragment.
+
+    Args:
+        id (str):
+        accept_language (str | Unset):  Defaults to the client language.
+
+    Raises:
+        errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
+        httpx.TimeoutException: If the request takes longer than Client.timeout.
+
+    Returns:
+        SessionDeleteResponse | SessionsDestroyResponse400 | SessionsDestroyResponse401 | SessionsDestroyResponse403 | SessionsDestroyResponse404
+    """
+
+    return sync_detailed(
+        id=id,
+        client=client,
+        accept_language=accept_language,
+    ).parsed
+
+
+async def asyncio_detailed(
+    id: str,
+    *,
+    client: AuthenticatedClient,
+    accept_language: str | Unset = UNSET,
+) -> Response[
+    SessionDeleteResponse
+    | SessionsDestroyResponse400
+    | SessionsDestroyResponse401
+    | SessionsDestroyResponse403
+    | SessionsDestroyResponse404
+]:
+    """Revoke a proxy session
+
+     Deletes matching sticky-session keys owned by the authenticated username. The path value is treated
+    as the session identifier fragment.
+
+    Args:
+        id (str):
+        accept_language (str | Unset):  Defaults to the client language.
+
+    Raises:
+        errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
+        httpx.TimeoutException: If the request takes longer than Client.timeout.
+
+    Returns:
+        Response[SessionDeleteResponse | SessionsDestroyResponse400 | SessionsDestroyResponse401 | SessionsDestroyResponse403 | SessionsDestroyResponse404]
+    """
+
+    kwargs = _get_kwargs(
+        id=id,
+        accept_language=accept_language,
+    )
+
+    response = await client.get_async_httpx_client().request(**kwargs)
+
+    return _build_response(client=client, response=response)
+
+
+async def asyncio(
+    id: str,
+    *,
+    client: AuthenticatedClient,
+    accept_language: str | Unset = UNSET,
+) -> (
+    SessionDeleteResponse
+    | SessionsDestroyResponse400
+    | SessionsDestroyResponse401
+    | SessionsDestroyResponse403
+    | SessionsDestroyResponse404
+    | None
+):
+    """Revoke a proxy session
+
+     Deletes matching sticky-session keys owned by the authenticated username. The path value is treated
+    as the session identifier fragment.
+
+    Args:
+        id (str):
+        accept_language (str | Unset):  Defaults to the client language.
+
+    Raises:
+        errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
+        httpx.TimeoutException: If the request takes longer than Client.timeout.
+
+    Returns:
+        SessionDeleteResponse | SessionsDestroyResponse400 | SessionsDestroyResponse401 | SessionsDestroyResponse403 | SessionsDestroyResponse404
+    """
+
+    return (
+        await asyncio_detailed(
+            id=id,
+            client=client,
+            accept_language=accept_language,
+        )
+    ).parsed

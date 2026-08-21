@@ -1,0 +1,131 @@
+# Model reference
+
+Models use snake_case attributes and provide `to_dict()` / `from_dict()` helpers.
+
+- `APIKeyCreate`
+- `APIKeyCreateRequest`
+- `APIKeyList`
+- `AddDataRequest`
+- `Affiliate`
+- `AffiliateReward`
+- `AffiliateStatsPoint`
+- `AffiliateStatsResponse`
+- `ChangePasswordRequest`
+- `City`
+- `CommissionTypeEnum` — * `flexible` - Flexible * `percentage` - Percentage * `fixed` - Fixed
+- `ConnectionRecord`
+- `ConnectionsResponse`
+- `Continent`
+- `Country`
+- `Coupon`
+- `CouponCalculatePriceRequest`
+- `CouponCreateRequest`
+- `CouponPriceResponse`
+- `CouponRedeem`
+- `CouponShort`
+- `CouponTypeEnum` — * `free_data` - Free Data * `monetary` - Money * `percentage` - Percentage
+- `CouponUpdateRequest`
+- `DomainRecord`
+- `DomainsResponse`
+- `EnabledResponse`
+- `FeedRecord`
+- `FeedResponse`
+- `GenerateProxyRequest` — Validates proxy generation request data and builds generator config.
+- `GenerateProxyResponse`
+- `GeneratedProxy`
+- `GoogleAuthRequest` — Enhanced Google OAuth authentication with comprehensive security validation and user management.
+- `ISP`
+- `Invoice`
+- `InvoiceCreateRequestGatewayEnum` — * `crypto` - crypto * `wallet` - wallet * `manual` - manual * `stripe` - stripe
+- `InvoiceCreateRequestRequest`
+- `InvoiceGatewayEnum` — * `coinbase` - Coinbase * `cryptomus` - Cryptomus * `stripe` - Stripe * `coingate` - Coingate * `wallet` - Wallet * `manual` - Manual
+- `InvoiceStatusEnum` — * `pending` - Pending * `paid` - Paid * `unpaid` - Unpaid * `error` - Error
+- `InvoiceTypeEnum` — * `static` - Static * `residential` - Residential * `balance` - Balance
+- `LanguageEnum` — * `en` - EN * `de` - DE * `fr` - FR * `it` - IT * `ru` - RU
+- `LevelEnum` — * `standard` - Standard * `silver` - Silver * `gold` - Gold * `diamond` - Diamond
+- `LocationASNGeoItem`
+- `LocationASNRecord`
+- `LocationCodeName`
+- `LocationCountrySummary`
+- `LocationRegionSummary`
+- `LogRecord`
+- `LoginRequestRequest`
+- `LogsResponse`
+- `MessageResponse`
+- `News`
+- `Order`
+- `OrderDetailed`
+- `OverallPoint`
+- `OverallResponse`
+- `Package`
+- `PackageCommission`
+- `PackageShort`
+- `PaginatedAPIKeyListList`
+- `PaginatedAffiliateList`
+- `PaginatedAffiliateRewardList`
+- `PaginatedCityList`
+- `PaginatedContinentList`
+- `PaginatedCountryList`
+- `PaginatedCouponRedeemList`
+- `PaginatedCouponShortList`
+- `PaginatedISPList`
+- `PaginatedInvoiceList`
+- `PaginatedLocationASNRecordList`
+- `PaginatedNewsList`
+- `PaginatedOrderList`
+- `PaginatedPackageCommissionList`
+- `PaginatedPackageList`
+- `PaginatedRegionList`
+- `PaginatedRewardList`
+- `PaginatedUserList`
+- `PaginatedWebhookListList`
+- `PasswordRecoveryResponse`
+- `PatchedCouponUpdateRequest`
+- `PatchedOrderAutoRenewalRequest`
+- `PatchedProfileUpdateRequest` — for updating user profile information with comprehensive validation. Handles personal profile data, company information, security settings, and password changes. All fields are optional, but at least one field must be provided for the update to be valid. Includes validation for domain patterns with support for wildcards (*.example.com) and subdomains.
+- `PatchedTelegramConnectionUpdateRequest`
+- `PatchedUserUpdateRequest` — Optional fields accepted when updating part of an existing customer account.
+- `PaymentLinkResponse`
+- `PricingEnum` — * `fixed` - Fixed * `range` - Range
+- `PricingUnitEnum` — * `data` - Data * `proxy` - Proxy
+- `ProtocolEnum` — * `http` - http * `socks5` - socks5 * `auto` - auto
+- `ProxyGenerationConnectionRequest`
+- `ProxyGenerationSessionRequest`
+- `ProxyGenerationTargetingRequest`
+- `ProxyPasswordResetResponse`
+- `ProxyTypeEnum` — * `static` - Static * `residential` - Residential
+- `RecoverPasswordRequest` — Password recovery with enhanced security and comprehensive error handling.
+- `Region`
+- `ResetPasswordRequest`
+- `Reward`
+- `RewardClaimRequestRequest`
+- `RewardStatusEnum` — * `pending` - Pending * `paid` - Paid * `review` - Review * `cancelled` - Cancelled
+- `SessionDeleteResponse`
+- `SessionListResponse`
+- `SettingsCrypto`
+- `SettingsGateway`
+- `SettingsReferral`
+- `SettingsResponse`
+- `SignUpRequest` — Comprehensive user registration with enhanced validation, security measures, and referral/affiliate code handling.
+- `SubtractDataRequest`
+- `TargetingOptions`
+- `TelegramConnectionResponse`
+- `TelegramLinkConsumeRequest`
+- `TelegramLinkResponse`
+- `TelegramSessionRequest`
+- `TelegramSessionResponse`
+- `TokenPairResponse`
+- `TokenRefreshRequestRequest`
+- `TokenRefreshResponse`
+- `TransactionRecord`
+- `TransactionsResponse`
+- `TwoFactorConfirmRequest`
+- `TwoFactorDisableRequest`
+- `TwoFactorSetupResponse`
+- `User` — Customer account with contact details, security settings, package data, referral information, and managed sub-users visible to the caller.
+- `UserCreateRequest` — Fields accepted when a reseller or administrator creates a customer account.
+- `UserPasswordResetRequestRequest`
+- `WebhookCreateRequest`
+- `WebhookCreated`
+- `WebhookList`
+- `WebhookScopeEnum` — * `user` - User * `reseller` - Reseller * `system` - System
