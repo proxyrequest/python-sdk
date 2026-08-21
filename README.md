@@ -1,8 +1,8 @@
 # ProxyRequest Python SDK
 
 [![CI](https://github.com/proxyrequest/python-sdk/actions/workflows/ci.yml/badge.svg)](https://github.com/proxyrequest/python-sdk/actions/workflows/ci.yml)
-[![PyPI](https://img.shields.io/pypi/v/proxyrequest-sdk.svg)](https://pypi.org/project/proxyrequest-sdk/)
-[![Python](https://img.shields.io/pypi/pyversions/proxyrequest-sdk.svg)](https://pypi.org/project/proxyrequest-sdk/)
+[![PyPI](https://img.shields.io/pypi/v/proxyrequest-sdk.svg?cacheSeconds=300)](https://pypi.org/project/proxyrequest-sdk/)
+[![Python](https://img.shields.io/pypi/pyversions/proxyrequest-sdk.svg?cacheSeconds=300)](https://pypi.org/project/proxyrequest-sdk/)
 
 Official synchronous and asynchronous Python client for the
 [ProxyRequest](https://proxyrequest.com/) public API. It covers all 82 operations
