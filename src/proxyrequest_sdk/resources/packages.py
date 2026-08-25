@@ -4,6 +4,7 @@ from __future__ import annotations
 from typing import Any, cast
 
 from ..files import FileDownload
+from ..response import ApiResponse
 from .._generated.models.packages_commissions_list_pricing_unit import (
     PackagesCommissionsListPricingUnit,
 )
@@ -50,6 +51,34 @@ class PackagesResource:
             ),
         )
 
+    def list_with_response(
+        self,
+        *,
+        alias: str | Unset = UNSET,
+        limit: int | Unset = UNSET,
+        offset: int | Unset = UNSET,
+        ordering: str | Unset = UNSET,
+        pricing_unit: PackagesListPricingUnit | Unset = UNSET,
+        search: str | Unset = UNSET,
+        type_: PackagesListType | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[PaginatedPackageList]:
+        """List available proxy packages; include response metadata."""
+        return cast(
+            ApiResponse[PaginatedPackageList],
+            self._client._call_with_response(
+                _packages_list.sync_detailed,
+                alias=alias,
+                limit=limit,
+                offset=offset,
+                ordering=ordering,
+                pricing_unit=pricing_unit,
+                search=search,
+                type_=type_,
+                accept_language=accept_language,
+            ),
+        )
+
     def list_commissions(
         self,
         *,
@@ -65,6 +94,32 @@ class PackagesResource:
         return cast(
             PaginatedPackageCommissionList,
             self._client._call(
+                _packages_commissions_list.sync_detailed,
+                alias=alias,
+                limit=limit,
+                offset=offset,
+                ordering=ordering,
+                pricing_unit=pricing_unit,
+                type_=type_,
+                accept_language=accept_language,
+            ),
+        )
+
+    def list_commissions_with_response(
+        self,
+        *,
+        alias: str | Unset = UNSET,
+        limit: int | Unset = UNSET,
+        offset: int | Unset = UNSET,
+        ordering: str | Unset = UNSET,
+        pricing_unit: PackagesCommissionsListPricingUnit | Unset = UNSET,
+        type_: PackagesCommissionsListType | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[PaginatedPackageCommissionList]:
+        """List affiliate package commissions; include response metadata."""
+        return cast(
+            ApiResponse[PaginatedPackageCommissionList],
+            self._client._call_with_response(
                 _packages_commissions_list.sync_detailed,
                 alias=alias,
                 limit=limit,
@@ -109,6 +164,34 @@ class AsyncPackagesResource:
             ),
         )
 
+    async def list_with_response(
+        self,
+        *,
+        alias: str | Unset = UNSET,
+        limit: int | Unset = UNSET,
+        offset: int | Unset = UNSET,
+        ordering: str | Unset = UNSET,
+        pricing_unit: PackagesListPricingUnit | Unset = UNSET,
+        search: str | Unset = UNSET,
+        type_: PackagesListType | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[PaginatedPackageList]:
+        """List available proxy packages; include response metadata."""
+        return cast(
+            ApiResponse[PaginatedPackageList],
+            await self._client._call_with_response(
+                _packages_list.asyncio_detailed,
+                alias=alias,
+                limit=limit,
+                offset=offset,
+                ordering=ordering,
+                pricing_unit=pricing_unit,
+                search=search,
+                type_=type_,
+                accept_language=accept_language,
+            ),
+        )
+
     async def list_commissions(
         self,
         *,
@@ -124,6 +207,32 @@ class AsyncPackagesResource:
         return cast(
             PaginatedPackageCommissionList,
             await self._client._call(
+                _packages_commissions_list.asyncio_detailed,
+                alias=alias,
+                limit=limit,
+                offset=offset,
+                ordering=ordering,
+                pricing_unit=pricing_unit,
+                type_=type_,
+                accept_language=accept_language,
+            ),
+        )
+
+    async def list_commissions_with_response(
+        self,
+        *,
+        alias: str | Unset = UNSET,
+        limit: int | Unset = UNSET,
+        offset: int | Unset = UNSET,
+        ordering: str | Unset = UNSET,
+        pricing_unit: PackagesCommissionsListPricingUnit | Unset = UNSET,
+        type_: PackagesCommissionsListType | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[PaginatedPackageCommissionList]:
+        """List affiliate package commissions; include response metadata."""
+        return cast(
+            ApiResponse[PaginatedPackageCommissionList],
+            await self._client._call_with_response(
                 _packages_commissions_list.asyncio_detailed,
                 alias=alias,
                 limit=limit,

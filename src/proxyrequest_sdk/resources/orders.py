@@ -4,6 +4,7 @@ from __future__ import annotations
 from typing import Any, cast
 
 from ..files import FileDownload
+from ..response import ApiResponse
 from .._generated.models.order import Order
 from .._generated.models.order_detailed import OrderDetailed
 from .._generated.models.orders_list_package_type import OrdersListPackageType
@@ -25,16 +26,62 @@ class OrdersResource:
     def __init__(self, client: Any) -> None:
         self._client = client
 
-    def delete(self, id: str, *, accept_language: str | Unset = UNSET) -> None:
+    def delete(
+        self,
+        id: str,
+        *,
+        idempotency_key: str | Unset = UNSET,
+        if_match: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> None:
         """Delete a sub-user order"""
-        self._client._call(_orders_destroy.sync_detailed, id=id, accept_language=accept_language)
+        self._client._call(
+            _orders_destroy.sync_detailed,
+            _idempotent=True,
+            id=id,
+            idempotency_key=idempotency_key,
+            if_match=if_match,
+            accept_language=accept_language,
+        )
         return None
+
+    def delete_with_response(
+        self,
+        id: str,
+        *,
+        idempotency_key: str | Unset = UNSET,
+        if_match: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[None]:
+        """Delete a sub-user order; include response metadata."""
+        return cast(
+            ApiResponse[None],
+            self._client._call_with_response(
+                _orders_destroy.sync_detailed,
+                _idempotent=True,
+                id=id,
+                idempotency_key=idempotency_key,
+                if_match=if_match,
+                accept_language=accept_language,
+            ),
+        )
 
     def get(self, id: str, *, accept_language: str | Unset = UNSET) -> OrderDetailed:
         """Get an order"""
         return cast(
             OrderDetailed,
             self._client._call(
+                _orders_retrieve.sync_detailed, id=id, accept_language=accept_language
+            ),
+        )
+
+    def get_with_response(
+        self, id: str, *, accept_language: str | Unset = UNSET
+    ) -> ApiResponse[OrderDetailed]:
+        """Get an order; include response metadata."""
+        return cast(
+            ApiResponse[OrderDetailed],
+            self._client._call_with_response(
                 _orders_retrieve.sync_detailed, id=id, accept_language=accept_language
             ),
         )
@@ -71,6 +118,38 @@ class OrdersResource:
             ),
         )
 
+    def list_with_response(
+        self,
+        *,
+        limit: int | Unset = UNSET,
+        offset: int | Unset = UNSET,
+        ordering: str | Unset = UNSET,
+        package_alias: str | Unset = UNSET,
+        package_id: str | Unset = UNSET,
+        package_type: OrdersListPackageType | Unset = UNSET,
+        search: str | Unset = UNSET,
+        user_email: str | Unset = UNSET,
+        user_id: UUID | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[PaginatedOrderList]:
+        """List active orders; include response metadata."""
+        return cast(
+            ApiResponse[PaginatedOrderList],
+            self._client._call_with_response(
+                _orders_list.sync_detailed,
+                limit=limit,
+                offset=offset,
+                ordering=ordering,
+                package_alias=package_alias,
+                package_id=package_id,
+                package_type=package_type,
+                search=search,
+                user_email=user_email,
+                user_id=user_id,
+                accept_language=accept_language,
+            ),
+        )
+
     def reset_password(
         self, *, body: ResetPasswordRequest, accept_language: str | Unset = UNSET
     ) -> ProxyPasswordResetResponse:
@@ -82,11 +161,23 @@ class OrdersResource:
             ),
         )
 
+    def reset_password_with_response(
+        self, *, body: ResetPasswordRequest, accept_language: str | Unset = UNSET
+    ) -> ApiResponse[ProxyPasswordResetResponse]:
+        """Reset an order's proxy password; include response metadata."""
+        return cast(
+            ApiResponse[ProxyPasswordResetResponse],
+            self._client._call_with_response(
+                _reset_password_create.sync_detailed, body=body, accept_language=accept_language
+            ),
+        )
+
     def update_auto_renewal(
         self,
         id: str,
         *,
         body: PatchedOrderAutoRenewalRequest | Unset = UNSET,
+        if_match: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
     ) -> Order:
         """Update order auto-renewal"""
@@ -96,6 +187,27 @@ class OrdersResource:
                 _orders_partial_update.sync_detailed,
                 id=id,
                 body=body,
+                if_match=if_match,
+                accept_language=accept_language,
+            ),
+        )
+
+    def update_auto_renewal_with_response(
+        self,
+        id: str,
+        *,
+        body: PatchedOrderAutoRenewalRequest | Unset = UNSET,
+        if_match: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[Order]:
+        """Update order auto-renewal; include response metadata."""
+        return cast(
+            ApiResponse[Order],
+            self._client._call_with_response(
+                _orders_partial_update.sync_detailed,
+                id=id,
+                body=body,
+                if_match=if_match,
                 accept_language=accept_language,
             ),
         )
@@ -105,18 +217,62 @@ class AsyncOrdersResource:
     def __init__(self, client: Any) -> None:
         self._client = client
 
-    async def delete(self, id: str, *, accept_language: str | Unset = UNSET) -> None:
+    async def delete(
+        self,
+        id: str,
+        *,
+        idempotency_key: str | Unset = UNSET,
+        if_match: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> None:
         """Delete a sub-user order"""
         await self._client._call(
-            _orders_destroy.asyncio_detailed, id=id, accept_language=accept_language
+            _orders_destroy.asyncio_detailed,
+            _idempotent=True,
+            id=id,
+            idempotency_key=idempotency_key,
+            if_match=if_match,
+            accept_language=accept_language,
         )
         return None
+
+    async def delete_with_response(
+        self,
+        id: str,
+        *,
+        idempotency_key: str | Unset = UNSET,
+        if_match: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[None]:
+        """Delete a sub-user order; include response metadata."""
+        return cast(
+            ApiResponse[None],
+            await self._client._call_with_response(
+                _orders_destroy.asyncio_detailed,
+                _idempotent=True,
+                id=id,
+                idempotency_key=idempotency_key,
+                if_match=if_match,
+                accept_language=accept_language,
+            ),
+        )
 
     async def get(self, id: str, *, accept_language: str | Unset = UNSET) -> OrderDetailed:
         """Get an order"""
         return cast(
             OrderDetailed,
             await self._client._call(
+                _orders_retrieve.asyncio_detailed, id=id, accept_language=accept_language
+            ),
+        )
+
+    async def get_with_response(
+        self, id: str, *, accept_language: str | Unset = UNSET
+    ) -> ApiResponse[OrderDetailed]:
+        """Get an order; include response metadata."""
+        return cast(
+            ApiResponse[OrderDetailed],
+            await self._client._call_with_response(
                 _orders_retrieve.asyncio_detailed, id=id, accept_language=accept_language
             ),
         )
@@ -153,6 +309,38 @@ class AsyncOrdersResource:
             ),
         )
 
+    async def list_with_response(
+        self,
+        *,
+        limit: int | Unset = UNSET,
+        offset: int | Unset = UNSET,
+        ordering: str | Unset = UNSET,
+        package_alias: str | Unset = UNSET,
+        package_id: str | Unset = UNSET,
+        package_type: OrdersListPackageType | Unset = UNSET,
+        search: str | Unset = UNSET,
+        user_email: str | Unset = UNSET,
+        user_id: UUID | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[PaginatedOrderList]:
+        """List active orders; include response metadata."""
+        return cast(
+            ApiResponse[PaginatedOrderList],
+            await self._client._call_with_response(
+                _orders_list.asyncio_detailed,
+                limit=limit,
+                offset=offset,
+                ordering=ordering,
+                package_alias=package_alias,
+                package_id=package_id,
+                package_type=package_type,
+                search=search,
+                user_email=user_email,
+                user_id=user_id,
+                accept_language=accept_language,
+            ),
+        )
+
     async def reset_password(
         self, *, body: ResetPasswordRequest, accept_language: str | Unset = UNSET
     ) -> ProxyPasswordResetResponse:
@@ -164,11 +352,23 @@ class AsyncOrdersResource:
             ),
         )
 
+    async def reset_password_with_response(
+        self, *, body: ResetPasswordRequest, accept_language: str | Unset = UNSET
+    ) -> ApiResponse[ProxyPasswordResetResponse]:
+        """Reset an order's proxy password; include response metadata."""
+        return cast(
+            ApiResponse[ProxyPasswordResetResponse],
+            await self._client._call_with_response(
+                _reset_password_create.asyncio_detailed, body=body, accept_language=accept_language
+            ),
+        )
+
     async def update_auto_renewal(
         self,
         id: str,
         *,
         body: PatchedOrderAutoRenewalRequest | Unset = UNSET,
+        if_match: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
     ) -> Order:
         """Update order auto-renewal"""
@@ -178,6 +378,27 @@ class AsyncOrdersResource:
                 _orders_partial_update.asyncio_detailed,
                 id=id,
                 body=body,
+                if_match=if_match,
+                accept_language=accept_language,
+            ),
+        )
+
+    async def update_auto_renewal_with_response(
+        self,
+        id: str,
+        *,
+        body: PatchedOrderAutoRenewalRequest | Unset = UNSET,
+        if_match: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[Order]:
+        """Update order auto-renewal; include response metadata."""
+        return cast(
+            ApiResponse[Order],
+            await self._client._call_with_response(
+                _orders_partial_update.asyncio_detailed,
+                id=id,
+                body=body,
+                if_match=if_match,
                 accept_language=accept_language,
             ),
         )

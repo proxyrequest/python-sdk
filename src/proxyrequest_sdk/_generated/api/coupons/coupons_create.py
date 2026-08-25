@@ -13,6 +13,7 @@ from ...models.coupon_create_request import CouponCreateRequest
 from ...models.coupons_create_response_400 import CouponsCreateResponse400
 from ...models.coupons_create_response_401 import CouponsCreateResponse401
 from ...models.coupons_create_response_403 import CouponsCreateResponse403
+from ...models.coupons_create_response_409 import CouponsCreateResponse409
 from ...types import UNSET, Unset
 from typing import cast
 
@@ -20,9 +21,13 @@ from typing import cast
 def _get_kwargs(
     *,
     body: CouponCreateRequest,
+    idempotency_key: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
+    if not isinstance(idempotency_key, Unset):
+        headers["Idempotency-Key"] = idempotency_key
+
     if not isinstance(accept_language, Unset):
         headers["Accept-Language"] = accept_language
 
@@ -41,7 +46,14 @@ def _get_kwargs(
 
 def _parse_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Coupon | CouponsCreateResponse400 | CouponsCreateResponse401 | CouponsCreateResponse403 | None:
+) -> (
+    Coupon
+    | CouponsCreateResponse400
+    | CouponsCreateResponse401
+    | CouponsCreateResponse403
+    | CouponsCreateResponse409
+    | None
+):
     if response.status_code == 201:
         response_201 = Coupon.from_dict(response.json())
 
@@ -62,6 +74,11 @@ def _parse_response(
 
         return response_403
 
+    if response.status_code == 409:
+        response_409 = CouponsCreateResponse409.from_dict(response.json())
+
+        return response_409
+
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     else:
@@ -71,7 +88,11 @@ def _parse_response(
 def _build_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
 ) -> Response[
-    Coupon | CouponsCreateResponse400 | CouponsCreateResponse401 | CouponsCreateResponse403
+    Coupon
+    | CouponsCreateResponse400
+    | CouponsCreateResponse401
+    | CouponsCreateResponse403
+    | CouponsCreateResponse409
 ]:
     return Response(
         status_code=HTTPStatus(response.status_code),
@@ -85,15 +106,21 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
     body: CouponCreateRequest,
+    idempotency_key: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
 ) -> Response[
-    Coupon | CouponsCreateResponse400 | CouponsCreateResponse401 | CouponsCreateResponse403
+    Coupon
+    | CouponsCreateResponse400
+    | CouponsCreateResponse401
+    | CouponsCreateResponse403
+    | CouponsCreateResponse409
 ]:
     """Create a coupon
 
      Creates a coupon. This operation is restricted to administrators.
 
     Args:
+        idempotency_key (str | Unset):
         accept_language (str | Unset):  Defaults to the client language.
         body (CouponCreateRequest):
 
@@ -102,11 +129,12 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Coupon | CouponsCreateResponse400 | CouponsCreateResponse401 | CouponsCreateResponse403]
+        Response[Coupon | CouponsCreateResponse400 | CouponsCreateResponse401 | CouponsCreateResponse403 | CouponsCreateResponse409]
     """
 
     kwargs = _get_kwargs(
         body=body,
+        idempotency_key=idempotency_key,
         accept_language=accept_language,
     )
 
@@ -121,13 +149,22 @@ def sync(
     *,
     client: AuthenticatedClient,
     body: CouponCreateRequest,
+    idempotency_key: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
-) -> Coupon | CouponsCreateResponse400 | CouponsCreateResponse401 | CouponsCreateResponse403 | None:
+) -> (
+    Coupon
+    | CouponsCreateResponse400
+    | CouponsCreateResponse401
+    | CouponsCreateResponse403
+    | CouponsCreateResponse409
+    | None
+):
     """Create a coupon
 
      Creates a coupon. This operation is restricted to administrators.
 
     Args:
+        idempotency_key (str | Unset):
         accept_language (str | Unset):  Defaults to the client language.
         body (CouponCreateRequest):
 
@@ -136,12 +173,13 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Coupon | CouponsCreateResponse400 | CouponsCreateResponse401 | CouponsCreateResponse403
+        Coupon | CouponsCreateResponse400 | CouponsCreateResponse401 | CouponsCreateResponse403 | CouponsCreateResponse409
     """
 
     return sync_detailed(
         client=client,
         body=body,
+        idempotency_key=idempotency_key,
         accept_language=accept_language,
     ).parsed
 
@@ -150,15 +188,21 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
     body: CouponCreateRequest,
+    idempotency_key: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
 ) -> Response[
-    Coupon | CouponsCreateResponse400 | CouponsCreateResponse401 | CouponsCreateResponse403
+    Coupon
+    | CouponsCreateResponse400
+    | CouponsCreateResponse401
+    | CouponsCreateResponse403
+    | CouponsCreateResponse409
 ]:
     """Create a coupon
 
      Creates a coupon. This operation is restricted to administrators.
 
     Args:
+        idempotency_key (str | Unset):
         accept_language (str | Unset):  Defaults to the client language.
         body (CouponCreateRequest):
 
@@ -167,11 +211,12 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Coupon | CouponsCreateResponse400 | CouponsCreateResponse401 | CouponsCreateResponse403]
+        Response[Coupon | CouponsCreateResponse400 | CouponsCreateResponse401 | CouponsCreateResponse403 | CouponsCreateResponse409]
     """
 
     kwargs = _get_kwargs(
         body=body,
+        idempotency_key=idempotency_key,
         accept_language=accept_language,
     )
 
@@ -184,13 +229,22 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
     body: CouponCreateRequest,
+    idempotency_key: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
-) -> Coupon | CouponsCreateResponse400 | CouponsCreateResponse401 | CouponsCreateResponse403 | None:
+) -> (
+    Coupon
+    | CouponsCreateResponse400
+    | CouponsCreateResponse401
+    | CouponsCreateResponse403
+    | CouponsCreateResponse409
+    | None
+):
     """Create a coupon
 
      Creates a coupon. This operation is restricted to administrators.
 
     Args:
+        idempotency_key (str | Unset):
         accept_language (str | Unset):  Defaults to the client language.
         body (CouponCreateRequest):
 
@@ -199,13 +253,14 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Coupon | CouponsCreateResponse400 | CouponsCreateResponse401 | CouponsCreateResponse403
+        Coupon | CouponsCreateResponse400 | CouponsCreateResponse401 | CouponsCreateResponse403 | CouponsCreateResponse409
     """
 
     return (
         await asyncio_detailed(
             client=client,
             body=body,
+            idempotency_key=idempotency_key,
             accept_language=accept_language,
         )
     ).parsed

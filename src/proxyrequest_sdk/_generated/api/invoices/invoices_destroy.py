@@ -12,6 +12,8 @@ from ...models.invoices_destroy_response_400 import InvoicesDestroyResponse400
 from ...models.invoices_destroy_response_401 import InvoicesDestroyResponse401
 from ...models.invoices_destroy_response_403 import InvoicesDestroyResponse403
 from ...models.invoices_destroy_response_404 import InvoicesDestroyResponse404
+from ...models.invoices_destroy_response_409 import InvoicesDestroyResponse409
+from ...models.invoices_destroy_response_412 import InvoicesDestroyResponse412
 from ...types import UNSET, Unset
 from typing import cast
 
@@ -19,9 +21,17 @@ from typing import cast
 def _get_kwargs(
     id: str,
     *,
+    idempotency_key: str | Unset = UNSET,
+    if_match: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
+    if not isinstance(idempotency_key, Unset):
+        headers["Idempotency-Key"] = idempotency_key
+
+    if not isinstance(if_match, Unset):
+        headers["If-Match"] = if_match
+
     if not isinstance(accept_language, Unset):
         headers["Accept-Language"] = accept_language
 
@@ -44,6 +54,8 @@ def _parse_response(
     | InvoicesDestroyResponse401
     | InvoicesDestroyResponse403
     | InvoicesDestroyResponse404
+    | InvoicesDestroyResponse409
+    | InvoicesDestroyResponse412
     | None
 ):
     if response.status_code == 204:
@@ -70,6 +82,16 @@ def _parse_response(
 
         return response_404
 
+    if response.status_code == 409:
+        response_409 = InvoicesDestroyResponse409.from_dict(response.json())
+
+        return response_409
+
+    if response.status_code == 412:
+        response_412 = InvoicesDestroyResponse412.from_dict(response.json())
+
+        return response_412
+
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     else:
@@ -84,6 +106,8 @@ def _build_response(
     | InvoicesDestroyResponse401
     | InvoicesDestroyResponse403
     | InvoicesDestroyResponse404
+    | InvoicesDestroyResponse409
+    | InvoicesDestroyResponse412
 ]:
     return Response(
         status_code=HTTPStatus(response.status_code),
@@ -97,6 +121,8 @@ def sync_detailed(
     id: str,
     *,
     client: AuthenticatedClient,
+    idempotency_key: str | Unset = UNSET,
+    if_match: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
 ) -> Response[
     Any
@@ -104,6 +130,8 @@ def sync_detailed(
     | InvoicesDestroyResponse401
     | InvoicesDestroyResponse403
     | InvoicesDestroyResponse404
+    | InvoicesDestroyResponse409
+    | InvoicesDestroyResponse412
 ]:
     """Delete an invoice
 
@@ -111,6 +139,8 @@ def sync_detailed(
 
     Args:
         id (str):
+        idempotency_key (str | Unset):
+        if_match (str | Unset):
         accept_language (str | Unset):  Defaults to the client language.
 
     Raises:
@@ -118,11 +148,13 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Any | InvoicesDestroyResponse400 | InvoicesDestroyResponse401 | InvoicesDestroyResponse403 | InvoicesDestroyResponse404]
+        Response[Any | InvoicesDestroyResponse400 | InvoicesDestroyResponse401 | InvoicesDestroyResponse403 | InvoicesDestroyResponse404 | InvoicesDestroyResponse409 | InvoicesDestroyResponse412]
     """
 
     kwargs = _get_kwargs(
         id=id,
+        idempotency_key=idempotency_key,
+        if_match=if_match,
         accept_language=accept_language,
     )
 
@@ -137,6 +169,8 @@ def sync(
     id: str,
     *,
     client: AuthenticatedClient,
+    idempotency_key: str | Unset = UNSET,
+    if_match: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
 ) -> (
     Any
@@ -144,6 +178,8 @@ def sync(
     | InvoicesDestroyResponse401
     | InvoicesDestroyResponse403
     | InvoicesDestroyResponse404
+    | InvoicesDestroyResponse409
+    | InvoicesDestroyResponse412
     | None
 ):
     """Delete an invoice
@@ -152,6 +188,8 @@ def sync(
 
     Args:
         id (str):
+        idempotency_key (str | Unset):
+        if_match (str | Unset):
         accept_language (str | Unset):  Defaults to the client language.
 
     Raises:
@@ -159,12 +197,14 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Any | InvoicesDestroyResponse400 | InvoicesDestroyResponse401 | InvoicesDestroyResponse403 | InvoicesDestroyResponse404
+        Any | InvoicesDestroyResponse400 | InvoicesDestroyResponse401 | InvoicesDestroyResponse403 | InvoicesDestroyResponse404 | InvoicesDestroyResponse409 | InvoicesDestroyResponse412
     """
 
     return sync_detailed(
         id=id,
         client=client,
+        idempotency_key=idempotency_key,
+        if_match=if_match,
         accept_language=accept_language,
     ).parsed
 
@@ -173,6 +213,8 @@ async def asyncio_detailed(
     id: str,
     *,
     client: AuthenticatedClient,
+    idempotency_key: str | Unset = UNSET,
+    if_match: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
 ) -> Response[
     Any
@@ -180,6 +222,8 @@ async def asyncio_detailed(
     | InvoicesDestroyResponse401
     | InvoicesDestroyResponse403
     | InvoicesDestroyResponse404
+    | InvoicesDestroyResponse409
+    | InvoicesDestroyResponse412
 ]:
     """Delete an invoice
 
@@ -187,6 +231,8 @@ async def asyncio_detailed(
 
     Args:
         id (str):
+        idempotency_key (str | Unset):
+        if_match (str | Unset):
         accept_language (str | Unset):  Defaults to the client language.
 
     Raises:
@@ -194,11 +240,13 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Any | InvoicesDestroyResponse400 | InvoicesDestroyResponse401 | InvoicesDestroyResponse403 | InvoicesDestroyResponse404]
+        Response[Any | InvoicesDestroyResponse400 | InvoicesDestroyResponse401 | InvoicesDestroyResponse403 | InvoicesDestroyResponse404 | InvoicesDestroyResponse409 | InvoicesDestroyResponse412]
     """
 
     kwargs = _get_kwargs(
         id=id,
+        idempotency_key=idempotency_key,
+        if_match=if_match,
         accept_language=accept_language,
     )
 
@@ -211,6 +259,8 @@ async def asyncio(
     id: str,
     *,
     client: AuthenticatedClient,
+    idempotency_key: str | Unset = UNSET,
+    if_match: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
 ) -> (
     Any
@@ -218,6 +268,8 @@ async def asyncio(
     | InvoicesDestroyResponse401
     | InvoicesDestroyResponse403
     | InvoicesDestroyResponse404
+    | InvoicesDestroyResponse409
+    | InvoicesDestroyResponse412
     | None
 ):
     """Delete an invoice
@@ -226,6 +278,8 @@ async def asyncio(
 
     Args:
         id (str):
+        idempotency_key (str | Unset):
+        if_match (str | Unset):
         accept_language (str | Unset):  Defaults to the client language.
 
     Raises:
@@ -233,13 +287,15 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Any | InvoicesDestroyResponse400 | InvoicesDestroyResponse401 | InvoicesDestroyResponse403 | InvoicesDestroyResponse404
+        Any | InvoicesDestroyResponse400 | InvoicesDestroyResponse401 | InvoicesDestroyResponse403 | InvoicesDestroyResponse404 | InvoicesDestroyResponse409 | InvoicesDestroyResponse412
     """
 
     return (
         await asyncio_detailed(
             id=id,
             client=client,
+            idempotency_key=idempotency_key,
+            if_match=if_match,
             accept_language=accept_language,
         )
     ).parsed

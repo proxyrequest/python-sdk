@@ -1,5 +1,8 @@
 from __future__ import annotations
 
+import asyncio
+import time
+import uuid
 from collections.abc import AsyncIterator, Awaitable, Callable, Iterator, Mapping
 from importlib.metadata import PackageNotFoundError, version
 from types import TracebackType
@@ -10,9 +13,10 @@ import httpx
 
 from . import resources
 from ._generated.client import AuthenticatedClient as GeneratedClient
-from ._generated.types import Response, Unset
+from ._generated.types import UNSET, Response, Unset
 from .errors import ApiError, PaginationError
 from .files import FileDownload
+from .response import ApiResponse
 
 DEFAULT_BASE_URL = "https://api.proxyrequest.com/api/v1"
 T = TypeVar("T")
@@ -88,6 +92,39 @@ def _response_value(response: Response[Any]) -> Any:
     return response.parsed
 
 
+def _api_response(response: Response[Any], data: T) -> ApiResponse[T]:
+    headers = {str(key).lower(): str(value) for key, value in response.headers.items()}
+    return ApiResponse(
+        data=data,
+        status_code=int(response.status_code),
+        headers=headers,
+        etag=headers.get("etag"),
+        idempotency_replayed=headers.get("idempotency-replayed", "").lower() == "true",
+    )
+
+
+def _prepare_idempotency_key(
+    kwargs: dict[str, Any], *, idempotent: bool, enabled: bool
+) -> str | None:
+    if not idempotent:
+        return None
+    value = kwargs.get("idempotency_key", UNSET)
+    if isinstance(value, Unset):
+        if not enabled:
+            return None
+        value = str(uuid.uuid4())
+        kwargs["idempotency_key"] = value
+    return value if isinstance(value, str) and value else None
+
+
+def _retry_delay(error: ApiError, attempt: int) -> float | None:
+    if error.kind.value == "network":
+        return 0.1 if attempt == 0 else 0.2
+    if error.status_code == 409 and error.retry_after is not None and 0 <= error.retry_after <= 5:
+        return error.retry_after
+    return None
+
+
 def _next_offset(page: Any, current_offset: int, count: int, visited: set[str]) -> int | None:
     next_url = getattr(page, "next_", None)
     if next_url is None or isinstance(next_url, Unset) or next_url == "":
@@ -118,9 +155,11 @@ class Client:
         connect_timeout: float = 5.0,
         verify: bool = True,
         follow_redirects: bool = False,
+        idempotency: bool = True,
         http_client: httpx.Client | None = None,
     ) -> None:
         self.base_url = _base_url(base_url)
+        self.idempotency = idempotency
         authorization = _authorization(api_key, bearer_token)
         default_headers = _headers(language, authorization, USER_AGENT)
         self._owns_http_client = http_client is None
@@ -174,23 +213,54 @@ class Client:
         self.users = resources.UsersResource(self)
         self.webhooks = resources.WebhooksResource(self)
 
-    def _call(self, endpoint: Callable[..., Response[Any]], **kwargs: Any) -> Any:
-        try:
-            return _response_value(endpoint(client=self._generated, **kwargs))
-        except ApiError:
-            raise
-        except httpx.HTTPError as error:
-            raise ApiError.network(error) from error
-        except Exception as error:
-            raise ApiError.unexpected(
-                "Unable to decode the ProxyRequest API response.", error
-            ) from error
+    def _call(
+        self,
+        endpoint: Callable[..., Response[Any]],
+        *,
+        _idempotent: bool = False,
+        **kwargs: Any,
+    ) -> Any:
+        return self._call_with_response(endpoint, _idempotent=_idempotent, **kwargs).data
+
+    def _call_with_response(
+        self,
+        endpoint: Callable[..., Response[Any]],
+        *,
+        _idempotent: bool = False,
+        **kwargs: Any,
+    ) -> ApiResponse[Any]:
+        idempotency_key = _prepare_idempotency_key(
+            kwargs, idempotent=_idempotent, enabled=self.idempotency
+        )
+        for attempt in range(3):
+            try:
+                response = endpoint(client=self._generated, **kwargs)
+                return _api_response(response, _response_value(response))
+            except httpx.HTTPError as error:
+                api_error = ApiError.network(error).with_idempotency_key(idempotency_key)
+            except ApiError as error:
+                api_error = error.with_idempotency_key(idempotency_key)
+            except Exception as error:
+                raise ApiError.unexpected(
+                    "Unable to decode the ProxyRequest API response.", error
+                ) from error
+            delay = _retry_delay(api_error, attempt)
+            if attempt >= 2 or idempotency_key is None or delay is None:
+                raise api_error
+            time.sleep(delay)
+        raise ApiError.unexpected("Unable to complete the ProxyRequest API call.")
 
     def _download(self, endpoint: Callable[..., Response[Any]], **kwargs: Any) -> FileDownload:
+        return self._download_with_response(endpoint, **kwargs).data
+
+    def _download_with_response(
+        self, endpoint: Callable[..., Response[Any]], **kwargs: Any
+    ) -> ApiResponse[FileDownload]:
         try:
             response = endpoint(client=self._generated, **kwargs)
             _response_value(response)
-            return FileDownload.from_response(response.content, response.headers)
+            download = FileDownload.from_response(response.content, response.headers)
+            return _api_response(response, download)
         except ApiError:
             raise
         except httpx.HTTPError as error:
@@ -275,9 +345,11 @@ class AsyncClient:
         connect_timeout: float = 5.0,
         verify: bool = True,
         follow_redirects: bool = False,
+        idempotency: bool = True,
         http_client: httpx.AsyncClient | None = None,
     ) -> None:
         self.base_url = _base_url(base_url)
+        self.idempotency = idempotency
         authorization = _authorization(api_key, bearer_token)
         default_headers = _headers(language, authorization, USER_AGENT)
         self._owns_http_client = http_client is None
@@ -334,28 +406,57 @@ class AsyncClient:
     async def _call(
         self,
         endpoint: Callable[..., Awaitable[Response[Any]]],
+        *,
+        _idempotent: bool = False,
         **kwargs: Any,
     ) -> Any:
-        try:
-            return _response_value(await endpoint(client=self._generated, **kwargs))
-        except ApiError:
-            raise
-        except httpx.HTTPError as error:
-            raise ApiError.network(error) from error
-        except Exception as error:
-            raise ApiError.unexpected(
-                "Unable to decode the ProxyRequest API response.", error
-            ) from error
+        return (await self._call_with_response(endpoint, _idempotent=_idempotent, **kwargs)).data
+
+    async def _call_with_response(
+        self,
+        endpoint: Callable[..., Awaitable[Response[Any]]],
+        *,
+        _idempotent: bool = False,
+        **kwargs: Any,
+    ) -> ApiResponse[Any]:
+        idempotency_key = _prepare_idempotency_key(
+            kwargs, idempotent=_idempotent, enabled=self.idempotency
+        )
+        for attempt in range(3):
+            try:
+                response = await endpoint(client=self._generated, **kwargs)
+                return _api_response(response, _response_value(response))
+            except httpx.HTTPError as error:
+                api_error = ApiError.network(error).with_idempotency_key(idempotency_key)
+            except ApiError as error:
+                api_error = error.with_idempotency_key(idempotency_key)
+            except Exception as error:
+                raise ApiError.unexpected(
+                    "Unable to decode the ProxyRequest API response.", error
+                ) from error
+            delay = _retry_delay(api_error, attempt)
+            if attempt >= 2 or idempotency_key is None or delay is None:
+                raise api_error
+            await asyncio.sleep(delay)
+        raise ApiError.unexpected("Unable to complete the ProxyRequest API call.")
 
     async def _download(
         self,
         endpoint: Callable[..., Awaitable[Response[Any]]],
         **kwargs: Any,
     ) -> FileDownload:
+        return (await self._download_with_response(endpoint, **kwargs)).data
+
+    async def _download_with_response(
+        self,
+        endpoint: Callable[..., Awaitable[Response[Any]]],
+        **kwargs: Any,
+    ) -> ApiResponse[FileDownload]:
         try:
             response = await endpoint(client=self._generated, **kwargs)
             _response_value(response)
-            return FileDownload.from_response(response.content, response.headers)
+            download = FileDownload.from_response(response.content, response.headers)
+            return _api_response(response, download)
         except ApiError:
             raise
         except httpx.HTTPError as error:

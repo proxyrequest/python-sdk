@@ -4,6 +4,7 @@ from __future__ import annotations
 from typing import Any, cast
 
 from ..files import FileDownload
+from ..response import ApiResponse
 from .._generated.models.analytics_domains_retrieve_ordering import AnalyticsDomainsRetrieveOrdering
 from .._generated.models.analytics_feed_retrieve_protocol import AnalyticsFeedRetrieveProtocol
 from .._generated.models.analytics_logs_retrieve_protocol import AnalyticsLogsRetrieveProtocol
@@ -55,6 +56,28 @@ class AnalyticsResource:
             ),
         )
 
+    def get_connections_with_response(
+        self,
+        *,
+        limit: int | Unset = UNSET,
+        offset: int | Unset = UNSET,
+        package_id: UUID | Unset = UNSET,
+        user_id: UUID | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[ConnectionsResponse]:
+        """List active proxy connections; include response metadata."""
+        return cast(
+            ApiResponse[ConnectionsResponse],
+            self._client._call_with_response(
+                _analytics_connections_retrieve.sync_detailed,
+                limit=limit,
+                offset=offset,
+                package_id=package_id,
+                user_id=user_id,
+                accept_language=accept_language,
+            ),
+        )
+
     def get_overall(
         self,
         *,
@@ -72,6 +95,36 @@ class AnalyticsResource:
         return cast(
             OverallResponse,
             self._client._call(
+                _analytics_overall_retrieve.sync_detailed,
+                end=end,
+                include_sub_users=include_sub_users,
+                limit=limit,
+                offset=offset,
+                package_id=package_id,
+                start=start,
+                timezone=timezone,
+                user_id=user_id,
+                accept_language=accept_language,
+            ),
+        )
+
+    def get_overall_with_response(
+        self,
+        *,
+        end: datetime.datetime | Unset = UNSET,
+        include_sub_users: bool | Unset = False,
+        limit: int | Unset = UNSET,
+        offset: int | Unset = UNSET,
+        package_id: UUID | Unset = UNSET,
+        start: datetime.datetime | Unset = UNSET,
+        timezone: str | Unset = UNSET,
+        user_id: UUID | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[OverallResponse]:
+        """Get traffic totals over time; include response metadata."""
+        return cast(
+            ApiResponse[OverallResponse],
+            self._client._call_with_response(
                 _analytics_overall_retrieve.sync_detailed,
                 end=end,
                 include_sub_users=include_sub_users,
@@ -103,6 +156,38 @@ class AnalyticsResource:
         return cast(
             TransactionsResponse,
             self._client._call(
+                _analytics_transactions_retrieve.sync_detailed,
+                id=id,
+                end=end,
+                limit=limit,
+                offset=offset,
+                recipient_id=recipient_id,
+                sender_id=sender_id,
+                start=start,
+                timezone=timezone,
+                type_=type_,
+                accept_language=accept_language,
+            ),
+        )
+
+    def get_transactions_with_response(
+        self,
+        id: str,
+        *,
+        end: datetime.datetime | Unset = UNSET,
+        limit: int | Unset = UNSET,
+        offset: int | Unset = UNSET,
+        recipient_id: UUID | Unset = UNSET,
+        sender_id: UUID | Unset = UNSET,
+        start: datetime.datetime | Unset = UNSET,
+        timezone: str | Unset = UNSET,
+        type_: int | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[TransactionsResponse]:
+        """List data transactions; include response metadata."""
+        return cast(
+            ApiResponse[TransactionsResponse],
+            self._client._call_with_response(
                 _analytics_transactions_retrieve.sync_detailed,
                 id=id,
                 end=end,
@@ -156,6 +241,45 @@ class AnalyticsResource:
             ),
         )
 
+    def list_domains_with_response(
+        self,
+        *,
+        end: datetime.datetime | Unset = UNSET,
+        hostname: str | Unset = UNSET,
+        include_sub_users: bool | Unset = False,
+        ledger_id: UUID | Unset = UNSET,
+        limit: int | Unset = UNSET,
+        offset: int | Unset = UNSET,
+        ordering: AnalyticsDomainsRetrieveOrdering
+        | Unset = AnalyticsDomainsRetrieveOrdering.VALUE_0,
+        package_id: UUID | Unset = UNSET,
+        search: str | Unset = UNSET,
+        start: datetime.datetime | Unset = UNSET,
+        timezone: str | Unset = UNSET,
+        user_id: UUID | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[DomainsResponse]:
+        """List top destination domains; include response metadata."""
+        return cast(
+            ApiResponse[DomainsResponse],
+            self._client._call_with_response(
+                _analytics_domains_retrieve.sync_detailed,
+                end=end,
+                hostname=hostname,
+                include_sub_users=include_sub_users,
+                ledger_id=ledger_id,
+                limit=limit,
+                offset=offset,
+                ordering=ordering,
+                package_id=package_id,
+                search=search,
+                start=start,
+                timezone=timezone,
+                user_id=user_id,
+                accept_language=accept_language,
+            ),
+        )
+
     def list_feed(
         self,
         *,
@@ -179,6 +303,48 @@ class AnalyticsResource:
         return cast(
             FeedResponse,
             self._client._call(
+                _analytics_feed_retrieve.sync_detailed,
+                city=city,
+                country=country,
+                end=end,
+                hostname=hostname,
+                ledger_id=ledger_id,
+                limit=limit,
+                offset=offset,
+                package_id=package_id,
+                protocol=protocol,
+                region=region,
+                search=search,
+                start=start,
+                timezone=timezone,
+                user_id=user_id,
+                accept_language=accept_language,
+            ),
+        )
+
+    def list_feed_with_response(
+        self,
+        *,
+        city: str | Unset = UNSET,
+        country: str | Unset = UNSET,
+        end: datetime.datetime | Unset = UNSET,
+        hostname: str | Unset = UNSET,
+        ledger_id: UUID | Unset = UNSET,
+        limit: int | Unset = UNSET,
+        offset: int | Unset = UNSET,
+        package_id: UUID | Unset = UNSET,
+        protocol: AnalyticsFeedRetrieveProtocol | Unset = UNSET,
+        region: str | Unset = UNSET,
+        search: str | Unset = UNSET,
+        start: datetime.datetime | Unset = UNSET,
+        timezone: str | Unset = UNSET,
+        user_id: UUID | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[FeedResponse]:
+        """List proxy request activity; include response metadata."""
+        return cast(
+            ApiResponse[FeedResponse],
+            self._client._call_with_response(
                 _analytics_feed_retrieve.sync_detailed,
                 city=city,
                 country=country,
@@ -240,6 +406,48 @@ class AnalyticsResource:
             ),
         )
 
+    def list_logs_with_response(
+        self,
+        *,
+        city: str | Unset = UNSET,
+        country: str | Unset = UNSET,
+        end: datetime.datetime | Unset = UNSET,
+        error_code: int | Unset = UNSET,
+        hostname: str | Unset = UNSET,
+        ledger_id: UUID | Unset = UNSET,
+        limit: int | Unset = UNSET,
+        offset: int | Unset = UNSET,
+        package_id: UUID | Unset = UNSET,
+        protocol: AnalyticsLogsRetrieveProtocol | Unset = UNSET,
+        region: str | Unset = UNSET,
+        start: datetime.datetime | Unset = UNSET,
+        timezone: str | Unset = UNSET,
+        user_id: UUID | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[LogsResponse]:
+        """List proxy error logs; include response metadata."""
+        return cast(
+            ApiResponse[LogsResponse],
+            self._client._call_with_response(
+                _analytics_logs_retrieve.sync_detailed,
+                city=city,
+                country=country,
+                end=end,
+                error_code=error_code,
+                hostname=hostname,
+                ledger_id=ledger_id,
+                limit=limit,
+                offset=offset,
+                package_id=package_id,
+                protocol=protocol,
+                region=region,
+                start=start,
+                timezone=timezone,
+                user_id=user_id,
+                accept_language=accept_language,
+            ),
+        )
+
 
 class AsyncAnalyticsResource:
     def __init__(self, client: Any) -> None:
@@ -267,6 +475,28 @@ class AsyncAnalyticsResource:
             ),
         )
 
+    async def get_connections_with_response(
+        self,
+        *,
+        limit: int | Unset = UNSET,
+        offset: int | Unset = UNSET,
+        package_id: UUID | Unset = UNSET,
+        user_id: UUID | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[ConnectionsResponse]:
+        """List active proxy connections; include response metadata."""
+        return cast(
+            ApiResponse[ConnectionsResponse],
+            await self._client._call_with_response(
+                _analytics_connections_retrieve.asyncio_detailed,
+                limit=limit,
+                offset=offset,
+                package_id=package_id,
+                user_id=user_id,
+                accept_language=accept_language,
+            ),
+        )
+
     async def get_overall(
         self,
         *,
@@ -284,6 +514,36 @@ class AsyncAnalyticsResource:
         return cast(
             OverallResponse,
             await self._client._call(
+                _analytics_overall_retrieve.asyncio_detailed,
+                end=end,
+                include_sub_users=include_sub_users,
+                limit=limit,
+                offset=offset,
+                package_id=package_id,
+                start=start,
+                timezone=timezone,
+                user_id=user_id,
+                accept_language=accept_language,
+            ),
+        )
+
+    async def get_overall_with_response(
+        self,
+        *,
+        end: datetime.datetime | Unset = UNSET,
+        include_sub_users: bool | Unset = False,
+        limit: int | Unset = UNSET,
+        offset: int | Unset = UNSET,
+        package_id: UUID | Unset = UNSET,
+        start: datetime.datetime | Unset = UNSET,
+        timezone: str | Unset = UNSET,
+        user_id: UUID | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[OverallResponse]:
+        """Get traffic totals over time; include response metadata."""
+        return cast(
+            ApiResponse[OverallResponse],
+            await self._client._call_with_response(
                 _analytics_overall_retrieve.asyncio_detailed,
                 end=end,
                 include_sub_users=include_sub_users,
@@ -329,6 +589,38 @@ class AsyncAnalyticsResource:
             ),
         )
 
+    async def get_transactions_with_response(
+        self,
+        id: str,
+        *,
+        end: datetime.datetime | Unset = UNSET,
+        limit: int | Unset = UNSET,
+        offset: int | Unset = UNSET,
+        recipient_id: UUID | Unset = UNSET,
+        sender_id: UUID | Unset = UNSET,
+        start: datetime.datetime | Unset = UNSET,
+        timezone: str | Unset = UNSET,
+        type_: int | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[TransactionsResponse]:
+        """List data transactions; include response metadata."""
+        return cast(
+            ApiResponse[TransactionsResponse],
+            await self._client._call_with_response(
+                _analytics_transactions_retrieve.asyncio_detailed,
+                id=id,
+                end=end,
+                limit=limit,
+                offset=offset,
+                recipient_id=recipient_id,
+                sender_id=sender_id,
+                start=start,
+                timezone=timezone,
+                type_=type_,
+                accept_language=accept_language,
+            ),
+        )
+
     async def list_domains(
         self,
         *,
@@ -351,6 +643,45 @@ class AsyncAnalyticsResource:
         return cast(
             DomainsResponse,
             await self._client._call(
+                _analytics_domains_retrieve.asyncio_detailed,
+                end=end,
+                hostname=hostname,
+                include_sub_users=include_sub_users,
+                ledger_id=ledger_id,
+                limit=limit,
+                offset=offset,
+                ordering=ordering,
+                package_id=package_id,
+                search=search,
+                start=start,
+                timezone=timezone,
+                user_id=user_id,
+                accept_language=accept_language,
+            ),
+        )
+
+    async def list_domains_with_response(
+        self,
+        *,
+        end: datetime.datetime | Unset = UNSET,
+        hostname: str | Unset = UNSET,
+        include_sub_users: bool | Unset = False,
+        ledger_id: UUID | Unset = UNSET,
+        limit: int | Unset = UNSET,
+        offset: int | Unset = UNSET,
+        ordering: AnalyticsDomainsRetrieveOrdering
+        | Unset = AnalyticsDomainsRetrieveOrdering.VALUE_0,
+        package_id: UUID | Unset = UNSET,
+        search: str | Unset = UNSET,
+        start: datetime.datetime | Unset = UNSET,
+        timezone: str | Unset = UNSET,
+        user_id: UUID | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[DomainsResponse]:
+        """List top destination domains; include response metadata."""
+        return cast(
+            ApiResponse[DomainsResponse],
+            await self._client._call_with_response(
                 _analytics_domains_retrieve.asyncio_detailed,
                 end=end,
                 hostname=hostname,
@@ -410,6 +741,48 @@ class AsyncAnalyticsResource:
             ),
         )
 
+    async def list_feed_with_response(
+        self,
+        *,
+        city: str | Unset = UNSET,
+        country: str | Unset = UNSET,
+        end: datetime.datetime | Unset = UNSET,
+        hostname: str | Unset = UNSET,
+        ledger_id: UUID | Unset = UNSET,
+        limit: int | Unset = UNSET,
+        offset: int | Unset = UNSET,
+        package_id: UUID | Unset = UNSET,
+        protocol: AnalyticsFeedRetrieveProtocol | Unset = UNSET,
+        region: str | Unset = UNSET,
+        search: str | Unset = UNSET,
+        start: datetime.datetime | Unset = UNSET,
+        timezone: str | Unset = UNSET,
+        user_id: UUID | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[FeedResponse]:
+        """List proxy request activity; include response metadata."""
+        return cast(
+            ApiResponse[FeedResponse],
+            await self._client._call_with_response(
+                _analytics_feed_retrieve.asyncio_detailed,
+                city=city,
+                country=country,
+                end=end,
+                hostname=hostname,
+                ledger_id=ledger_id,
+                limit=limit,
+                offset=offset,
+                package_id=package_id,
+                protocol=protocol,
+                region=region,
+                search=search,
+                start=start,
+                timezone=timezone,
+                user_id=user_id,
+                accept_language=accept_language,
+            ),
+        )
+
     async def list_logs(
         self,
         *,
@@ -433,6 +806,48 @@ class AsyncAnalyticsResource:
         return cast(
             LogsResponse,
             await self._client._call(
+                _analytics_logs_retrieve.asyncio_detailed,
+                city=city,
+                country=country,
+                end=end,
+                error_code=error_code,
+                hostname=hostname,
+                ledger_id=ledger_id,
+                limit=limit,
+                offset=offset,
+                package_id=package_id,
+                protocol=protocol,
+                region=region,
+                start=start,
+                timezone=timezone,
+                user_id=user_id,
+                accept_language=accept_language,
+            ),
+        )
+
+    async def list_logs_with_response(
+        self,
+        *,
+        city: str | Unset = UNSET,
+        country: str | Unset = UNSET,
+        end: datetime.datetime | Unset = UNSET,
+        error_code: int | Unset = UNSET,
+        hostname: str | Unset = UNSET,
+        ledger_id: UUID | Unset = UNSET,
+        limit: int | Unset = UNSET,
+        offset: int | Unset = UNSET,
+        package_id: UUID | Unset = UNSET,
+        protocol: AnalyticsLogsRetrieveProtocol | Unset = UNSET,
+        region: str | Unset = UNSET,
+        start: datetime.datetime | Unset = UNSET,
+        timezone: str | Unset = UNSET,
+        user_id: UUID | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[LogsResponse]:
+        """List proxy error logs; include response metadata."""
+        return cast(
+            ApiResponse[LogsResponse],
+            await self._client._call_with_response(
                 _analytics_logs_retrieve.asyncio_detailed,
                 city=city,
                 country=country,

@@ -4,6 +4,7 @@ from __future__ import annotations
 from typing import Any, cast
 
 from ..files import FileDownload
+from ..response import ApiResponse
 from .._generated.models.paginated_reward_list import PaginatedRewardList
 from .._generated.models.reward_claim_request import RewardClaimRequest
 from .._generated.models.rewards_list_level import RewardsListLevel
@@ -24,6 +25,17 @@ class RewardsResource:
             _rewards_claim_create.sync_detailed, body=body, accept_language=accept_language
         )
         return None
+
+    def claim_with_response(
+        self, *, body: RewardClaimRequest, accept_language: str | Unset = UNSET
+    ) -> ApiResponse[None]:
+        """Claim available rewards; include response metadata."""
+        return cast(
+            ApiResponse[None],
+            self._client._call_with_response(
+                _rewards_claim_create.sync_detailed, body=body, accept_language=accept_language
+            ),
+        )
 
     def list(
         self,
@@ -51,6 +63,32 @@ class RewardsResource:
             ),
         )
 
+    def list_with_response(
+        self,
+        *,
+        level: RewardsListLevel | Unset = UNSET,
+        limit: int | Unset = UNSET,
+        offset: int | Unset = UNSET,
+        ordering: str | Unset = UNSET,
+        user_email: str | Unset = UNSET,
+        user_id: UUID | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[PaginatedRewardList]:
+        """List account rewards; include response metadata."""
+        return cast(
+            ApiResponse[PaginatedRewardList],
+            self._client._call_with_response(
+                _rewards_list.sync_detailed,
+                level=level,
+                limit=limit,
+                offset=offset,
+                ordering=ordering,
+                user_email=user_email,
+                user_id=user_id,
+                accept_language=accept_language,
+            ),
+        )
+
 
 class AsyncRewardsResource:
     def __init__(self, client: Any) -> None:
@@ -64,6 +102,17 @@ class AsyncRewardsResource:
             _rewards_claim_create.asyncio_detailed, body=body, accept_language=accept_language
         )
         return None
+
+    async def claim_with_response(
+        self, *, body: RewardClaimRequest, accept_language: str | Unset = UNSET
+    ) -> ApiResponse[None]:
+        """Claim available rewards; include response metadata."""
+        return cast(
+            ApiResponse[None],
+            await self._client._call_with_response(
+                _rewards_claim_create.asyncio_detailed, body=body, accept_language=accept_language
+            ),
+        )
 
     async def list(
         self,
@@ -80,6 +129,32 @@ class AsyncRewardsResource:
         return cast(
             PaginatedRewardList,
             await self._client._call(
+                _rewards_list.asyncio_detailed,
+                level=level,
+                limit=limit,
+                offset=offset,
+                ordering=ordering,
+                user_email=user_email,
+                user_id=user_id,
+                accept_language=accept_language,
+            ),
+        )
+
+    async def list_with_response(
+        self,
+        *,
+        level: RewardsListLevel | Unset = UNSET,
+        limit: int | Unset = UNSET,
+        offset: int | Unset = UNSET,
+        ordering: str | Unset = UNSET,
+        user_email: str | Unset = UNSET,
+        user_id: UUID | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[PaginatedRewardList]:
+        """List account rewards; include response metadata."""
+        return cast(
+            ApiResponse[PaginatedRewardList],
+            await self._client._call_with_response(
                 _rewards_list.asyncio_detailed,
                 level=level,
                 limit=limit,

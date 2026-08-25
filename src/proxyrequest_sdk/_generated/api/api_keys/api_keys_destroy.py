@@ -12,6 +12,7 @@ from ...models.api_keys_destroy_response_400 import ApiKeysDestroyResponse400
 from ...models.api_keys_destroy_response_401 import ApiKeysDestroyResponse401
 from ...models.api_keys_destroy_response_403 import ApiKeysDestroyResponse403
 from ...models.api_keys_destroy_response_404 import ApiKeysDestroyResponse404
+from ...models.api_keys_destroy_response_409 import ApiKeysDestroyResponse409
 from ...types import UNSET, Unset
 from typing import cast
 
@@ -19,9 +20,13 @@ from typing import cast
 def _get_kwargs(
     id: str,
     *,
+    idempotency_key: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
+    if not isinstance(idempotency_key, Unset):
+        headers["Idempotency-Key"] = idempotency_key
+
     if not isinstance(accept_language, Unset):
         headers["Accept-Language"] = accept_language
 
@@ -44,6 +49,7 @@ def _parse_response(
     | ApiKeysDestroyResponse401
     | ApiKeysDestroyResponse403
     | ApiKeysDestroyResponse404
+    | ApiKeysDestroyResponse409
     | None
 ):
     if response.status_code == 204:
@@ -70,6 +76,11 @@ def _parse_response(
 
         return response_404
 
+    if response.status_code == 409:
+        response_409 = ApiKeysDestroyResponse409.from_dict(response.json())
+
+        return response_409
+
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     else:
@@ -84,6 +95,7 @@ def _build_response(
     | ApiKeysDestroyResponse401
     | ApiKeysDestroyResponse403
     | ApiKeysDestroyResponse404
+    | ApiKeysDestroyResponse409
 ]:
     return Response(
         status_code=HTTPStatus(response.status_code),
@@ -97,6 +109,7 @@ def sync_detailed(
     id: str,
     *,
     client: AuthenticatedClient,
+    idempotency_key: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
 ) -> Response[
     Any
@@ -104,6 +117,7 @@ def sync_detailed(
     | ApiKeysDestroyResponse401
     | ApiKeysDestroyResponse403
     | ApiKeysDestroyResponse404
+    | ApiKeysDestroyResponse409
 ]:
     """Revoke an API key
 
@@ -112,6 +126,7 @@ def sync_detailed(
 
     Args:
         id (str):
+        idempotency_key (str | Unset):
         accept_language (str | Unset):  Defaults to the client language.
 
     Raises:
@@ -119,11 +134,12 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Any | ApiKeysDestroyResponse400 | ApiKeysDestroyResponse401 | ApiKeysDestroyResponse403 | ApiKeysDestroyResponse404]
+        Response[Any | ApiKeysDestroyResponse400 | ApiKeysDestroyResponse401 | ApiKeysDestroyResponse403 | ApiKeysDestroyResponse404 | ApiKeysDestroyResponse409]
     """
 
     kwargs = _get_kwargs(
         id=id,
+        idempotency_key=idempotency_key,
         accept_language=accept_language,
     )
 
@@ -138,6 +154,7 @@ def sync(
     id: str,
     *,
     client: AuthenticatedClient,
+    idempotency_key: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
 ) -> (
     Any
@@ -145,6 +162,7 @@ def sync(
     | ApiKeysDestroyResponse401
     | ApiKeysDestroyResponse403
     | ApiKeysDestroyResponse404
+    | ApiKeysDestroyResponse409
     | None
 ):
     """Revoke an API key
@@ -154,6 +172,7 @@ def sync(
 
     Args:
         id (str):
+        idempotency_key (str | Unset):
         accept_language (str | Unset):  Defaults to the client language.
 
     Raises:
@@ -161,12 +180,13 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Any | ApiKeysDestroyResponse400 | ApiKeysDestroyResponse401 | ApiKeysDestroyResponse403 | ApiKeysDestroyResponse404
+        Any | ApiKeysDestroyResponse400 | ApiKeysDestroyResponse401 | ApiKeysDestroyResponse403 | ApiKeysDestroyResponse404 | ApiKeysDestroyResponse409
     """
 
     return sync_detailed(
         id=id,
         client=client,
+        idempotency_key=idempotency_key,
         accept_language=accept_language,
     ).parsed
 
@@ -175,6 +195,7 @@ async def asyncio_detailed(
     id: str,
     *,
     client: AuthenticatedClient,
+    idempotency_key: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
 ) -> Response[
     Any
@@ -182,6 +203,7 @@ async def asyncio_detailed(
     | ApiKeysDestroyResponse401
     | ApiKeysDestroyResponse403
     | ApiKeysDestroyResponse404
+    | ApiKeysDestroyResponse409
 ]:
     """Revoke an API key
 
@@ -190,6 +212,7 @@ async def asyncio_detailed(
 
     Args:
         id (str):
+        idempotency_key (str | Unset):
         accept_language (str | Unset):  Defaults to the client language.
 
     Raises:
@@ -197,11 +220,12 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Any | ApiKeysDestroyResponse400 | ApiKeysDestroyResponse401 | ApiKeysDestroyResponse403 | ApiKeysDestroyResponse404]
+        Response[Any | ApiKeysDestroyResponse400 | ApiKeysDestroyResponse401 | ApiKeysDestroyResponse403 | ApiKeysDestroyResponse404 | ApiKeysDestroyResponse409]
     """
 
     kwargs = _get_kwargs(
         id=id,
+        idempotency_key=idempotency_key,
         accept_language=accept_language,
     )
 
@@ -214,6 +238,7 @@ async def asyncio(
     id: str,
     *,
     client: AuthenticatedClient,
+    idempotency_key: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
 ) -> (
     Any
@@ -221,6 +246,7 @@ async def asyncio(
     | ApiKeysDestroyResponse401
     | ApiKeysDestroyResponse403
     | ApiKeysDestroyResponse404
+    | ApiKeysDestroyResponse409
     | None
 ):
     """Revoke an API key
@@ -230,6 +256,7 @@ async def asyncio(
 
     Args:
         id (str):
+        idempotency_key (str | Unset):
         accept_language (str | Unset):  Defaults to the client language.
 
     Raises:
@@ -237,13 +264,14 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Any | ApiKeysDestroyResponse400 | ApiKeysDestroyResponse401 | ApiKeysDestroyResponse403 | ApiKeysDestroyResponse404
+        Any | ApiKeysDestroyResponse400 | ApiKeysDestroyResponse401 | ApiKeysDestroyResponse403 | ApiKeysDestroyResponse404 | ApiKeysDestroyResponse409
     """
 
     return (
         await asyncio_detailed(
             id=id,
             client=client,
+            idempotency_key=idempotency_key,
             accept_language=accept_language,
         )
     ).parsed

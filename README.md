@@ -152,6 +152,34 @@ opaque `str`), and all byte amounts are Python integers.
 See the generated [API resource reference](https://github.com/proxyrequest/python-sdk/blob/main/docs/reference/api.md)
 and [model reference](https://github.com/proxyrequest/python-sdk/blob/main/docs/reference/models.md).
 
+## Safe mutations and optimistic concurrency
+
+For operations that declare `Idempotency-Key`, the SDK generates a UUID by
+default. It reuses that key for up to three total attempts after a network
+failure, or after `409 Conflict` with a numeric `Retry-After` of at most five
+seconds. Other HTTP errors are returned immediately. Existing calls therefore
+remain compatible, while important business operations can provide a stable
+key that survives a process restart:
+
+```python
+response = client.users.create_with_response(
+    body=UserCreateRequest(username="customer-reference", password="secret"),
+    idempotency_key=f"provision:{external_customer_id}",
+)
+
+print(response.data.id, response.etag, response.idempotency_replayed)
+```
+
+Every generated method has a `_with_response` variant exposing `status_code`,
+`headers`, `etag`, and `idempotency_replayed`. Disable automatic UUIDs with
+`Client.with_api_key(key, idempotency=False)`; explicitly supplied keys still
+work.
+
+Operations that declare `If-Match` accept the latest strong ETag. A stale value
+raises `ApiError` with `ErrorKind.PRECONDITION` and exposes the current server
+value as `current_etag`. ETags are explicit response metadata and are not cached
+by the SDK.
+
 ## Pagination
 
 List endpoints return their typed OpenAPI page. Use `paginate()` to follow all
@@ -188,7 +216,8 @@ except ApiError as error:
     print(error.status_code, error.request_id, error.field_errors)
 ```
 
-The SDK does not automatically retry writes or refresh JWTs. Call
+Only ambiguous outcomes for operations carrying an idempotency key are retried
+automatically. JWTs are never refreshed automatically; call
 `client.authorization.refresh(...)` explicitly when your application owns a
 token pair.
 

@@ -4,6 +4,7 @@ from __future__ import annotations
 from typing import Any, cast
 
 from ..files import FileDownload
+from ..response import ApiResponse
 from .._generated.models.telegram_connection_response import TelegramConnectionResponse
 from .._generated.models.telegram_link_consume_request import TelegramLinkConsumeRequest
 from .._generated.models.telegram_session_request import TelegramSessionRequest
@@ -40,6 +41,24 @@ class TelegramServiceResource:
             ),
         )
 
+    def consume_link_with_response(
+        self,
+        *,
+        body: TelegramLinkConsumeRequest,
+        service_secret: str,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[TelegramConnectionResponse]:
+        """Consume a Telegram account link; include response metadata."""
+        return cast(
+            ApiResponse[TelegramConnectionResponse],
+            self._client._call_with_response(
+                _integrations_telegram_link_consume_create.sync_detailed,
+                body=body,
+                x_proxy_request_telegram_secret=service_secret,
+                accept_language=accept_language,
+            ),
+        )
+
     def create_session(
         self,
         *,
@@ -51,6 +70,24 @@ class TelegramServiceResource:
         return cast(
             TelegramSessionResponse,
             self._client._call(
+                _integrations_telegram_session_create.sync_detailed,
+                body=body,
+                x_proxy_request_telegram_secret=service_secret,
+                accept_language=accept_language,
+            ),
+        )
+
+    def create_session_with_response(
+        self,
+        *,
+        body: TelegramSessionRequest,
+        service_secret: str,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[TelegramSessionResponse]:
+        """Create a Telegram API session; include response metadata."""
+        return cast(
+            ApiResponse[TelegramSessionResponse],
+            self._client._call_with_response(
                 _integrations_telegram_session_create.sync_detailed,
                 body=body,
                 x_proxy_request_telegram_secret=service_secret,
@@ -81,6 +118,24 @@ class AsyncTelegramServiceResource:
             ),
         )
 
+    async def consume_link_with_response(
+        self,
+        *,
+        body: TelegramLinkConsumeRequest,
+        service_secret: str,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[TelegramConnectionResponse]:
+        """Consume a Telegram account link; include response metadata."""
+        return cast(
+            ApiResponse[TelegramConnectionResponse],
+            await self._client._call_with_response(
+                _integrations_telegram_link_consume_create.asyncio_detailed,
+                body=body,
+                x_proxy_request_telegram_secret=service_secret,
+                accept_language=accept_language,
+            ),
+        )
+
     async def create_session(
         self,
         *,
@@ -92,6 +147,24 @@ class AsyncTelegramServiceResource:
         return cast(
             TelegramSessionResponse,
             await self._client._call(
+                _integrations_telegram_session_create.asyncio_detailed,
+                body=body,
+                x_proxy_request_telegram_secret=service_secret,
+                accept_language=accept_language,
+            ),
+        )
+
+    async def create_session_with_response(
+        self,
+        *,
+        body: TelegramSessionRequest,
+        service_secret: str,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[TelegramSessionResponse]:
+        """Create a Telegram API session; include response metadata."""
+        return cast(
+            ApiResponse[TelegramSessionResponse],
+            await self._client._call_with_response(
                 _integrations_telegram_session_create.asyncio_detailed,
                 body=body,
                 x_proxy_request_telegram_secret=service_secret,

@@ -4,6 +4,7 @@ from __future__ import annotations
 from typing import Any, cast
 
 from ..files import FileDownload
+from ..response import ApiResponse
 from .._generated.models.add_data_request import AddDataRequest
 from .._generated.models.order import Order
 from .._generated.models.paginated_order_list import PaginatedOrderList
@@ -32,38 +33,141 @@ class UsersResource:
         self._client = client
 
     def add_data(
-        self, id: UUID, *, body: AddDataRequest, accept_language: str | Unset = UNSET
+        self,
+        id: UUID,
+        *,
+        body: AddDataRequest,
+        idempotency_key: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
     ) -> Order:
         """Add data to a sub-user order"""
         return cast(
             Order,
             self._client._call(
                 _users_data_add_create.sync_detailed,
+                _idempotent=True,
                 id=id,
                 body=body,
+                idempotency_key=idempotency_key,
                 accept_language=accept_language,
             ),
         )
 
-    def create(self, *, body: UserCreateRequest, accept_language: str | Unset = UNSET) -> User:
+    def add_data_with_response(
+        self,
+        id: UUID,
+        *,
+        body: AddDataRequest,
+        idempotency_key: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[Order]:
+        """Add data to a sub-user order; include response metadata."""
+        return cast(
+            ApiResponse[Order],
+            self._client._call_with_response(
+                _users_data_add_create.sync_detailed,
+                _idempotent=True,
+                id=id,
+                body=body,
+                idempotency_key=idempotency_key,
+                accept_language=accept_language,
+            ),
+        )
+
+    def create(
+        self,
+        *,
+        body: UserCreateRequest,
+        idempotency_key: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> User:
         """Create a sub-user"""
         return cast(
             User,
             self._client._call(
-                _users_create.sync_detailed, body=body, accept_language=accept_language
+                _users_create.sync_detailed,
+                _idempotent=True,
+                body=body,
+                idempotency_key=idempotency_key,
+                accept_language=accept_language,
             ),
         )
 
-    def delete(self, id: UUID, *, accept_language: str | Unset = UNSET) -> None:
+    def create_with_response(
+        self,
+        *,
+        body: UserCreateRequest,
+        idempotency_key: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[User]:
+        """Create a sub-user; include response metadata."""
+        return cast(
+            ApiResponse[User],
+            self._client._call_with_response(
+                _users_create.sync_detailed,
+                _idempotent=True,
+                body=body,
+                idempotency_key=idempotency_key,
+                accept_language=accept_language,
+            ),
+        )
+
+    def delete(
+        self,
+        id: UUID,
+        *,
+        idempotency_key: str | Unset = UNSET,
+        if_match: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> None:
         """Delete a user"""
-        self._client._call(_users_destroy.sync_detailed, id=id, accept_language=accept_language)
+        self._client._call(
+            _users_destroy.sync_detailed,
+            _idempotent=True,
+            id=id,
+            idempotency_key=idempotency_key,
+            if_match=if_match,
+            accept_language=accept_language,
+        )
         return None
+
+    def delete_with_response(
+        self,
+        id: UUID,
+        *,
+        idempotency_key: str | Unset = UNSET,
+        if_match: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[None]:
+        """Delete a user; include response metadata."""
+        return cast(
+            ApiResponse[None],
+            self._client._call_with_response(
+                _users_destroy.sync_detailed,
+                _idempotent=True,
+                id=id,
+                idempotency_key=idempotency_key,
+                if_match=if_match,
+                accept_language=accept_language,
+            ),
+        )
 
     def get(self, id: UUID, *, accept_language: str | Unset = UNSET) -> User:
         """Get a user"""
         return cast(
             User,
             self._client._call(
+                _users_retrieve.sync_detailed, id=id, accept_language=accept_language
+            ),
+        )
+
+    def get_with_response(
+        self, id: UUID, *, accept_language: str | Unset = UNSET
+    ) -> ApiResponse[User]:
+        """Get a user; include response metadata."""
+        return cast(
+            ApiResponse[User],
+            self._client._call_with_response(
                 _users_retrieve.sync_detailed, id=id, accept_language=accept_language
             ),
         )
@@ -85,6 +189,36 @@ class UsersResource:
         return cast(
             PaginatedUserList,
             self._client._call(
+                _users_list.sync_detailed,
+                email=email,
+                id=id,
+                limit=limit,
+                offset=offset,
+                ordering=ordering,
+                package_id=package_id,
+                search=search,
+                username=username,
+                accept_language=accept_language,
+            ),
+        )
+
+    def list_with_response(
+        self,
+        *,
+        email: str | Unset = UNSET,
+        id: UUID | Unset = UNSET,
+        limit: int | Unset = UNSET,
+        offset: int | Unset = UNSET,
+        ordering: str | Unset = UNSET,
+        package_id: UUID | Unset = UNSET,
+        search: str | Unset = UNSET,
+        username: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[PaginatedUserList]:
+        """List users in the current account; include response metadata."""
+        return cast(
+            ApiResponse[PaginatedUserList],
+            self._client._call_with_response(
                 _users_list.sync_detailed,
                 email=email,
                 id=id,
@@ -126,6 +260,34 @@ class UsersResource:
             ),
         )
 
+    def list_orders_with_response(
+        self,
+        id_path: UUID,
+        *,
+        email: str | Unset = UNSET,
+        id_query: UUID | Unset = UNSET,
+        limit: int | Unset = UNSET,
+        offset: int | Unset = UNSET,
+        ordering: str | Unset = UNSET,
+        username: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[PaginatedOrderList]:
+        """List a sub-user's orders; include response metadata."""
+        return cast(
+            ApiResponse[PaginatedOrderList],
+            self._client._call_with_response(
+                _users_orders_list.sync_detailed,
+                id_path=id_path,
+                email=email,
+                id_query=id_query,
+                limit=limit,
+                offset=offset,
+                ordering=ordering,
+                username=username,
+                accept_language=accept_language,
+            ),
+        )
+
     def reset_password(
         self,
         id: UUID,
@@ -144,16 +306,62 @@ class UsersResource:
             ),
         )
 
+    def reset_password_with_response(
+        self,
+        id: UUID,
+        *,
+        body: UserPasswordResetRequest | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[User]:
+        """Rotate a sub-user proxy password; include response metadata."""
+        return cast(
+            ApiResponse[User],
+            self._client._call_with_response(
+                _users_password_create.sync_detailed,
+                id=id,
+                body=body,
+                accept_language=accept_language,
+            ),
+        )
+
     def subtract_data(
-        self, id: UUID, *, body: SubtractDataRequest, accept_language: str | Unset = UNSET
+        self,
+        id: UUID,
+        *,
+        body: SubtractDataRequest,
+        idempotency_key: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
     ) -> Order:
         """Subtract data from a sub-user order"""
         return cast(
             Order,
             self._client._call(
                 _users_data_subtract_create.sync_detailed,
+                _idempotent=True,
                 id=id,
                 body=body,
+                idempotency_key=idempotency_key,
+                accept_language=accept_language,
+            ),
+        )
+
+    def subtract_data_with_response(
+        self,
+        id: UUID,
+        *,
+        body: SubtractDataRequest,
+        idempotency_key: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[Order]:
+        """Subtract data from a sub-user order; include response metadata."""
+        return cast(
+            ApiResponse[Order],
+            self._client._call_with_response(
+                _users_data_subtract_create.sync_detailed,
+                _idempotent=True,
+                id=id,
+                body=body,
+                idempotency_key=idempotency_key,
                 accept_language=accept_language,
             ),
         )
@@ -163,6 +371,7 @@ class UsersResource:
         id: UUID,
         *,
         body: PatchedUserUpdateRequest | Unset = UNSET,
+        if_match: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
     ) -> User:
         """Update a user"""
@@ -172,6 +381,27 @@ class UsersResource:
                 _users_partial_update.sync_detailed,
                 id=id,
                 body=body,
+                if_match=if_match,
+                accept_language=accept_language,
+            ),
+        )
+
+    def update_with_response(
+        self,
+        id: UUID,
+        *,
+        body: PatchedUserUpdateRequest | Unset = UNSET,
+        if_match: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[User]:
+        """Update a user; include response metadata."""
+        return cast(
+            ApiResponse[User],
+            self._client._call_with_response(
+                _users_partial_update.sync_detailed,
+                id=id,
+                body=body,
+                if_match=if_match,
                 accept_language=accept_language,
             ),
         )
@@ -182,42 +412,141 @@ class AsyncUsersResource:
         self._client = client
 
     async def add_data(
-        self, id: UUID, *, body: AddDataRequest, accept_language: str | Unset = UNSET
+        self,
+        id: UUID,
+        *,
+        body: AddDataRequest,
+        idempotency_key: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
     ) -> Order:
         """Add data to a sub-user order"""
         return cast(
             Order,
             await self._client._call(
                 _users_data_add_create.asyncio_detailed,
+                _idempotent=True,
                 id=id,
                 body=body,
+                idempotency_key=idempotency_key,
+                accept_language=accept_language,
+            ),
+        )
+
+    async def add_data_with_response(
+        self,
+        id: UUID,
+        *,
+        body: AddDataRequest,
+        idempotency_key: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[Order]:
+        """Add data to a sub-user order; include response metadata."""
+        return cast(
+            ApiResponse[Order],
+            await self._client._call_with_response(
+                _users_data_add_create.asyncio_detailed,
+                _idempotent=True,
+                id=id,
+                body=body,
+                idempotency_key=idempotency_key,
                 accept_language=accept_language,
             ),
         )
 
     async def create(
-        self, *, body: UserCreateRequest, accept_language: str | Unset = UNSET
+        self,
+        *,
+        body: UserCreateRequest,
+        idempotency_key: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
     ) -> User:
         """Create a sub-user"""
         return cast(
             User,
             await self._client._call(
-                _users_create.asyncio_detailed, body=body, accept_language=accept_language
+                _users_create.asyncio_detailed,
+                _idempotent=True,
+                body=body,
+                idempotency_key=idempotency_key,
+                accept_language=accept_language,
             ),
         )
 
-    async def delete(self, id: UUID, *, accept_language: str | Unset = UNSET) -> None:
+    async def create_with_response(
+        self,
+        *,
+        body: UserCreateRequest,
+        idempotency_key: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[User]:
+        """Create a sub-user; include response metadata."""
+        return cast(
+            ApiResponse[User],
+            await self._client._call_with_response(
+                _users_create.asyncio_detailed,
+                _idempotent=True,
+                body=body,
+                idempotency_key=idempotency_key,
+                accept_language=accept_language,
+            ),
+        )
+
+    async def delete(
+        self,
+        id: UUID,
+        *,
+        idempotency_key: str | Unset = UNSET,
+        if_match: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> None:
         """Delete a user"""
         await self._client._call(
-            _users_destroy.asyncio_detailed, id=id, accept_language=accept_language
+            _users_destroy.asyncio_detailed,
+            _idempotent=True,
+            id=id,
+            idempotency_key=idempotency_key,
+            if_match=if_match,
+            accept_language=accept_language,
         )
         return None
+
+    async def delete_with_response(
+        self,
+        id: UUID,
+        *,
+        idempotency_key: str | Unset = UNSET,
+        if_match: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[None]:
+        """Delete a user; include response metadata."""
+        return cast(
+            ApiResponse[None],
+            await self._client._call_with_response(
+                _users_destroy.asyncio_detailed,
+                _idempotent=True,
+                id=id,
+                idempotency_key=idempotency_key,
+                if_match=if_match,
+                accept_language=accept_language,
+            ),
+        )
 
     async def get(self, id: UUID, *, accept_language: str | Unset = UNSET) -> User:
         """Get a user"""
         return cast(
             User,
             await self._client._call(
+                _users_retrieve.asyncio_detailed, id=id, accept_language=accept_language
+            ),
+        )
+
+    async def get_with_response(
+        self, id: UUID, *, accept_language: str | Unset = UNSET
+    ) -> ApiResponse[User]:
+        """Get a user; include response metadata."""
+        return cast(
+            ApiResponse[User],
+            await self._client._call_with_response(
                 _users_retrieve.asyncio_detailed, id=id, accept_language=accept_language
             ),
         )
@@ -239,6 +568,36 @@ class AsyncUsersResource:
         return cast(
             PaginatedUserList,
             await self._client._call(
+                _users_list.asyncio_detailed,
+                email=email,
+                id=id,
+                limit=limit,
+                offset=offset,
+                ordering=ordering,
+                package_id=package_id,
+                search=search,
+                username=username,
+                accept_language=accept_language,
+            ),
+        )
+
+    async def list_with_response(
+        self,
+        *,
+        email: str | Unset = UNSET,
+        id: UUID | Unset = UNSET,
+        limit: int | Unset = UNSET,
+        offset: int | Unset = UNSET,
+        ordering: str | Unset = UNSET,
+        package_id: UUID | Unset = UNSET,
+        search: str | Unset = UNSET,
+        username: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[PaginatedUserList]:
+        """List users in the current account; include response metadata."""
+        return cast(
+            ApiResponse[PaginatedUserList],
+            await self._client._call_with_response(
                 _users_list.asyncio_detailed,
                 email=email,
                 id=id,
@@ -280,6 +639,34 @@ class AsyncUsersResource:
             ),
         )
 
+    async def list_orders_with_response(
+        self,
+        id_path: UUID,
+        *,
+        email: str | Unset = UNSET,
+        id_query: UUID | Unset = UNSET,
+        limit: int | Unset = UNSET,
+        offset: int | Unset = UNSET,
+        ordering: str | Unset = UNSET,
+        username: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[PaginatedOrderList]:
+        """List a sub-user's orders; include response metadata."""
+        return cast(
+            ApiResponse[PaginatedOrderList],
+            await self._client._call_with_response(
+                _users_orders_list.asyncio_detailed,
+                id_path=id_path,
+                email=email,
+                id_query=id_query,
+                limit=limit,
+                offset=offset,
+                ordering=ordering,
+                username=username,
+                accept_language=accept_language,
+            ),
+        )
+
     async def reset_password(
         self,
         id: UUID,
@@ -298,16 +685,62 @@ class AsyncUsersResource:
             ),
         )
 
+    async def reset_password_with_response(
+        self,
+        id: UUID,
+        *,
+        body: UserPasswordResetRequest | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[User]:
+        """Rotate a sub-user proxy password; include response metadata."""
+        return cast(
+            ApiResponse[User],
+            await self._client._call_with_response(
+                _users_password_create.asyncio_detailed,
+                id=id,
+                body=body,
+                accept_language=accept_language,
+            ),
+        )
+
     async def subtract_data(
-        self, id: UUID, *, body: SubtractDataRequest, accept_language: str | Unset = UNSET
+        self,
+        id: UUID,
+        *,
+        body: SubtractDataRequest,
+        idempotency_key: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
     ) -> Order:
         """Subtract data from a sub-user order"""
         return cast(
             Order,
             await self._client._call(
                 _users_data_subtract_create.asyncio_detailed,
+                _idempotent=True,
                 id=id,
                 body=body,
+                idempotency_key=idempotency_key,
+                accept_language=accept_language,
+            ),
+        )
+
+    async def subtract_data_with_response(
+        self,
+        id: UUID,
+        *,
+        body: SubtractDataRequest,
+        idempotency_key: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[Order]:
+        """Subtract data from a sub-user order; include response metadata."""
+        return cast(
+            ApiResponse[Order],
+            await self._client._call_with_response(
+                _users_data_subtract_create.asyncio_detailed,
+                _idempotent=True,
+                id=id,
+                body=body,
+                idempotency_key=idempotency_key,
                 accept_language=accept_language,
             ),
         )
@@ -317,6 +750,7 @@ class AsyncUsersResource:
         id: UUID,
         *,
         body: PatchedUserUpdateRequest | Unset = UNSET,
+        if_match: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
     ) -> User:
         """Update a user"""
@@ -326,6 +760,27 @@ class AsyncUsersResource:
                 _users_partial_update.asyncio_detailed,
                 id=id,
                 body=body,
+                if_match=if_match,
+                accept_language=accept_language,
+            ),
+        )
+
+    async def update_with_response(
+        self,
+        id: UUID,
+        *,
+        body: PatchedUserUpdateRequest | Unset = UNSET,
+        if_match: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[User]:
+        """Update a user; include response metadata."""
+        return cast(
+            ApiResponse[User],
+            await self._client._call_with_response(
+                _users_partial_update.asyncio_detailed,
+                id=id,
+                body=body,
+                if_match=if_match,
                 accept_language=accept_language,
             ),
         )

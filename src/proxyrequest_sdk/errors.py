@@ -14,6 +14,7 @@ class ErrorKind(StrEnum):
     PERMISSION = "permission"
     NOT_FOUND = "not_found"
     CONFLICT = "conflict"
+    PRECONDITION = "precondition"
     RATE_LIMIT = "rate_limit"
     SERVER = "server"
     NETWORK = "network"
@@ -38,6 +39,8 @@ class ApiError(ProxyRequestError):
         request_id: str | None = None,
         retry_after: float | None = None,
         content_language: str | None = None,
+        current_etag: str | None = None,
+        idempotency_key: str | None = None,
         headers: Mapping[str, str] | None = None,
         raw_body: bytes = b"",
         cause: BaseException | None = None,
@@ -50,6 +53,8 @@ class ApiError(ProxyRequestError):
         self.request_id = request_id
         self.retry_after = retry_after
         self.content_language = content_language
+        self.current_etag = current_etag
+        self.idempotency_key = idempotency_key
         self.headers = dict(headers or {})
         self.raw_body = raw_body
         self.__cause__ = cause
@@ -68,6 +73,7 @@ class ApiError(ProxyRequestError):
         request_id = _header(normalized_headers, "x-request-id", "x-correlation-id")
         retry_after = _float_header(normalized_headers, "retry-after")
         language = _header(normalized_headers, "content-language")
+        current_etag = _header(normalized_headers, "etag")
         message = detail or f"ProxyRequest API returned HTTP {status_code}."
         return cls(
             message,
@@ -78,6 +84,7 @@ class ApiError(ProxyRequestError):
             request_id=request_id,
             retry_after=retry_after,
             content_language=language,
+            current_etag=current_etag,
             headers=normalized_headers,
             raw_body=content,
         )
@@ -93,6 +100,25 @@ class ApiError(ProxyRequestError):
     @classmethod
     def unexpected(cls, message: str, cause: BaseException | None = None) -> ApiError:
         return cls(message, kind=ErrorKind.UNEXPECTED, cause=cause)
+
+    def with_idempotency_key(self, idempotency_key: str | None) -> ApiError:
+        if idempotency_key is None or self.idempotency_key == idempotency_key:
+            return self
+        return ApiError(
+            str(self),
+            kind=self.kind,
+            status_code=self.status_code,
+            detail=self.detail,
+            field_errors=self.field_errors,
+            request_id=self.request_id,
+            retry_after=self.retry_after,
+            content_language=self.content_language,
+            current_etag=self.current_etag,
+            idempotency_key=idempotency_key,
+            headers=self.headers,
+            raw_body=self.raw_body,
+            cause=self.__cause__,
+        )
 
 
 class PaginationError(ProxyRequestError):
@@ -114,6 +140,8 @@ def _kind_for_status(status_code: int) -> ErrorKind:
         return ErrorKind.NOT_FOUND
     if status_code == 409:
         return ErrorKind.CONFLICT
+    if status_code == 412:
+        return ErrorKind.PRECONDITION
     if status_code == 429:
         return ErrorKind.RATE_LIMIT
     if status_code >= 500:

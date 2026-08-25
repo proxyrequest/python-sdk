@@ -4,6 +4,7 @@ from __future__ import annotations
 from typing import Any, cast
 
 from ..files import FileDownload
+from ..response import ApiResponse
 from .._generated.models.settings_response import SettingsResponse
 from .._generated.types import UNSET
 from .._generated.types import Unset
@@ -21,6 +22,17 @@ class SettingsResource:
             self._client._call(_settings_retrieve.sync_detailed, accept_language=accept_language),
         )
 
+    def get_with_response(
+        self, *, accept_language: str | Unset = UNSET
+    ) -> ApiResponse[SettingsResponse]:
+        """Get account settings; include response metadata."""
+        return cast(
+            ApiResponse[SettingsResponse],
+            self._client._call_with_response(
+                _settings_retrieve.sync_detailed, accept_language=accept_language
+            ),
+        )
+
 
 class AsyncSettingsResource:
     def __init__(self, client: Any) -> None:
@@ -31,6 +43,17 @@ class AsyncSettingsResource:
         return cast(
             SettingsResponse,
             await self._client._call(
+                _settings_retrieve.asyncio_detailed, accept_language=accept_language
+            ),
+        )
+
+    async def get_with_response(
+        self, *, accept_language: str | Unset = UNSET
+    ) -> ApiResponse[SettingsResponse]:
+        """Get account settings; include response metadata."""
+        return cast(
+            ApiResponse[SettingsResponse],
+            await self._client._call_with_response(
                 _settings_retrieve.asyncio_detailed, accept_language=accept_language
             ),
         )

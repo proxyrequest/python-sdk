@@ -58,6 +58,7 @@ from .api_keys_destroy_response_400 import ApiKeysDestroyResponse400
 from .api_keys_destroy_response_401 import ApiKeysDestroyResponse401
 from .api_keys_destroy_response_403 import ApiKeysDestroyResponse403
 from .api_keys_destroy_response_404 import ApiKeysDestroyResponse404
+from .api_keys_destroy_response_409 import ApiKeysDestroyResponse409
 from .api_keys_list_response_400 import ApiKeysListResponse400
 from .api_keys_list_response_401 import ApiKeysListResponse401
 from .api_keys_list_response_403 import ApiKeysListResponse403
@@ -84,10 +85,13 @@ from .coupons_calculate_price_create_response_403 import CouponsCalculatePriceCr
 from .coupons_create_response_400 import CouponsCreateResponse400
 from .coupons_create_response_401 import CouponsCreateResponse401
 from .coupons_create_response_403 import CouponsCreateResponse403
+from .coupons_create_response_409 import CouponsCreateResponse409
 from .coupons_destroy_response_400 import CouponsDestroyResponse400
 from .coupons_destroy_response_401 import CouponsDestroyResponse401
 from .coupons_destroy_response_403 import CouponsDestroyResponse403
 from .coupons_destroy_response_404 import CouponsDestroyResponse404
+from .coupons_destroy_response_409 import CouponsDestroyResponse409
+from .coupons_destroy_response_412 import CouponsDestroyResponse412
 from .coupons_list_response_400 import CouponsListResponse400
 from .coupons_list_response_401 import CouponsListResponse401
 from .coupons_list_response_403 import CouponsListResponse403
@@ -96,6 +100,7 @@ from .coupons_partial_update_response_400 import CouponsPartialUpdateResponse400
 from .coupons_partial_update_response_401 import CouponsPartialUpdateResponse401
 from .coupons_partial_update_response_403 import CouponsPartialUpdateResponse403
 from .coupons_partial_update_response_404 import CouponsPartialUpdateResponse404
+from .coupons_partial_update_response_412 import CouponsPartialUpdateResponse412
 from .coupons_redeems_list_response_400 import CouponsRedeemsListResponse400
 from .coupons_redeems_list_response_401 import CouponsRedeemsListResponse401
 from .coupons_redeems_list_response_403 import CouponsRedeemsListResponse403
@@ -109,6 +114,7 @@ from .coupons_update_response_400 import CouponsUpdateResponse400
 from .coupons_update_response_401 import CouponsUpdateResponse401
 from .coupons_update_response_403 import CouponsUpdateResponse403
 from .coupons_update_response_404 import CouponsUpdateResponse404
+from .coupons_update_response_412 import CouponsUpdateResponse412
 from .domain_record import DomainRecord
 from .domains_response import DomainsResponse
 from .enabled_response import EnabledResponse
@@ -169,10 +175,13 @@ from .invoice_type_enum import InvoiceTypeEnum
 from .invoices_create_response_400 import InvoicesCreateResponse400
 from .invoices_create_response_401 import InvoicesCreateResponse401
 from .invoices_create_response_403 import InvoicesCreateResponse403
+from .invoices_create_response_409 import InvoicesCreateResponse409
 from .invoices_destroy_response_400 import InvoicesDestroyResponse400
 from .invoices_destroy_response_401 import InvoicesDestroyResponse401
 from .invoices_destroy_response_403 import InvoicesDestroyResponse403
 from .invoices_destroy_response_404 import InvoicesDestroyResponse404
+from .invoices_destroy_response_409 import InvoicesDestroyResponse409
+from .invoices_destroy_response_412 import InvoicesDestroyResponse412
 from .invoices_download_pdf_retrieve_response_400 import InvoicesDownloadPdfRetrieveResponse400
 from .invoices_download_pdf_retrieve_response_401 import InvoicesDownloadPdfRetrieveResponse401
 from .invoices_download_pdf_retrieve_response_403 import InvoicesDownloadPdfRetrieveResponse403
@@ -253,6 +262,8 @@ from .orders_destroy_response_400 import OrdersDestroyResponse400
 from .orders_destroy_response_401 import OrdersDestroyResponse401
 from .orders_destroy_response_403 import OrdersDestroyResponse403
 from .orders_destroy_response_404 import OrdersDestroyResponse404
+from .orders_destroy_response_409 import OrdersDestroyResponse409
+from .orders_destroy_response_412 import OrdersDestroyResponse412
 from .orders_list_package_type import OrdersListPackageType
 from .orders_list_response_400 import OrdersListResponse400
 from .orders_list_response_401 import OrdersListResponse401
@@ -261,6 +272,7 @@ from .orders_partial_update_response_400 import OrdersPartialUpdateResponse400
 from .orders_partial_update_response_401 import OrdersPartialUpdateResponse401
 from .orders_partial_update_response_403 import OrdersPartialUpdateResponse403
 from .orders_partial_update_response_404 import OrdersPartialUpdateResponse404
+from .orders_partial_update_response_412 import OrdersPartialUpdateResponse412
 from .orders_retrieve_response_400 import OrdersRetrieveResponse400
 from .orders_retrieve_response_401 import OrdersRetrieveResponse401
 from .orders_retrieve_response_403 import OrdersRetrieveResponse403
@@ -328,9 +340,11 @@ from .profile_change_password_create_response_403 import ProfileChangePasswordCr
 from .profile_destroy_response_400 import ProfileDestroyResponse400
 from .profile_destroy_response_401 import ProfileDestroyResponse401
 from .profile_destroy_response_403 import ProfileDestroyResponse403
+from .profile_destroy_response_412 import ProfileDestroyResponse412
 from .profile_partial_update_response_400 import ProfilePartialUpdateResponse400
 from .profile_partial_update_response_401 import ProfilePartialUpdateResponse401
 from .profile_partial_update_response_403 import ProfilePartialUpdateResponse403
+from .profile_partial_update_response_412 import ProfilePartialUpdateResponse412
 from .profile_retrieve_response_400 import ProfileRetrieveResponse400
 from .profile_retrieve_response_401 import ProfileRetrieveResponse401
 from .profile_retrieve_response_403 import ProfileRetrieveResponse403
@@ -407,18 +421,23 @@ from .user_password_reset_request import UserPasswordResetRequest
 from .users_create_response_400 import UsersCreateResponse400
 from .users_create_response_401 import UsersCreateResponse401
 from .users_create_response_403 import UsersCreateResponse403
+from .users_create_response_409 import UsersCreateResponse409
 from .users_data_add_create_response_400 import UsersDataAddCreateResponse400
 from .users_data_add_create_response_401 import UsersDataAddCreateResponse401
 from .users_data_add_create_response_403 import UsersDataAddCreateResponse403
 from .users_data_add_create_response_404 import UsersDataAddCreateResponse404
+from .users_data_add_create_response_409 import UsersDataAddCreateResponse409
 from .users_data_subtract_create_response_400 import UsersDataSubtractCreateResponse400
 from .users_data_subtract_create_response_401 import UsersDataSubtractCreateResponse401
 from .users_data_subtract_create_response_403 import UsersDataSubtractCreateResponse403
 from .users_data_subtract_create_response_404 import UsersDataSubtractCreateResponse404
+from .users_data_subtract_create_response_409 import UsersDataSubtractCreateResponse409
 from .users_destroy_response_400 import UsersDestroyResponse400
 from .users_destroy_response_401 import UsersDestroyResponse401
 from .users_destroy_response_403 import UsersDestroyResponse403
 from .users_destroy_response_404 import UsersDestroyResponse404
+from .users_destroy_response_409 import UsersDestroyResponse409
+from .users_destroy_response_412 import UsersDestroyResponse412
 from .users_list_response_400 import UsersListResponse400
 from .users_list_response_401 import UsersListResponse401
 from .users_list_response_403 import UsersListResponse403
@@ -430,6 +449,7 @@ from .users_partial_update_response_400 import UsersPartialUpdateResponse400
 from .users_partial_update_response_401 import UsersPartialUpdateResponse401
 from .users_partial_update_response_403 import UsersPartialUpdateResponse403
 from .users_partial_update_response_404 import UsersPartialUpdateResponse404
+from .users_partial_update_response_412 import UsersPartialUpdateResponse412
 from .users_password_create_response_400 import UsersPasswordCreateResponse400
 from .users_password_create_response_401 import UsersPasswordCreateResponse401
 from .users_password_create_response_403 import UsersPasswordCreateResponse403
@@ -445,10 +465,13 @@ from .webhook_scope_enum import WebhookScopeEnum
 from .webhooks_create_response_400 import WebhooksCreateResponse400
 from .webhooks_create_response_401 import WebhooksCreateResponse401
 from .webhooks_create_response_403 import WebhooksCreateResponse403
+from .webhooks_create_response_409 import WebhooksCreateResponse409
 from .webhooks_destroy_response_400 import WebhooksDestroyResponse400
 from .webhooks_destroy_response_401 import WebhooksDestroyResponse401
 from .webhooks_destroy_response_403 import WebhooksDestroyResponse403
 from .webhooks_destroy_response_404 import WebhooksDestroyResponse404
+from .webhooks_destroy_response_409 import WebhooksDestroyResponse409
+from .webhooks_destroy_response_412 import WebhooksDestroyResponse412
 from .webhooks_list_response_400 import WebhooksListResponse400
 from .webhooks_list_response_401 import WebhooksListResponse401
 from .webhooks_list_response_403 import WebhooksListResponse403
@@ -510,6 +533,7 @@ __all__ = (
     "ApiKeysDestroyResponse401",
     "ApiKeysDestroyResponse403",
     "ApiKeysDestroyResponse404",
+    "ApiKeysDestroyResponse409",
     "ApiKeysListResponse400",
     "ApiKeysListResponse401",
     "ApiKeysListResponse403",
@@ -531,10 +555,13 @@ __all__ = (
     "CouponsCreateResponse400",
     "CouponsCreateResponse401",
     "CouponsCreateResponse403",
+    "CouponsCreateResponse409",
     "CouponsDestroyResponse400",
     "CouponsDestroyResponse401",
     "CouponsDestroyResponse403",
     "CouponsDestroyResponse404",
+    "CouponsDestroyResponse409",
+    "CouponsDestroyResponse412",
     "CouponShort",
     "CouponShortPackagesItem",
     "CouponsListResponse400",
@@ -545,6 +572,7 @@ __all__ = (
     "CouponsPartialUpdateResponse401",
     "CouponsPartialUpdateResponse403",
     "CouponsPartialUpdateResponse404",
+    "CouponsPartialUpdateResponse412",
     "CouponsRedeemsListResponse400",
     "CouponsRedeemsListResponse401",
     "CouponsRedeemsListResponse403",
@@ -559,6 +587,7 @@ __all__ = (
     "CouponsUpdateResponse401",
     "CouponsUpdateResponse403",
     "CouponsUpdateResponse404",
+    "CouponsUpdateResponse412",
     "CouponTypeEnum",
     "CouponUpdateRequest",
     "DomainRecord",
@@ -591,10 +620,13 @@ __all__ = (
     "InvoicesCreateResponse400",
     "InvoicesCreateResponse401",
     "InvoicesCreateResponse403",
+    "InvoicesCreateResponse409",
     "InvoicesDestroyResponse400",
     "InvoicesDestroyResponse401",
     "InvoicesDestroyResponse403",
     "InvoicesDestroyResponse404",
+    "InvoicesDestroyResponse409",
+    "InvoicesDestroyResponse412",
     "InvoicesDownloadPdfRetrieveResponse400",
     "InvoicesDownloadPdfRetrieveResponse401",
     "InvoicesDownloadPdfRetrieveResponse403",
@@ -677,6 +709,8 @@ __all__ = (
     "OrdersDestroyResponse401",
     "OrdersDestroyResponse403",
     "OrdersDestroyResponse404",
+    "OrdersDestroyResponse409",
+    "OrdersDestroyResponse412",
     "OrdersListPackageType",
     "OrdersListResponse400",
     "OrdersListResponse401",
@@ -685,6 +719,7 @@ __all__ = (
     "OrdersPartialUpdateResponse401",
     "OrdersPartialUpdateResponse403",
     "OrdersPartialUpdateResponse404",
+    "OrdersPartialUpdateResponse412",
     "OrdersRetrieveResponse400",
     "OrdersRetrieveResponse401",
     "OrdersRetrieveResponse403",
@@ -752,9 +787,11 @@ __all__ = (
     "ProfileDestroyResponse400",
     "ProfileDestroyResponse401",
     "ProfileDestroyResponse403",
+    "ProfileDestroyResponse412",
     "ProfilePartialUpdateResponse400",
     "ProfilePartialUpdateResponse401",
     "ProfilePartialUpdateResponse403",
+    "ProfilePartialUpdateResponse412",
     "ProfileRetrieveResponse400",
     "ProfileRetrieveResponse401",
     "ProfileRetrieveResponse403",
@@ -831,18 +868,23 @@ __all__ = (
     "UsersCreateResponse400",
     "UsersCreateResponse401",
     "UsersCreateResponse403",
+    "UsersCreateResponse409",
     "UsersDataAddCreateResponse400",
     "UsersDataAddCreateResponse401",
     "UsersDataAddCreateResponse403",
     "UsersDataAddCreateResponse404",
+    "UsersDataAddCreateResponse409",
     "UsersDataSubtractCreateResponse400",
     "UsersDataSubtractCreateResponse401",
     "UsersDataSubtractCreateResponse403",
     "UsersDataSubtractCreateResponse404",
+    "UsersDataSubtractCreateResponse409",
     "UsersDestroyResponse400",
     "UsersDestroyResponse401",
     "UsersDestroyResponse403",
     "UsersDestroyResponse404",
+    "UsersDestroyResponse409",
+    "UsersDestroyResponse412",
     "UsersListResponse400",
     "UsersListResponse401",
     "UsersListResponse403",
@@ -854,6 +896,7 @@ __all__ = (
     "UsersPartialUpdateResponse401",
     "UsersPartialUpdateResponse403",
     "UsersPartialUpdateResponse404",
+    "UsersPartialUpdateResponse412",
     "UsersPasswordCreateResponse400",
     "UsersPasswordCreateResponse401",
     "UsersPasswordCreateResponse403",
@@ -869,10 +912,13 @@ __all__ = (
     "WebhooksCreateResponse400",
     "WebhooksCreateResponse401",
     "WebhooksCreateResponse403",
+    "WebhooksCreateResponse409",
     "WebhooksDestroyResponse400",
     "WebhooksDestroyResponse401",
     "WebhooksDestroyResponse403",
     "WebhooksDestroyResponse404",
+    "WebhooksDestroyResponse409",
+    "WebhooksDestroyResponse412",
     "WebhooksListResponse400",
     "WebhooksListResponse401",
     "WebhooksListResponse403",

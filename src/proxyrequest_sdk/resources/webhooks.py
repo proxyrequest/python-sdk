@@ -4,6 +4,7 @@ from __future__ import annotations
 from typing import Any, cast
 
 from ..files import FileDownload
+from ..response import ApiResponse
 from .._generated.models.paginated_webhook_list import PaginatedWebhookList
 from .._generated.types import UNSET
 from .._generated.types import Unset
@@ -21,26 +22,99 @@ class WebhooksResource:
         self._client = client
 
     def create(
-        self, *, body: WebhookCreateRequest, accept_language: str | Unset = UNSET
+        self,
+        *,
+        body: WebhookCreateRequest,
+        idempotency_key: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
     ) -> WebhookCreated:
         """Create a customer webhook"""
         return cast(
             WebhookCreated,
             self._client._call(
-                _webhooks_create.sync_detailed, body=body, accept_language=accept_language
+                _webhooks_create.sync_detailed,
+                _idempotent=True,
+                body=body,
+                idempotency_key=idempotency_key,
+                accept_language=accept_language,
             ),
         )
 
-    def delete(self, id: str, *, accept_language: str | Unset = UNSET) -> None:
+    def create_with_response(
+        self,
+        *,
+        body: WebhookCreateRequest,
+        idempotency_key: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[WebhookCreated]:
+        """Create a customer webhook; include response metadata."""
+        return cast(
+            ApiResponse[WebhookCreated],
+            self._client._call_with_response(
+                _webhooks_create.sync_detailed,
+                _idempotent=True,
+                body=body,
+                idempotency_key=idempotency_key,
+                accept_language=accept_language,
+            ),
+        )
+
+    def delete(
+        self,
+        id: str,
+        *,
+        idempotency_key: str | Unset = UNSET,
+        if_match: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> None:
         """Delete a customer webhook"""
-        self._client._call(_webhooks_destroy.sync_detailed, id=id, accept_language=accept_language)
+        self._client._call(
+            _webhooks_destroy.sync_detailed,
+            _idempotent=True,
+            id=id,
+            idempotency_key=idempotency_key,
+            if_match=if_match,
+            accept_language=accept_language,
+        )
         return None
+
+    def delete_with_response(
+        self,
+        id: str,
+        *,
+        idempotency_key: str | Unset = UNSET,
+        if_match: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[None]:
+        """Delete a customer webhook; include response metadata."""
+        return cast(
+            ApiResponse[None],
+            self._client._call_with_response(
+                _webhooks_destroy.sync_detailed,
+                _idempotent=True,
+                id=id,
+                idempotency_key=idempotency_key,
+                if_match=if_match,
+                accept_language=accept_language,
+            ),
+        )
 
     def get(self, id: str, *, accept_language: str | Unset = UNSET) -> WebhookList:
         """Get a customer webhook"""
         return cast(
             WebhookList,
             self._client._call(
+                _webhooks_retrieve.sync_detailed, id=id, accept_language=accept_language
+            ),
+        )
+
+    def get_with_response(
+        self, id: str, *, accept_language: str | Unset = UNSET
+    ) -> ApiResponse[WebhookList]:
+        """Get a customer webhook; include response metadata."""
+        return cast(
+            ApiResponse[WebhookList],
+            self._client._call_with_response(
                 _webhooks_retrieve.sync_detailed, id=id, accept_language=accept_language
             ),
         )
@@ -63,34 +137,123 @@ class WebhooksResource:
             ),
         )
 
+    def list_with_response(
+        self,
+        *,
+        limit: int | Unset = UNSET,
+        offset: int | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[PaginatedWebhookList]:
+        """List customer webhooks; include response metadata."""
+        return cast(
+            ApiResponse[PaginatedWebhookList],
+            self._client._call_with_response(
+                _webhooks_list.sync_detailed,
+                limit=limit,
+                offset=offset,
+                accept_language=accept_language,
+            ),
+        )
+
 
 class AsyncWebhooksResource:
     def __init__(self, client: Any) -> None:
         self._client = client
 
     async def create(
-        self, *, body: WebhookCreateRequest, accept_language: str | Unset = UNSET
+        self,
+        *,
+        body: WebhookCreateRequest,
+        idempotency_key: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
     ) -> WebhookCreated:
         """Create a customer webhook"""
         return cast(
             WebhookCreated,
             await self._client._call(
-                _webhooks_create.asyncio_detailed, body=body, accept_language=accept_language
+                _webhooks_create.asyncio_detailed,
+                _idempotent=True,
+                body=body,
+                idempotency_key=idempotency_key,
+                accept_language=accept_language,
             ),
         )
 
-    async def delete(self, id: str, *, accept_language: str | Unset = UNSET) -> None:
+    async def create_with_response(
+        self,
+        *,
+        body: WebhookCreateRequest,
+        idempotency_key: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[WebhookCreated]:
+        """Create a customer webhook; include response metadata."""
+        return cast(
+            ApiResponse[WebhookCreated],
+            await self._client._call_with_response(
+                _webhooks_create.asyncio_detailed,
+                _idempotent=True,
+                body=body,
+                idempotency_key=idempotency_key,
+                accept_language=accept_language,
+            ),
+        )
+
+    async def delete(
+        self,
+        id: str,
+        *,
+        idempotency_key: str | Unset = UNSET,
+        if_match: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> None:
         """Delete a customer webhook"""
         await self._client._call(
-            _webhooks_destroy.asyncio_detailed, id=id, accept_language=accept_language
+            _webhooks_destroy.asyncio_detailed,
+            _idempotent=True,
+            id=id,
+            idempotency_key=idempotency_key,
+            if_match=if_match,
+            accept_language=accept_language,
         )
         return None
+
+    async def delete_with_response(
+        self,
+        id: str,
+        *,
+        idempotency_key: str | Unset = UNSET,
+        if_match: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[None]:
+        """Delete a customer webhook; include response metadata."""
+        return cast(
+            ApiResponse[None],
+            await self._client._call_with_response(
+                _webhooks_destroy.asyncio_detailed,
+                _idempotent=True,
+                id=id,
+                idempotency_key=idempotency_key,
+                if_match=if_match,
+                accept_language=accept_language,
+            ),
+        )
 
     async def get(self, id: str, *, accept_language: str | Unset = UNSET) -> WebhookList:
         """Get a customer webhook"""
         return cast(
             WebhookList,
             await self._client._call(
+                _webhooks_retrieve.asyncio_detailed, id=id, accept_language=accept_language
+            ),
+        )
+
+    async def get_with_response(
+        self, id: str, *, accept_language: str | Unset = UNSET
+    ) -> ApiResponse[WebhookList]:
+        """Get a customer webhook; include response metadata."""
+        return cast(
+            ApiResponse[WebhookList],
+            await self._client._call_with_response(
                 _webhooks_retrieve.asyncio_detailed, id=id, accept_language=accept_language
             ),
         )
@@ -106,6 +269,24 @@ class AsyncWebhooksResource:
         return cast(
             PaginatedWebhookList,
             await self._client._call(
+                _webhooks_list.asyncio_detailed,
+                limit=limit,
+                offset=offset,
+                accept_language=accept_language,
+            ),
+        )
+
+    async def list_with_response(
+        self,
+        *,
+        limit: int | Unset = UNSET,
+        offset: int | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[PaginatedWebhookList]:
+        """List customer webhooks; include response metadata."""
+        return cast(
+            ApiResponse[PaginatedWebhookList],
+            await self._client._call_with_response(
                 _webhooks_list.asyncio_detailed,
                 limit=limit,
                 offset=offset,

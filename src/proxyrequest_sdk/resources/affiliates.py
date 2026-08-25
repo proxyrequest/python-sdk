@@ -4,6 +4,7 @@ from __future__ import annotations
 from typing import Any, cast
 
 from ..files import FileDownload
+from ..response import ApiResponse
 from .._generated.models.affiliate_stats_response import AffiliateStatsResponse
 from .._generated.models.paginated_affiliate_list import PaginatedAffiliateList
 from .._generated.models.paginated_affiliate_reward_list import PaginatedAffiliateRewardList
@@ -31,6 +32,17 @@ class AffiliatesResource:
             ),
         )
 
+    def get_rewards_overall_with_response(
+        self, *, accept_language: str | Unset = UNSET
+    ) -> ApiResponse[AffiliateStatsResponse]:
+        """Get affiliate earnings over time; include response metadata."""
+        return cast(
+            ApiResponse[AffiliateStatsResponse],
+            self._client._call_with_response(
+                _affiliates_rewards_overall_retrieve.sync_detailed, accept_language=accept_language
+            ),
+        )
+
     def list(
         self,
         *,
@@ -42,6 +54,24 @@ class AffiliatesResource:
         return cast(
             PaginatedAffiliateList,
             self._client._call(
+                _affiliates_list.sync_detailed,
+                limit=limit,
+                offset=offset,
+                accept_language=accept_language,
+            ),
+        )
+
+    def list_with_response(
+        self,
+        *,
+        limit: int | Unset = UNSET,
+        offset: int | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[PaginatedAffiliateList]:
+        """List referred customers; include response metadata."""
+        return cast(
+            ApiResponse[PaginatedAffiliateList],
+            self._client._call_with_response(
                 _affiliates_list.sync_detailed,
                 limit=limit,
                 offset=offset,
@@ -67,6 +97,24 @@ class AffiliatesResource:
             ),
         )
 
+    def list_rewards_with_response(
+        self,
+        *,
+        limit: int | Unset = UNSET,
+        offset: int | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[PaginatedAffiliateRewardList]:
+        """List affiliate reward entries; include response metadata."""
+        return cast(
+            ApiResponse[PaginatedAffiliateRewardList],
+            self._client._call_with_response(
+                _affiliates_rewards_list.sync_detailed,
+                limit=limit,
+                offset=offset,
+                accept_language=accept_language,
+            ),
+        )
+
 
 class AsyncAffiliatesResource:
     def __init__(self, client: Any) -> None:
@@ -79,6 +127,18 @@ class AsyncAffiliatesResource:
         return cast(
             AffiliateStatsResponse,
             await self._client._call(
+                _affiliates_rewards_overall_retrieve.asyncio_detailed,
+                accept_language=accept_language,
+            ),
+        )
+
+    async def get_rewards_overall_with_response(
+        self, *, accept_language: str | Unset = UNSET
+    ) -> ApiResponse[AffiliateStatsResponse]:
+        """Get affiliate earnings over time; include response metadata."""
+        return cast(
+            ApiResponse[AffiliateStatsResponse],
+            await self._client._call_with_response(
                 _affiliates_rewards_overall_retrieve.asyncio_detailed,
                 accept_language=accept_language,
             ),
@@ -102,6 +162,24 @@ class AsyncAffiliatesResource:
             ),
         )
 
+    async def list_with_response(
+        self,
+        *,
+        limit: int | Unset = UNSET,
+        offset: int | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[PaginatedAffiliateList]:
+        """List referred customers; include response metadata."""
+        return cast(
+            ApiResponse[PaginatedAffiliateList],
+            await self._client._call_with_response(
+                _affiliates_list.asyncio_detailed,
+                limit=limit,
+                offset=offset,
+                accept_language=accept_language,
+            ),
+        )
+
     async def list_rewards(
         self,
         *,
@@ -113,6 +191,24 @@ class AsyncAffiliatesResource:
         return cast(
             PaginatedAffiliateRewardList,
             await self._client._call(
+                _affiliates_rewards_list.asyncio_detailed,
+                limit=limit,
+                offset=offset,
+                accept_language=accept_language,
+            ),
+        )
+
+    async def list_rewards_with_response(
+        self,
+        *,
+        limit: int | Unset = UNSET,
+        offset: int | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[PaginatedAffiliateRewardList]:
+        """List affiliate reward entries; include response metadata."""
+        return cast(
+            ApiResponse[PaginatedAffiliateRewardList],
+            await self._client._call_with_response(
                 _affiliates_rewards_list.asyncio_detailed,
                 limit=limit,
                 offset=offset,

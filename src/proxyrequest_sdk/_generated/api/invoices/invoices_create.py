@@ -13,6 +13,7 @@ from ...models.invoice_create_request import InvoiceCreateRequest
 from ...models.invoices_create_response_400 import InvoicesCreateResponse400
 from ...models.invoices_create_response_401 import InvoicesCreateResponse401
 from ...models.invoices_create_response_403 import InvoicesCreateResponse403
+from ...models.invoices_create_response_409 import InvoicesCreateResponse409
 from ...types import UNSET, Unset
 from typing import cast
 
@@ -20,9 +21,13 @@ from typing import cast
 def _get_kwargs(
     *,
     body: InvoiceCreateRequest,
+    idempotency_key: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
+    if not isinstance(idempotency_key, Unset):
+        headers["Idempotency-Key"] = idempotency_key
+
     if not isinstance(accept_language, Unset):
         headers["Accept-Language"] = accept_language
 
@@ -46,6 +51,7 @@ def _parse_response(
     | InvoicesCreateResponse400
     | InvoicesCreateResponse401
     | InvoicesCreateResponse403
+    | InvoicesCreateResponse409
     | None
 ):
     if response.status_code == 201:
@@ -68,6 +74,11 @@ def _parse_response(
 
         return response_403
 
+    if response.status_code == 409:
+        response_409 = InvoicesCreateResponse409.from_dict(response.json())
+
+        return response_409
+
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     else:
@@ -77,7 +88,11 @@ def _parse_response(
 def _build_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
 ) -> Response[
-    Invoice | InvoicesCreateResponse400 | InvoicesCreateResponse401 | InvoicesCreateResponse403
+    Invoice
+    | InvoicesCreateResponse400
+    | InvoicesCreateResponse401
+    | InvoicesCreateResponse403
+    | InvoicesCreateResponse409
 ]:
     return Response(
         status_code=HTTPStatus(response.status_code),
@@ -91,9 +106,14 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
     body: InvoiceCreateRequest,
+    idempotency_key: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
 ) -> Response[
-    Invoice | InvoicesCreateResponse400 | InvoicesCreateResponse401 | InvoicesCreateResponse403
+    Invoice
+    | InvoicesCreateResponse400
+    | InvoicesCreateResponse401
+    | InvoicesCreateResponse403
+    | InvoicesCreateResponse409
 ]:
     """Create an invoice
 
@@ -101,6 +121,7 @@ def sync_detailed(
     when required.
 
     Args:
+        idempotency_key (str | Unset):
         accept_language (str | Unset):  Defaults to the client language.
         body (InvoiceCreateRequest):
 
@@ -109,11 +130,12 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Invoice | InvoicesCreateResponse400 | InvoicesCreateResponse401 | InvoicesCreateResponse403]
+        Response[Invoice | InvoicesCreateResponse400 | InvoicesCreateResponse401 | InvoicesCreateResponse403 | InvoicesCreateResponse409]
     """
 
     kwargs = _get_kwargs(
         body=body,
+        idempotency_key=idempotency_key,
         accept_language=accept_language,
     )
 
@@ -128,12 +150,14 @@ def sync(
     *,
     client: AuthenticatedClient,
     body: InvoiceCreateRequest,
+    idempotency_key: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
 ) -> (
     Invoice
     | InvoicesCreateResponse400
     | InvoicesCreateResponse401
     | InvoicesCreateResponse403
+    | InvoicesCreateResponse409
     | None
 ):
     """Create an invoice
@@ -142,6 +166,7 @@ def sync(
     when required.
 
     Args:
+        idempotency_key (str | Unset):
         accept_language (str | Unset):  Defaults to the client language.
         body (InvoiceCreateRequest):
 
@@ -150,12 +175,13 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Invoice | InvoicesCreateResponse400 | InvoicesCreateResponse401 | InvoicesCreateResponse403
+        Invoice | InvoicesCreateResponse400 | InvoicesCreateResponse401 | InvoicesCreateResponse403 | InvoicesCreateResponse409
     """
 
     return sync_detailed(
         client=client,
         body=body,
+        idempotency_key=idempotency_key,
         accept_language=accept_language,
     ).parsed
 
@@ -164,9 +190,14 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
     body: InvoiceCreateRequest,
+    idempotency_key: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
 ) -> Response[
-    Invoice | InvoicesCreateResponse400 | InvoicesCreateResponse401 | InvoicesCreateResponse403
+    Invoice
+    | InvoicesCreateResponse400
+    | InvoicesCreateResponse401
+    | InvoicesCreateResponse403
+    | InvoicesCreateResponse409
 ]:
     """Create an invoice
 
@@ -174,6 +205,7 @@ async def asyncio_detailed(
     when required.
 
     Args:
+        idempotency_key (str | Unset):
         accept_language (str | Unset):  Defaults to the client language.
         body (InvoiceCreateRequest):
 
@@ -182,11 +214,12 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Invoice | InvoicesCreateResponse400 | InvoicesCreateResponse401 | InvoicesCreateResponse403]
+        Response[Invoice | InvoicesCreateResponse400 | InvoicesCreateResponse401 | InvoicesCreateResponse403 | InvoicesCreateResponse409]
     """
 
     kwargs = _get_kwargs(
         body=body,
+        idempotency_key=idempotency_key,
         accept_language=accept_language,
     )
 
@@ -199,12 +232,14 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
     body: InvoiceCreateRequest,
+    idempotency_key: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
 ) -> (
     Invoice
     | InvoicesCreateResponse400
     | InvoicesCreateResponse401
     | InvoicesCreateResponse403
+    | InvoicesCreateResponse409
     | None
 ):
     """Create an invoice
@@ -213,6 +248,7 @@ async def asyncio(
     when required.
 
     Args:
+        idempotency_key (str | Unset):
         accept_language (str | Unset):  Defaults to the client language.
         body (InvoiceCreateRequest):
 
@@ -221,13 +257,14 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Invoice | InvoicesCreateResponse400 | InvoicesCreateResponse401 | InvoicesCreateResponse403
+        Invoice | InvoicesCreateResponse400 | InvoicesCreateResponse401 | InvoicesCreateResponse403 | InvoicesCreateResponse409
     """
 
     return (
         await asyncio_detailed(
             client=client,
             body=body,
+            idempotency_key=idempotency_key,
             accept_language=accept_language,
         )
     ).parsed

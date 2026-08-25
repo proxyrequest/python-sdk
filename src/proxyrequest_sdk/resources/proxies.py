@@ -4,6 +4,7 @@ from __future__ import annotations
 from typing import Any, cast
 
 from ..files import FileDownload
+from ..response import ApiResponse
 from .._generated.models.generate_proxy_request import GenerateProxyRequest
 from .._generated.models.generate_proxy_response import GenerateProxyResponse
 from .._generated.types import UNSET
@@ -26,6 +27,17 @@ class ProxiesResource:
             ),
         )
 
+    def generate_with_response(
+        self, *, body: GenerateProxyRequest, accept_language: str | Unset = UNSET
+    ) -> ApiResponse[GenerateProxyResponse]:
+        """Generate proxy credentials; include response metadata."""
+        return cast(
+            ApiResponse[GenerateProxyResponse],
+            self._client._call_with_response(
+                _proxies_generate_create.sync_detailed, body=body, accept_language=accept_language
+            ),
+        )
+
 
 class AsyncProxiesResource:
     def __init__(self, client: Any) -> None:
@@ -38,6 +50,19 @@ class AsyncProxiesResource:
         return cast(
             GenerateProxyResponse,
             await self._client._call(
+                _proxies_generate_create.asyncio_detailed,
+                body=body,
+                accept_language=accept_language,
+            ),
+        )
+
+    async def generate_with_response(
+        self, *, body: GenerateProxyRequest, accept_language: str | Unset = UNSET
+    ) -> ApiResponse[GenerateProxyResponse]:
+        """Generate proxy credentials; include response metadata."""
+        return cast(
+            ApiResponse[GenerateProxyResponse],
+            await self._client._call_with_response(
                 _proxies_generate_create.asyncio_detailed,
                 body=body,
                 accept_language=accept_language,

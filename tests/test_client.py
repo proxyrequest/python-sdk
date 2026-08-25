@@ -4,12 +4,19 @@ import json
 from collections.abc import Iterator
 from types import SimpleNamespace
 from typing import Any
+from uuid import UUID
 
 import httpx
 import pytest
 
 from proxyrequest_sdk import ApiError, AsyncClient, Client, ErrorKind, PaginationError
-from proxyrequest_sdk.models import TelegramSessionRequest, UserCreateRequest
+from proxyrequest_sdk.models import (
+    PatchedUserUpdateRequest,
+    TelegramSessionRequest,
+    UserCreateRequest,
+    WebhookCreateRequest,
+    WebhookScopeEnum,
+)
 
 BASE_URL = "https://api.proxyrequest.com/api/v1"
 
@@ -191,3 +198,166 @@ def test_paginate_is_lazy() -> None:
         assert not called
         list(iterator)
         assert called
+
+
+def test_default_idempotency_is_limited_to_supported_mutations() -> None:
+    requests: list[httpx.Request] = []
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        requests.append(request)
+        if request.url.path.endswith("/webhooks"):
+            return httpx.Response(
+                201,
+                json={"endpoint": "https://example.com/hook", "created": "2026-01-01T00:00:00Z"},
+            )
+        return httpx.Response(
+            201,
+            json={"title": "test", "key": "secret", "created": "2026-01-01T00:00:00Z"},
+        )
+
+    http_client = httpx.Client(base_url=BASE_URL, transport=httpx.MockTransport(handler))
+    client = Client.with_api_key("key", http_client=http_client)
+    client.webhooks.create(
+        body=WebhookCreateRequest(
+            type_=WebhookScopeEnum.USER,
+            endpoint="https://example.com/hook",
+        )
+    )
+    client.api_keys.create()
+
+    assert requests[0].headers["Idempotency-Key"]
+    assert "Idempotency-Key" not in requests[1].headers
+
+
+def test_ambiguous_retries_reuse_key_and_return_metadata(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr("proxyrequest_sdk.client.time.sleep", lambda _: None)
+    keys: list[str | None] = []
+    attempts = 0
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        nonlocal attempts
+        attempts += 1
+        keys.append(request.headers.get("Idempotency-Key"))
+        if attempts == 1:
+            raise httpx.ConnectError("connection reset", request=request)
+        if attempts == 2:
+            return httpx.Response(
+                409,
+                json={"detail": "Still in progress."},
+                headers={"Retry-After": "0"},
+            )
+        return httpx.Response(
+            201,
+            json={"endpoint": "https://example.com/hook", "created": "2026-01-01T00:00:00Z"},
+            headers={"ETag": '"webhook-v1"', "Idempotency-Replayed": "true"},
+        )
+
+    http_client = httpx.Client(base_url=BASE_URL, transport=httpx.MockTransport(handler))
+    client = Client.with_api_key("key", http_client=http_client)
+    response = client.webhooks.create_with_response(
+        body=WebhookCreateRequest(
+            type_=WebhookScopeEnum.USER,
+            endpoint="https://example.com/hook",
+        ),
+        idempotency_key="webhook-create-1",
+    )
+
+    assert keys == ["webhook-create-1"] * 3
+    assert response.status_code == 201
+    assert response.etag == '"webhook-v1"'
+    assert response.idempotency_replayed is True
+
+
+def test_idempotency_can_be_disabled_but_explicit_keys_are_preserved() -> None:
+    keys: list[str | None] = []
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        keys.append(request.headers.get("Idempotency-Key"))
+        return httpx.Response(
+            201,
+            json={"endpoint": "https://example.com/hook", "created": "2026-01-01T00:00:00Z"},
+        )
+
+    http_client = httpx.Client(base_url=BASE_URL, transport=httpx.MockTransport(handler))
+    client = Client.with_api_key("key", idempotency=False, http_client=http_client)
+    body = WebhookCreateRequest(
+        type_=WebhookScopeEnum.USER,
+        endpoint="https://example.com/hook",
+    )
+    client.webhooks.create(body=body)
+    client.webhooks.create(body=body, idempotency_key="manual-key")
+
+    assert keys == [None, "manual-key"]
+
+
+def test_idempotent_operations_do_not_retry_ordinary_server_errors() -> None:
+    attempts = 0
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        nonlocal attempts
+        attempts += 1
+        return httpx.Response(500, json={"detail": "Unavailable"})
+
+    http_client = httpx.Client(base_url=BASE_URL, transport=httpx.MockTransport(handler))
+    client = Client.with_api_key("key", http_client=http_client)
+    with pytest.raises(ApiError) as captured:
+        client.webhooks.create(
+            body=WebhookCreateRequest(
+                type_=WebhookScopeEnum.USER,
+                endpoint="https://example.com/hook",
+            ),
+            idempotency_key="webhook-no-retry",
+        )
+
+    assert attempts == 1
+    assert captured.value.kind is ErrorKind.SERVER
+    assert captured.value.idempotency_key == "webhook-no-retry"
+
+
+def test_if_match_and_precondition_error_metadata() -> None:
+    def handler(request: httpx.Request) -> httpx.Response:
+        assert request.headers["If-Match"] == '"user-v1"'
+        return httpx.Response(
+            412,
+            json={"detail": "The resource changed."},
+            headers={"ETag": '"user-v2"'},
+        )
+
+    http_client = httpx.Client(base_url=BASE_URL, transport=httpx.MockTransport(handler))
+    client = Client.with_api_key("key", http_client=http_client)
+    with pytest.raises(ApiError) as captured:
+        client.users.update(
+            UUID("00000000-0000-4000-8000-000000000001"),
+            body=PatchedUserUpdateRequest(first_name="Ada"),
+            if_match='"user-v1"',
+        )
+
+    assert captured.value.kind is ErrorKind.PRECONDITION
+    assert captured.value.current_etag == '"user-v2"'
+
+
+@pytest.mark.asyncio
+async def test_async_idempotency_retries_409_with_the_same_key() -> None:
+    keys: list[str | None] = []
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        keys.append(request.headers.get("Idempotency-Key"))
+        if len(keys) == 1:
+            return httpx.Response(409, json={"detail": "Busy"}, headers={"Retry-After": "0"})
+        return httpx.Response(
+            201,
+            json={"endpoint": "https://example.com/hook", "created": "2026-01-01T00:00:00Z"},
+        )
+
+    http_client = httpx.AsyncClient(base_url=BASE_URL, transport=httpx.MockTransport(handler))
+    client = AsyncClient.with_api_key("key", http_client=http_client)
+    await client.webhooks.create(
+        body=WebhookCreateRequest(
+            type_=WebhookScopeEnum.USER,
+            endpoint="https://example.com/hook",
+        ),
+        idempotency_key="async-key",
+    )
+    await http_client.aclose()
+
+    assert keys == ["async-key", "async-key"]

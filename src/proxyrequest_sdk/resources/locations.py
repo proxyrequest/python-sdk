@@ -4,6 +4,7 @@ from __future__ import annotations
 from typing import Any, cast
 
 from ..files import FileDownload
+from ..response import ApiResponse
 from .._generated.models.city import City
 from .._generated.models.continent import Continent
 from .._generated.models.country import Country
@@ -44,11 +45,33 @@ class LocationsResource:
             ),
         )
 
+    def get_city_with_response(
+        self, id: str, *, accept_language: str | Unset = UNSET
+    ) -> ApiResponse[City]:
+        """Get a city; include response metadata."""
+        return cast(
+            ApiResponse[City],
+            self._client._call_with_response(
+                _locations_cities_retrieve.sync_detailed, id=id, accept_language=accept_language
+            ),
+        )
+
     def get_continent(self, id: str, *, accept_language: str | Unset = UNSET) -> Continent:
         """Get a continent"""
         return cast(
             Continent,
             self._client._call(
+                _locations_continents_retrieve.sync_detailed, id=id, accept_language=accept_language
+            ),
+        )
+
+    def get_continent_with_response(
+        self, id: str, *, accept_language: str | Unset = UNSET
+    ) -> ApiResponse[Continent]:
+        """Get a continent; include response metadata."""
+        return cast(
+            ApiResponse[Continent],
+            self._client._call_with_response(
                 _locations_continents_retrieve.sync_detailed, id=id, accept_language=accept_language
             ),
         )
@@ -62,11 +85,33 @@ class LocationsResource:
             ),
         )
 
+    def get_country_with_response(
+        self, id: str, *, accept_language: str | Unset = UNSET
+    ) -> ApiResponse[Country]:
+        """Get a country; include response metadata."""
+        return cast(
+            ApiResponse[Country],
+            self._client._call_with_response(
+                _locations_countries_retrieve.sync_detailed, id=id, accept_language=accept_language
+            ),
+        )
+
     def get_region(self, id: str, *, accept_language: str | Unset = UNSET) -> Region:
         """Get a region"""
         return cast(
             Region,
             self._client._call(
+                _locations_regions_retrieve.sync_detailed, id=id, accept_language=accept_language
+            ),
+        )
+
+    def get_region_with_response(
+        self, id: str, *, accept_language: str | Unset = UNSET
+    ) -> ApiResponse[Region]:
+        """Get a region; include response metadata."""
+        return cast(
+            ApiResponse[Region],
+            self._client._call_with_response(
                 _locations_regions_retrieve.sync_detailed, id=id, accept_language=accept_language
             ),
         )
@@ -89,6 +134,38 @@ class LocationsResource:
         return cast(
             PaginatedLocationASNRecordList,
             self._client._call(
+                _locations_asn_list.sync_detailed,
+                code=code,
+                country_code=country_code,
+                global_=global_,
+                limit=limit,
+                name=name,
+                offset=offset,
+                ordering=ordering,
+                package_id=package_id,
+                search=search,
+                accept_language=accept_language,
+            ),
+        )
+
+    def list_asns_with_response(
+        self,
+        *,
+        code: str | Unset = UNSET,
+        country_code: str | Unset = UNSET,
+        global_: bool | Unset = UNSET,
+        limit: int | Unset = UNSET,
+        name: str | Unset = UNSET,
+        offset: int | Unset = UNSET,
+        ordering: str | Unset = UNSET,
+        package_id: UUID | Unset = UNSET,
+        search: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[PaginatedLocationASNRecordList]:
+        """List available autonomous systems; include response metadata."""
+        return cast(
+            ApiResponse[PaginatedLocationASNRecordList],
+            self._client._call_with_response(
                 _locations_asn_list.sync_detailed,
                 code=code,
                 country_code=country_code,
@@ -135,6 +212,38 @@ class LocationsResource:
             ),
         )
 
+    def list_cities_with_response(
+        self,
+        *,
+        code: str | Unset = UNSET,
+        country_code: str | Unset = UNSET,
+        limit: int | Unset = UNSET,
+        name: str | Unset = UNSET,
+        offset: int | Unset = UNSET,
+        ordering: str | Unset = UNSET,
+        package_id: UUID | Unset = UNSET,
+        region_code: str | Unset = UNSET,
+        search: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[PaginatedCityList]:
+        """List available cities; include response metadata."""
+        return cast(
+            ApiResponse[PaginatedCityList],
+            self._client._call_with_response(
+                _locations_cities_list.sync_detailed,
+                code=code,
+                country_code=country_code,
+                limit=limit,
+                name=name,
+                offset=offset,
+                ordering=ordering,
+                package_id=package_id,
+                region_code=region_code,
+                search=search,
+                accept_language=accept_language,
+            ),
+        )
+
     def list_continents(
         self,
         *,
@@ -151,6 +260,34 @@ class LocationsResource:
         return cast(
             PaginatedContinentList,
             self._client._call(
+                _locations_continents_list.sync_detailed,
+                code=code,
+                limit=limit,
+                name=name,
+                offset=offset,
+                ordering=ordering,
+                package_id=package_id,
+                search=search,
+                accept_language=accept_language,
+            ),
+        )
+
+    def list_continents_with_response(
+        self,
+        *,
+        code: str | Unset = UNSET,
+        limit: int | Unset = UNSET,
+        name: str | Unset = UNSET,
+        offset: int | Unset = UNSET,
+        ordering: str | Unset = UNSET,
+        package_id: UUID | Unset = UNSET,
+        search: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[PaginatedContinentList]:
+        """List available continents; include response metadata."""
+        return cast(
+            ApiResponse[PaginatedContinentList],
+            self._client._call_with_response(
                 _locations_continents_list.sync_detailed,
                 code=code,
                 limit=limit,
@@ -191,6 +328,34 @@ class LocationsResource:
             ),
         )
 
+    def list_countries_with_response(
+        self,
+        *,
+        code: str | Unset = UNSET,
+        limit: int | Unset = UNSET,
+        name: str | Unset = UNSET,
+        offset: int | Unset = UNSET,
+        ordering: str | Unset = UNSET,
+        package_id: UUID | Unset = UNSET,
+        search: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[PaginatedCountryList]:
+        """List available countries; include response metadata."""
+        return cast(
+            ApiResponse[PaginatedCountryList],
+            self._client._call_with_response(
+                _locations_countries_list.sync_detailed,
+                code=code,
+                limit=limit,
+                name=name,
+                offset=offset,
+                ordering=ordering,
+                package_id=package_id,
+                search=search,
+                accept_language=accept_language,
+            ),
+        )
+
     def list_isps(
         self,
         *,
@@ -208,6 +373,36 @@ class LocationsResource:
         return cast(
             PaginatedISPList,
             self._client._call(
+                _locations_isps_list.sync_detailed,
+                code=code,
+                country_code=country_code,
+                limit=limit,
+                name=name,
+                offset=offset,
+                ordering=ordering,
+                package_id=package_id,
+                search=search,
+                accept_language=accept_language,
+            ),
+        )
+
+    def list_isps_with_response(
+        self,
+        *,
+        code: str | Unset = UNSET,
+        country_code: str | Unset = UNSET,
+        limit: int | Unset = UNSET,
+        name: str | Unset = UNSET,
+        offset: int | Unset = UNSET,
+        ordering: str | Unset = UNSET,
+        package_id: UUID | Unset = UNSET,
+        search: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[PaginatedISPList]:
+        """List available internet service providers; include response metadata."""
+        return cast(
+            ApiResponse[PaginatedISPList],
+            self._client._call_with_response(
                 _locations_isps_list.sync_detailed,
                 code=code,
                 country_code=country_code,
@@ -251,6 +446,36 @@ class LocationsResource:
             ),
         )
 
+    def list_regions_with_response(
+        self,
+        *,
+        code: str | Unset = UNSET,
+        country_code: str | Unset = UNSET,
+        limit: int | Unset = UNSET,
+        name: str | Unset = UNSET,
+        offset: int | Unset = UNSET,
+        ordering: str | Unset = UNSET,
+        package_id: UUID | Unset = UNSET,
+        search: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[PaginatedRegionList]:
+        """List available regions; include response metadata."""
+        return cast(
+            ApiResponse[PaginatedRegionList],
+            self._client._call_with_response(
+                _locations_regions_list.sync_detailed,
+                code=code,
+                country_code=country_code,
+                limit=limit,
+                name=name,
+                offset=offset,
+                ordering=ordering,
+                package_id=package_id,
+                search=search,
+                accept_language=accept_language,
+            ),
+        )
+
 
 class AsyncLocationsResource:
     def __init__(self, client: Any) -> None:
@@ -265,11 +490,35 @@ class AsyncLocationsResource:
             ),
         )
 
+    async def get_city_with_response(
+        self, id: str, *, accept_language: str | Unset = UNSET
+    ) -> ApiResponse[City]:
+        """Get a city; include response metadata."""
+        return cast(
+            ApiResponse[City],
+            await self._client._call_with_response(
+                _locations_cities_retrieve.asyncio_detailed, id=id, accept_language=accept_language
+            ),
+        )
+
     async def get_continent(self, id: str, *, accept_language: str | Unset = UNSET) -> Continent:
         """Get a continent"""
         return cast(
             Continent,
             await self._client._call(
+                _locations_continents_retrieve.asyncio_detailed,
+                id=id,
+                accept_language=accept_language,
+            ),
+        )
+
+    async def get_continent_with_response(
+        self, id: str, *, accept_language: str | Unset = UNSET
+    ) -> ApiResponse[Continent]:
+        """Get a continent; include response metadata."""
+        return cast(
+            ApiResponse[Continent],
+            await self._client._call_with_response(
                 _locations_continents_retrieve.asyncio_detailed,
                 id=id,
                 accept_language=accept_language,
@@ -287,11 +536,35 @@ class AsyncLocationsResource:
             ),
         )
 
+    async def get_country_with_response(
+        self, id: str, *, accept_language: str | Unset = UNSET
+    ) -> ApiResponse[Country]:
+        """Get a country; include response metadata."""
+        return cast(
+            ApiResponse[Country],
+            await self._client._call_with_response(
+                _locations_countries_retrieve.asyncio_detailed,
+                id=id,
+                accept_language=accept_language,
+            ),
+        )
+
     async def get_region(self, id: str, *, accept_language: str | Unset = UNSET) -> Region:
         """Get a region"""
         return cast(
             Region,
             await self._client._call(
+                _locations_regions_retrieve.asyncio_detailed, id=id, accept_language=accept_language
+            ),
+        )
+
+    async def get_region_with_response(
+        self, id: str, *, accept_language: str | Unset = UNSET
+    ) -> ApiResponse[Region]:
+        """Get a region; include response metadata."""
+        return cast(
+            ApiResponse[Region],
+            await self._client._call_with_response(
                 _locations_regions_retrieve.asyncio_detailed, id=id, accept_language=accept_language
             ),
         )
@@ -314,6 +587,38 @@ class AsyncLocationsResource:
         return cast(
             PaginatedLocationASNRecordList,
             await self._client._call(
+                _locations_asn_list.asyncio_detailed,
+                code=code,
+                country_code=country_code,
+                global_=global_,
+                limit=limit,
+                name=name,
+                offset=offset,
+                ordering=ordering,
+                package_id=package_id,
+                search=search,
+                accept_language=accept_language,
+            ),
+        )
+
+    async def list_asns_with_response(
+        self,
+        *,
+        code: str | Unset = UNSET,
+        country_code: str | Unset = UNSET,
+        global_: bool | Unset = UNSET,
+        limit: int | Unset = UNSET,
+        name: str | Unset = UNSET,
+        offset: int | Unset = UNSET,
+        ordering: str | Unset = UNSET,
+        package_id: UUID | Unset = UNSET,
+        search: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[PaginatedLocationASNRecordList]:
+        """List available autonomous systems; include response metadata."""
+        return cast(
+            ApiResponse[PaginatedLocationASNRecordList],
+            await self._client._call_with_response(
                 _locations_asn_list.asyncio_detailed,
                 code=code,
                 country_code=country_code,
@@ -360,6 +665,38 @@ class AsyncLocationsResource:
             ),
         )
 
+    async def list_cities_with_response(
+        self,
+        *,
+        code: str | Unset = UNSET,
+        country_code: str | Unset = UNSET,
+        limit: int | Unset = UNSET,
+        name: str | Unset = UNSET,
+        offset: int | Unset = UNSET,
+        ordering: str | Unset = UNSET,
+        package_id: UUID | Unset = UNSET,
+        region_code: str | Unset = UNSET,
+        search: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[PaginatedCityList]:
+        """List available cities; include response metadata."""
+        return cast(
+            ApiResponse[PaginatedCityList],
+            await self._client._call_with_response(
+                _locations_cities_list.asyncio_detailed,
+                code=code,
+                country_code=country_code,
+                limit=limit,
+                name=name,
+                offset=offset,
+                ordering=ordering,
+                package_id=package_id,
+                region_code=region_code,
+                search=search,
+                accept_language=accept_language,
+            ),
+        )
+
     async def list_continents(
         self,
         *,
@@ -388,6 +725,34 @@ class AsyncLocationsResource:
             ),
         )
 
+    async def list_continents_with_response(
+        self,
+        *,
+        code: str | Unset = UNSET,
+        limit: int | Unset = UNSET,
+        name: str | Unset = UNSET,
+        offset: int | Unset = UNSET,
+        ordering: str | Unset = UNSET,
+        package_id: UUID | Unset = UNSET,
+        search: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[PaginatedContinentList]:
+        """List available continents; include response metadata."""
+        return cast(
+            ApiResponse[PaginatedContinentList],
+            await self._client._call_with_response(
+                _locations_continents_list.asyncio_detailed,
+                code=code,
+                limit=limit,
+                name=name,
+                offset=offset,
+                ordering=ordering,
+                package_id=package_id,
+                search=search,
+                accept_language=accept_language,
+            ),
+        )
+
     async def list_countries(
         self,
         *,
@@ -404,6 +769,34 @@ class AsyncLocationsResource:
         return cast(
             PaginatedCountryList,
             await self._client._call(
+                _locations_countries_list.asyncio_detailed,
+                code=code,
+                limit=limit,
+                name=name,
+                offset=offset,
+                ordering=ordering,
+                package_id=package_id,
+                search=search,
+                accept_language=accept_language,
+            ),
+        )
+
+    async def list_countries_with_response(
+        self,
+        *,
+        code: str | Unset = UNSET,
+        limit: int | Unset = UNSET,
+        name: str | Unset = UNSET,
+        offset: int | Unset = UNSET,
+        ordering: str | Unset = UNSET,
+        package_id: UUID | Unset = UNSET,
+        search: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[PaginatedCountryList]:
+        """List available countries; include response metadata."""
+        return cast(
+            ApiResponse[PaginatedCountryList],
+            await self._client._call_with_response(
                 _locations_countries_list.asyncio_detailed,
                 code=code,
                 limit=limit,
@@ -446,6 +839,36 @@ class AsyncLocationsResource:
             ),
         )
 
+    async def list_isps_with_response(
+        self,
+        *,
+        code: str | Unset = UNSET,
+        country_code: str | Unset = UNSET,
+        limit: int | Unset = UNSET,
+        name: str | Unset = UNSET,
+        offset: int | Unset = UNSET,
+        ordering: str | Unset = UNSET,
+        package_id: UUID | Unset = UNSET,
+        search: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[PaginatedISPList]:
+        """List available internet service providers; include response metadata."""
+        return cast(
+            ApiResponse[PaginatedISPList],
+            await self._client._call_with_response(
+                _locations_isps_list.asyncio_detailed,
+                code=code,
+                country_code=country_code,
+                limit=limit,
+                name=name,
+                offset=offset,
+                ordering=ordering,
+                package_id=package_id,
+                search=search,
+                accept_language=accept_language,
+            ),
+        )
+
     async def list_regions(
         self,
         *,
@@ -463,6 +886,36 @@ class AsyncLocationsResource:
         return cast(
             PaginatedRegionList,
             await self._client._call(
+                _locations_regions_list.asyncio_detailed,
+                code=code,
+                country_code=country_code,
+                limit=limit,
+                name=name,
+                offset=offset,
+                ordering=ordering,
+                package_id=package_id,
+                search=search,
+                accept_language=accept_language,
+            ),
+        )
+
+    async def list_regions_with_response(
+        self,
+        *,
+        code: str | Unset = UNSET,
+        country_code: str | Unset = UNSET,
+        limit: int | Unset = UNSET,
+        name: str | Unset = UNSET,
+        offset: int | Unset = UNSET,
+        ordering: str | Unset = UNSET,
+        package_id: UUID | Unset = UNSET,
+        search: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[PaginatedRegionList]:
+        """List available regions; include response metadata."""
+        return cast(
+            ApiResponse[PaginatedRegionList],
+            await self._client._call_with_response(
                 _locations_regions_list.asyncio_detailed,
                 code=code,
                 country_code=country_code,

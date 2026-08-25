@@ -59,10 +59,22 @@ def test_every_operation_has_typed_sync_and_async_facades() -> None:
             method_name = mapping["operations"][operation["operationId"]]
             sync_method = getattr(sync_class, method_name)
             async_method = getattr(async_class, method_name)
+            sync_response_method = getattr(sync_class, f"{method_name}_with_response")
+            async_response_method = getattr(async_class, f"{method_name}_with_response")
             assert not inspect.iscoroutinefunction(sync_method)
             assert inspect.iscoroutinefunction(async_method)
+            assert not inspect.iscoroutinefunction(sync_response_method)
+            assert inspect.iscoroutinefunction(async_response_method)
             assert inspect.signature(sync_method).return_annotation is not inspect.Signature.empty
             assert inspect.signature(async_method).return_annotation is not inspect.Signature.empty
+            assert (
+                inspect.signature(sync_response_method).return_annotation
+                is not inspect.Signature.empty
+            )
+            assert (
+                inspect.signature(async_response_method).return_annotation
+                is not inspect.Signature.empty
+            )
             checked += 1
     assert checked == 82
 

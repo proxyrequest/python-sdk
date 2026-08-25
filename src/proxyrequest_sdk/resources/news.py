@@ -4,6 +4,7 @@ from __future__ import annotations
 from typing import Any, cast
 
 from ..files import FileDownload
+from ..response import ApiResponse
 from .._generated.models.paginated_news_list import PaginatedNewsList
 from .._generated.types import UNSET
 from .._generated.types import Unset
@@ -36,6 +37,28 @@ class NewsResource:
             ),
         )
 
+    def list_with_response(
+        self,
+        *,
+        limit: int | Unset = UNSET,
+        offset: int | Unset = UNSET,
+        ordering: str | Unset = UNSET,
+        search: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[PaginatedNewsList]:
+        """List product announcements; include response metadata."""
+        return cast(
+            ApiResponse[PaginatedNewsList],
+            self._client._call_with_response(
+                _news_list.sync_detailed,
+                limit=limit,
+                offset=offset,
+                ordering=ordering,
+                search=search,
+                accept_language=accept_language,
+            ),
+        )
+
 
 class AsyncNewsResource:
     def __init__(self, client: Any) -> None:
@@ -54,6 +77,28 @@ class AsyncNewsResource:
         return cast(
             PaginatedNewsList,
             await self._client._call(
+                _news_list.asyncio_detailed,
+                limit=limit,
+                offset=offset,
+                ordering=ordering,
+                search=search,
+                accept_language=accept_language,
+            ),
+        )
+
+    async def list_with_response(
+        self,
+        *,
+        limit: int | Unset = UNSET,
+        offset: int | Unset = UNSET,
+        ordering: str | Unset = UNSET,
+        search: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[PaginatedNewsList]:
+        """List product announcements; include response metadata."""
+        return cast(
+            ApiResponse[PaginatedNewsList],
+            await self._client._call_with_response(
                 _news_list.asyncio_detailed,
                 limit=limit,
                 offset=offset,

@@ -12,6 +12,8 @@ from ...models.orders_destroy_response_400 import OrdersDestroyResponse400
 from ...models.orders_destroy_response_401 import OrdersDestroyResponse401
 from ...models.orders_destroy_response_403 import OrdersDestroyResponse403
 from ...models.orders_destroy_response_404 import OrdersDestroyResponse404
+from ...models.orders_destroy_response_409 import OrdersDestroyResponse409
+from ...models.orders_destroy_response_412 import OrdersDestroyResponse412
 from ...types import UNSET, Unset
 from typing import cast
 
@@ -19,9 +21,17 @@ from typing import cast
 def _get_kwargs(
     id: str,
     *,
+    idempotency_key: str | Unset = UNSET,
+    if_match: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
+    if not isinstance(idempotency_key, Unset):
+        headers["Idempotency-Key"] = idempotency_key
+
+    if not isinstance(if_match, Unset):
+        headers["If-Match"] = if_match
+
     if not isinstance(accept_language, Unset):
         headers["Accept-Language"] = accept_language
 
@@ -44,6 +54,8 @@ def _parse_response(
     | OrdersDestroyResponse401
     | OrdersDestroyResponse403
     | OrdersDestroyResponse404
+    | OrdersDestroyResponse409
+    | OrdersDestroyResponse412
     | None
 ):
     if response.status_code == 204:
@@ -70,6 +82,16 @@ def _parse_response(
 
         return response_404
 
+    if response.status_code == 409:
+        response_409 = OrdersDestroyResponse409.from_dict(response.json())
+
+        return response_409
+
+    if response.status_code == 412:
+        response_412 = OrdersDestroyResponse412.from_dict(response.json())
+
+        return response_412
+
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     else:
@@ -84,6 +106,8 @@ def _build_response(
     | OrdersDestroyResponse401
     | OrdersDestroyResponse403
     | OrdersDestroyResponse404
+    | OrdersDestroyResponse409
+    | OrdersDestroyResponse412
 ]:
     return Response(
         status_code=HTTPStatus(response.status_code),
@@ -97,6 +121,8 @@ def sync_detailed(
     id: str,
     *,
     client: AuthenticatedClient,
+    idempotency_key: str | Unset = UNSET,
+    if_match: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
 ) -> Response[
     Any
@@ -104,6 +130,8 @@ def sync_detailed(
     | OrdersDestroyResponse401
     | OrdersDestroyResponse403
     | OrdersDestroyResponse404
+    | OrdersDestroyResponse409
+    | OrdersDestroyResponse412
 ]:
     """Delete a sub-user order
 
@@ -112,6 +140,8 @@ def sync_detailed(
 
     Args:
         id (str):
+        idempotency_key (str | Unset):
+        if_match (str | Unset):
         accept_language (str | Unset):  Defaults to the client language.
 
     Raises:
@@ -119,11 +149,13 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Any | OrdersDestroyResponse400 | OrdersDestroyResponse401 | OrdersDestroyResponse403 | OrdersDestroyResponse404]
+        Response[Any | OrdersDestroyResponse400 | OrdersDestroyResponse401 | OrdersDestroyResponse403 | OrdersDestroyResponse404 | OrdersDestroyResponse409 | OrdersDestroyResponse412]
     """
 
     kwargs = _get_kwargs(
         id=id,
+        idempotency_key=idempotency_key,
+        if_match=if_match,
         accept_language=accept_language,
     )
 
@@ -138,6 +170,8 @@ def sync(
     id: str,
     *,
     client: AuthenticatedClient,
+    idempotency_key: str | Unset = UNSET,
+    if_match: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
 ) -> (
     Any
@@ -145,6 +179,8 @@ def sync(
     | OrdersDestroyResponse401
     | OrdersDestroyResponse403
     | OrdersDestroyResponse404
+    | OrdersDestroyResponse409
+    | OrdersDestroyResponse412
     | None
 ):
     """Delete a sub-user order
@@ -154,6 +190,8 @@ def sync(
 
     Args:
         id (str):
+        idempotency_key (str | Unset):
+        if_match (str | Unset):
         accept_language (str | Unset):  Defaults to the client language.
 
     Raises:
@@ -161,12 +199,14 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Any | OrdersDestroyResponse400 | OrdersDestroyResponse401 | OrdersDestroyResponse403 | OrdersDestroyResponse404
+        Any | OrdersDestroyResponse400 | OrdersDestroyResponse401 | OrdersDestroyResponse403 | OrdersDestroyResponse404 | OrdersDestroyResponse409 | OrdersDestroyResponse412
     """
 
     return sync_detailed(
         id=id,
         client=client,
+        idempotency_key=idempotency_key,
+        if_match=if_match,
         accept_language=accept_language,
     ).parsed
 
@@ -175,6 +215,8 @@ async def asyncio_detailed(
     id: str,
     *,
     client: AuthenticatedClient,
+    idempotency_key: str | Unset = UNSET,
+    if_match: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
 ) -> Response[
     Any
@@ -182,6 +224,8 @@ async def asyncio_detailed(
     | OrdersDestroyResponse401
     | OrdersDestroyResponse403
     | OrdersDestroyResponse404
+    | OrdersDestroyResponse409
+    | OrdersDestroyResponse412
 ]:
     """Delete a sub-user order
 
@@ -190,6 +234,8 @@ async def asyncio_detailed(
 
     Args:
         id (str):
+        idempotency_key (str | Unset):
+        if_match (str | Unset):
         accept_language (str | Unset):  Defaults to the client language.
 
     Raises:
@@ -197,11 +243,13 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Any | OrdersDestroyResponse400 | OrdersDestroyResponse401 | OrdersDestroyResponse403 | OrdersDestroyResponse404]
+        Response[Any | OrdersDestroyResponse400 | OrdersDestroyResponse401 | OrdersDestroyResponse403 | OrdersDestroyResponse404 | OrdersDestroyResponse409 | OrdersDestroyResponse412]
     """
 
     kwargs = _get_kwargs(
         id=id,
+        idempotency_key=idempotency_key,
+        if_match=if_match,
         accept_language=accept_language,
     )
 
@@ -214,6 +262,8 @@ async def asyncio(
     id: str,
     *,
     client: AuthenticatedClient,
+    idempotency_key: str | Unset = UNSET,
+    if_match: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
 ) -> (
     Any
@@ -221,6 +271,8 @@ async def asyncio(
     | OrdersDestroyResponse401
     | OrdersDestroyResponse403
     | OrdersDestroyResponse404
+    | OrdersDestroyResponse409
+    | OrdersDestroyResponse412
     | None
 ):
     """Delete a sub-user order
@@ -230,6 +282,8 @@ async def asyncio(
 
     Args:
         id (str):
+        idempotency_key (str | Unset):
+        if_match (str | Unset):
         accept_language (str | Unset):  Defaults to the client language.
 
     Raises:
@@ -237,13 +291,15 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Any | OrdersDestroyResponse400 | OrdersDestroyResponse401 | OrdersDestroyResponse403 | OrdersDestroyResponse404
+        Any | OrdersDestroyResponse400 | OrdersDestroyResponse401 | OrdersDestroyResponse403 | OrdersDestroyResponse404 | OrdersDestroyResponse409 | OrdersDestroyResponse412
     """
 
     return (
         await asyncio_detailed(
             id=id,
             client=client,
+            idempotency_key=idempotency_key,
+            if_match=if_match,
             accept_language=accept_language,
         )
     ).parsed

@@ -13,6 +13,7 @@ from ...models.coupons_partial_update_response_400 import CouponsPartialUpdateRe
 from ...models.coupons_partial_update_response_401 import CouponsPartialUpdateResponse401
 from ...models.coupons_partial_update_response_403 import CouponsPartialUpdateResponse403
 from ...models.coupons_partial_update_response_404 import CouponsPartialUpdateResponse404
+from ...models.coupons_partial_update_response_412 import CouponsPartialUpdateResponse412
 from ...models.patched_coupon_update_request import PatchedCouponUpdateRequest
 from ...types import UNSET, Unset
 from typing import cast
@@ -22,9 +23,13 @@ def _get_kwargs(
     id: str,
     *,
     body: PatchedCouponUpdateRequest | Unset = UNSET,
+    if_match: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
+    if not isinstance(if_match, Unset):
+        headers["If-Match"] = if_match
+
     if not isinstance(accept_language, Unset):
         headers["Accept-Language"] = accept_language
 
@@ -52,6 +57,7 @@ def _parse_response(
     | CouponsPartialUpdateResponse401
     | CouponsPartialUpdateResponse403
     | CouponsPartialUpdateResponse404
+    | CouponsPartialUpdateResponse412
     | None
 ):
     if response.status_code == 200:
@@ -79,6 +85,11 @@ def _parse_response(
 
         return response_404
 
+    if response.status_code == 412:
+        response_412 = CouponsPartialUpdateResponse412.from_dict(response.json())
+
+        return response_412
+
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     else:
@@ -93,6 +104,7 @@ def _build_response(
     | CouponsPartialUpdateResponse401
     | CouponsPartialUpdateResponse403
     | CouponsPartialUpdateResponse404
+    | CouponsPartialUpdateResponse412
 ]:
     return Response(
         status_code=HTTPStatus(response.status_code),
@@ -107,6 +119,7 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
     body: PatchedCouponUpdateRequest | Unset = UNSET,
+    if_match: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
 ) -> Response[
     Coupon
@@ -114,6 +127,7 @@ def sync_detailed(
     | CouponsPartialUpdateResponse401
     | CouponsPartialUpdateResponse403
     | CouponsPartialUpdateResponse404
+    | CouponsPartialUpdateResponse412
 ]:
     """Update a coupon
 
@@ -121,6 +135,7 @@ def sync_detailed(
 
     Args:
         id (str):
+        if_match (str | Unset):
         accept_language (str | Unset):  Defaults to the client language.
         body (PatchedCouponUpdateRequest | Unset):
 
@@ -129,12 +144,13 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Coupon | CouponsPartialUpdateResponse400 | CouponsPartialUpdateResponse401 | CouponsPartialUpdateResponse403 | CouponsPartialUpdateResponse404]
+        Response[Coupon | CouponsPartialUpdateResponse400 | CouponsPartialUpdateResponse401 | CouponsPartialUpdateResponse403 | CouponsPartialUpdateResponse404 | CouponsPartialUpdateResponse412]
     """
 
     kwargs = _get_kwargs(
         id=id,
         body=body,
+        if_match=if_match,
         accept_language=accept_language,
     )
 
@@ -150,6 +166,7 @@ def sync(
     *,
     client: AuthenticatedClient,
     body: PatchedCouponUpdateRequest | Unset = UNSET,
+    if_match: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
 ) -> (
     Coupon
@@ -157,6 +174,7 @@ def sync(
     | CouponsPartialUpdateResponse401
     | CouponsPartialUpdateResponse403
     | CouponsPartialUpdateResponse404
+    | CouponsPartialUpdateResponse412
     | None
 ):
     """Update a coupon
@@ -165,6 +183,7 @@ def sync(
 
     Args:
         id (str):
+        if_match (str | Unset):
         accept_language (str | Unset):  Defaults to the client language.
         body (PatchedCouponUpdateRequest | Unset):
 
@@ -173,13 +192,14 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Coupon | CouponsPartialUpdateResponse400 | CouponsPartialUpdateResponse401 | CouponsPartialUpdateResponse403 | CouponsPartialUpdateResponse404
+        Coupon | CouponsPartialUpdateResponse400 | CouponsPartialUpdateResponse401 | CouponsPartialUpdateResponse403 | CouponsPartialUpdateResponse404 | CouponsPartialUpdateResponse412
     """
 
     return sync_detailed(
         id=id,
         client=client,
         body=body,
+        if_match=if_match,
         accept_language=accept_language,
     ).parsed
 
@@ -189,6 +209,7 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
     body: PatchedCouponUpdateRequest | Unset = UNSET,
+    if_match: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
 ) -> Response[
     Coupon
@@ -196,6 +217,7 @@ async def asyncio_detailed(
     | CouponsPartialUpdateResponse401
     | CouponsPartialUpdateResponse403
     | CouponsPartialUpdateResponse404
+    | CouponsPartialUpdateResponse412
 ]:
     """Update a coupon
 
@@ -203,6 +225,7 @@ async def asyncio_detailed(
 
     Args:
         id (str):
+        if_match (str | Unset):
         accept_language (str | Unset):  Defaults to the client language.
         body (PatchedCouponUpdateRequest | Unset):
 
@@ -211,12 +234,13 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Coupon | CouponsPartialUpdateResponse400 | CouponsPartialUpdateResponse401 | CouponsPartialUpdateResponse403 | CouponsPartialUpdateResponse404]
+        Response[Coupon | CouponsPartialUpdateResponse400 | CouponsPartialUpdateResponse401 | CouponsPartialUpdateResponse403 | CouponsPartialUpdateResponse404 | CouponsPartialUpdateResponse412]
     """
 
     kwargs = _get_kwargs(
         id=id,
         body=body,
+        if_match=if_match,
         accept_language=accept_language,
     )
 
@@ -230,6 +254,7 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
     body: PatchedCouponUpdateRequest | Unset = UNSET,
+    if_match: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
 ) -> (
     Coupon
@@ -237,6 +262,7 @@ async def asyncio(
     | CouponsPartialUpdateResponse401
     | CouponsPartialUpdateResponse403
     | CouponsPartialUpdateResponse404
+    | CouponsPartialUpdateResponse412
     | None
 ):
     """Update a coupon
@@ -245,6 +271,7 @@ async def asyncio(
 
     Args:
         id (str):
+        if_match (str | Unset):
         accept_language (str | Unset):  Defaults to the client language.
         body (PatchedCouponUpdateRequest | Unset):
 
@@ -253,7 +280,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Coupon | CouponsPartialUpdateResponse400 | CouponsPartialUpdateResponse401 | CouponsPartialUpdateResponse403 | CouponsPartialUpdateResponse404
+        Coupon | CouponsPartialUpdateResponse400 | CouponsPartialUpdateResponse401 | CouponsPartialUpdateResponse403 | CouponsPartialUpdateResponse404 | CouponsPartialUpdateResponse412
     """
 
     return (
@@ -261,6 +288,7 @@ async def asyncio(
             id=id,
             client=client,
             body=body,
+            if_match=if_match,
             accept_language=accept_language,
         )
     ).parsed

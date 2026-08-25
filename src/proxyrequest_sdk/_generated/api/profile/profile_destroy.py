@@ -11,15 +11,20 @@ from ... import errors
 from ...models.profile_destroy_response_400 import ProfileDestroyResponse400
 from ...models.profile_destroy_response_401 import ProfileDestroyResponse401
 from ...models.profile_destroy_response_403 import ProfileDestroyResponse403
+from ...models.profile_destroy_response_412 import ProfileDestroyResponse412
 from ...types import UNSET, Unset
 from typing import cast
 
 
 def _get_kwargs(
     *,
+    if_match: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
+    if not isinstance(if_match, Unset):
+        headers["If-Match"] = if_match
+
     if not isinstance(accept_language, Unset):
         headers["Accept-Language"] = accept_language
 
@@ -34,7 +39,14 @@ def _get_kwargs(
 
 def _parse_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Any | ProfileDestroyResponse400 | ProfileDestroyResponse401 | ProfileDestroyResponse403 | None:
+) -> (
+    Any
+    | ProfileDestroyResponse400
+    | ProfileDestroyResponse401
+    | ProfileDestroyResponse403
+    | ProfileDestroyResponse412
+    | None
+):
     if response.status_code == 204:
         response_204 = cast(Any, None)
         return response_204
@@ -54,6 +66,11 @@ def _parse_response(
 
         return response_403
 
+    if response.status_code == 412:
+        response_412 = ProfileDestroyResponse412.from_dict(response.json())
+
+        return response_412
+
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     else:
@@ -63,7 +80,11 @@ def _parse_response(
 def _build_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
 ) -> Response[
-    Any | ProfileDestroyResponse400 | ProfileDestroyResponse401 | ProfileDestroyResponse403
+    Any
+    | ProfileDestroyResponse400
+    | ProfileDestroyResponse401
+    | ProfileDestroyResponse403
+    | ProfileDestroyResponse412
 ]:
     return Response(
         status_code=HTTPStatus(response.status_code),
@@ -76,9 +97,14 @@ def _build_response(
 def sync_detailed(
     *,
     client: AuthenticatedClient,
+    if_match: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
 ) -> Response[
-    Any | ProfileDestroyResponse400 | ProfileDestroyResponse401 | ProfileDestroyResponse403
+    Any
+    | ProfileDestroyResponse400
+    | ProfileDestroyResponse401
+    | ProfileDestroyResponse403
+    | ProfileDestroyResponse412
 ]:
     """Delete the current account
 
@@ -86,6 +112,7 @@ def sync_detailed(
     delete themselves with this operation.
 
     Args:
+        if_match (str | Unset):
         accept_language (str | Unset):  Defaults to the client language.
 
     Raises:
@@ -93,10 +120,11 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Any | ProfileDestroyResponse400 | ProfileDestroyResponse401 | ProfileDestroyResponse403]
+        Response[Any | ProfileDestroyResponse400 | ProfileDestroyResponse401 | ProfileDestroyResponse403 | ProfileDestroyResponse412]
     """
 
     kwargs = _get_kwargs(
+        if_match=if_match,
         accept_language=accept_language,
     )
 
@@ -110,14 +138,23 @@ def sync_detailed(
 def sync(
     *,
     client: AuthenticatedClient,
+    if_match: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
-) -> Any | ProfileDestroyResponse400 | ProfileDestroyResponse401 | ProfileDestroyResponse403 | None:
+) -> (
+    Any
+    | ProfileDestroyResponse400
+    | ProfileDestroyResponse401
+    | ProfileDestroyResponse403
+    | ProfileDestroyResponse412
+    | None
+):
     """Delete the current account
 
      Permanently deletes the authenticated customer account. Superusers and reseller sub-accounts cannot
     delete themselves with this operation.
 
     Args:
+        if_match (str | Unset):
         accept_language (str | Unset):  Defaults to the client language.
 
     Raises:
@@ -125,11 +162,12 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Any | ProfileDestroyResponse400 | ProfileDestroyResponse401 | ProfileDestroyResponse403
+        Any | ProfileDestroyResponse400 | ProfileDestroyResponse401 | ProfileDestroyResponse403 | ProfileDestroyResponse412
     """
 
     return sync_detailed(
         client=client,
+        if_match=if_match,
         accept_language=accept_language,
     ).parsed
 
@@ -137,9 +175,14 @@ def sync(
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
+    if_match: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
 ) -> Response[
-    Any | ProfileDestroyResponse400 | ProfileDestroyResponse401 | ProfileDestroyResponse403
+    Any
+    | ProfileDestroyResponse400
+    | ProfileDestroyResponse401
+    | ProfileDestroyResponse403
+    | ProfileDestroyResponse412
 ]:
     """Delete the current account
 
@@ -147,6 +190,7 @@ async def asyncio_detailed(
     delete themselves with this operation.
 
     Args:
+        if_match (str | Unset):
         accept_language (str | Unset):  Defaults to the client language.
 
     Raises:
@@ -154,10 +198,11 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Any | ProfileDestroyResponse400 | ProfileDestroyResponse401 | ProfileDestroyResponse403]
+        Response[Any | ProfileDestroyResponse400 | ProfileDestroyResponse401 | ProfileDestroyResponse403 | ProfileDestroyResponse412]
     """
 
     kwargs = _get_kwargs(
+        if_match=if_match,
         accept_language=accept_language,
     )
 
@@ -169,14 +214,23 @@ async def asyncio_detailed(
 async def asyncio(
     *,
     client: AuthenticatedClient,
+    if_match: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
-) -> Any | ProfileDestroyResponse400 | ProfileDestroyResponse401 | ProfileDestroyResponse403 | None:
+) -> (
+    Any
+    | ProfileDestroyResponse400
+    | ProfileDestroyResponse401
+    | ProfileDestroyResponse403
+    | ProfileDestroyResponse412
+    | None
+):
     """Delete the current account
 
      Permanently deletes the authenticated customer account. Superusers and reseller sub-accounts cannot
     delete themselves with this operation.
 
     Args:
+        if_match (str | Unset):
         accept_language (str | Unset):  Defaults to the client language.
 
     Raises:
@@ -184,12 +238,13 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Any | ProfileDestroyResponse400 | ProfileDestroyResponse401 | ProfileDestroyResponse403
+        Any | ProfileDestroyResponse400 | ProfileDestroyResponse401 | ProfileDestroyResponse403 | ProfileDestroyResponse412
     """
 
     return (
         await asyncio_detailed(
             client=client,
+            if_match=if_match,
             accept_language=accept_language,
         )
     ).parsed

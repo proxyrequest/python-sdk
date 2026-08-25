@@ -14,6 +14,7 @@ from ...models.users_partial_update_response_400 import UsersPartialUpdateRespon
 from ...models.users_partial_update_response_401 import UsersPartialUpdateResponse401
 from ...models.users_partial_update_response_403 import UsersPartialUpdateResponse403
 from ...models.users_partial_update_response_404 import UsersPartialUpdateResponse404
+from ...models.users_partial_update_response_412 import UsersPartialUpdateResponse412
 from ...types import UNSET, Unset
 from typing import cast
 from uuid import UUID
@@ -23,9 +24,13 @@ def _get_kwargs(
     id: UUID,
     *,
     body: PatchedUserUpdateRequest | Unset = UNSET,
+    if_match: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
+    if not isinstance(if_match, Unset):
+        headers["If-Match"] = if_match
+
     if not isinstance(accept_language, Unset):
         headers["Accept-Language"] = accept_language
 
@@ -53,6 +58,7 @@ def _parse_response(
     | UsersPartialUpdateResponse401
     | UsersPartialUpdateResponse403
     | UsersPartialUpdateResponse404
+    | UsersPartialUpdateResponse412
     | None
 ):
     if response.status_code == 202:
@@ -80,6 +86,11 @@ def _parse_response(
 
         return response_404
 
+    if response.status_code == 412:
+        response_412 = UsersPartialUpdateResponse412.from_dict(response.json())
+
+        return response_412
+
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     else:
@@ -94,6 +105,7 @@ def _build_response(
     | UsersPartialUpdateResponse401
     | UsersPartialUpdateResponse403
     | UsersPartialUpdateResponse404
+    | UsersPartialUpdateResponse412
 ]:
     return Response(
         status_code=HTTPStatus(response.status_code),
@@ -108,6 +120,7 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
     body: PatchedUserUpdateRequest | Unset = UNSET,
+    if_match: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
 ) -> Response[
     User
@@ -115,6 +128,7 @@ def sync_detailed(
     | UsersPartialUpdateResponse401
     | UsersPartialUpdateResponse403
     | UsersPartialUpdateResponse404
+    | UsersPartialUpdateResponse412
 ]:
     """Update a user
 
@@ -122,6 +136,7 @@ def sync_detailed(
 
     Args:
         id (UUID):
+        if_match (str | Unset):
         accept_language (str | Unset):  Defaults to the client language.
         body (PatchedUserUpdateRequest | Unset): Optional fields accepted when updating part of an
             existing customer account.
@@ -131,12 +146,13 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[User | UsersPartialUpdateResponse400 | UsersPartialUpdateResponse401 | UsersPartialUpdateResponse403 | UsersPartialUpdateResponse404]
+        Response[User | UsersPartialUpdateResponse400 | UsersPartialUpdateResponse401 | UsersPartialUpdateResponse403 | UsersPartialUpdateResponse404 | UsersPartialUpdateResponse412]
     """
 
     kwargs = _get_kwargs(
         id=id,
         body=body,
+        if_match=if_match,
         accept_language=accept_language,
     )
 
@@ -152,6 +168,7 @@ def sync(
     *,
     client: AuthenticatedClient,
     body: PatchedUserUpdateRequest | Unset = UNSET,
+    if_match: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
 ) -> (
     User
@@ -159,6 +176,7 @@ def sync(
     | UsersPartialUpdateResponse401
     | UsersPartialUpdateResponse403
     | UsersPartialUpdateResponse404
+    | UsersPartialUpdateResponse412
     | None
 ):
     """Update a user
@@ -167,6 +185,7 @@ def sync(
 
     Args:
         id (UUID):
+        if_match (str | Unset):
         accept_language (str | Unset):  Defaults to the client language.
         body (PatchedUserUpdateRequest | Unset): Optional fields accepted when updating part of an
             existing customer account.
@@ -176,13 +195,14 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        User | UsersPartialUpdateResponse400 | UsersPartialUpdateResponse401 | UsersPartialUpdateResponse403 | UsersPartialUpdateResponse404
+        User | UsersPartialUpdateResponse400 | UsersPartialUpdateResponse401 | UsersPartialUpdateResponse403 | UsersPartialUpdateResponse404 | UsersPartialUpdateResponse412
     """
 
     return sync_detailed(
         id=id,
         client=client,
         body=body,
+        if_match=if_match,
         accept_language=accept_language,
     ).parsed
 
@@ -192,6 +212,7 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
     body: PatchedUserUpdateRequest | Unset = UNSET,
+    if_match: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
 ) -> Response[
     User
@@ -199,6 +220,7 @@ async def asyncio_detailed(
     | UsersPartialUpdateResponse401
     | UsersPartialUpdateResponse403
     | UsersPartialUpdateResponse404
+    | UsersPartialUpdateResponse412
 ]:
     """Update a user
 
@@ -206,6 +228,7 @@ async def asyncio_detailed(
 
     Args:
         id (UUID):
+        if_match (str | Unset):
         accept_language (str | Unset):  Defaults to the client language.
         body (PatchedUserUpdateRequest | Unset): Optional fields accepted when updating part of an
             existing customer account.
@@ -215,12 +238,13 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[User | UsersPartialUpdateResponse400 | UsersPartialUpdateResponse401 | UsersPartialUpdateResponse403 | UsersPartialUpdateResponse404]
+        Response[User | UsersPartialUpdateResponse400 | UsersPartialUpdateResponse401 | UsersPartialUpdateResponse403 | UsersPartialUpdateResponse404 | UsersPartialUpdateResponse412]
     """
 
     kwargs = _get_kwargs(
         id=id,
         body=body,
+        if_match=if_match,
         accept_language=accept_language,
     )
 
@@ -234,6 +258,7 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
     body: PatchedUserUpdateRequest | Unset = UNSET,
+    if_match: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
 ) -> (
     User
@@ -241,6 +266,7 @@ async def asyncio(
     | UsersPartialUpdateResponse401
     | UsersPartialUpdateResponse403
     | UsersPartialUpdateResponse404
+    | UsersPartialUpdateResponse412
     | None
 ):
     """Update a user
@@ -249,6 +275,7 @@ async def asyncio(
 
     Args:
         id (UUID):
+        if_match (str | Unset):
         accept_language (str | Unset):  Defaults to the client language.
         body (PatchedUserUpdateRequest | Unset): Optional fields accepted when updating part of an
             existing customer account.
@@ -258,7 +285,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        User | UsersPartialUpdateResponse400 | UsersPartialUpdateResponse401 | UsersPartialUpdateResponse403 | UsersPartialUpdateResponse404
+        User | UsersPartialUpdateResponse400 | UsersPartialUpdateResponse401 | UsersPartialUpdateResponse403 | UsersPartialUpdateResponse404 | UsersPartialUpdateResponse412
     """
 
     return (
@@ -266,6 +293,7 @@ async def asyncio(
             id=id,
             client=client,
             body=body,
+            if_match=if_match,
             accept_language=accept_language,
         )
     ).parsed

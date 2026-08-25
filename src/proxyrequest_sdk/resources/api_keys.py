@@ -4,6 +4,7 @@ from __future__ import annotations
 from typing import Any, cast
 
 from ..files import FileDownload
+from ..response import ApiResponse
 from .._generated.models.api_key_create import APIKeyCreate
 from .._generated.models.api_key_create_request import APIKeyCreateRequest
 from .._generated.models.paginated_api_key_list import PaginatedAPIKeyList
@@ -29,10 +30,44 @@ class APIKeysResource:
             ),
         )
 
-    def delete(self, id: str, *, accept_language: str | Unset = UNSET) -> None:
+    def create_with_response(
+        self, *, body: APIKeyCreateRequest | Unset = UNSET, accept_language: str | Unset = UNSET
+    ) -> ApiResponse[APIKeyCreate]:
+        """Create an API key; include response metadata."""
+        return cast(
+            ApiResponse[APIKeyCreate],
+            self._client._call_with_response(
+                _api_keys_create.sync_detailed, body=body, accept_language=accept_language
+            ),
+        )
+
+    def delete(
+        self, id: str, *, idempotency_key: str | Unset = UNSET, accept_language: str | Unset = UNSET
+    ) -> None:
         """Revoke an API key"""
-        self._client._call(_api_keys_destroy.sync_detailed, id=id, accept_language=accept_language)
+        self._client._call(
+            _api_keys_destroy.sync_detailed,
+            _idempotent=True,
+            id=id,
+            idempotency_key=idempotency_key,
+            accept_language=accept_language,
+        )
         return None
+
+    def delete_with_response(
+        self, id: str, *, idempotency_key: str | Unset = UNSET, accept_language: str | Unset = UNSET
+    ) -> ApiResponse[None]:
+        """Revoke an API key; include response metadata."""
+        return cast(
+            ApiResponse[None],
+            self._client._call_with_response(
+                _api_keys_destroy.sync_detailed,
+                _idempotent=True,
+                id=id,
+                idempotency_key=idempotency_key,
+                accept_language=accept_language,
+            ),
+        )
 
     def list(
         self,
@@ -45,6 +80,24 @@ class APIKeysResource:
         return cast(
             PaginatedAPIKeyList,
             self._client._call(
+                _api_keys_list.sync_detailed,
+                limit=limit,
+                offset=offset,
+                accept_language=accept_language,
+            ),
+        )
+
+    def list_with_response(
+        self,
+        *,
+        limit: int | Unset = UNSET,
+        offset: int | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[PaginatedAPIKeyList]:
+        """List API keys; include response metadata."""
+        return cast(
+            ApiResponse[PaginatedAPIKeyList],
+            self._client._call_with_response(
                 _api_keys_list.sync_detailed,
                 limit=limit,
                 offset=offset,
@@ -68,12 +121,44 @@ class AsyncAPIKeysResource:
             ),
         )
 
-    async def delete(self, id: str, *, accept_language: str | Unset = UNSET) -> None:
+    async def create_with_response(
+        self, *, body: APIKeyCreateRequest | Unset = UNSET, accept_language: str | Unset = UNSET
+    ) -> ApiResponse[APIKeyCreate]:
+        """Create an API key; include response metadata."""
+        return cast(
+            ApiResponse[APIKeyCreate],
+            await self._client._call_with_response(
+                _api_keys_create.asyncio_detailed, body=body, accept_language=accept_language
+            ),
+        )
+
+    async def delete(
+        self, id: str, *, idempotency_key: str | Unset = UNSET, accept_language: str | Unset = UNSET
+    ) -> None:
         """Revoke an API key"""
         await self._client._call(
-            _api_keys_destroy.asyncio_detailed, id=id, accept_language=accept_language
+            _api_keys_destroy.asyncio_detailed,
+            _idempotent=True,
+            id=id,
+            idempotency_key=idempotency_key,
+            accept_language=accept_language,
         )
         return None
+
+    async def delete_with_response(
+        self, id: str, *, idempotency_key: str | Unset = UNSET, accept_language: str | Unset = UNSET
+    ) -> ApiResponse[None]:
+        """Revoke an API key; include response metadata."""
+        return cast(
+            ApiResponse[None],
+            await self._client._call_with_response(
+                _api_keys_destroy.asyncio_detailed,
+                _idempotent=True,
+                id=id,
+                idempotency_key=idempotency_key,
+                accept_language=accept_language,
+            ),
+        )
 
     async def list(
         self,
@@ -86,6 +171,24 @@ class AsyncAPIKeysResource:
         return cast(
             PaginatedAPIKeyList,
             await self._client._call(
+                _api_keys_list.asyncio_detailed,
+                limit=limit,
+                offset=offset,
+                accept_language=accept_language,
+            ),
+        )
+
+    async def list_with_response(
+        self,
+        *,
+        limit: int | Unset = UNSET,
+        offset: int | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[PaginatedAPIKeyList]:
+        """List API keys; include response metadata."""
+        return cast(
+            ApiResponse[PaginatedAPIKeyList],
+            await self._client._call_with_response(
                 _api_keys_list.asyncio_detailed,
                 limit=limit,
                 offset=offset,

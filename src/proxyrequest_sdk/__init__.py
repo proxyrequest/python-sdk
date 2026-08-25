@@ -12,6 +12,7 @@ from .errors import (
     ProxyRequestError,
 )
 from .files import FileDownload
+from .response import ApiResponse
 from .webhooks import WebhookVerifier
 
 try:
@@ -23,6 +24,7 @@ __all__ = [
     "DEFAULT_BASE_URL",
     "UNSET",
     "ApiError",
+    "ApiResponse",
     "AsyncClient",
     "Client",
     "ErrorKind",

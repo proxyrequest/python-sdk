@@ -12,6 +12,7 @@ from ...models.patched_profile_update_request import PatchedProfileUpdateRequest
 from ...models.profile_partial_update_response_400 import ProfilePartialUpdateResponse400
 from ...models.profile_partial_update_response_401 import ProfilePartialUpdateResponse401
 from ...models.profile_partial_update_response_403 import ProfilePartialUpdateResponse403
+from ...models.profile_partial_update_response_412 import ProfilePartialUpdateResponse412
 from ...models.user import User
 from ...types import UNSET, Unset
 from typing import cast
@@ -20,9 +21,13 @@ from typing import cast
 def _get_kwargs(
     *,
     body: PatchedProfileUpdateRequest | Unset = UNSET,
+    if_match: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
+    if not isinstance(if_match, Unset):
+        headers["If-Match"] = if_match
+
     if not isinstance(accept_language, Unset):
         headers["Accept-Language"] = accept_language
 
@@ -46,6 +51,7 @@ def _parse_response(
     ProfilePartialUpdateResponse400
     | ProfilePartialUpdateResponse401
     | ProfilePartialUpdateResponse403
+    | ProfilePartialUpdateResponse412
     | User
     | None
 ):
@@ -69,6 +75,11 @@ def _parse_response(
 
         return response_403
 
+    if response.status_code == 412:
+        response_412 = ProfilePartialUpdateResponse412.from_dict(response.json())
+
+        return response_412
+
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     else:
@@ -81,6 +92,7 @@ def _build_response(
     ProfilePartialUpdateResponse400
     | ProfilePartialUpdateResponse401
     | ProfilePartialUpdateResponse403
+    | ProfilePartialUpdateResponse412
     | User
 ]:
     return Response(
@@ -95,11 +107,13 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
     body: PatchedProfileUpdateRequest | Unset = UNSET,
+    if_match: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
 ) -> Response[
     ProfilePartialUpdateResponse400
     | ProfilePartialUpdateResponse401
     | ProfilePartialUpdateResponse403
+    | ProfilePartialUpdateResponse412
     | User
 ]:
     """Update the current profile
@@ -108,6 +122,7 @@ def sync_detailed(
     request are left unchanged.
 
     Args:
+        if_match (str | Unset):
         accept_language (str | Unset):  Defaults to the client language.
         body (PatchedProfileUpdateRequest | Unset): for updating user profile information with
             comprehensive validation. Handles personal profile data, company information, security
@@ -120,11 +135,12 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[ProfilePartialUpdateResponse400 | ProfilePartialUpdateResponse401 | ProfilePartialUpdateResponse403 | User]
+        Response[ProfilePartialUpdateResponse400 | ProfilePartialUpdateResponse401 | ProfilePartialUpdateResponse403 | ProfilePartialUpdateResponse412 | User]
     """
 
     kwargs = _get_kwargs(
         body=body,
+        if_match=if_match,
         accept_language=accept_language,
     )
 
@@ -139,11 +155,13 @@ def sync(
     *,
     client: AuthenticatedClient,
     body: PatchedProfileUpdateRequest | Unset = UNSET,
+    if_match: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
 ) -> (
     ProfilePartialUpdateResponse400
     | ProfilePartialUpdateResponse401
     | ProfilePartialUpdateResponse403
+    | ProfilePartialUpdateResponse412
     | User
     | None
 ):
@@ -153,6 +171,7 @@ def sync(
     request are left unchanged.
 
     Args:
+        if_match (str | Unset):
         accept_language (str | Unset):  Defaults to the client language.
         body (PatchedProfileUpdateRequest | Unset): for updating user profile information with
             comprehensive validation. Handles personal profile data, company information, security
@@ -165,12 +184,13 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        ProfilePartialUpdateResponse400 | ProfilePartialUpdateResponse401 | ProfilePartialUpdateResponse403 | User
+        ProfilePartialUpdateResponse400 | ProfilePartialUpdateResponse401 | ProfilePartialUpdateResponse403 | ProfilePartialUpdateResponse412 | User
     """
 
     return sync_detailed(
         client=client,
         body=body,
+        if_match=if_match,
         accept_language=accept_language,
     ).parsed
 
@@ -179,11 +199,13 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
     body: PatchedProfileUpdateRequest | Unset = UNSET,
+    if_match: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
 ) -> Response[
     ProfilePartialUpdateResponse400
     | ProfilePartialUpdateResponse401
     | ProfilePartialUpdateResponse403
+    | ProfilePartialUpdateResponse412
     | User
 ]:
     """Update the current profile
@@ -192,6 +214,7 @@ async def asyncio_detailed(
     request are left unchanged.
 
     Args:
+        if_match (str | Unset):
         accept_language (str | Unset):  Defaults to the client language.
         body (PatchedProfileUpdateRequest | Unset): for updating user profile information with
             comprehensive validation. Handles personal profile data, company information, security
@@ -204,11 +227,12 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[ProfilePartialUpdateResponse400 | ProfilePartialUpdateResponse401 | ProfilePartialUpdateResponse403 | User]
+        Response[ProfilePartialUpdateResponse400 | ProfilePartialUpdateResponse401 | ProfilePartialUpdateResponse403 | ProfilePartialUpdateResponse412 | User]
     """
 
     kwargs = _get_kwargs(
         body=body,
+        if_match=if_match,
         accept_language=accept_language,
     )
 
@@ -221,11 +245,13 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
     body: PatchedProfileUpdateRequest | Unset = UNSET,
+    if_match: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
 ) -> (
     ProfilePartialUpdateResponse400
     | ProfilePartialUpdateResponse401
     | ProfilePartialUpdateResponse403
+    | ProfilePartialUpdateResponse412
     | User
     | None
 ):
@@ -235,6 +261,7 @@ async def asyncio(
     request are left unchanged.
 
     Args:
+        if_match (str | Unset):
         accept_language (str | Unset):  Defaults to the client language.
         body (PatchedProfileUpdateRequest | Unset): for updating user profile information with
             comprehensive validation. Handles personal profile data, company information, security
@@ -247,13 +274,14 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        ProfilePartialUpdateResponse400 | ProfilePartialUpdateResponse401 | ProfilePartialUpdateResponse403 | User
+        ProfilePartialUpdateResponse400 | ProfilePartialUpdateResponse401 | ProfilePartialUpdateResponse403 | ProfilePartialUpdateResponse412 | User
     """
 
     return (
         await asyncio_detailed(
             client=client,
             body=body,
+            if_match=if_match,
             accept_language=accept_language,
         )
     ).parsed

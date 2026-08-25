@@ -4,6 +4,7 @@ from __future__ import annotations
 from typing import Any, cast
 
 from ..files import FileDownload
+from ..response import ApiResponse
 from .._generated.models.coupon import Coupon
 from .._generated.models.coupon_calculate_price_request import CouponCalculatePriceRequest
 from .._generated.models.coupon_create_request import CouponCreateRequest
@@ -46,25 +47,113 @@ class CouponsResource:
             ),
         )
 
-    def create(self, *, body: CouponCreateRequest, accept_language: str | Unset = UNSET) -> Coupon:
+    def calculate_price_with_response(
+        self, *, body: CouponCalculatePriceRequest, accept_language: str | Unset = UNSET
+    ) -> ApiResponse[CouponPriceResponse]:
+        """Calculate a discounted price; include response metadata."""
+        return cast(
+            ApiResponse[CouponPriceResponse],
+            self._client._call_with_response(
+                _coupons_calculate_price_create.sync_detailed,
+                body=body,
+                accept_language=accept_language,
+            ),
+        )
+
+    def create(
+        self,
+        *,
+        body: CouponCreateRequest,
+        idempotency_key: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> Coupon:
         """Create a coupon"""
         return cast(
             Coupon,
             self._client._call(
-                _coupons_create.sync_detailed, body=body, accept_language=accept_language
+                _coupons_create.sync_detailed,
+                _idempotent=True,
+                body=body,
+                idempotency_key=idempotency_key,
+                accept_language=accept_language,
             ),
         )
 
-    def delete(self, id: str, *, accept_language: str | Unset = UNSET) -> None:
+    def create_with_response(
+        self,
+        *,
+        body: CouponCreateRequest,
+        idempotency_key: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[Coupon]:
+        """Create a coupon; include response metadata."""
+        return cast(
+            ApiResponse[Coupon],
+            self._client._call_with_response(
+                _coupons_create.sync_detailed,
+                _idempotent=True,
+                body=body,
+                idempotency_key=idempotency_key,
+                accept_language=accept_language,
+            ),
+        )
+
+    def delete(
+        self,
+        id: str,
+        *,
+        idempotency_key: str | Unset = UNSET,
+        if_match: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> None:
         """Delete a coupon"""
-        self._client._call(_coupons_destroy.sync_detailed, id=id, accept_language=accept_language)
+        self._client._call(
+            _coupons_destroy.sync_detailed,
+            _idempotent=True,
+            id=id,
+            idempotency_key=idempotency_key,
+            if_match=if_match,
+            accept_language=accept_language,
+        )
         return None
+
+    def delete_with_response(
+        self,
+        id: str,
+        *,
+        idempotency_key: str | Unset = UNSET,
+        if_match: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[None]:
+        """Delete a coupon; include response metadata."""
+        return cast(
+            ApiResponse[None],
+            self._client._call_with_response(
+                _coupons_destroy.sync_detailed,
+                _idempotent=True,
+                id=id,
+                idempotency_key=idempotency_key,
+                if_match=if_match,
+                accept_language=accept_language,
+            ),
+        )
 
     def get(self, id: str, *, accept_language: str | Unset = UNSET) -> CouponShort:
         """Get a coupon"""
         return cast(
             CouponShort,
             self._client._call(
+                _coupons_retrieve.sync_detailed, id=id, accept_language=accept_language
+            ),
+        )
+
+    def get_with_response(
+        self, id: str, *, accept_language: str | Unset = UNSET
+    ) -> ApiResponse[CouponShort]:
+        """Get a coupon; include response metadata."""
+        return cast(
+            ApiResponse[CouponShort],
+            self._client._call_with_response(
                 _coupons_retrieve.sync_detailed, id=id, accept_language=accept_language
             ),
         )
@@ -84,6 +173,32 @@ class CouponsResource:
         return cast(
             PaginatedCouponShortList,
             self._client._call(
+                _coupons_list.sync_detailed,
+                code=code,
+                limit=limit,
+                offset=offset,
+                ordering=ordering,
+                search=search,
+                type_=type_,
+                accept_language=accept_language,
+            ),
+        )
+
+    def list_with_response(
+        self,
+        *,
+        code: str | Unset = UNSET,
+        limit: int | Unset = UNSET,
+        offset: int | Unset = UNSET,
+        ordering: str | Unset = UNSET,
+        search: str | Unset = UNSET,
+        type_: CouponsListType | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[PaginatedCouponShortList]:
+        """List available coupons; include response metadata."""
+        return cast(
+            ApiResponse[PaginatedCouponShortList],
+            self._client._call_with_response(
                 _coupons_list.sync_detailed,
                 code=code,
                 limit=limit,
@@ -121,14 +236,69 @@ class CouponsResource:
             ),
         )
 
+    def list_redeems_with_response(
+        self,
+        id: str,
+        *,
+        code: str | Unset = UNSET,
+        limit: int | Unset = UNSET,
+        offset: int | Unset = UNSET,
+        ordering: str | Unset = UNSET,
+        type_: CouponsRedeemsListType | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[PaginatedCouponRedeemList]:
+        """List coupon redemptions; include response metadata."""
+        return cast(
+            ApiResponse[PaginatedCouponRedeemList],
+            self._client._call_with_response(
+                _coupons_redeems_list.sync_detailed,
+                id=id,
+                code=code,
+                limit=limit,
+                offset=offset,
+                ordering=ordering,
+                type_=type_,
+                accept_language=accept_language,
+            ),
+        )
+
     def replace(
-        self, id: str, *, body: CouponUpdateRequest, accept_language: str | Unset = UNSET
+        self,
+        id: str,
+        *,
+        body: CouponUpdateRequest,
+        if_match: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
     ) -> Coupon:
         """Replace a coupon"""
         return cast(
             Coupon,
             self._client._call(
-                _coupons_update.sync_detailed, id=id, body=body, accept_language=accept_language
+                _coupons_update.sync_detailed,
+                id=id,
+                body=body,
+                if_match=if_match,
+                accept_language=accept_language,
+            ),
+        )
+
+    def replace_with_response(
+        self,
+        id: str,
+        *,
+        body: CouponUpdateRequest,
+        if_match: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[Coupon]:
+        """Replace a coupon; include response metadata."""
+        return cast(
+            ApiResponse[Coupon],
+            self._client._call_with_response(
+                _coupons_update.sync_detailed,
+                id=id,
+                body=body,
+                if_match=if_match,
+                accept_language=accept_language,
             ),
         )
 
@@ -137,6 +307,7 @@ class CouponsResource:
         id: str,
         *,
         body: PatchedCouponUpdateRequest | Unset = UNSET,
+        if_match: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
     ) -> Coupon:
         """Update a coupon"""
@@ -146,6 +317,27 @@ class CouponsResource:
                 _coupons_partial_update.sync_detailed,
                 id=id,
                 body=body,
+                if_match=if_match,
+                accept_language=accept_language,
+            ),
+        )
+
+    def update_with_response(
+        self,
+        id: str,
+        *,
+        body: PatchedCouponUpdateRequest | Unset = UNSET,
+        if_match: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[Coupon]:
+        """Update a coupon; include response metadata."""
+        return cast(
+            ApiResponse[Coupon],
+            self._client._call_with_response(
+                _coupons_partial_update.sync_detailed,
+                id=id,
+                body=body,
+                if_match=if_match,
                 accept_language=accept_language,
             ),
         )
@@ -168,29 +360,113 @@ class AsyncCouponsResource:
             ),
         )
 
+    async def calculate_price_with_response(
+        self, *, body: CouponCalculatePriceRequest, accept_language: str | Unset = UNSET
+    ) -> ApiResponse[CouponPriceResponse]:
+        """Calculate a discounted price; include response metadata."""
+        return cast(
+            ApiResponse[CouponPriceResponse],
+            await self._client._call_with_response(
+                _coupons_calculate_price_create.asyncio_detailed,
+                body=body,
+                accept_language=accept_language,
+            ),
+        )
+
     async def create(
-        self, *, body: CouponCreateRequest, accept_language: str | Unset = UNSET
+        self,
+        *,
+        body: CouponCreateRequest,
+        idempotency_key: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
     ) -> Coupon:
         """Create a coupon"""
         return cast(
             Coupon,
             await self._client._call(
-                _coupons_create.asyncio_detailed, body=body, accept_language=accept_language
+                _coupons_create.asyncio_detailed,
+                _idempotent=True,
+                body=body,
+                idempotency_key=idempotency_key,
+                accept_language=accept_language,
             ),
         )
 
-    async def delete(self, id: str, *, accept_language: str | Unset = UNSET) -> None:
+    async def create_with_response(
+        self,
+        *,
+        body: CouponCreateRequest,
+        idempotency_key: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[Coupon]:
+        """Create a coupon; include response metadata."""
+        return cast(
+            ApiResponse[Coupon],
+            await self._client._call_with_response(
+                _coupons_create.asyncio_detailed,
+                _idempotent=True,
+                body=body,
+                idempotency_key=idempotency_key,
+                accept_language=accept_language,
+            ),
+        )
+
+    async def delete(
+        self,
+        id: str,
+        *,
+        idempotency_key: str | Unset = UNSET,
+        if_match: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> None:
         """Delete a coupon"""
         await self._client._call(
-            _coupons_destroy.asyncio_detailed, id=id, accept_language=accept_language
+            _coupons_destroy.asyncio_detailed,
+            _idempotent=True,
+            id=id,
+            idempotency_key=idempotency_key,
+            if_match=if_match,
+            accept_language=accept_language,
         )
         return None
+
+    async def delete_with_response(
+        self,
+        id: str,
+        *,
+        idempotency_key: str | Unset = UNSET,
+        if_match: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[None]:
+        """Delete a coupon; include response metadata."""
+        return cast(
+            ApiResponse[None],
+            await self._client._call_with_response(
+                _coupons_destroy.asyncio_detailed,
+                _idempotent=True,
+                id=id,
+                idempotency_key=idempotency_key,
+                if_match=if_match,
+                accept_language=accept_language,
+            ),
+        )
 
     async def get(self, id: str, *, accept_language: str | Unset = UNSET) -> CouponShort:
         """Get a coupon"""
         return cast(
             CouponShort,
             await self._client._call(
+                _coupons_retrieve.asyncio_detailed, id=id, accept_language=accept_language
+            ),
+        )
+
+    async def get_with_response(
+        self, id: str, *, accept_language: str | Unset = UNSET
+    ) -> ApiResponse[CouponShort]:
+        """Get a coupon; include response metadata."""
+        return cast(
+            ApiResponse[CouponShort],
+            await self._client._call_with_response(
                 _coupons_retrieve.asyncio_detailed, id=id, accept_language=accept_language
             ),
         )
@@ -210,6 +486,32 @@ class AsyncCouponsResource:
         return cast(
             PaginatedCouponShortList,
             await self._client._call(
+                _coupons_list.asyncio_detailed,
+                code=code,
+                limit=limit,
+                offset=offset,
+                ordering=ordering,
+                search=search,
+                type_=type_,
+                accept_language=accept_language,
+            ),
+        )
+
+    async def list_with_response(
+        self,
+        *,
+        code: str | Unset = UNSET,
+        limit: int | Unset = UNSET,
+        offset: int | Unset = UNSET,
+        ordering: str | Unset = UNSET,
+        search: str | Unset = UNSET,
+        type_: CouponsListType | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[PaginatedCouponShortList]:
+        """List available coupons; include response metadata."""
+        return cast(
+            ApiResponse[PaginatedCouponShortList],
+            await self._client._call_with_response(
                 _coupons_list.asyncio_detailed,
                 code=code,
                 limit=limit,
@@ -247,14 +549,69 @@ class AsyncCouponsResource:
             ),
         )
 
+    async def list_redeems_with_response(
+        self,
+        id: str,
+        *,
+        code: str | Unset = UNSET,
+        limit: int | Unset = UNSET,
+        offset: int | Unset = UNSET,
+        ordering: str | Unset = UNSET,
+        type_: CouponsRedeemsListType | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[PaginatedCouponRedeemList]:
+        """List coupon redemptions; include response metadata."""
+        return cast(
+            ApiResponse[PaginatedCouponRedeemList],
+            await self._client._call_with_response(
+                _coupons_redeems_list.asyncio_detailed,
+                id=id,
+                code=code,
+                limit=limit,
+                offset=offset,
+                ordering=ordering,
+                type_=type_,
+                accept_language=accept_language,
+            ),
+        )
+
     async def replace(
-        self, id: str, *, body: CouponUpdateRequest, accept_language: str | Unset = UNSET
+        self,
+        id: str,
+        *,
+        body: CouponUpdateRequest,
+        if_match: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
     ) -> Coupon:
         """Replace a coupon"""
         return cast(
             Coupon,
             await self._client._call(
-                _coupons_update.asyncio_detailed, id=id, body=body, accept_language=accept_language
+                _coupons_update.asyncio_detailed,
+                id=id,
+                body=body,
+                if_match=if_match,
+                accept_language=accept_language,
+            ),
+        )
+
+    async def replace_with_response(
+        self,
+        id: str,
+        *,
+        body: CouponUpdateRequest,
+        if_match: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[Coupon]:
+        """Replace a coupon; include response metadata."""
+        return cast(
+            ApiResponse[Coupon],
+            await self._client._call_with_response(
+                _coupons_update.asyncio_detailed,
+                id=id,
+                body=body,
+                if_match=if_match,
+                accept_language=accept_language,
             ),
         )
 
@@ -263,6 +620,7 @@ class AsyncCouponsResource:
         id: str,
         *,
         body: PatchedCouponUpdateRequest | Unset = UNSET,
+        if_match: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
     ) -> Coupon:
         """Update a coupon"""
@@ -272,6 +630,27 @@ class AsyncCouponsResource:
                 _coupons_partial_update.asyncio_detailed,
                 id=id,
                 body=body,
+                if_match=if_match,
+                accept_language=accept_language,
+            ),
+        )
+
+    async def update_with_response(
+        self,
+        id: str,
+        *,
+        body: PatchedCouponUpdateRequest | Unset = UNSET,
+        if_match: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[Coupon]:
+        """Update a coupon; include response metadata."""
+        return cast(
+            ApiResponse[Coupon],
+            await self._client._call_with_response(
+                _coupons_partial_update.asyncio_detailed,
+                id=id,
+                body=body,
+                if_match=if_match,
                 accept_language=accept_language,
             ),
         )

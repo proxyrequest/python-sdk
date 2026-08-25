@@ -14,6 +14,7 @@ from ...models.users_data_subtract_create_response_400 import UsersDataSubtractC
 from ...models.users_data_subtract_create_response_401 import UsersDataSubtractCreateResponse401
 from ...models.users_data_subtract_create_response_403 import UsersDataSubtractCreateResponse403
 from ...models.users_data_subtract_create_response_404 import UsersDataSubtractCreateResponse404
+from ...models.users_data_subtract_create_response_409 import UsersDataSubtractCreateResponse409
 from ...types import UNSET, Unset
 from typing import cast
 from uuid import UUID
@@ -23,9 +24,13 @@ def _get_kwargs(
     id: UUID,
     *,
     body: SubtractDataRequest,
+    idempotency_key: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
+    if not isinstance(idempotency_key, Unset):
+        headers["Idempotency-Key"] = idempotency_key
+
     if not isinstance(accept_language, Unset):
         headers["Accept-Language"] = accept_language
 
@@ -52,6 +57,7 @@ def _parse_response(
     | UsersDataSubtractCreateResponse401
     | UsersDataSubtractCreateResponse403
     | UsersDataSubtractCreateResponse404
+    | UsersDataSubtractCreateResponse409
     | None
 ):
     if response.status_code == 202:
@@ -79,6 +85,11 @@ def _parse_response(
 
         return response_404
 
+    if response.status_code == 409:
+        response_409 = UsersDataSubtractCreateResponse409.from_dict(response.json())
+
+        return response_409
+
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     else:
@@ -93,6 +104,7 @@ def _build_response(
     | UsersDataSubtractCreateResponse401
     | UsersDataSubtractCreateResponse403
     | UsersDataSubtractCreateResponse404
+    | UsersDataSubtractCreateResponse409
 ]:
     return Response(
         status_code=HTTPStatus(response.status_code),
@@ -107,6 +119,7 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
     body: SubtractDataRequest,
+    idempotency_key: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
 ) -> Response[
     Order
@@ -114,6 +127,7 @@ def sync_detailed(
     | UsersDataSubtractCreateResponse401
     | UsersDataSubtractCreateResponse403
     | UsersDataSubtractCreateResponse404
+    | UsersDataSubtractCreateResponse409
 ]:
     """Subtract data from a sub-user order
 
@@ -122,6 +136,7 @@ def sync_detailed(
 
     Args:
         id (UUID):
+        idempotency_key (str | Unset):
         accept_language (str | Unset):  Defaults to the client language.
         body (SubtractDataRequest):
 
@@ -130,12 +145,13 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Order | UsersDataSubtractCreateResponse400 | UsersDataSubtractCreateResponse401 | UsersDataSubtractCreateResponse403 | UsersDataSubtractCreateResponse404]
+        Response[Order | UsersDataSubtractCreateResponse400 | UsersDataSubtractCreateResponse401 | UsersDataSubtractCreateResponse403 | UsersDataSubtractCreateResponse404 | UsersDataSubtractCreateResponse409]
     """
 
     kwargs = _get_kwargs(
         id=id,
         body=body,
+        idempotency_key=idempotency_key,
         accept_language=accept_language,
     )
 
@@ -151,6 +167,7 @@ def sync(
     *,
     client: AuthenticatedClient,
     body: SubtractDataRequest,
+    idempotency_key: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
 ) -> (
     Order
@@ -158,6 +175,7 @@ def sync(
     | UsersDataSubtractCreateResponse401
     | UsersDataSubtractCreateResponse403
     | UsersDataSubtractCreateResponse404
+    | UsersDataSubtractCreateResponse409
     | None
 ):
     """Subtract data from a sub-user order
@@ -167,6 +185,7 @@ def sync(
 
     Args:
         id (UUID):
+        idempotency_key (str | Unset):
         accept_language (str | Unset):  Defaults to the client language.
         body (SubtractDataRequest):
 
@@ -175,13 +194,14 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Order | UsersDataSubtractCreateResponse400 | UsersDataSubtractCreateResponse401 | UsersDataSubtractCreateResponse403 | UsersDataSubtractCreateResponse404
+        Order | UsersDataSubtractCreateResponse400 | UsersDataSubtractCreateResponse401 | UsersDataSubtractCreateResponse403 | UsersDataSubtractCreateResponse404 | UsersDataSubtractCreateResponse409
     """
 
     return sync_detailed(
         id=id,
         client=client,
         body=body,
+        idempotency_key=idempotency_key,
         accept_language=accept_language,
     ).parsed
 
@@ -191,6 +211,7 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
     body: SubtractDataRequest,
+    idempotency_key: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
 ) -> Response[
     Order
@@ -198,6 +219,7 @@ async def asyncio_detailed(
     | UsersDataSubtractCreateResponse401
     | UsersDataSubtractCreateResponse403
     | UsersDataSubtractCreateResponse404
+    | UsersDataSubtractCreateResponse409
 ]:
     """Subtract data from a sub-user order
 
@@ -206,6 +228,7 @@ async def asyncio_detailed(
 
     Args:
         id (UUID):
+        idempotency_key (str | Unset):
         accept_language (str | Unset):  Defaults to the client language.
         body (SubtractDataRequest):
 
@@ -214,12 +237,13 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Order | UsersDataSubtractCreateResponse400 | UsersDataSubtractCreateResponse401 | UsersDataSubtractCreateResponse403 | UsersDataSubtractCreateResponse404]
+        Response[Order | UsersDataSubtractCreateResponse400 | UsersDataSubtractCreateResponse401 | UsersDataSubtractCreateResponse403 | UsersDataSubtractCreateResponse404 | UsersDataSubtractCreateResponse409]
     """
 
     kwargs = _get_kwargs(
         id=id,
         body=body,
+        idempotency_key=idempotency_key,
         accept_language=accept_language,
     )
 
@@ -233,6 +257,7 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
     body: SubtractDataRequest,
+    idempotency_key: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
 ) -> (
     Order
@@ -240,6 +265,7 @@ async def asyncio(
     | UsersDataSubtractCreateResponse401
     | UsersDataSubtractCreateResponse403
     | UsersDataSubtractCreateResponse404
+    | UsersDataSubtractCreateResponse409
     | None
 ):
     """Subtract data from a sub-user order
@@ -249,6 +275,7 @@ async def asyncio(
 
     Args:
         id (UUID):
+        idempotency_key (str | Unset):
         accept_language (str | Unset):  Defaults to the client language.
         body (SubtractDataRequest):
 
@@ -257,7 +284,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Order | UsersDataSubtractCreateResponse400 | UsersDataSubtractCreateResponse401 | UsersDataSubtractCreateResponse403 | UsersDataSubtractCreateResponse404
+        Order | UsersDataSubtractCreateResponse400 | UsersDataSubtractCreateResponse401 | UsersDataSubtractCreateResponse403 | UsersDataSubtractCreateResponse404 | UsersDataSubtractCreateResponse409
     """
 
     return (
@@ -265,6 +292,7 @@ async def asyncio(
             id=id,
             client=client,
             body=body,
+            idempotency_key=idempotency_key,
             accept_language=accept_language,
         )
     ).parsed

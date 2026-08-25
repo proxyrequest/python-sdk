@@ -4,6 +4,7 @@ from __future__ import annotations
 from typing import Any, cast
 
 from ..files import FileDownload
+from ..response import ApiResponse
 from .._generated.models.invoice import Invoice
 from .._generated.models.invoice_create_request import InvoiceCreateRequest
 from .._generated.models.invoices_list_payment_gateway import InvoicesListPaymentGateway
@@ -29,26 +30,101 @@ class InvoicesResource:
         self._client = client
 
     def create(
-        self, *, body: InvoiceCreateRequest, accept_language: str | Unset = UNSET
+        self,
+        *,
+        body: InvoiceCreateRequest,
+        idempotency_key: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
     ) -> Invoice:
         """Create an invoice"""
         return cast(
             Invoice,
             self._client._call(
-                _invoices_create.sync_detailed, body=body, accept_language=accept_language
+                _invoices_create.sync_detailed,
+                _idempotent=True,
+                body=body,
+                idempotency_key=idempotency_key,
+                accept_language=accept_language,
             ),
         )
 
-    def delete(self, id: str, *, accept_language: str | Unset = UNSET) -> None:
+    def create_with_response(
+        self,
+        *,
+        body: InvoiceCreateRequest,
+        idempotency_key: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[Invoice]:
+        """Create an invoice; include response metadata."""
+        return cast(
+            ApiResponse[Invoice],
+            self._client._call_with_response(
+                _invoices_create.sync_detailed,
+                _idempotent=True,
+                body=body,
+                idempotency_key=idempotency_key,
+                accept_language=accept_language,
+            ),
+        )
+
+    def delete(
+        self,
+        id: str,
+        *,
+        idempotency_key: str | Unset = UNSET,
+        if_match: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> None:
         """Delete an invoice"""
-        self._client._call(_invoices_destroy.sync_detailed, id=id, accept_language=accept_language)
+        self._client._call(
+            _invoices_destroy.sync_detailed,
+            _idempotent=True,
+            id=id,
+            idempotency_key=idempotency_key,
+            if_match=if_match,
+            accept_language=accept_language,
+        )
         return None
+
+    def delete_with_response(
+        self,
+        id: str,
+        *,
+        idempotency_key: str | Unset = UNSET,
+        if_match: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[None]:
+        """Delete an invoice; include response metadata."""
+        return cast(
+            ApiResponse[None],
+            self._client._call_with_response(
+                _invoices_destroy.sync_detailed,
+                _idempotent=True,
+                id=id,
+                idempotency_key=idempotency_key,
+                if_match=if_match,
+                accept_language=accept_language,
+            ),
+        )
 
     def download_pdf(self, id: str, *, accept_language: str | Unset = UNSET) -> FileDownload:
         """Download an invoice PDF"""
         return cast(
             FileDownload,
             self._client._download(
+                _invoices_download_pdf_retrieve.sync_detailed,
+                id=id,
+                accept_language=accept_language,
+            ),
+        )
+
+    def download_pdf_with_response(
+        self, id: str, *, accept_language: str | Unset = UNSET
+    ) -> ApiResponse[FileDownload]:
+        """Download an invoice PDF; include response metadata."""
+        return cast(
+            ApiResponse[FileDownload],
+            self._client._download_with_response(
                 _invoices_download_pdf_retrieve.sync_detailed,
                 id=id,
                 accept_language=accept_language,
@@ -64,6 +140,17 @@ class InvoicesResource:
             ),
         )
 
+    def get_with_response(
+        self, id: str, *, accept_language: str | Unset = UNSET
+    ) -> ApiResponse[Invoice]:
+        """Get an invoice; include response metadata."""
+        return cast(
+            ApiResponse[Invoice],
+            self._client._call_with_response(
+                _invoices_retrieve.sync_detailed, id=id, accept_language=accept_language
+            ),
+        )
+
     def get_payment_link(
         self, id: str, *, accept_language: str | Unset = UNSET
     ) -> PaymentLinkResponse:
@@ -71,6 +158,17 @@ class InvoicesResource:
         return cast(
             PaymentLinkResponse,
             self._client._call(
+                _invoices_pay_retrieve.sync_detailed, id=id, accept_language=accept_language
+            ),
+        )
+
+    def get_payment_link_with_response(
+        self, id: str, *, accept_language: str | Unset = UNSET
+    ) -> ApiResponse[PaymentLinkResponse]:
+        """Get an invoice payment link; include response metadata."""
+        return cast(
+            ApiResponse[PaymentLinkResponse],
+            self._client._call_with_response(
                 _invoices_pay_retrieve.sync_detailed, id=id, accept_language=accept_language
             ),
         )
@@ -111,34 +209,143 @@ class InvoicesResource:
             ),
         )
 
+    def list_with_response(
+        self,
+        *,
+        gateway: InvoicesListPaymentGateway | Unset = UNSET,
+        internal_id: str | Unset = UNSET,
+        limit: int | Unset = UNSET,
+        offset: int | Unset = UNSET,
+        ordering: str | Unset = UNSET,
+        package_id: str | Unset = UNSET,
+        search: str | Unset = UNSET,
+        status: InvoicesListStatus | Unset = UNSET,
+        type_: InvoicesListType | Unset = UNSET,
+        user_email: str | Unset = UNSET,
+        user_id: UUID | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[PaginatedInvoiceList]:
+        """List invoices; include response metadata."""
+        return cast(
+            ApiResponse[PaginatedInvoiceList],
+            self._client._call_with_response(
+                _invoices_list.sync_detailed,
+                gateway=gateway,
+                internal_id=internal_id,
+                limit=limit,
+                offset=offset,
+                ordering=ordering,
+                package_id=package_id,
+                search=search,
+                status=status,
+                type_=type_,
+                user_email=user_email,
+                user_id=user_id,
+                accept_language=accept_language,
+            ),
+        )
+
 
 class AsyncInvoicesResource:
     def __init__(self, client: Any) -> None:
         self._client = client
 
     async def create(
-        self, *, body: InvoiceCreateRequest, accept_language: str | Unset = UNSET
+        self,
+        *,
+        body: InvoiceCreateRequest,
+        idempotency_key: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
     ) -> Invoice:
         """Create an invoice"""
         return cast(
             Invoice,
             await self._client._call(
-                _invoices_create.asyncio_detailed, body=body, accept_language=accept_language
+                _invoices_create.asyncio_detailed,
+                _idempotent=True,
+                body=body,
+                idempotency_key=idempotency_key,
+                accept_language=accept_language,
             ),
         )
 
-    async def delete(self, id: str, *, accept_language: str | Unset = UNSET) -> None:
+    async def create_with_response(
+        self,
+        *,
+        body: InvoiceCreateRequest,
+        idempotency_key: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[Invoice]:
+        """Create an invoice; include response metadata."""
+        return cast(
+            ApiResponse[Invoice],
+            await self._client._call_with_response(
+                _invoices_create.asyncio_detailed,
+                _idempotent=True,
+                body=body,
+                idempotency_key=idempotency_key,
+                accept_language=accept_language,
+            ),
+        )
+
+    async def delete(
+        self,
+        id: str,
+        *,
+        idempotency_key: str | Unset = UNSET,
+        if_match: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> None:
         """Delete an invoice"""
         await self._client._call(
-            _invoices_destroy.asyncio_detailed, id=id, accept_language=accept_language
+            _invoices_destroy.asyncio_detailed,
+            _idempotent=True,
+            id=id,
+            idempotency_key=idempotency_key,
+            if_match=if_match,
+            accept_language=accept_language,
         )
         return None
+
+    async def delete_with_response(
+        self,
+        id: str,
+        *,
+        idempotency_key: str | Unset = UNSET,
+        if_match: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[None]:
+        """Delete an invoice; include response metadata."""
+        return cast(
+            ApiResponse[None],
+            await self._client._call_with_response(
+                _invoices_destroy.asyncio_detailed,
+                _idempotent=True,
+                id=id,
+                idempotency_key=idempotency_key,
+                if_match=if_match,
+                accept_language=accept_language,
+            ),
+        )
 
     async def download_pdf(self, id: str, *, accept_language: str | Unset = UNSET) -> FileDownload:
         """Download an invoice PDF"""
         return cast(
             FileDownload,
             await self._client._download(
+                _invoices_download_pdf_retrieve.asyncio_detailed,
+                id=id,
+                accept_language=accept_language,
+            ),
+        )
+
+    async def download_pdf_with_response(
+        self, id: str, *, accept_language: str | Unset = UNSET
+    ) -> ApiResponse[FileDownload]:
+        """Download an invoice PDF; include response metadata."""
+        return cast(
+            ApiResponse[FileDownload],
+            await self._client._download_with_response(
                 _invoices_download_pdf_retrieve.asyncio_detailed,
                 id=id,
                 accept_language=accept_language,
@@ -154,6 +361,17 @@ class AsyncInvoicesResource:
             ),
         )
 
+    async def get_with_response(
+        self, id: str, *, accept_language: str | Unset = UNSET
+    ) -> ApiResponse[Invoice]:
+        """Get an invoice; include response metadata."""
+        return cast(
+            ApiResponse[Invoice],
+            await self._client._call_with_response(
+                _invoices_retrieve.asyncio_detailed, id=id, accept_language=accept_language
+            ),
+        )
+
     async def get_payment_link(
         self, id: str, *, accept_language: str | Unset = UNSET
     ) -> PaymentLinkResponse:
@@ -161,6 +379,17 @@ class AsyncInvoicesResource:
         return cast(
             PaymentLinkResponse,
             await self._client._call(
+                _invoices_pay_retrieve.asyncio_detailed, id=id, accept_language=accept_language
+            ),
+        )
+
+    async def get_payment_link_with_response(
+        self, id: str, *, accept_language: str | Unset = UNSET
+    ) -> ApiResponse[PaymentLinkResponse]:
+        """Get an invoice payment link; include response metadata."""
+        return cast(
+            ApiResponse[PaymentLinkResponse],
+            await self._client._call_with_response(
                 _invoices_pay_retrieve.asyncio_detailed, id=id, accept_language=accept_language
             ),
         )
@@ -185,6 +414,42 @@ class AsyncInvoicesResource:
         return cast(
             PaginatedInvoiceList,
             await self._client._call(
+                _invoices_list.asyncio_detailed,
+                gateway=gateway,
+                internal_id=internal_id,
+                limit=limit,
+                offset=offset,
+                ordering=ordering,
+                package_id=package_id,
+                search=search,
+                status=status,
+                type_=type_,
+                user_email=user_email,
+                user_id=user_id,
+                accept_language=accept_language,
+            ),
+        )
+
+    async def list_with_response(
+        self,
+        *,
+        gateway: InvoicesListPaymentGateway | Unset = UNSET,
+        internal_id: str | Unset = UNSET,
+        limit: int | Unset = UNSET,
+        offset: int | Unset = UNSET,
+        ordering: str | Unset = UNSET,
+        package_id: str | Unset = UNSET,
+        search: str | Unset = UNSET,
+        status: InvoicesListStatus | Unset = UNSET,
+        type_: InvoicesListType | Unset = UNSET,
+        user_email: str | Unset = UNSET,
+        user_id: UUID | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[PaginatedInvoiceList]:
+        """List invoices; include response metadata."""
+        return cast(
+            ApiResponse[PaginatedInvoiceList],
+            await self._client._call_with_response(
                 _invoices_list.asyncio_detailed,
                 gateway=gateway,
                 internal_id=internal_id,

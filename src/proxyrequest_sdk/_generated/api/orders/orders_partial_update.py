@@ -13,6 +13,7 @@ from ...models.orders_partial_update_response_400 import OrdersPartialUpdateResp
 from ...models.orders_partial_update_response_401 import OrdersPartialUpdateResponse401
 from ...models.orders_partial_update_response_403 import OrdersPartialUpdateResponse403
 from ...models.orders_partial_update_response_404 import OrdersPartialUpdateResponse404
+from ...models.orders_partial_update_response_412 import OrdersPartialUpdateResponse412
 from ...models.patched_order_auto_renewal_request import PatchedOrderAutoRenewalRequest
 from ...types import UNSET, Unset
 from typing import cast
@@ -22,9 +23,13 @@ def _get_kwargs(
     id: str,
     *,
     body: PatchedOrderAutoRenewalRequest | Unset = UNSET,
+    if_match: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
+    if not isinstance(if_match, Unset):
+        headers["If-Match"] = if_match
+
     if not isinstance(accept_language, Unset):
         headers["Accept-Language"] = accept_language
 
@@ -52,6 +57,7 @@ def _parse_response(
     | OrdersPartialUpdateResponse401
     | OrdersPartialUpdateResponse403
     | OrdersPartialUpdateResponse404
+    | OrdersPartialUpdateResponse412
     | None
 ):
     if response.status_code == 200:
@@ -79,6 +85,11 @@ def _parse_response(
 
         return response_404
 
+    if response.status_code == 412:
+        response_412 = OrdersPartialUpdateResponse412.from_dict(response.json())
+
+        return response_412
+
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     else:
@@ -93,6 +104,7 @@ def _build_response(
     | OrdersPartialUpdateResponse401
     | OrdersPartialUpdateResponse403
     | OrdersPartialUpdateResponse404
+    | OrdersPartialUpdateResponse412
 ]:
     return Response(
         status_code=HTTPStatus(response.status_code),
@@ -107,6 +119,7 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
     body: PatchedOrderAutoRenewalRequest | Unset = UNSET,
+    if_match: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
 ) -> Response[
     Order
@@ -114,6 +127,7 @@ def sync_detailed(
     | OrdersPartialUpdateResponse401
     | OrdersPartialUpdateResponse403
     | OrdersPartialUpdateResponse404
+    | OrdersPartialUpdateResponse412
 ]:
     """Update order auto-renewal
 
@@ -122,6 +136,7 @@ def sync_detailed(
 
     Args:
         id (str):
+        if_match (str | Unset):
         accept_language (str | Unset):  Defaults to the client language.
         body (PatchedOrderAutoRenewalRequest | Unset):
 
@@ -130,12 +145,13 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Order | OrdersPartialUpdateResponse400 | OrdersPartialUpdateResponse401 | OrdersPartialUpdateResponse403 | OrdersPartialUpdateResponse404]
+        Response[Order | OrdersPartialUpdateResponse400 | OrdersPartialUpdateResponse401 | OrdersPartialUpdateResponse403 | OrdersPartialUpdateResponse404 | OrdersPartialUpdateResponse412]
     """
 
     kwargs = _get_kwargs(
         id=id,
         body=body,
+        if_match=if_match,
         accept_language=accept_language,
     )
 
@@ -151,6 +167,7 @@ def sync(
     *,
     client: AuthenticatedClient,
     body: PatchedOrderAutoRenewalRequest | Unset = UNSET,
+    if_match: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
 ) -> (
     Order
@@ -158,6 +175,7 @@ def sync(
     | OrdersPartialUpdateResponse401
     | OrdersPartialUpdateResponse403
     | OrdersPartialUpdateResponse404
+    | OrdersPartialUpdateResponse412
     | None
 ):
     """Update order auto-renewal
@@ -167,6 +185,7 @@ def sync(
 
     Args:
         id (str):
+        if_match (str | Unset):
         accept_language (str | Unset):  Defaults to the client language.
         body (PatchedOrderAutoRenewalRequest | Unset):
 
@@ -175,13 +194,14 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Order | OrdersPartialUpdateResponse400 | OrdersPartialUpdateResponse401 | OrdersPartialUpdateResponse403 | OrdersPartialUpdateResponse404
+        Order | OrdersPartialUpdateResponse400 | OrdersPartialUpdateResponse401 | OrdersPartialUpdateResponse403 | OrdersPartialUpdateResponse404 | OrdersPartialUpdateResponse412
     """
 
     return sync_detailed(
         id=id,
         client=client,
         body=body,
+        if_match=if_match,
         accept_language=accept_language,
     ).parsed
 
@@ -191,6 +211,7 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
     body: PatchedOrderAutoRenewalRequest | Unset = UNSET,
+    if_match: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
 ) -> Response[
     Order
@@ -198,6 +219,7 @@ async def asyncio_detailed(
     | OrdersPartialUpdateResponse401
     | OrdersPartialUpdateResponse403
     | OrdersPartialUpdateResponse404
+    | OrdersPartialUpdateResponse412
 ]:
     """Update order auto-renewal
 
@@ -206,6 +228,7 @@ async def asyncio_detailed(
 
     Args:
         id (str):
+        if_match (str | Unset):
         accept_language (str | Unset):  Defaults to the client language.
         body (PatchedOrderAutoRenewalRequest | Unset):
 
@@ -214,12 +237,13 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Order | OrdersPartialUpdateResponse400 | OrdersPartialUpdateResponse401 | OrdersPartialUpdateResponse403 | OrdersPartialUpdateResponse404]
+        Response[Order | OrdersPartialUpdateResponse400 | OrdersPartialUpdateResponse401 | OrdersPartialUpdateResponse403 | OrdersPartialUpdateResponse404 | OrdersPartialUpdateResponse412]
     """
 
     kwargs = _get_kwargs(
         id=id,
         body=body,
+        if_match=if_match,
         accept_language=accept_language,
     )
 
@@ -233,6 +257,7 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
     body: PatchedOrderAutoRenewalRequest | Unset = UNSET,
+    if_match: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
 ) -> (
     Order
@@ -240,6 +265,7 @@ async def asyncio(
     | OrdersPartialUpdateResponse401
     | OrdersPartialUpdateResponse403
     | OrdersPartialUpdateResponse404
+    | OrdersPartialUpdateResponse412
     | None
 ):
     """Update order auto-renewal
@@ -249,6 +275,7 @@ async def asyncio(
 
     Args:
         id (str):
+        if_match (str | Unset):
         accept_language (str | Unset):  Defaults to the client language.
         body (PatchedOrderAutoRenewalRequest | Unset):
 
@@ -257,7 +284,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Order | OrdersPartialUpdateResponse400 | OrdersPartialUpdateResponse401 | OrdersPartialUpdateResponse403 | OrdersPartialUpdateResponse404
+        Order | OrdersPartialUpdateResponse400 | OrdersPartialUpdateResponse401 | OrdersPartialUpdateResponse403 | OrdersPartialUpdateResponse404 | OrdersPartialUpdateResponse412
     """
 
     return (
@@ -265,6 +292,7 @@ async def asyncio(
             id=id,
             client=client,
             body=body,
+            if_match=if_match,
             accept_language=accept_language,
         )
     ).parsed

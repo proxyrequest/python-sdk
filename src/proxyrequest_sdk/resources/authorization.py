@@ -4,6 +4,7 @@ from __future__ import annotations
 from typing import Any, cast
 
 from ..files import FileDownload
+from ..response import ApiResponse
 from .._generated.models.google_auth_request import GoogleAuthRequest
 from .._generated.models.login_request import LoginRequest
 from .._generated.models.password_recovery_response import PasswordRecoveryResponse
@@ -36,6 +37,17 @@ class AuthorizationResource:
             ),
         )
 
+    def login_with_response(
+        self, *, body: LoginRequest, accept_language: str | Unset = UNSET
+    ) -> ApiResponse[TokenPairResponse]:
+        """Sign in with email or username; include response metadata."""
+        return cast(
+            ApiResponse[TokenPairResponse],
+            self._client._call_with_response(
+                _login_create.sync_detailed, body=body, accept_language=accept_language
+            ),
+        )
+
     def login_with_google(
         self, *, body: GoogleAuthRequest, accept_language: str | Unset = UNSET
     ) -> TokenPairResponse:
@@ -43,6 +55,17 @@ class AuthorizationResource:
         return cast(
             TokenPairResponse,
             self._client._call(
+                _login_google_create.sync_detailed, body=body, accept_language=accept_language
+            ),
+        )
+
+    def login_with_google_with_response(
+        self, *, body: GoogleAuthRequest, accept_language: str | Unset = UNSET
+    ) -> ApiResponse[TokenPairResponse]:
+        """Sign in with Google; include response metadata."""
+        return cast(
+            ApiResponse[TokenPairResponse],
+            self._client._call_with_response(
                 _login_google_create.sync_detailed, body=body, accept_language=accept_language
             ),
         )
@@ -58,6 +81,17 @@ class AuthorizationResource:
             ),
         )
 
+    def recover_password_with_response(
+        self, *, body: RecoverPasswordRequest, accept_language: str | Unset = UNSET
+    ) -> ApiResponse[PasswordRecoveryResponse]:
+        """Send a password recovery email; include response metadata."""
+        return cast(
+            ApiResponse[PasswordRecoveryResponse],
+            self._client._call_with_response(
+                _recover_password_create.sync_detailed, body=body, accept_language=accept_language
+            ),
+        )
+
     def refresh(
         self, *, body: TokenRefreshRequest, accept_language: str | Unset = UNSET
     ) -> TokenRefreshResponse:
@@ -69,6 +103,17 @@ class AuthorizationResource:
             ),
         )
 
+    def refresh_with_response(
+        self, *, body: TokenRefreshRequest, accept_language: str | Unset = UNSET
+    ) -> ApiResponse[TokenRefreshResponse]:
+        """Refresh an access token; include response metadata."""
+        return cast(
+            ApiResponse[TokenRefreshResponse],
+            self._client._call_with_response(
+                _refresh_create.sync_detailed, body=body, accept_language=accept_language
+            ),
+        )
+
     def signup(
         self, *, body: SignUpRequest, accept_language: str | Unset = UNSET
     ) -> TokenPairResponse:
@@ -76,6 +121,17 @@ class AuthorizationResource:
         return cast(
             TokenPairResponse,
             self._client._call(
+                _signup_create.sync_detailed, body=body, accept_language=accept_language
+            ),
+        )
+
+    def signup_with_response(
+        self, *, body: SignUpRequest, accept_language: str | Unset = UNSET
+    ) -> ApiResponse[TokenPairResponse]:
+        """Create a customer account; include response metadata."""
+        return cast(
+            ApiResponse[TokenPairResponse],
+            self._client._call_with_response(
                 _signup_create.sync_detailed, body=body, accept_language=accept_language
             ),
         )
@@ -96,6 +152,17 @@ class AsyncAuthorizationResource:
             ),
         )
 
+    async def login_with_response(
+        self, *, body: LoginRequest, accept_language: str | Unset = UNSET
+    ) -> ApiResponse[TokenPairResponse]:
+        """Sign in with email or username; include response metadata."""
+        return cast(
+            ApiResponse[TokenPairResponse],
+            await self._client._call_with_response(
+                _login_create.asyncio_detailed, body=body, accept_language=accept_language
+            ),
+        )
+
     async def login_with_google(
         self, *, body: GoogleAuthRequest, accept_language: str | Unset = UNSET
     ) -> TokenPairResponse:
@@ -103,6 +170,17 @@ class AsyncAuthorizationResource:
         return cast(
             TokenPairResponse,
             await self._client._call(
+                _login_google_create.asyncio_detailed, body=body, accept_language=accept_language
+            ),
+        )
+
+    async def login_with_google_with_response(
+        self, *, body: GoogleAuthRequest, accept_language: str | Unset = UNSET
+    ) -> ApiResponse[TokenPairResponse]:
+        """Sign in with Google; include response metadata."""
+        return cast(
+            ApiResponse[TokenPairResponse],
+            await self._client._call_with_response(
                 _login_google_create.asyncio_detailed, body=body, accept_language=accept_language
             ),
         )
@@ -120,6 +198,19 @@ class AsyncAuthorizationResource:
             ),
         )
 
+    async def recover_password_with_response(
+        self, *, body: RecoverPasswordRequest, accept_language: str | Unset = UNSET
+    ) -> ApiResponse[PasswordRecoveryResponse]:
+        """Send a password recovery email; include response metadata."""
+        return cast(
+            ApiResponse[PasswordRecoveryResponse],
+            await self._client._call_with_response(
+                _recover_password_create.asyncio_detailed,
+                body=body,
+                accept_language=accept_language,
+            ),
+        )
+
     async def refresh(
         self, *, body: TokenRefreshRequest, accept_language: str | Unset = UNSET
     ) -> TokenRefreshResponse:
@@ -131,6 +222,17 @@ class AsyncAuthorizationResource:
             ),
         )
 
+    async def refresh_with_response(
+        self, *, body: TokenRefreshRequest, accept_language: str | Unset = UNSET
+    ) -> ApiResponse[TokenRefreshResponse]:
+        """Refresh an access token; include response metadata."""
+        return cast(
+            ApiResponse[TokenRefreshResponse],
+            await self._client._call_with_response(
+                _refresh_create.asyncio_detailed, body=body, accept_language=accept_language
+            ),
+        )
+
     async def signup(
         self, *, body: SignUpRequest, accept_language: str | Unset = UNSET
     ) -> TokenPairResponse:
@@ -138,6 +240,17 @@ class AsyncAuthorizationResource:
         return cast(
             TokenPairResponse,
             await self._client._call(
+                _signup_create.asyncio_detailed, body=body, accept_language=accept_language
+            ),
+        )
+
+    async def signup_with_response(
+        self, *, body: SignUpRequest, accept_language: str | Unset = UNSET
+    ) -> ApiResponse[TokenPairResponse]:
+        """Create a customer account; include response metadata."""
+        return cast(
+            ApiResponse[TokenPairResponse],
+            await self._client._call_with_response(
                 _signup_create.asyncio_detailed, body=body, accept_language=accept_language
             ),
         )

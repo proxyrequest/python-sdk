@@ -4,6 +4,7 @@ from __future__ import annotations
 from typing import Any, cast
 
 from ..files import FileDownload
+from ..response import ApiResponse
 from .._generated.models.change_password_request import ChangePasswordRequest
 from .._generated.models.enabled_response import EnabledResponse
 from .._generated.models.message_response import MessageResponse
@@ -43,6 +44,19 @@ class ProfileResource:
             ),
         )
 
+    def change_password_with_response(
+        self, *, body: ChangePasswordRequest, accept_language: str | Unset = UNSET
+    ) -> ApiResponse[MessageResponse]:
+        """Change the account password; include response metadata."""
+        return cast(
+            ApiResponse[MessageResponse],
+            self._client._call_with_response(
+                _profile_change_password_create.sync_detailed,
+                body=body,
+                accept_language=accept_language,
+            ),
+        )
+
     def confirm_two_factor(
         self, *, body: TwoFactorConfirmRequest, accept_language: str | Unset = UNSET
     ) -> EnabledResponse:
@@ -56,10 +70,38 @@ class ProfileResource:
             ),
         )
 
-    def delete(self, *, accept_language: str | Unset = UNSET) -> None:
+    def confirm_two_factor_with_response(
+        self, *, body: TwoFactorConfirmRequest, accept_language: str | Unset = UNSET
+    ) -> ApiResponse[EnabledResponse]:
+        """Confirm two-factor setup; include response metadata."""
+        return cast(
+            ApiResponse[EnabledResponse],
+            self._client._call_with_response(
+                _profile_2fa_confirm_create.sync_detailed,
+                body=body,
+                accept_language=accept_language,
+            ),
+        )
+
+    def delete(
+        self, *, if_match: str | Unset = UNSET, accept_language: str | Unset = UNSET
+    ) -> None:
         """Delete the current account"""
-        self._client._call(_profile_destroy.sync_detailed, accept_language=accept_language)
+        self._client._call(
+            _profile_destroy.sync_detailed, if_match=if_match, accept_language=accept_language
+        )
         return None
+
+    def delete_with_response(
+        self, *, if_match: str | Unset = UNSET, accept_language: str | Unset = UNSET
+    ) -> ApiResponse[None]:
+        """Delete the current account; include response metadata."""
+        return cast(
+            ApiResponse[None],
+            self._client._call_with_response(
+                _profile_destroy.sync_detailed, if_match=if_match, accept_language=accept_language
+            ),
+        )
 
     def disable_two_factor(
         self, *, body: TwoFactorDisableRequest, accept_language: str | Unset = UNSET
@@ -74,6 +116,19 @@ class ProfileResource:
             ),
         )
 
+    def disable_two_factor_with_response(
+        self, *, body: TwoFactorDisableRequest, accept_language: str | Unset = UNSET
+    ) -> ApiResponse[EnabledResponse]:
+        """Disable two-factor authentication; include response metadata."""
+        return cast(
+            ApiResponse[EnabledResponse],
+            self._client._call_with_response(
+                _profile_2fa_disable_create.sync_detailed,
+                body=body,
+                accept_language=accept_language,
+            ),
+        )
+
     def get(self, *, accept_language: str | Unset = UNSET) -> User:
         """Get the current profile"""
         return cast(
@@ -81,11 +136,31 @@ class ProfileResource:
             self._client._call(_profile_retrieve.sync_detailed, accept_language=accept_language),
         )
 
+    def get_with_response(self, *, accept_language: str | Unset = UNSET) -> ApiResponse[User]:
+        """Get the current profile; include response metadata."""
+        return cast(
+            ApiResponse[User],
+            self._client._call_with_response(
+                _profile_retrieve.sync_detailed, accept_language=accept_language
+            ),
+        )
+
     def get_two_factor_status(self, *, accept_language: str | Unset = UNSET) -> EnabledResponse:
         """Get two-factor status"""
         return cast(
             EnabledResponse,
             self._client._call(
+                _profile_2fa_status_retrieve.sync_detailed, accept_language=accept_language
+            ),
+        )
+
+    def get_two_factor_status_with_response(
+        self, *, accept_language: str | Unset = UNSET
+    ) -> ApiResponse[EnabledResponse]:
+        """Get two-factor status; include response metadata."""
+        return cast(
+            ApiResponse[EnabledResponse],
+            self._client._call_with_response(
                 _profile_2fa_status_retrieve.sync_detailed, accept_language=accept_language
             ),
         )
@@ -99,17 +174,50 @@ class ProfileResource:
             ),
         )
 
+    def setup_two_factor_with_response(
+        self, *, accept_language: str | Unset = UNSET
+    ) -> ApiResponse[TwoFactorSetupResponse]:
+        """Start two-factor setup; include response metadata."""
+        return cast(
+            ApiResponse[TwoFactorSetupResponse],
+            self._client._call_with_response(
+                _profile_2fa_setup_create.sync_detailed, accept_language=accept_language
+            ),
+        )
+
     def update(
         self,
         *,
         body: PatchedProfileUpdateRequest | Unset = UNSET,
+        if_match: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
     ) -> User:
         """Update the current profile"""
         return cast(
             User,
             self._client._call(
-                _profile_partial_update.sync_detailed, body=body, accept_language=accept_language
+                _profile_partial_update.sync_detailed,
+                body=body,
+                if_match=if_match,
+                accept_language=accept_language,
+            ),
+        )
+
+    def update_with_response(
+        self,
+        *,
+        body: PatchedProfileUpdateRequest | Unset = UNSET,
+        if_match: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[User]:
+        """Update the current profile; include response metadata."""
+        return cast(
+            ApiResponse[User],
+            self._client._call_with_response(
+                _profile_partial_update.sync_detailed,
+                body=body,
+                if_match=if_match,
+                accept_language=accept_language,
             ),
         )
 
@@ -131,6 +239,19 @@ class AsyncProfileResource:
             ),
         )
 
+    async def change_password_with_response(
+        self, *, body: ChangePasswordRequest, accept_language: str | Unset = UNSET
+    ) -> ApiResponse[MessageResponse]:
+        """Change the account password; include response metadata."""
+        return cast(
+            ApiResponse[MessageResponse],
+            await self._client._call_with_response(
+                _profile_change_password_create.asyncio_detailed,
+                body=body,
+                accept_language=accept_language,
+            ),
+        )
+
     async def confirm_two_factor(
         self, *, body: TwoFactorConfirmRequest, accept_language: str | Unset = UNSET
     ) -> EnabledResponse:
@@ -144,10 +265,40 @@ class AsyncProfileResource:
             ),
         )
 
-    async def delete(self, *, accept_language: str | Unset = UNSET) -> None:
+    async def confirm_two_factor_with_response(
+        self, *, body: TwoFactorConfirmRequest, accept_language: str | Unset = UNSET
+    ) -> ApiResponse[EnabledResponse]:
+        """Confirm two-factor setup; include response metadata."""
+        return cast(
+            ApiResponse[EnabledResponse],
+            await self._client._call_with_response(
+                _profile_2fa_confirm_create.asyncio_detailed,
+                body=body,
+                accept_language=accept_language,
+            ),
+        )
+
+    async def delete(
+        self, *, if_match: str | Unset = UNSET, accept_language: str | Unset = UNSET
+    ) -> None:
         """Delete the current account"""
-        await self._client._call(_profile_destroy.asyncio_detailed, accept_language=accept_language)
+        await self._client._call(
+            _profile_destroy.asyncio_detailed, if_match=if_match, accept_language=accept_language
+        )
         return None
+
+    async def delete_with_response(
+        self, *, if_match: str | Unset = UNSET, accept_language: str | Unset = UNSET
+    ) -> ApiResponse[None]:
+        """Delete the current account; include response metadata."""
+        return cast(
+            ApiResponse[None],
+            await self._client._call_with_response(
+                _profile_destroy.asyncio_detailed,
+                if_match=if_match,
+                accept_language=accept_language,
+            ),
+        )
 
     async def disable_two_factor(
         self, *, body: TwoFactorDisableRequest, accept_language: str | Unset = UNSET
@@ -156,6 +307,19 @@ class AsyncProfileResource:
         return cast(
             EnabledResponse,
             await self._client._call(
+                _profile_2fa_disable_create.asyncio_detailed,
+                body=body,
+                accept_language=accept_language,
+            ),
+        )
+
+    async def disable_two_factor_with_response(
+        self, *, body: TwoFactorDisableRequest, accept_language: str | Unset = UNSET
+    ) -> ApiResponse[EnabledResponse]:
+        """Disable two-factor authentication; include response metadata."""
+        return cast(
+            ApiResponse[EnabledResponse],
+            await self._client._call_with_response(
                 _profile_2fa_disable_create.asyncio_detailed,
                 body=body,
                 accept_language=accept_language,
@@ -171,6 +335,15 @@ class AsyncProfileResource:
             ),
         )
 
+    async def get_with_response(self, *, accept_language: str | Unset = UNSET) -> ApiResponse[User]:
+        """Get the current profile; include response metadata."""
+        return cast(
+            ApiResponse[User],
+            await self._client._call_with_response(
+                _profile_retrieve.asyncio_detailed, accept_language=accept_language
+            ),
+        )
+
     async def get_two_factor_status(
         self, *, accept_language: str | Unset = UNSET
     ) -> EnabledResponse:
@@ -178,6 +351,17 @@ class AsyncProfileResource:
         return cast(
             EnabledResponse,
             await self._client._call(
+                _profile_2fa_status_retrieve.asyncio_detailed, accept_language=accept_language
+            ),
+        )
+
+    async def get_two_factor_status_with_response(
+        self, *, accept_language: str | Unset = UNSET
+    ) -> ApiResponse[EnabledResponse]:
+        """Get two-factor status; include response metadata."""
+        return cast(
+            ApiResponse[EnabledResponse],
+            await self._client._call_with_response(
                 _profile_2fa_status_retrieve.asyncio_detailed, accept_language=accept_language
             ),
         )
@@ -193,16 +377,49 @@ class AsyncProfileResource:
             ),
         )
 
+    async def setup_two_factor_with_response(
+        self, *, accept_language: str | Unset = UNSET
+    ) -> ApiResponse[TwoFactorSetupResponse]:
+        """Start two-factor setup; include response metadata."""
+        return cast(
+            ApiResponse[TwoFactorSetupResponse],
+            await self._client._call_with_response(
+                _profile_2fa_setup_create.asyncio_detailed, accept_language=accept_language
+            ),
+        )
+
     async def update(
         self,
         *,
         body: PatchedProfileUpdateRequest | Unset = UNSET,
+        if_match: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
     ) -> User:
         """Update the current profile"""
         return cast(
             User,
             await self._client._call(
-                _profile_partial_update.asyncio_detailed, body=body, accept_language=accept_language
+                _profile_partial_update.asyncio_detailed,
+                body=body,
+                if_match=if_match,
+                accept_language=accept_language,
+            ),
+        )
+
+    async def update_with_response(
+        self,
+        *,
+        body: PatchedProfileUpdateRequest | Unset = UNSET,
+        if_match: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[User]:
+        """Update the current profile; include response metadata."""
+        return cast(
+            ApiResponse[User],
+            await self._client._call_with_response(
+                _profile_partial_update.asyncio_detailed,
+                body=body,
+                if_match=if_match,
+                accept_language=accept_language,
             ),
         )

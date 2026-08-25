@@ -4,6 +4,7 @@ from __future__ import annotations
 from typing import Any, cast
 
 from ..files import FileDownload
+from ..response import ApiResponse
 from .._generated.models.patched_telegram_connection_update_request import (
     PatchedTelegramConnectionUpdateRequest,
 )
@@ -38,6 +39,17 @@ class TelegramDashboardResource:
             ),
         )
 
+    def create_link_with_response(
+        self, *, accept_language: str | Unset = UNSET
+    ) -> ApiResponse[TelegramLinkResponse]:
+        """Create a Telegram account link; include response metadata."""
+        return cast(
+            ApiResponse[TelegramLinkResponse],
+            self._client._call_with_response(
+                _integrations_telegram_link_create.sync_detailed, accept_language=accept_language
+            ),
+        )
+
     def delete_connection(self, *, accept_language: str | Unset = UNSET) -> None:
         """Disconnect the Telegram dashboard"""
         self._client._call(
@@ -45,11 +57,35 @@ class TelegramDashboardResource:
         )
         return None
 
+    def delete_connection_with_response(
+        self, *, accept_language: str | Unset = UNSET
+    ) -> ApiResponse[None]:
+        """Disconnect the Telegram dashboard; include response metadata."""
+        return cast(
+            ApiResponse[None],
+            self._client._call_with_response(
+                _integrations_telegram_connection_destroy.sync_detailed,
+                accept_language=accept_language,
+            ),
+        )
+
     def get_connection(self, *, accept_language: str | Unset = UNSET) -> TelegramConnectionResponse:
         """Get the Telegram dashboard connection"""
         return cast(
             TelegramConnectionResponse,
             self._client._call(
+                _integrations_telegram_connection_retrieve.sync_detailed,
+                accept_language=accept_language,
+            ),
+        )
+
+    def get_connection_with_response(
+        self, *, accept_language: str | Unset = UNSET
+    ) -> ApiResponse[TelegramConnectionResponse]:
+        """Get the Telegram dashboard connection; include response metadata."""
+        return cast(
+            ApiResponse[TelegramConnectionResponse],
+            self._client._call_with_response(
                 _integrations_telegram_connection_retrieve.sync_detailed,
                 accept_language=accept_language,
             ),
@@ -71,6 +107,22 @@ class TelegramDashboardResource:
             ),
         )
 
+    def update_connection_with_response(
+        self,
+        *,
+        body: PatchedTelegramConnectionUpdateRequest | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[TelegramConnectionResponse]:
+        """Update Telegram dashboard preferences; include response metadata."""
+        return cast(
+            ApiResponse[TelegramConnectionResponse],
+            self._client._call_with_response(
+                _integrations_telegram_connection_partial_update.sync_detailed,
+                body=body,
+                accept_language=accept_language,
+            ),
+        )
+
 
 class AsyncTelegramDashboardResource:
     def __init__(self, client: Any) -> None:
@@ -85,6 +137,17 @@ class AsyncTelegramDashboardResource:
             ),
         )
 
+    async def create_link_with_response(
+        self, *, accept_language: str | Unset = UNSET
+    ) -> ApiResponse[TelegramLinkResponse]:
+        """Create a Telegram account link; include response metadata."""
+        return cast(
+            ApiResponse[TelegramLinkResponse],
+            await self._client._call_with_response(
+                _integrations_telegram_link_create.asyncio_detailed, accept_language=accept_language
+            ),
+        )
+
     async def delete_connection(self, *, accept_language: str | Unset = UNSET) -> None:
         """Disconnect the Telegram dashboard"""
         await self._client._call(
@@ -93,6 +156,18 @@ class AsyncTelegramDashboardResource:
         )
         return None
 
+    async def delete_connection_with_response(
+        self, *, accept_language: str | Unset = UNSET
+    ) -> ApiResponse[None]:
+        """Disconnect the Telegram dashboard; include response metadata."""
+        return cast(
+            ApiResponse[None],
+            await self._client._call_with_response(
+                _integrations_telegram_connection_destroy.asyncio_detailed,
+                accept_language=accept_language,
+            ),
+        )
+
     async def get_connection(
         self, *, accept_language: str | Unset = UNSET
     ) -> TelegramConnectionResponse:
@@ -100,6 +175,18 @@ class AsyncTelegramDashboardResource:
         return cast(
             TelegramConnectionResponse,
             await self._client._call(
+                _integrations_telegram_connection_retrieve.asyncio_detailed,
+                accept_language=accept_language,
+            ),
+        )
+
+    async def get_connection_with_response(
+        self, *, accept_language: str | Unset = UNSET
+    ) -> ApiResponse[TelegramConnectionResponse]:
+        """Get the Telegram dashboard connection; include response metadata."""
+        return cast(
+            ApiResponse[TelegramConnectionResponse],
+            await self._client._call_with_response(
                 _integrations_telegram_connection_retrieve.asyncio_detailed,
                 accept_language=accept_language,
             ),
@@ -115,6 +202,22 @@ class AsyncTelegramDashboardResource:
         return cast(
             TelegramConnectionResponse,
             await self._client._call(
+                _integrations_telegram_connection_partial_update.asyncio_detailed,
+                body=body,
+                accept_language=accept_language,
+            ),
+        )
+
+    async def update_connection_with_response(
+        self,
+        *,
+        body: PatchedTelegramConnectionUpdateRequest | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[TelegramConnectionResponse]:
+        """Update Telegram dashboard preferences; include response metadata."""
+        return cast(
+            ApiResponse[TelegramConnectionResponse],
+            await self._client._call_with_response(
                 _integrations_telegram_connection_partial_update.asyncio_detailed,
                 body=body,
                 accept_language=accept_language,
