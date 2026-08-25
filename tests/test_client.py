@@ -12,7 +12,6 @@ import pytest
 from proxyrequest_sdk import ApiError, AsyncClient, Client, ErrorKind, PaginationError
 from proxyrequest_sdk.models import (
     PatchedUserUpdateRequest,
-    TelegramSessionRequest,
     UserCreateRequest,
     WebhookCreateRequest,
     WebhookScopeEnum,
@@ -64,39 +63,6 @@ def test_bearer_error_contract_and_retry_after() -> None:
     assert captured.value.kind is ErrorKind.RATE_LIMIT
     assert captured.value.detail == "Slow down."
     assert captured.value.retry_after == 2.5
-
-
-def test_anonymous_and_telegram_service_auth_are_isolated() -> None:
-    requests: list[httpx.Request] = []
-
-    def handler(request: httpx.Request) -> httpx.Response:
-        requests.append(request)
-        return httpx.Response(
-            200,
-            json={
-                "access": "access-token",
-                "expires_in": 3600,
-                "locale": "en",
-                "timezone": "UTC",
-                "user": {},
-            },
-        )
-
-    http_client = httpx.Client(
-        base_url=BASE_URL,
-        headers={"Authorization": "Bearer must-not-leak"},
-        transport=httpx.MockTransport(handler),
-    )
-    client = Client.anonymous(http_client=http_client)
-    response = client.telegram_service.create_session(
-        body=TelegramSessionRequest(telegram_user_id=100, chat_id=200),
-        service_secret="telegram-service-secret",
-    )
-
-    assert response.access == "access-token"
-    assert "Authorization" not in requests[0].headers
-    assert requests[0].headers["X-ProxyRequest-Telegram-Secret"] == "telegram-service-secret"
-    assert json.loads(requests[0].content) == {"telegram_user_id": 100, "chat_id": 200}
 
 
 def test_raw_escape_hatch_uses_configuration() -> None:

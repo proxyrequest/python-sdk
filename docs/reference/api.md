@@ -149,13 +149,6 @@ All methods exist on both `Client` and `AsyncClient`; async calls must be awaite
 | `get_connection()` | `GET /integrations/telegram/connection` | `TelegramConnectionResponse` |
 | `update_connection()` | `PATCH /integrations/telegram/connection` | `TelegramConnectionResponse` |
 
-## `telegram_service`
-
-| Method | HTTP endpoint | Returns |
-| --- | --- | --- |
-| `consume_link()` | `POST /integrations/telegram/link/consume` | `TelegramConnectionResponse` |
-| `create_session()` | `POST /integrations/telegram/session` | `TelegramSessionResponse` |
-
 ## `users`
 
 | Method | HTTP endpoint | Returns |

@@ -136,8 +136,8 @@ def contract_operations() -> tuple[list[Operation], dict[str, Any], dict[str, An
     extra = set(aliases) - found_ids
     if extra:
         raise SystemExit(f"Mappings exist for unknown operations: {sorted(extra)}")
-    if len(operations) != 82:
-        raise SystemExit(f"Expected 82 operations, got {len(operations)}")
+    if len(operations) != 80:
+        raise SystemExit(f"Expected 80 operations, got {len(operations)}")
     return operations, resources, generator_config
 
 
@@ -324,12 +324,7 @@ def render_resource(
         imports.append(
             f"from .._generated.api.{tag_module} import {operation.operation_id} as _{operation.operation_id}"
         )
-        renames = (
-            {"x_proxy_request_telegram_secret": "service_secret"}
-            if operation.resource_attribute == "telegram_service"
-            else {}
-        )
-        arguments, names, argument_type_names = public_arguments(endpoint, renames)
+        arguments, names, argument_type_names = public_arguments(endpoint, {})
         type_names.update(argument_type_names)
         type_names.update(
             node.id

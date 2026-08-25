@@ -132,11 +132,7 @@ from .._generated.models.sign_up_request import SignUpRequest
 from .._generated.models.subtract_data_request import SubtractDataRequest
 from .._generated.models.targeting_options import TargetingOptions
 from .._generated.models.telegram_connection_response import TelegramConnectionResponse
-from .._generated.models.telegram_link_consume_request import TelegramLinkConsumeRequest
 from .._generated.models.telegram_link_response import TelegramLinkResponse
-from .._generated.models.telegram_session_request import TelegramSessionRequest
-from .._generated.models.telegram_session_response import TelegramSessionResponse
-from .._generated.models.telegram_session_response_user import TelegramSessionResponseUser
 from .._generated.models.token_pair_response import TokenPairResponse
 from .._generated.models.token_refresh_request import TokenRefreshRequest
 from .._generated.models.token_refresh_response import TokenRefreshResponse
@@ -286,11 +282,7 @@ __all__ = [
     "SubtractDataRequest",
     "TargetingOptions",
     "TelegramConnectionResponse",
-    "TelegramLinkConsumeRequest",
     "TelegramLinkResponse",
-    "TelegramSessionRequest",
-    "TelegramSessionResponse",
-    "TelegramSessionResponseUser",
     "TokenPairResponse",
     "TokenRefreshRequest",
     "TokenRefreshResponse",

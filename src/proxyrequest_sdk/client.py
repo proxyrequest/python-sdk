@@ -209,7 +209,6 @@ class Client:
         self.sessions = resources.SessionsResource(self)
         self.settings = resources.SettingsResource(self)
         self.telegram = resources.TelegramDashboardResource(self)
-        self.telegram_service = resources.TelegramServiceResource(self)
         self.users = resources.UsersResource(self)
         self.webhooks = resources.WebhooksResource(self)
 
@@ -399,7 +398,6 @@ class AsyncClient:
         self.sessions = resources.AsyncSessionsResource(self)
         self.settings = resources.AsyncSettingsResource(self)
         self.telegram = resources.AsyncTelegramDashboardResource(self)
-        self.telegram_service = resources.AsyncTelegramServiceResource(self)
         self.users = resources.AsyncUsersResource(self)
         self.webhooks = resources.AsyncWebhooksResource(self)
 

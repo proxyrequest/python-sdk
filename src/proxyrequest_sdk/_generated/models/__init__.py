@@ -151,9 +151,6 @@ from .integrations_telegram_connection_retrieve_response_401 import (
 from .integrations_telegram_connection_retrieve_response_403 import (
     IntegrationsTelegramConnectionRetrieveResponse403,
 )
-from .integrations_telegram_link_consume_create_response_400 import (
-    IntegrationsTelegramLinkConsumeCreateResponse400,
-)
 from .integrations_telegram_link_create_response_400 import (
     IntegrationsTelegramLinkCreateResponse400,
 )
@@ -162,9 +159,6 @@ from .integrations_telegram_link_create_response_401 import (
 )
 from .integrations_telegram_link_create_response_403 import (
     IntegrationsTelegramLinkCreateResponse403,
-)
-from .integrations_telegram_session_create_response_400 import (
-    IntegrationsTelegramSessionCreateResponse400,
 )
 from .invoice import Invoice
 from .invoice_create_request import InvoiceCreateRequest
@@ -399,11 +393,7 @@ from .signup_create_response_403 import SignupCreateResponse403
 from .subtract_data_request import SubtractDataRequest
 from .targeting_options import TargetingOptions
 from .telegram_connection_response import TelegramConnectionResponse
-from .telegram_link_consume_request import TelegramLinkConsumeRequest
 from .telegram_link_response import TelegramLinkResponse
-from .telegram_session_request import TelegramSessionRequest
-from .telegram_session_response import TelegramSessionResponse
-from .telegram_session_response_user import TelegramSessionResponseUser
 from .token_pair_response import TokenPairResponse
 from .token_refresh_request import TokenRefreshRequest
 from .token_refresh_response import TokenRefreshResponse
@@ -608,11 +598,9 @@ __all__ = (
     "IntegrationsTelegramConnectionRetrieveResponse400",
     "IntegrationsTelegramConnectionRetrieveResponse401",
     "IntegrationsTelegramConnectionRetrieveResponse403",
-    "IntegrationsTelegramLinkConsumeCreateResponse400",
     "IntegrationsTelegramLinkCreateResponse400",
     "IntegrationsTelegramLinkCreateResponse401",
     "IntegrationsTelegramLinkCreateResponse403",
-    "IntegrationsTelegramSessionCreateResponse400",
     "Invoice",
     "InvoiceCreateRequest",
     "InvoiceCreateRequestGatewayEnum",
@@ -846,11 +834,7 @@ __all__ = (
     "SubtractDataRequest",
     "TargetingOptions",
     "TelegramConnectionResponse",
-    "TelegramLinkConsumeRequest",
     "TelegramLinkResponse",
-    "TelegramSessionRequest",
-    "TelegramSessionResponse",
-    "TelegramSessionResponseUser",
     "TokenPairResponse",
     "TokenRefreshRequest",
     "TokenRefreshResponse",

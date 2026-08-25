@@ -31,8 +31,6 @@ from .settings import SettingsResource
 from .settings import AsyncSettingsResource
 from .telegram import TelegramDashboardResource
 from .telegram import AsyncTelegramDashboardResource
-from .telegram_service import TelegramServiceResource
-from .telegram_service import AsyncTelegramServiceResource
 from .users import UsersResource
 from .users import AsyncUsersResource
 from .webhooks import WebhooksResource
@@ -71,8 +69,6 @@ __all__ = [
     "AsyncSettingsResource",
     "TelegramDashboardResource",
     "AsyncTelegramDashboardResource",
-    "TelegramServiceResource",
-    "AsyncTelegramServiceResource",
     "UsersResource",
     "AsyncUsersResource",
     "WebhooksResource",

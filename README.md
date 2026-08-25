@@ -5,7 +5,7 @@
 [![Python](https://img.shields.io/pypi/pyversions/proxyrequest-sdk.svg?cacheSeconds=300)](https://pypi.org/project/proxyrequest-sdk/)
 
 Official synchronous and asynchronous Python client for the
-[ProxyRequest](https://proxyrequest.com/) public API. It covers all 82 operations
+[ProxyRequest](https://proxyrequest.com/) public API. It covers all 80 operations
 in the current contract: users, orders, proxy generation, analytics, invoices,
 packages, locations, webhooks, API keys, Telegram integration, and more.
 
@@ -138,7 +138,6 @@ client.locations
 client.api_keys
 client.webhooks
 client.telegram
-client.telegram_service
 client.sessions
 client.settings
 client.news
@@ -250,21 +249,6 @@ print(path, download.content_type)
 ```
 
 `save()` does not overwrite an existing file unless `overwrite=True` is passed.
-
-## Telegram service operations
-
-Account-side Telegram operations use the client's API key. Bot service
-operations require the service secret explicitly and never reuse the ordinary
-Authorization header:
-
-```python
-from proxyrequest_sdk.models import TelegramSessionRequest
-
-session = client.telegram_service.create_session(
-    body=TelegramSessionRequest(telegram_user_id=123456789, chat_id=123456789),
-    service_secret=os.environ["PROXYREQUEST_TELEGRAM_SECRET"],
-)
-```
 
 ## Webhook verification
 

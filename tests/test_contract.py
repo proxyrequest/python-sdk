@@ -32,14 +32,14 @@ def test_pinned_contract_metadata_and_operation_map() -> None:
         for method, operation in path_item.items()
         if method in HTTP_METHODS
     ]
-    assert len(operations) == 82
-    assert len(contract["components"]["schemas"]) == 127
+    assert len(operations) == 80
+    assert len(contract["components"]["schemas"]) == 124
     assert {operation["operationId"] for operation in operations} == set(mapping["operations"])
-    assert len(mapping["resources"]) == 19
+    assert len(mapping["resources"]) == 18
 
     metadata = json.loads((ROOT / "openapi/source.json").read_text())
-    assert metadata["operations"] == 82
-    assert metadata["schemas"] == 127
+    assert metadata["operations"] == 80
+    assert metadata["schemas"] == 124
     digest = hashlib.sha256((ROOT / "openapi/openapi.yaml").read_bytes()).hexdigest()
     assert metadata["sha256"] == digest
 
@@ -76,7 +76,7 @@ def test_every_operation_has_typed_sync_and_async_facades() -> None:
                 is not inspect.Signature.empty
             )
             checked += 1
-    assert checked == 82
+    assert checked == 80
 
 
 def test_client_resource_surface_is_symmetric() -> None:
