@@ -7,6 +7,7 @@ from ..files import FileDownload
 from ..response import ApiResponse
 from .._generated.models.google_auth_request import GoogleAuthRequest
 from .._generated.models.login_request import LoginRequest
+from .._generated.models.otp_challenge import OTPChallenge
 from .._generated.models.password_recovery_response import PasswordRecoveryResponse
 from .._generated.models.recover_password_request import RecoverPasswordRequest
 from .._generated.models.sign_up_request import SignUpRequest
@@ -15,11 +16,13 @@ from .._generated.models.token_refresh_request import TokenRefreshRequest
 from .._generated.models.token_refresh_response import TokenRefreshResponse
 from .._generated.types import UNSET
 from .._generated.types import Unset
+from .._generated.models.verify_otp_request import VerifyOTPRequest
 from .._generated.api.authorization import login_create as _login_create
 from .._generated.api.authorization import login_google_create as _login_google_create
 from .._generated.api.authorization import recover_password_create as _recover_password_create
 from .._generated.api.authorization import refresh_create as _refresh_create
 from .._generated.api.authorization import signup_create as _signup_create
+from .._generated.api.authorization import login_otp_create as _login_otp_create
 
 
 class AuthorizationResource:
@@ -28,10 +31,10 @@ class AuthorizationResource:
 
     def login(
         self, *, body: LoginRequest, accept_language: str | Unset = UNSET
-    ) -> TokenPairResponse:
+    ) -> TokenPairResponse | OTPChallenge:
         """Sign in with email or username"""
         return cast(
-            TokenPairResponse,
+            TokenPairResponse | OTPChallenge,
             self._client._call(
                 _login_create.sync_detailed, body=body, accept_language=accept_language
             ),
@@ -39,10 +42,10 @@ class AuthorizationResource:
 
     def login_with_response(
         self, *, body: LoginRequest, accept_language: str | Unset = UNSET
-    ) -> ApiResponse[TokenPairResponse]:
+    ) -> ApiResponse[TokenPairResponse | OTPChallenge]:
         """Sign in with email or username; include response metadata."""
         return cast(
-            ApiResponse[TokenPairResponse],
+            ApiResponse[TokenPairResponse | OTPChallenge],
             self._client._call_with_response(
                 _login_create.sync_detailed, body=body, accept_language=accept_language
             ),
@@ -50,10 +53,10 @@ class AuthorizationResource:
 
     def login_with_google(
         self, *, body: GoogleAuthRequest, accept_language: str | Unset = UNSET
-    ) -> TokenPairResponse:
+    ) -> TokenPairResponse | OTPChallenge:
         """Sign in with Google"""
         return cast(
-            TokenPairResponse,
+            TokenPairResponse | OTPChallenge,
             self._client._call(
                 _login_google_create.sync_detailed, body=body, accept_language=accept_language
             ),
@@ -61,10 +64,10 @@ class AuthorizationResource:
 
     def login_with_google_with_response(
         self, *, body: GoogleAuthRequest, accept_language: str | Unset = UNSET
-    ) -> ApiResponse[TokenPairResponse]:
+    ) -> ApiResponse[TokenPairResponse | OTPChallenge]:
         """Sign in with Google; include response metadata."""
         return cast(
-            ApiResponse[TokenPairResponse],
+            ApiResponse[TokenPairResponse | OTPChallenge],
             self._client._call_with_response(
                 _login_google_create.sync_detailed, body=body, accept_language=accept_language
             ),
@@ -136,6 +139,28 @@ class AuthorizationResource:
             ),
         )
 
+    def verify_otp(
+        self, *, body: VerifyOTPRequest, accept_language: str | Unset = UNSET
+    ) -> TokenPairResponse:
+        """Complete two-factor sign-in"""
+        return cast(
+            TokenPairResponse,
+            self._client._call(
+                _login_otp_create.sync_detailed, body=body, accept_language=accept_language
+            ),
+        )
+
+    def verify_otp_with_response(
+        self, *, body: VerifyOTPRequest, accept_language: str | Unset = UNSET
+    ) -> ApiResponse[TokenPairResponse]:
+        """Complete two-factor sign-in; include response metadata."""
+        return cast(
+            ApiResponse[TokenPairResponse],
+            self._client._call_with_response(
+                _login_otp_create.sync_detailed, body=body, accept_language=accept_language
+            ),
+        )
+
 
 class AsyncAuthorizationResource:
     def __init__(self, client: Any) -> None:
@@ -143,10 +168,10 @@ class AsyncAuthorizationResource:
 
     async def login(
         self, *, body: LoginRequest, accept_language: str | Unset = UNSET
-    ) -> TokenPairResponse:
+    ) -> TokenPairResponse | OTPChallenge:
         """Sign in with email or username"""
         return cast(
-            TokenPairResponse,
+            TokenPairResponse | OTPChallenge,
             await self._client._call(
                 _login_create.asyncio_detailed, body=body, accept_language=accept_language
             ),
@@ -154,10 +179,10 @@ class AsyncAuthorizationResource:
 
     async def login_with_response(
         self, *, body: LoginRequest, accept_language: str | Unset = UNSET
-    ) -> ApiResponse[TokenPairResponse]:
+    ) -> ApiResponse[TokenPairResponse | OTPChallenge]:
         """Sign in with email or username; include response metadata."""
         return cast(
-            ApiResponse[TokenPairResponse],
+            ApiResponse[TokenPairResponse | OTPChallenge],
             await self._client._call_with_response(
                 _login_create.asyncio_detailed, body=body, accept_language=accept_language
             ),
@@ -165,10 +190,10 @@ class AsyncAuthorizationResource:
 
     async def login_with_google(
         self, *, body: GoogleAuthRequest, accept_language: str | Unset = UNSET
-    ) -> TokenPairResponse:
+    ) -> TokenPairResponse | OTPChallenge:
         """Sign in with Google"""
         return cast(
-            TokenPairResponse,
+            TokenPairResponse | OTPChallenge,
             await self._client._call(
                 _login_google_create.asyncio_detailed, body=body, accept_language=accept_language
             ),
@@ -176,10 +201,10 @@ class AsyncAuthorizationResource:
 
     async def login_with_google_with_response(
         self, *, body: GoogleAuthRequest, accept_language: str | Unset = UNSET
-    ) -> ApiResponse[TokenPairResponse]:
+    ) -> ApiResponse[TokenPairResponse | OTPChallenge]:
         """Sign in with Google; include response metadata."""
         return cast(
-            ApiResponse[TokenPairResponse],
+            ApiResponse[TokenPairResponse | OTPChallenge],
             await self._client._call_with_response(
                 _login_google_create.asyncio_detailed, body=body, accept_language=accept_language
             ),
@@ -252,5 +277,27 @@ class AsyncAuthorizationResource:
             ApiResponse[TokenPairResponse],
             await self._client._call_with_response(
                 _signup_create.asyncio_detailed, body=body, accept_language=accept_language
+            ),
+        )
+
+    async def verify_otp(
+        self, *, body: VerifyOTPRequest, accept_language: str | Unset = UNSET
+    ) -> TokenPairResponse:
+        """Complete two-factor sign-in"""
+        return cast(
+            TokenPairResponse,
+            await self._client._call(
+                _login_otp_create.asyncio_detailed, body=body, accept_language=accept_language
+            ),
+        )
+
+    async def verify_otp_with_response(
+        self, *, body: VerifyOTPRequest, accept_language: str | Unset = UNSET
+    ) -> ApiResponse[TokenPairResponse]:
+        """Complete two-factor sign-in; include response metadata."""
+        return cast(
+            ApiResponse[TokenPairResponse],
+            await self._client._call_with_response(
+                _login_otp_create.asyncio_detailed, body=body, accept_language=accept_language
             ),
         )

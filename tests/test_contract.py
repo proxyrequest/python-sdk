@@ -32,14 +32,17 @@ def test_pinned_contract_metadata_and_operation_map() -> None:
         for method, operation in path_item.items()
         if method in HTTP_METHODS
     ]
-    assert len(operations) == 80
-    assert len(contract["components"]["schemas"]) == 124
-    assert {operation["operationId"] for operation in operations} == set(mapping["operations"])
-    assert len(mapping["resources"]) == 18
+    excluded = {"sessions_list", "sessions_destroy"}
+    ids = [operation["operationId"] for operation in operations]
+    assert len(set(ids)) == len(ids)
+    assert set(ids) - excluded == set(mapping["operations"])
+    assert not excluded.intersection(mapping["operations"])
+    assert "Sessions" not in mapping["resources"]
 
     metadata = json.loads((ROOT / "openapi/source.json").read_text())
-    assert metadata["operations"] == 80
-    assert metadata["schemas"] == 124
+    assert metadata["operations"] == len(operations)
+    assert metadata["schemas"] == len(contract["components"]["schemas"])
+    assert set(metadata["excludedOperations"]) == excluded
     digest = hashlib.sha256((ROOT / "openapi/openapi.yaml").read_bytes()).hexdigest()
     assert metadata["sha256"] == digest
 
@@ -50,6 +53,8 @@ def test_every_operation_has_typed_sync_and_async_facades() -> None:
     for path_item in contract["paths"].values():
         for method, operation in path_item.items():
             if method not in HTTP_METHODS:
+                continue
+            if operation["operationId"] in {"sessions_list", "sessions_destroy"}:
                 continue
             tag = operation["tags"][0]
             resource = mapping["resources"][tag]
@@ -76,7 +81,7 @@ def test_every_operation_has_typed_sync_and_async_facades() -> None:
                 is not inspect.Signature.empty
             )
             checked += 1
-    assert checked == 80
+    assert checked == len(mapping["operations"])
 
 
 def test_client_resource_surface_is_symmetric() -> None:
@@ -84,6 +89,8 @@ def test_client_resource_surface_is_symmetric() -> None:
     sync = Client.anonymous()
     async_client = AsyncClient.anonymous()
     try:
+        assert not hasattr(sync, "sessions")
+        assert not hasattr(async_client, "sessions")
         for resource in mapping["resources"].values():
             assert hasattr(sync, resource["attribute"])
             assert hasattr(async_client, resource["attribute"])

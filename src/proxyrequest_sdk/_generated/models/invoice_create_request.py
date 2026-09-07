@@ -19,12 +19,22 @@ T = TypeVar("T", bound="InvoiceCreateRequest")
 @_attrs_define
 class InvoiceCreateRequest:
     gateway: InvoiceCreateRequestGatewayEnum
-    """ * `crypto` - crypto * `wallet` - wallet * `manual` - manual * `stripe` - stripe """
+    """ * `crypto` - crypto * `credit_card` - credit_card * `wallet` - wallet * `manual` - manual * `stripe` -
+    stripe * `coinbase` - coinbase * `cryptomus` - cryptomus * `coingate` - coingate * `whitepay` - whitepay *
+    `wayforpay` - wayforpay * `usegateway` - usegateway * `binance` - binance * `anymoney` - anymoney *
+    `coinpayments` - coinpayments * `checkoutcom` - checkoutcom * `nowpayments` - nowpayments * `btcpay` - btcpay *
+    `braintree` - braintree * `monobank` - monobank * `liqpay` - liqpay * `iyzico` - iyzico * `paytr` - paytr *
+    `payu` - payu * `tpay` - tpay * `przelewy24` - przelewy24 * `gopay` - gopay * `comgate` - comgate * `monei` -
+    monei * `redsys` - redsys * `payplug` - payplug * `mollie` - mollie * `unzer` - unzer * `payone` - payone *
+    `nexi_xpay` - nexi_xpay * `halyk_epay` - halyk_epay * `kaspi_pay` - kaspi_pay * `vipps_mobilepay` -
+    vipps_mobilepay * `paytrail` - paytrail """
     package_id: UUID | Unset = UNSET
     """ Package to purchase. Required for package purchases. """
     user_id: UUID | Unset = UNSET
     """ Managed sub-user that should receive the purchase. """
     crypto_currency: str | Unset = UNSET
+    payment_currency: str | Unset = UNSET
+    """ ISO 4217 currency charged by a regional fiat provider. """
     coupon_code: str | Unset = UNSET
     country_code: str | Unset = UNSET
     data: int | Unset = UNSET
@@ -53,6 +63,8 @@ class InvoiceCreateRequest:
             user_id = str(self.user_id)
 
         crypto_currency = self.crypto_currency
+
+        payment_currency = self.payment_currency
 
         coupon_code = self.coupon_code
 
@@ -87,6 +99,8 @@ class InvoiceCreateRequest:
             field_dict["user_id"] = user_id
         if crypto_currency is not UNSET:
             field_dict["crypto_currency"] = crypto_currency
+        if payment_currency is not UNSET:
+            field_dict["payment_currency"] = payment_currency
         if coupon_code is not UNSET:
             field_dict["coupon_code"] = coupon_code
         if country_code is not UNSET:
@@ -131,6 +145,8 @@ class InvoiceCreateRequest:
 
         crypto_currency = d.pop("crypto_currency", UNSET)
 
+        payment_currency = d.pop("payment_currency", UNSET)
+
         coupon_code = d.pop("coupon_code", UNSET)
 
         country_code = d.pop("country_code", UNSET)
@@ -156,6 +172,7 @@ class InvoiceCreateRequest:
             package_id=package_id,
             user_id=user_id,
             crypto_currency=crypto_currency,
+            payment_currency=payment_currency,
             coupon_code=coupon_code,
             country_code=country_code,
             data=data,

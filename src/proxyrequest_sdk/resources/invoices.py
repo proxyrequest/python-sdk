@@ -7,10 +7,11 @@ from ..files import FileDownload
 from ..response import ApiResponse
 from .._generated.models.invoice import Invoice
 from .._generated.models.invoice_create_request import InvoiceCreateRequest
+from .._generated.models.invoice_short import InvoiceShort
 from .._generated.models.invoices_list_payment_gateway import InvoicesListPaymentGateway
 from .._generated.models.invoices_list_status import InvoicesListStatus
 from .._generated.models.invoices_list_type import InvoicesListType
-from .._generated.models.paginated_invoice_list import PaginatedInvoiceList
+from .._generated.models.paginated_invoice_read_list import PaginatedInvoiceReadList
 from .._generated.models.payment_link_response import PaymentLinkResponse
 from .._generated.types import UNSET
 from uuid import UUID
@@ -131,10 +132,10 @@ class InvoicesResource:
             ),
         )
 
-    def get(self, id: str, *, accept_language: str | Unset = UNSET) -> Invoice:
+    def get(self, id: str, *, accept_language: str | Unset = UNSET) -> Invoice | InvoiceShort:
         """Get an invoice"""
         return cast(
-            Invoice,
+            Invoice | InvoiceShort,
             self._client._call(
                 _invoices_retrieve.sync_detailed, id=id, accept_language=accept_language
             ),
@@ -142,10 +143,10 @@ class InvoicesResource:
 
     def get_with_response(
         self, id: str, *, accept_language: str | Unset = UNSET
-    ) -> ApiResponse[Invoice]:
+    ) -> ApiResponse[Invoice | InvoiceShort]:
         """Get an invoice; include response metadata."""
         return cast(
-            ApiResponse[Invoice],
+            ApiResponse[Invoice | InvoiceShort],
             self._client._call_with_response(
                 _invoices_retrieve.sync_detailed, id=id, accept_language=accept_language
             ),
@@ -188,10 +189,10 @@ class InvoicesResource:
         user_email: str | Unset = UNSET,
         user_id: UUID | Unset = UNSET,
         accept_language: str | Unset = UNSET,
-    ) -> PaginatedInvoiceList:
+    ) -> PaginatedInvoiceReadList:
         """List invoices"""
         return cast(
-            PaginatedInvoiceList,
+            PaginatedInvoiceReadList,
             self._client._call(
                 _invoices_list.sync_detailed,
                 gateway=gateway,
@@ -224,10 +225,10 @@ class InvoicesResource:
         user_email: str | Unset = UNSET,
         user_id: UUID | Unset = UNSET,
         accept_language: str | Unset = UNSET,
-    ) -> ApiResponse[PaginatedInvoiceList]:
+    ) -> ApiResponse[PaginatedInvoiceReadList]:
         """List invoices; include response metadata."""
         return cast(
-            ApiResponse[PaginatedInvoiceList],
+            ApiResponse[PaginatedInvoiceReadList],
             self._client._call_with_response(
                 _invoices_list.sync_detailed,
                 gateway=gateway,
@@ -352,10 +353,10 @@ class AsyncInvoicesResource:
             ),
         )
 
-    async def get(self, id: str, *, accept_language: str | Unset = UNSET) -> Invoice:
+    async def get(self, id: str, *, accept_language: str | Unset = UNSET) -> Invoice | InvoiceShort:
         """Get an invoice"""
         return cast(
-            Invoice,
+            Invoice | InvoiceShort,
             await self._client._call(
                 _invoices_retrieve.asyncio_detailed, id=id, accept_language=accept_language
             ),
@@ -363,10 +364,10 @@ class AsyncInvoicesResource:
 
     async def get_with_response(
         self, id: str, *, accept_language: str | Unset = UNSET
-    ) -> ApiResponse[Invoice]:
+    ) -> ApiResponse[Invoice | InvoiceShort]:
         """Get an invoice; include response metadata."""
         return cast(
-            ApiResponse[Invoice],
+            ApiResponse[Invoice | InvoiceShort],
             await self._client._call_with_response(
                 _invoices_retrieve.asyncio_detailed, id=id, accept_language=accept_language
             ),
@@ -409,10 +410,10 @@ class AsyncInvoicesResource:
         user_email: str | Unset = UNSET,
         user_id: UUID | Unset = UNSET,
         accept_language: str | Unset = UNSET,
-    ) -> PaginatedInvoiceList:
+    ) -> PaginatedInvoiceReadList:
         """List invoices"""
         return cast(
-            PaginatedInvoiceList,
+            PaginatedInvoiceReadList,
             await self._client._call(
                 _invoices_list.asyncio_detailed,
                 gateway=gateway,
@@ -445,10 +446,10 @@ class AsyncInvoicesResource:
         user_email: str | Unset = UNSET,
         user_id: UUID | Unset = UNSET,
         accept_language: str | Unset = UNSET,
-    ) -> ApiResponse[PaginatedInvoiceList]:
+    ) -> ApiResponse[PaginatedInvoiceReadList]:
         """List invoices; include response metadata."""
         return cast(
-            ApiResponse[PaginatedInvoiceList],
+            ApiResponse[PaginatedInvoiceReadList],
             await self._client._call_with_response(
                 _invoices_list.asyncio_detailed,
                 gateway=gateway,

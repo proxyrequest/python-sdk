@@ -25,8 +25,6 @@ from .proxies import ProxiesResource
 from .proxies import AsyncProxiesResource
 from .rewards import RewardsResource
 from .rewards import AsyncRewardsResource
-from .sessions import SessionsResource
-from .sessions import AsyncSessionsResource
 from .settings import SettingsResource
 from .settings import AsyncSettingsResource
 from .telegram import TelegramDashboardResource
@@ -63,8 +61,6 @@ __all__ = [
     "AsyncProxiesResource",
     "RewardsResource",
     "AsyncRewardsResource",
-    "SessionsResource",
-    "AsyncSessionsResource",
     "SettingsResource",
     "AsyncSettingsResource",
     "TelegramDashboardResource",

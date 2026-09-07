@@ -4,6 +4,8 @@ from urllib.parse import quote
 
 import httpx
 
+from ...._response import parse_response
+
 from ...client import AuthenticatedClient, Client
 from ...types import Response, UNSET
 from ... import errors
@@ -96,11 +98,12 @@ def _build_response(
     | InvoicesDownloadPdfRetrieveResponse403
     | InvoicesDownloadPdfRetrieveResponse404
 ]:
+    parsed = parse_response(_parse_response, client=client, response=response)
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
         headers=response.headers,
-        parsed=_parse_response(client=client, response=response),
+        parsed=parsed,
     )
 
 

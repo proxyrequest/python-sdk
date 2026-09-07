@@ -4,6 +4,8 @@ from urllib.parse import quote
 
 import httpx
 
+from ...._response import parse_response
+
 from ...client import AuthenticatedClient, Client
 from ...types import Response, UNSET
 from ... import errors
@@ -82,11 +84,12 @@ def _build_response(
     | Profile2FaDisableCreateResponse401
     | Profile2FaDisableCreateResponse403
 ]:
+    parsed = parse_response(_parse_response, client=client, response=response)
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
         headers=response.headers,
-        parsed=_parse_response(client=client, response=response),
+        parsed=parsed,
     )
 
 
@@ -103,8 +106,7 @@ def sync_detailed(
 ]:
     """Disable two-factor authentication
 
-     Verifies a current TOTP code, disables two-factor authentication, and removes the stored TOTP
-    secret.
+     Requires the primary factor and current authenticator code, then revokes previous JWTs.
 
     Args:
         accept_language (str | Unset):  Defaults to the client language.
@@ -144,8 +146,7 @@ def sync(
 ):
     """Disable two-factor authentication
 
-     Verifies a current TOTP code, disables two-factor authentication, and removes the stored TOTP
-    secret.
+     Requires the primary factor and current authenticator code, then revokes previous JWTs.
 
     Args:
         accept_language (str | Unset):  Defaults to the client language.
@@ -179,8 +180,7 @@ async def asyncio_detailed(
 ]:
     """Disable two-factor authentication
 
-     Verifies a current TOTP code, disables two-factor authentication, and removes the stored TOTP
-    secret.
+     Requires the primary factor and current authenticator code, then revokes previous JWTs.
 
     Args:
         accept_language (str | Unset):  Defaults to the client language.
@@ -218,8 +218,7 @@ async def asyncio(
 ):
     """Disable two-factor authentication
 
-     Verifies a current TOTP code, disables two-factor authentication, and removes the stored TOTP
-    secret.
+     Requires the primary factor and current authenticator code, then revokes previous JWTs.
 
     Args:
         accept_language (str | Unset):  Defaults to the client language.

@@ -4,6 +4,14 @@ All notable changes to the ProxyRequest Python SDK are documented here.
 
 ## Unreleased
 
+- Regenerated from the public backend contract (81 operations, 129 schemas),
+  excluding the two disabled sessions-management operations from generated clients.
+- Added typed OTP verification and 200/202 login support for sync and async clients.
+- Corrected MFA bodies, payment fields, nullable invoices, and both backend user modes.
+- Preserved HTTP status, raw response, headers, cause, and idempotency key when
+  response decoding fails; HTTP errors are classified before model decoding.
+- Replaced fixed contract-size gates and added backend-serializer regression fixtures.
+
 - Added automatic and explicit idempotency keys with bounded ambiguous-outcome
   retries.
 - Added response metadata variants and explicit ETag/`If-Match` optimistic

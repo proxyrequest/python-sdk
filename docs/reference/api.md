@@ -33,11 +33,12 @@ All methods exist on both `Client` and `AsyncClient`; async calls must be awaite
 
 | Method | HTTP endpoint | Returns |
 | --- | --- | --- |
-| `login()` | `POST /login` | `TokenPairResponse` |
-| `login_with_google()` | `POST /login/google` | `TokenPairResponse` |
+| `login()` | `POST /login` | `TokenPairResponse | OTPChallenge` |
+| `login_with_google()` | `POST /login/google` | `TokenPairResponse | OTPChallenge` |
 | `recover_password()` | `POST /recover-password` | `PasswordRecoveryResponse` |
 | `refresh()` | `POST /refresh` | `TokenRefreshResponse` |
 | `signup()` | `POST /signup` | `TokenPairResponse` |
+| `verify_otp()` | `POST /login/otp` | `TokenPairResponse` |
 
 ## `coupons`
 
@@ -59,9 +60,9 @@ All methods exist on both `Client` and `AsyncClient`; async calls must be awaite
 | `create()` | `POST /invoices` | `Invoice` |
 | `delete()` | `DELETE /invoices/{id}` | `None` |
 | `download_pdf()` | `GET /invoices/{id}/download/pdf` | `FileDownload` |
-| `get()` | `GET /invoices/{id}` | `Invoice` |
+| `get()` | `GET /invoices/{id}` | `Invoice | InvoiceShort` |
 | `get_payment_link()` | `GET /invoices/{id}/pay` | `PaymentLinkResponse` |
-| `list()` | `GET /invoices` | `PaginatedInvoiceList` |
+| `list()` | `GET /invoices` | `PaginatedInvoiceReadList` |
 
 ## `locations`
 
@@ -126,13 +127,6 @@ All methods exist on both `Client` and `AsyncClient`; async calls must be awaite
 | --- | --- | --- |
 | `claim()` | `POST /rewards/claim` | `None` |
 | `list()` | `GET /rewards` | `PaginatedRewardList` |
-
-## `sessions`
-
-| Method | HTTP endpoint | Returns |
-| --- | --- | --- |
-| `delete()` | `DELETE /sessions/{id}` | `SessionDeleteResponse` |
-| `list()` | `GET /sessions` | `list[SessionListResponse]` |
 
 ## `settings`
 

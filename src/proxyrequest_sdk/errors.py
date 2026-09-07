@@ -90,6 +90,20 @@ class ApiError(ProxyRequestError):
         )
 
     @classmethod
+    def decoding(
+        cls,
+        status_code: int,
+        content: bytes,
+        headers: Mapping[str, str],
+        cause: BaseException | None = None,
+    ) -> ApiError:
+        error = cls.from_response(status_code, content, headers)
+        error.kind = ErrorKind.UNEXPECTED
+        error.args = (f"Unable to decode the ProxyRequest HTTP {status_code} response.",)
+        error.__cause__ = cause
+        return error
+
+    @classmethod
     def network(cls, cause: BaseException) -> ApiError:
         return cls(
             f"ProxyRequest network request failed: {cause}",

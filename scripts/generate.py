@@ -13,6 +13,7 @@ from pathlib import Path
 from typing import Any
 
 import yaml
+from sdk_schema import sdk_schema
 
 ROOT = Path(__file__).resolve().parents[1]
 HTTP_METHODS = {"get", "post", "put", "patch", "delete"}
@@ -67,36 +68,48 @@ def model_class_name(schema_name: str, generator_config: dict[str, Any]) -> str:
     return str(override.get("class_name", schema_name))
 
 
-def response_type(operation: dict[str, Any], generator_config: dict[str, Any]) -> str:
+def response_type(
+    operation: dict[str, Any], generator_config: dict[str, Any], contract: dict[str, Any]
+) -> str:
+    def schema_type(schema: dict[str, Any]) -> str:
+        if "$ref" in schema:
+            name = schema["$ref"].rsplit("/", 1)[-1]
+            target = contract.get("components", {}).get("schemas", {}).get(name, {})
+            if "anyOf" in target or "oneOf" in target:
+                return schema_type(target)
+            return model_class_name(name, generator_config)
+        variants = schema.get("anyOf", schema.get("oneOf"))
+        if variants:
+            return " | ".join(dict.fromkeys(schema_type(item) for item in variants))
+        if schema.get("type") == "array":
+            return f"list[{schema_type(schema.get('items', {}))}]"
+        return {
+            "boolean": "bool",
+            "integer": "int",
+            "number": "float",
+            "string": "str",
+            "null": "None",
+        }.get(schema.get("type"), "object")
+
+    types: list[str] = []
     responses = operation.get("responses", {})
     for status, response in sorted(responses.items(), key=lambda item: str(item[0])):
         if not str(status).startswith("2"):
             continue
         content = response.get("content", {})
         if not content:
-            return "None"
+            types.append("None")
+            continue
         content_type, media = next(iter(content.items()))
         schema = media.get("schema", {})
-        if content_type == "application/pdf":
-            return "FileDownload"
-        if "$ref" in schema:
-            return model_class_name(schema["$ref"].rsplit("/", 1)[-1], generator_config)
-        schema_type = schema.get("type")
-        if schema_type == "array":
-            item = schema.get("items", {})
-            if "$ref" in item:
-                name = model_class_name(item["$ref"].rsplit("/", 1)[-1], generator_config)
-                return f"list[{name}]"
-            return "list[object]"
-        return {"boolean": "bool", "integer": "int", "number": "float", "string": "str"}.get(
-            schema_type,
-            "object",
-        )
+        types.append("FileDownload" if content_type == "application/pdf" else schema_type(schema))
+    if types:
+        return " | ".join(dict.fromkeys(types))
     raise SystemExit(f"Operation {operation.get('operationId')} has no successful response.")
 
 
 def contract_operations() -> tuple[list[Operation], dict[str, Any], dict[str, Any]]:
-    contract = load_yaml(ROOT / "openapi/openapi.yaml")
+    contract = sdk_schema(load_yaml(ROOT / "openapi/openapi.yaml"))
     mapping = load_yaml(ROOT / "openapi/operations.yaml")
     generator_config = load_yaml(ROOT / "openapi/generator.yaml")
     aliases = mapping.get("operations", {})
@@ -126,7 +139,7 @@ def contract_operations() -> tuple[list[Operation], dict[str, Any], dict[str, An
                     http_method=http_method.upper(),
                     path=path,
                     summary=" ".join(str(operation.get("summary", operation_id)).split()),
-                    return_type=response_type(operation, generator_config),
+                    return_type=response_type(operation, generator_config, contract),
                     idempotent=has_header_parameter(
                         contract, path_item, operation, "Idempotency-Key"
                     ),
@@ -136,13 +149,11 @@ def contract_operations() -> tuple[list[Operation], dict[str, Any], dict[str, An
     extra = set(aliases) - found_ids
     if extra:
         raise SystemExit(f"Mappings exist for unknown operations: {sorted(extra)}")
-    if len(operations) != 80:
-        raise SystemExit(f"Expected 80 operations, got {len(operations)}")
     return operations, resources, generator_config
 
 
 def run_generator(destination: Path) -> None:
-    document = load_yaml(ROOT / "openapi/openapi.yaml")
+    document = sdk_schema(load_yaml(ROOT / "openapi/openapi.yaml"))
     for path_item in document.get("paths", {}).values():
         for http_method, operation in path_item.items():
             if http_method not in HTTP_METHODS:
@@ -203,6 +214,15 @@ def postprocess_generated(generated: Path) -> None:
         )
         source = source.replace("Default: 'en'.", "Defaults to the client language.")
         source = make_enums_forward_compatible(source)
+        if path.parent.parent.name == "api" and "def _build_response(" in source:
+            source = source.replace(
+                "import httpx\n", "import httpx\n\nfrom ...._response import parse_response\n", 1
+            )
+            source = source.replace(
+                "    return Response(\n",
+                "    parsed = parse_response(_parse_response, client=client, response=response)\n    return Response(\n",
+                1,
+            ).replace("parsed=_parse_response(client=client, response=response)", "parsed=parsed")
         path.write_text(source, encoding="utf-8")
     subprocess.run(["ruff", "format", str(generated)], check=True)
 
@@ -432,6 +452,8 @@ def render_resource(
 
 def generate_resources(operations: list[Operation], generated: Path, destination: Path) -> None:
     destination.mkdir(parents=True, exist_ok=True)
+    # This resource was explicitly removed from the supported SDK surface.
+    (destination / "sessions.py").unlink(missing_ok=True)
     exports: list[tuple[str, str]] = []
     grouped: dict[str, list[Operation]] = {}
     model_source = (generated / "models/__init__.py").read_text(encoding="utf-8")
@@ -526,7 +548,7 @@ def main() -> None:
     args = parse_args()
     output_root = args.output_root.resolve()
     operations, _, _ = contract_operations()
-    contract = load_yaml(ROOT / "openapi/openapi.yaml")
+    contract = sdk_schema(load_yaml(ROOT / "openapi/openapi.yaml"))
 
     with tempfile.TemporaryDirectory(prefix="proxyrequest-python-") as temporary:
         generated = Path(temporary) / "_generated"

@@ -9,22 +9,30 @@ from attrs import field as _attrs_field
 from ..types import UNSET, Unset
 
 
-T = TypeVar("T", bound="SessionDeleteResponse")
+T = TypeVar("T", bound="OTPChallenge")
 
 
 @_attrs_define
-class SessionDeleteResponse:
-    deleted: bool
+class OTPChallenge:
+    status: str
+    challenge: str
+    expires_in: int
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        deleted = self.deleted
+        status = self.status
+
+        challenge = self.challenge
+
+        expires_in = self.expires_in
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
-                "deleted": deleted,
+                "status": status,
+                "challenge": challenge,
+                "expires_in": expires_in,
             }
         )
 
@@ -33,14 +41,20 @@ class SessionDeleteResponse:
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
-        deleted = d.pop("deleted")
+        status = d.pop("status")
 
-        session_delete_response = cls(
-            deleted=deleted,
+        challenge = d.pop("challenge")
+
+        expires_in = d.pop("expires_in")
+
+        otp_challenge = cls(
+            status=status,
+            challenge=challenge,
+            expires_in=expires_in,
         )
 
-        session_delete_response.additional_properties = d
-        return session_delete_response
+        otp_challenge.additional_properties = d
+        return otp_challenge
 
     @property
     def additional_keys(self) -> list[str]:

@@ -11,6 +11,7 @@ from ..types import UNSET, Unset
 from typing import cast
 
 if TYPE_CHECKING:
+    from ..models.payment_gateway import PaymentGateway
     from ..models.settings_crypto import SettingsCrypto
     from ..models.settings_gateway import SettingsGateway
     from ..models.settings_referral import SettingsReferral
@@ -30,9 +31,11 @@ class SettingsResponse:
     referrals: SettingsReferral
     crypto: SettingsCrypto
     payment_methods: list[str]
+    payment_gateways: list[PaymentGateway]
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
+        from ..models.payment_gateway import PaymentGateway
         from ..models.settings_crypto import SettingsCrypto
         from ..models.settings_gateway import SettingsGateway
         from ..models.settings_referral import SettingsReferral
@@ -58,6 +61,11 @@ class SettingsResponse:
 
         payment_methods = self.payment_methods
 
+        payment_gateways = []
+        for payment_gateways_item_data in self.payment_gateways:
+            payment_gateways_item = payment_gateways_item_data.to_dict()
+            payment_gateways.append(payment_gateways_item)
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
@@ -71,6 +79,7 @@ class SettingsResponse:
                 "referrals": referrals,
                 "crypto": crypto,
                 "payment_methods": payment_methods,
+                "payment_gateways": payment_gateways,
             }
         )
 
@@ -78,6 +87,7 @@ class SettingsResponse:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+        from ..models.payment_gateway import PaymentGateway
         from ..models.settings_crypto import SettingsCrypto
         from ..models.settings_gateway import SettingsGateway
         from ..models.settings_referral import SettingsReferral
@@ -106,6 +116,13 @@ class SettingsResponse:
 
         payment_methods = cast(list[str], d.pop("payment_methods"))
 
+        payment_gateways = []
+        _payment_gateways = d.pop("payment_gateways")
+        for payment_gateways_item_data in _payment_gateways:
+            payment_gateways_item = PaymentGateway.from_dict(payment_gateways_item_data)
+
+            payment_gateways.append(payment_gateways_item)
+
         settings_response = cls(
             gateways=gateways,
             spent_total=spent_total,
@@ -116,6 +133,7 @@ class SettingsResponse:
             referrals=referrals,
             crypto=crypto,
             payment_methods=payment_methods,
+            payment_gateways=payment_gateways,
         )
 
         settings_response.additional_properties = d

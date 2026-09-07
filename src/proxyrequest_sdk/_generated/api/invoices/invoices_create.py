@@ -4,6 +4,8 @@ from urllib.parse import quote
 
 import httpx
 
+from ...._response import parse_response
+
 from ...client import AuthenticatedClient, Client
 from ...types import Response, UNSET
 from ... import errors
@@ -14,6 +16,7 @@ from ...models.invoices_create_response_400 import InvoicesCreateResponse400
 from ...models.invoices_create_response_401 import InvoicesCreateResponse401
 from ...models.invoices_create_response_403 import InvoicesCreateResponse403
 from ...models.invoices_create_response_409 import InvoicesCreateResponse409
+from ...models.invoices_create_response_502 import InvoicesCreateResponse502
 from ...types import UNSET, Unset
 from typing import cast
 
@@ -52,6 +55,7 @@ def _parse_response(
     | InvoicesCreateResponse401
     | InvoicesCreateResponse403
     | InvoicesCreateResponse409
+    | InvoicesCreateResponse502
     | None
 ):
     if response.status_code == 201:
@@ -79,6 +83,11 @@ def _parse_response(
 
         return response_409
 
+    if response.status_code == 502:
+        response_502 = InvoicesCreateResponse502.from_dict(response.json())
+
+        return response_502
+
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     else:
@@ -93,12 +102,14 @@ def _build_response(
     | InvoicesCreateResponse401
     | InvoicesCreateResponse403
     | InvoicesCreateResponse409
+    | InvoicesCreateResponse502
 ]:
+    parsed = parse_response(_parse_response, client=client, response=response)
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
         headers=response.headers,
-        parsed=_parse_response(client=client, response=response),
+        parsed=parsed,
     )
 
 
@@ -114,6 +125,7 @@ def sync_detailed(
     | InvoicesCreateResponse401
     | InvoicesCreateResponse403
     | InvoicesCreateResponse409
+    | InvoicesCreateResponse502
 ]:
     """Create an invoice
 
@@ -130,7 +142,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Invoice | InvoicesCreateResponse400 | InvoicesCreateResponse401 | InvoicesCreateResponse403 | InvoicesCreateResponse409]
+        Response[Invoice | InvoicesCreateResponse400 | InvoicesCreateResponse401 | InvoicesCreateResponse403 | InvoicesCreateResponse409 | InvoicesCreateResponse502]
     """
 
     kwargs = _get_kwargs(
@@ -158,6 +170,7 @@ def sync(
     | InvoicesCreateResponse401
     | InvoicesCreateResponse403
     | InvoicesCreateResponse409
+    | InvoicesCreateResponse502
     | None
 ):
     """Create an invoice
@@ -175,7 +188,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Invoice | InvoicesCreateResponse400 | InvoicesCreateResponse401 | InvoicesCreateResponse403 | InvoicesCreateResponse409
+        Invoice | InvoicesCreateResponse400 | InvoicesCreateResponse401 | InvoicesCreateResponse403 | InvoicesCreateResponse409 | InvoicesCreateResponse502
     """
 
     return sync_detailed(
@@ -198,6 +211,7 @@ async def asyncio_detailed(
     | InvoicesCreateResponse401
     | InvoicesCreateResponse403
     | InvoicesCreateResponse409
+    | InvoicesCreateResponse502
 ]:
     """Create an invoice
 
@@ -214,7 +228,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Invoice | InvoicesCreateResponse400 | InvoicesCreateResponse401 | InvoicesCreateResponse403 | InvoicesCreateResponse409]
+        Response[Invoice | InvoicesCreateResponse400 | InvoicesCreateResponse401 | InvoicesCreateResponse403 | InvoicesCreateResponse409 | InvoicesCreateResponse502]
     """
 
     kwargs = _get_kwargs(
@@ -240,6 +254,7 @@ async def asyncio(
     | InvoicesCreateResponse401
     | InvoicesCreateResponse403
     | InvoicesCreateResponse409
+    | InvoicesCreateResponse502
     | None
 ):
     """Create an invoice
@@ -257,7 +272,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Invoice | InvoicesCreateResponse400 | InvoicesCreateResponse401 | InvoicesCreateResponse403 | InvoicesCreateResponse409
+        Invoice | InvoicesCreateResponse400 | InvoicesCreateResponse401 | InvoicesCreateResponse403 | InvoicesCreateResponse409 | InvoicesCreateResponse502
     """
 
     return (

@@ -4,6 +4,8 @@ from urllib.parse import quote
 
 import httpx
 
+from ...._response import parse_response
+
 from ...client import AuthenticatedClient, Client
 from ...types import Response, UNSET
 from ... import errors
@@ -11,6 +13,7 @@ from ... import errors
 from ...models.google_auth_request import GoogleAuthRequest
 from ...models.login_google_create_response_400 import LoginGoogleCreateResponse400
 from ...models.login_google_create_response_403 import LoginGoogleCreateResponse403
+from ...models.otp_challenge import OTPChallenge
 from ...models.token_pair_response import TokenPairResponse
 from ...types import UNSET, Unset
 from typing import cast
@@ -40,11 +43,22 @@ def _get_kwargs(
 
 def _parse_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> LoginGoogleCreateResponse400 | LoginGoogleCreateResponse403 | TokenPairResponse | None:
+) -> (
+    LoginGoogleCreateResponse400
+    | LoginGoogleCreateResponse403
+    | OTPChallenge
+    | TokenPairResponse
+    | None
+):
     if response.status_code == 200:
         response_200 = TokenPairResponse.from_dict(response.json())
 
         return response_200
+
+    if response.status_code == 202:
+        response_202 = OTPChallenge.from_dict(response.json())
+
+        return response_202
 
     if response.status_code == 400:
         response_400 = LoginGoogleCreateResponse400.from_dict(response.json())
@@ -64,12 +78,15 @@ def _parse_response(
 
 def _build_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[LoginGoogleCreateResponse400 | LoginGoogleCreateResponse403 | TokenPairResponse]:
+) -> Response[
+    LoginGoogleCreateResponse400 | LoginGoogleCreateResponse403 | OTPChallenge | TokenPairResponse
+]:
+    parsed = parse_response(_parse_response, client=client, response=response)
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
         headers=response.headers,
-        parsed=_parse_response(client=client, response=response),
+        parsed=parsed,
     )
 
 
@@ -78,7 +95,9 @@ def sync_detailed(
     client: AuthenticatedClient,
     body: GoogleAuthRequest,
     accept_language: str | Unset = UNSET,
-) -> Response[LoginGoogleCreateResponse400 | LoginGoogleCreateResponse403 | TokenPairResponse]:
+) -> Response[
+    LoginGoogleCreateResponse400 | LoginGoogleCreateResponse403 | OTPChallenge | TokenPairResponse
+]:
     """Sign in with Google
 
      Verifies a Google ID token, creates or links the matching customer account when needed, and returns
@@ -94,7 +113,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[LoginGoogleCreateResponse400 | LoginGoogleCreateResponse403 | TokenPairResponse]
+        Response[LoginGoogleCreateResponse400 | LoginGoogleCreateResponse403 | OTPChallenge | TokenPairResponse]
     """
 
     kwargs = _get_kwargs(
@@ -114,7 +133,13 @@ def sync(
     client: AuthenticatedClient,
     body: GoogleAuthRequest,
     accept_language: str | Unset = UNSET,
-) -> LoginGoogleCreateResponse400 | LoginGoogleCreateResponse403 | TokenPairResponse | None:
+) -> (
+    LoginGoogleCreateResponse400
+    | LoginGoogleCreateResponse403
+    | OTPChallenge
+    | TokenPairResponse
+    | None
+):
     """Sign in with Google
 
      Verifies a Google ID token, creates or links the matching customer account when needed, and returns
@@ -130,7 +155,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        LoginGoogleCreateResponse400 | LoginGoogleCreateResponse403 | TokenPairResponse
+        LoginGoogleCreateResponse400 | LoginGoogleCreateResponse403 | OTPChallenge | TokenPairResponse
     """
 
     return sync_detailed(
@@ -145,7 +170,9 @@ async def asyncio_detailed(
     client: AuthenticatedClient,
     body: GoogleAuthRequest,
     accept_language: str | Unset = UNSET,
-) -> Response[LoginGoogleCreateResponse400 | LoginGoogleCreateResponse403 | TokenPairResponse]:
+) -> Response[
+    LoginGoogleCreateResponse400 | LoginGoogleCreateResponse403 | OTPChallenge | TokenPairResponse
+]:
     """Sign in with Google
 
      Verifies a Google ID token, creates or links the matching customer account when needed, and returns
@@ -161,7 +188,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[LoginGoogleCreateResponse400 | LoginGoogleCreateResponse403 | TokenPairResponse]
+        Response[LoginGoogleCreateResponse400 | LoginGoogleCreateResponse403 | OTPChallenge | TokenPairResponse]
     """
 
     kwargs = _get_kwargs(
@@ -179,7 +206,13 @@ async def asyncio(
     client: AuthenticatedClient,
     body: GoogleAuthRequest,
     accept_language: str | Unset = UNSET,
-) -> LoginGoogleCreateResponse400 | LoginGoogleCreateResponse403 | TokenPairResponse | None:
+) -> (
+    LoginGoogleCreateResponse400
+    | LoginGoogleCreateResponse403
+    | OTPChallenge
+    | TokenPairResponse
+    | None
+):
     """Sign in with Google
 
      Verifies a Google ID token, creates or links the matching customer account when needed, and returns
@@ -195,7 +228,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        LoginGoogleCreateResponse400 | LoginGoogleCreateResponse403 | TokenPairResponse
+        LoginGoogleCreateResponse400 | LoginGoogleCreateResponse403 | OTPChallenge | TokenPairResponse
     """
 
     return (

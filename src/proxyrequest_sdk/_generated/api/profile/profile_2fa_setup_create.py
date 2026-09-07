@@ -4,6 +4,8 @@ from urllib.parse import quote
 
 import httpx
 
+from ...._response import parse_response
+
 from ...client import AuthenticatedClient, Client
 from ...types import Response, UNSET
 from ... import errors
@@ -11,6 +13,7 @@ from ... import errors
 from ...models.profile_2_fa_setup_create_response_400 import Profile2FaSetupCreateResponse400
 from ...models.profile_2_fa_setup_create_response_401 import Profile2FaSetupCreateResponse401
 from ...models.profile_2_fa_setup_create_response_403 import Profile2FaSetupCreateResponse403
+from ...models.two_factor_setup_request_request import TwoFactorSetupRequestRequest
 from ...models.two_factor_setup_response import TwoFactorSetupResponse
 from ...types import UNSET, Unset
 from typing import cast
@@ -18,6 +21,7 @@ from typing import cast
 
 def _get_kwargs(
     *,
+    body: TwoFactorSetupRequestRequest | Unset = UNSET,
     accept_language: str | Unset = UNSET,
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
@@ -28,6 +32,11 @@ def _get_kwargs(
         "method": "post",
         "url": "/profile/2fa/setup",
     }
+
+    if not isinstance(body, Unset):
+        _kwargs["json"] = body.to_dict()
+
+    headers["Content-Type"] = "application/json"
 
     _kwargs["headers"] = headers
     return _kwargs
@@ -76,17 +85,19 @@ def _build_response(
     | Profile2FaSetupCreateResponse403
     | TwoFactorSetupResponse
 ]:
+    parsed = parse_response(_parse_response, client=client, response=response)
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
         headers=response.headers,
-        parsed=_parse_response(client=client, response=response),
+        parsed=parsed,
     )
 
 
 def sync_detailed(
     *,
     client: AuthenticatedClient,
+    body: TwoFactorSetupRequestRequest | Unset = UNSET,
     accept_language: str | Unset = UNSET,
 ) -> Response[
     Profile2FaSetupCreateResponse400
@@ -94,13 +105,13 @@ def sync_detailed(
     | Profile2FaSetupCreateResponse403
     | TwoFactorSetupResponse
 ]:
-    """Start two-factor setup
+    """Prepare two-factor authentication
 
-     Creates a new TOTP secret and provisioning URI. Two-factor authentication remains disabled until the
-    code is confirmed.
+     Confirms the primary factor and prepares a pending secret without disabling current protection.
 
     Args:
         accept_language (str | Unset):  Defaults to the client language.
+        body (TwoFactorSetupRequestRequest | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -111,6 +122,7 @@ def sync_detailed(
     """
 
     kwargs = _get_kwargs(
+        body=body,
         accept_language=accept_language,
     )
 
@@ -124,6 +136,7 @@ def sync_detailed(
 def sync(
     *,
     client: AuthenticatedClient,
+    body: TwoFactorSetupRequestRequest | Unset = UNSET,
     accept_language: str | Unset = UNSET,
 ) -> (
     Profile2FaSetupCreateResponse400
@@ -132,13 +145,13 @@ def sync(
     | TwoFactorSetupResponse
     | None
 ):
-    """Start two-factor setup
+    """Prepare two-factor authentication
 
-     Creates a new TOTP secret and provisioning URI. Two-factor authentication remains disabled until the
-    code is confirmed.
+     Confirms the primary factor and prepares a pending secret without disabling current protection.
 
     Args:
         accept_language (str | Unset):  Defaults to the client language.
+        body (TwoFactorSetupRequestRequest | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -150,6 +163,7 @@ def sync(
 
     return sync_detailed(
         client=client,
+        body=body,
         accept_language=accept_language,
     ).parsed
 
@@ -157,6 +171,7 @@ def sync(
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
+    body: TwoFactorSetupRequestRequest | Unset = UNSET,
     accept_language: str | Unset = UNSET,
 ) -> Response[
     Profile2FaSetupCreateResponse400
@@ -164,13 +179,13 @@ async def asyncio_detailed(
     | Profile2FaSetupCreateResponse403
     | TwoFactorSetupResponse
 ]:
-    """Start two-factor setup
+    """Prepare two-factor authentication
 
-     Creates a new TOTP secret and provisioning URI. Two-factor authentication remains disabled until the
-    code is confirmed.
+     Confirms the primary factor and prepares a pending secret without disabling current protection.
 
     Args:
         accept_language (str | Unset):  Defaults to the client language.
+        body (TwoFactorSetupRequestRequest | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -181,6 +196,7 @@ async def asyncio_detailed(
     """
 
     kwargs = _get_kwargs(
+        body=body,
         accept_language=accept_language,
     )
 
@@ -192,6 +208,7 @@ async def asyncio_detailed(
 async def asyncio(
     *,
     client: AuthenticatedClient,
+    body: TwoFactorSetupRequestRequest | Unset = UNSET,
     accept_language: str | Unset = UNSET,
 ) -> (
     Profile2FaSetupCreateResponse400
@@ -200,13 +217,13 @@ async def asyncio(
     | TwoFactorSetupResponse
     | None
 ):
-    """Start two-factor setup
+    """Prepare two-factor authentication
 
-     Creates a new TOTP secret and provisioning URI. Two-factor authentication remains disabled until the
-    code is confirmed.
+     Confirms the primary factor and prepares a pending secret without disabling current protection.
 
     Args:
         accept_language (str | Unset):  Defaults to the client language.
+        body (TwoFactorSetupRequestRequest | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -219,6 +236,7 @@ async def asyncio(
     return (
         await asyncio_detailed(
             client=client,
+            body=body,
             accept_language=accept_language,
         )
     ).parsed

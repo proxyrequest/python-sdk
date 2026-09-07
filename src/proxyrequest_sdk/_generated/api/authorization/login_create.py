@@ -4,12 +4,15 @@ from urllib.parse import quote
 
 import httpx
 
+from ...._response import parse_response
+
 from ...client import AuthenticatedClient, Client
 from ...types import Response, UNSET
 from ... import errors
 
 from ...models.login_create_response_400 import LoginCreateResponse400
 from ...models.login_request import LoginRequest
+from ...models.otp_challenge import OTPChallenge
 from ...models.token_pair_response import TokenPairResponse
 from ...types import UNSET, Unset
 from typing import cast
@@ -39,11 +42,16 @@ def _get_kwargs(
 
 def _parse_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> LoginCreateResponse400 | TokenPairResponse | None:
+) -> LoginCreateResponse400 | OTPChallenge | TokenPairResponse | None:
     if response.status_code == 200:
         response_200 = TokenPairResponse.from_dict(response.json())
 
         return response_200
+
+    if response.status_code == 202:
+        response_202 = OTPChallenge.from_dict(response.json())
+
+        return response_202
 
     if response.status_code == 400:
         response_400 = LoginCreateResponse400.from_dict(response.json())
@@ -58,12 +66,13 @@ def _parse_response(
 
 def _build_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[LoginCreateResponse400 | TokenPairResponse]:
+) -> Response[LoginCreateResponse400 | OTPChallenge | TokenPairResponse]:
+    parsed = parse_response(_parse_response, client=client, response=response)
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
         headers=response.headers,
-        parsed=_parse_response(client=client, response=response),
+        parsed=parsed,
     )
 
 
@@ -72,7 +81,7 @@ def sync_detailed(
     client: AuthenticatedClient,
     body: LoginRequest,
     accept_language: str | Unset = UNSET,
-) -> Response[LoginCreateResponse400 | TokenPairResponse]:
+) -> Response[LoginCreateResponse400 | OTPChallenge | TokenPairResponse]:
     """Sign in with email or username
 
      Checks account credentials and returns an access token plus a refresh token. Send the access token
@@ -87,7 +96,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[LoginCreateResponse400 | TokenPairResponse]
+        Response[LoginCreateResponse400 | OTPChallenge | TokenPairResponse]
     """
 
     kwargs = _get_kwargs(
@@ -107,7 +116,7 @@ def sync(
     client: AuthenticatedClient,
     body: LoginRequest,
     accept_language: str | Unset = UNSET,
-) -> LoginCreateResponse400 | TokenPairResponse | None:
+) -> LoginCreateResponse400 | OTPChallenge | TokenPairResponse | None:
     """Sign in with email or username
 
      Checks account credentials and returns an access token plus a refresh token. Send the access token
@@ -122,7 +131,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        LoginCreateResponse400 | TokenPairResponse
+        LoginCreateResponse400 | OTPChallenge | TokenPairResponse
     """
 
     return sync_detailed(
@@ -137,7 +146,7 @@ async def asyncio_detailed(
     client: AuthenticatedClient,
     body: LoginRequest,
     accept_language: str | Unset = UNSET,
-) -> Response[LoginCreateResponse400 | TokenPairResponse]:
+) -> Response[LoginCreateResponse400 | OTPChallenge | TokenPairResponse]:
     """Sign in with email or username
 
      Checks account credentials and returns an access token plus a refresh token. Send the access token
@@ -152,7 +161,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[LoginCreateResponse400 | TokenPairResponse]
+        Response[LoginCreateResponse400 | OTPChallenge | TokenPairResponse]
     """
 
     kwargs = _get_kwargs(
@@ -170,7 +179,7 @@ async def asyncio(
     client: AuthenticatedClient,
     body: LoginRequest,
     accept_language: str | Unset = UNSET,
-) -> LoginCreateResponse400 | TokenPairResponse | None:
+) -> LoginCreateResponse400 | OTPChallenge | TokenPairResponse | None:
     """Sign in with email or username
 
      Checks account credentials and returns an access token plus a refresh token. Send the access token
@@ -185,7 +194,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        LoginCreateResponse400 | TokenPairResponse
+        LoginCreateResponse400 | OTPChallenge | TokenPairResponse
     """
 
     return (

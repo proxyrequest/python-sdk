@@ -8,48 +8,55 @@ from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-from typing import cast
+from ..types import UNSET, Unset
 
 
-T = TypeVar("T", bound="SessionListResponse")
+T = TypeVar("T", bound="TwoFactorSetupRequestRequest")
 
 
 @_attrs_define
-class SessionListResponse:
-    count: int
-    results: list[str]
+class TwoFactorSetupRequestRequest:
+    password: str | Unset = UNSET
+    credential: str | Unset = UNSET
+    code: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        count = self.count
+        password = self.password
 
-        results = self.results
+        credential = self.credential
+
+        code = self.code
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update(
-            {
-                "count": count,
-                "results": results,
-            }
-        )
+        field_dict.update({})
+        if password is not UNSET:
+            field_dict["password"] = password
+        if credential is not UNSET:
+            field_dict["credential"] = credential
+        if code is not UNSET:
+            field_dict["code"] = code
 
         return field_dict
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
-        count = d.pop("count")
+        password = d.pop("password", UNSET)
 
-        results = cast(list[str], d.pop("results"))
+        credential = d.pop("credential", UNSET)
 
-        session_list_response = cls(
-            count=count,
-            results=results,
+        code = d.pop("code", UNSET)
+
+        two_factor_setup_request_request = cls(
+            password=password,
+            credential=credential,
+            code=code,
         )
 
-        session_list_response.additional_properties = d
-        return session_list_response
+        two_factor_setup_request_request.additional_properties = d
+        return two_factor_setup_request_request
 
     @property
     def additional_keys(self) -> list[str]:

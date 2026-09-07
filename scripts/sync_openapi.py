@@ -11,7 +11,7 @@ import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_SOURCE = ROOT / "../../../papaproxy/api/openapi.yml"
-HTTP_METHODS = {"get", "post", "put", "patch", "delete"}
+HTTP_METHODS = {"get", "post", "put", "patch", "delete", "head", "options", "trace"}
 
 
 def parse_args() -> argparse.Namespace:
@@ -43,9 +43,24 @@ def validate(document: dict[str, Any]) -> tuple[int, int]:
     paths = document.get("paths", {})
     if any(str(path).startswith("/admin") for path in paths):
         raise SystemExit("The public schema unexpectedly contains admin paths.")
-    operations = sum(method in HTTP_METHODS for item in paths.values() for method in item)
+    operation_ids: set[str] = set()
+    for path, item in paths.items():
+        if not isinstance(item, dict) or "$ref" in item:
+            raise SystemExit(f"Invalid or unresolved path: {path}")
+        for method, operation in item.items():
+            if method not in HTTP_METHODS:
+                continue
+            operation_id = operation.get("operationId") if isinstance(operation, dict) else None
+            if (
+                not isinstance(operation_id, str)
+                or not operation_id.strip()
+                or operation_id in operation_ids
+            ):
+                raise SystemExit(f"Missing or duplicate operationId at {method} {path}")
+            operation_ids.add(operation_id)
+    operations = len(operation_ids)
     schemas = len(document.get("components", {}).get("schemas", {}))
-    if operations != 80 or schemas != 124:
+    if not operations or not schemas:
         raise SystemExit(
             f"Unexpected contract size: {operations} operations and {schemas} schemas."
         )
@@ -69,6 +84,7 @@ def main() -> None:
     digest = hashlib.sha256(content).hexdigest()
     metadata = {
         "commit": git_commit(source),
+        "excludedOperations": ["sessions_destroy", "sessions_list"],
         "operations": operations,
         "repository": "papaproxy/api",
         "schemas": schemas,

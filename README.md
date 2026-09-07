@@ -5,7 +5,7 @@
 [![Python](https://img.shields.io/pypi/pyversions/proxyrequest-sdk.svg?cacheSeconds=300)](https://pypi.org/project/proxyrequest-sdk/)
 
 Official synchronous and asynchronous Python client for the
-[ProxyRequest](https://proxyrequest.com/) public API. It covers all 80 operations
+[ProxyRequest](https://proxyrequest.com/) public API. It covers 79 supported operations
 in the current contract: users, orders, proxy generation, analytics, invoices,
 packages, locations, webhooks, API keys, Telegram integration, and more.
 
@@ -120,7 +120,12 @@ async def list_users() -> None:
 
 ## Resource API
 
-`Client` and `AsyncClient` expose one object per API group:
+`Client` and `AsyncClient` expose 17 API groups. The pinned public schema contains
+81 operations; disabled `sessions_list` and `sessions_destroy` operations are
+intentionally excluded. Sticky session options in proxy generation remain supported.
+
+See [backend compatibility and MFA](docs/backend-compatibility.md) for updated
+login examples and response-model migration notes.
 
 ```python
 client.authorization
@@ -138,7 +143,6 @@ client.locations
 client.api_keys
 client.webhooks
 client.telegram
-client.sessions
 client.settings
 client.news
 ```

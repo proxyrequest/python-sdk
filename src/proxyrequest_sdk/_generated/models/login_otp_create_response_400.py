@@ -12,11 +12,11 @@ from ..types import UNSET, Unset
 from typing import cast
 
 
-T = TypeVar("T", bound="SessionsDestroyResponse401")
+T = TypeVar("T", bound="LoginOtpCreateResponse400")
 
 
 @_attrs_define
-class SessionsDestroyResponse401:
+class LoginOtpCreateResponse400:
     """Validation and API error payload. Field names may be added dynamically; field errors are returned as arrays of
     human-readable messages.
 
@@ -56,7 +56,7 @@ class SessionsDestroyResponse401:
 
         non_field_errors = cast(list[str], d.pop("non_field_errors", UNSET))
 
-        sessions_destroy_response_401 = cls(
+        login_otp_create_response_400 = cls(
             detail=detail,
             non_field_errors=non_field_errors,
         )
@@ -79,8 +79,8 @@ class SessionsDestroyResponse401:
 
             additional_properties[prop_name] = additional_property
 
-        sessions_destroy_response_401.additional_properties = additional_properties
-        return sessions_destroy_response_401
+        login_otp_create_response_400.additional_properties = additional_properties
+        return login_otp_create_response_400
 
     @property
     def additional_keys(self) -> list[str]:

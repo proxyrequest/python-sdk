@@ -86,9 +86,7 @@ def _response_value(response: Response[Any]) -> Any:
     if not 200 <= status_code < 300:
         raise ApiError.from_response(status_code, response.content, response.headers)
     if response.parsed is None and response.content and status_code not in {204, 205}:
-        raise ApiError.unexpected(
-            f"ProxyRequest returned an unreadable HTTP {status_code} response."
-        )
+        raise ApiError.decoding(status_code, response.content, response.headers)
     return response.parsed
 
 
@@ -206,7 +204,6 @@ class Client:
         self.profile = resources.ProfileResource(self)
         self.proxies = resources.ProxiesResource(self)
         self.rewards = resources.RewardsResource(self)
-        self.sessions = resources.SessionsResource(self)
         self.settings = resources.SettingsResource(self)
         self.telegram = resources.TelegramDashboardResource(self)
         self.users = resources.UsersResource(self)
@@ -242,7 +239,7 @@ class Client:
             except Exception as error:
                 raise ApiError.unexpected(
                     "Unable to decode the ProxyRequest API response.", error
-                ) from error
+                ).with_idempotency_key(idempotency_key) from error
             delay = _retry_delay(api_error, attempt)
             if attempt >= 2 or idempotency_key is None or delay is None:
                 raise api_error
@@ -395,7 +392,6 @@ class AsyncClient:
         self.profile = resources.AsyncProfileResource(self)
         self.proxies = resources.AsyncProxiesResource(self)
         self.rewards = resources.AsyncRewardsResource(self)
-        self.sessions = resources.AsyncSessionsResource(self)
         self.settings = resources.AsyncSettingsResource(self)
         self.telegram = resources.AsyncTelegramDashboardResource(self)
         self.users = resources.AsyncUsersResource(self)
@@ -431,7 +427,7 @@ class AsyncClient:
             except Exception as error:
                 raise ApiError.unexpected(
                     "Unable to decode the ProxyRequest API response.", error
-                ) from error
+                ).with_idempotency_key(idempotency_key) from error
             delay = _retry_delay(api_error, attempt)
             if attempt >= 2 or idempotency_key is None or delay is None:
                 raise api_error

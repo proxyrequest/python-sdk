@@ -4,6 +4,8 @@ from urllib.parse import quote
 
 import httpx
 
+from ...._response import parse_response
+
 from ...client import AuthenticatedClient, Client
 from ...types import Response, UNSET
 from ... import errors
@@ -82,11 +84,12 @@ def _build_response(
     | Profile2FaConfirmCreateResponse401
     | Profile2FaConfirmCreateResponse403
 ]:
+    parsed = parse_response(_parse_response, client=client, response=response)
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
         headers=response.headers,
-        parsed=_parse_response(client=client, response=response),
+        parsed=parsed,
     )
 
 
@@ -101,10 +104,9 @@ def sync_detailed(
     | Profile2FaConfirmCreateResponse401
     | Profile2FaConfirmCreateResponse403
 ]:
-    """Confirm two-factor setup
+    """Confirm two-factor authentication
 
-     Verifies a six-digit TOTP code generated from the pending secret and enables two-factor
-    authentication for the account.
+     Activates the pending authenticator after verifying its code and revokes previous JWTs.
 
     Args:
         accept_language (str | Unset):  Defaults to the client language.
@@ -142,10 +144,9 @@ def sync(
     | Profile2FaConfirmCreateResponse403
     | None
 ):
-    """Confirm two-factor setup
+    """Confirm two-factor authentication
 
-     Verifies a six-digit TOTP code generated from the pending secret and enables two-factor
-    authentication for the account.
+     Activates the pending authenticator after verifying its code and revokes previous JWTs.
 
     Args:
         accept_language (str | Unset):  Defaults to the client language.
@@ -177,10 +178,9 @@ async def asyncio_detailed(
     | Profile2FaConfirmCreateResponse401
     | Profile2FaConfirmCreateResponse403
 ]:
-    """Confirm two-factor setup
+    """Confirm two-factor authentication
 
-     Verifies a six-digit TOTP code generated from the pending secret and enables two-factor
-    authentication for the account.
+     Activates the pending authenticator after verifying its code and revokes previous JWTs.
 
     Args:
         accept_language (str | Unset):  Defaults to the client language.
@@ -216,10 +216,9 @@ async def asyncio(
     | Profile2FaConfirmCreateResponse403
     | None
 ):
-    """Confirm two-factor setup
+    """Confirm two-factor authentication
 
-     Verifies a six-digit TOTP code generated from the pending secret and enables two-factor
-    authentication for the account.
+     Activates the pending authenticator after verifying its code and revokes previous JWTs.
 
     Args:
         accept_language (str | Unset):  Defaults to the client language.

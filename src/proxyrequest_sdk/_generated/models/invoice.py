@@ -8,6 +8,7 @@ from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..models.checkout_status_enum import CheckoutStatusEnum
 from ..models.invoice_gateway_enum import InvoiceGatewayEnum
 from ..models.invoice_status_enum import InvoiceStatusEnum
 from ..models.invoice_type_enum import InvoiceTypeEnum
@@ -27,10 +28,16 @@ T = TypeVar("T", bound="Invoice")
 
 @_attrs_define
 class Invoice:
-    package: PackageShort
-    country: Country
+    package: None | PackageShort
+    country: Country | None
     user_id: UUID
-    coupon: CouponShort
+    coupon: CouponShort | None
+    payment_amount: int
+    payment_currency: str
+    fx_market_rate: str
+    fx_effective_rate: str
+    fx_markup_percent: str
+    fx_quoted_at: datetime.datetime | None
     updated: datetime.datetime
     created: datetime.datetime
     id: str | Unset = UNSET
@@ -59,13 +66,23 @@ class Invoice:
     """ The total price of the invoice, including any discounts. Must be at least 1 cent. """
     gateway: InvoiceGatewayEnum | Unset = UNSET
     """ * `coinbase` - Coinbase * `cryptomus` - Cryptomus * `stripe` - Stripe * `coingate` - Coingate * `wallet` -
-    Wallet * `manual` - Manual """
+    Wallet * `manual` - Manual * `whitepay` - Whitepay * `wayforpay` - WayForPay * `usegateway` - UseGateway *
+    `binance` - Binance Pay * `anymoney` - Any.Money * `coinpayments` - CoinPayments * `checkoutcom` - Checkout.com
+    * `nowpayments` - NOWPayments * `btcpay` - BTCPay Server * `braintree` - Braintree * `monobank` - monobank *
+    `liqpay` - LiqPay * `iyzico` - iyzico * `paytr` - PayTR * `payu` - PayU * `tpay` - Tpay * `przelewy24` -
+    Przelewy24 * `gopay` - GoPay * `comgate` - Comgate * `monei` - MONEI * `redsys` - Redsys * `payplug` - PayPlug *
+    `mollie` - Mollie * `unzer` - Unzer * `payone` - PAYONE * `nexi_xpay` - Nexi XPay * `halyk_epay` - Halyk ePay *
+    `kaspi_pay` - Kaspi Pay * `vipps_mobilepay` - Vipps MobilePay * `paytrail` - Paytrail """
     payment_url: str | Unset = UNSET
     """ The URL for making the payment. Optional field with a maximum length of 500 characters. """
-    coingate_order_token: str | Unset = UNSET
-    """ The Coingate order token for the payment. Optional field with a maximum length of 255 characters. """
-    coinbase_charge_id: str | Unset = UNSET
-    """ The Coinbase charge ID for the payment. Optional field with a maximum length of 255 characters. """
+    currency: str | Unset = UNSET
+    """ ISO 4217 currency captured when the invoice is created. """
+    provider_checkout_id: str | Unset = UNSET
+    """ Provider-side hosted checkout identifier used for reconciliation. """
+    provider_payment_id: str | Unset = UNSET
+    """ Provider-side payment or transaction identifier used for reconciliation. """
+    checkout_status: CheckoutStatusEnum | Unset = UNSET
+    """ * `not_required` - Not required * `initializing` - Initializing * `ready` - Ready * `failed` - Failed """
     vat: float | Unset = UNSET
     """ The VAT percentage applied to the invoice. Must be between 0 and 100. """
     company_name: str | Unset = UNSET
@@ -83,13 +100,41 @@ class Invoice:
         from ..models.coupon_short import CouponShort
         from ..models.package_short import PackageShort
 
-        package = self.package.to_dict()
+        package: dict[str, Any] | None
+        if isinstance(self.package, PackageShort):
+            package = self.package.to_dict()
+        else:
+            package = self.package
 
-        country = self.country.to_dict()
+        country: dict[str, Any] | None
+        if isinstance(self.country, Country):
+            country = self.country.to_dict()
+        else:
+            country = self.country
 
         user_id = str(self.user_id)
 
-        coupon = self.coupon.to_dict()
+        coupon: dict[str, Any] | None
+        if isinstance(self.coupon, CouponShort):
+            coupon = self.coupon.to_dict()
+        else:
+            coupon = self.coupon
+
+        payment_amount = self.payment_amount
+
+        payment_currency = self.payment_currency
+
+        fx_market_rate = self.fx_market_rate
+
+        fx_effective_rate = self.fx_effective_rate
+
+        fx_markup_percent = self.fx_markup_percent
+
+        fx_quoted_at: None | str
+        if isinstance(self.fx_quoted_at, datetime.datetime):
+            fx_quoted_at = self.fx_quoted_at.isoformat()
+        else:
+            fx_quoted_at = self.fx_quoted_at
 
         updated = self.updated.isoformat()
 
@@ -129,9 +174,15 @@ class Invoice:
 
         payment_url = self.payment_url
 
-        coingate_order_token = self.coingate_order_token
+        currency = self.currency
 
-        coinbase_charge_id = self.coinbase_charge_id
+        provider_checkout_id = self.provider_checkout_id
+
+        provider_payment_id = self.provider_payment_id
+
+        checkout_status: str | Unset = UNSET
+        if not isinstance(self.checkout_status, Unset):
+            checkout_status = self.checkout_status.value
 
         vat = self.vat
 
@@ -163,6 +214,12 @@ class Invoice:
                 "country": country,
                 "user_id": user_id,
                 "coupon": coupon,
+                "payment_amount": payment_amount,
+                "payment_currency": payment_currency,
+                "fx_market_rate": fx_market_rate,
+                "fx_effective_rate": fx_effective_rate,
+                "fx_markup_percent": fx_markup_percent,
+                "fx_quoted_at": fx_quoted_at,
                 "updated": updated,
                 "created": created,
             }
@@ -195,10 +252,14 @@ class Invoice:
             field_dict["gateway"] = gateway
         if payment_url is not UNSET:
             field_dict["payment_url"] = payment_url
-        if coingate_order_token is not UNSET:
-            field_dict["coingate_order_token"] = coingate_order_token
-        if coinbase_charge_id is not UNSET:
-            field_dict["coinbase_charge_id"] = coinbase_charge_id
+        if currency is not UNSET:
+            field_dict["currency"] = currency
+        if provider_checkout_id is not UNSET:
+            field_dict["provider_checkout_id"] = provider_checkout_id
+        if provider_payment_id is not UNSET:
+            field_dict["provider_payment_id"] = provider_payment_id
+        if checkout_status is not UNSET:
+            field_dict["checkout_status"] = checkout_status
         if vat is not UNSET:
             field_dict["vat"] = vat
         if company_name is not UNSET:
@@ -225,13 +286,78 @@ class Invoice:
         from ..models.package_short import PackageShort
 
         d = dict(src_dict)
-        package = PackageShort.from_dict(d.pop("package"))
 
-        country = Country.from_dict(d.pop("country"))
+        def _parse_package(data: object) -> None | PackageShort:
+            if data is None:
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                package_type_1 = PackageShort.from_dict(data)
+
+                return package_type_1
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(None | PackageShort, data)
+
+        package = _parse_package(d.pop("package"))
+
+        def _parse_country(data: object) -> Country | None:
+            if data is None:
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                country_type_1 = Country.from_dict(data)
+
+                return country_type_1
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(Country | None, data)
+
+        country = _parse_country(d.pop("country"))
 
         user_id = UUID(d.pop("user_id"))
 
-        coupon = CouponShort.from_dict(d.pop("coupon"))
+        def _parse_coupon(data: object) -> CouponShort | None:
+            if data is None:
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                coupon_type_1 = CouponShort.from_dict(data)
+
+                return coupon_type_1
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(CouponShort | None, data)
+
+        coupon = _parse_coupon(d.pop("coupon"))
+
+        payment_amount = d.pop("payment_amount")
+
+        payment_currency = d.pop("payment_currency")
+
+        fx_market_rate = d.pop("fx_market_rate")
+
+        fx_effective_rate = d.pop("fx_effective_rate")
+
+        fx_markup_percent = d.pop("fx_markup_percent")
+
+        def _parse_fx_quoted_at(data: object) -> datetime.datetime | None:
+            if data is None:
+                return data
+            try:
+                if not isinstance(data, str):
+                    raise TypeError()
+                fx_quoted_at_type_0 = datetime.datetime.fromisoformat(data)
+
+                return fx_quoted_at_type_0
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(datetime.datetime | None, data)
+
+        fx_quoted_at = _parse_fx_quoted_at(d.pop("fx_quoted_at"))
 
         updated = datetime.datetime.fromisoformat(d.pop("updated"))
 
@@ -280,9 +406,18 @@ class Invoice:
 
         payment_url = d.pop("payment_url", UNSET)
 
-        coingate_order_token = d.pop("coingate_order_token", UNSET)
+        currency = d.pop("currency", UNSET)
 
-        coinbase_charge_id = d.pop("coinbase_charge_id", UNSET)
+        provider_checkout_id = d.pop("provider_checkout_id", UNSET)
+
+        provider_payment_id = d.pop("provider_payment_id", UNSET)
+
+        _checkout_status = d.pop("checkout_status", UNSET)
+        checkout_status: CheckoutStatusEnum | Unset
+        if isinstance(_checkout_status, Unset):
+            checkout_status = UNSET
+        else:
+            checkout_status = CheckoutStatusEnum(_checkout_status)
 
         vat = d.pop("vat", UNSET)
 
@@ -320,6 +455,12 @@ class Invoice:
             country=country,
             user_id=user_id,
             coupon=coupon,
+            payment_amount=payment_amount,
+            payment_currency=payment_currency,
+            fx_market_rate=fx_market_rate,
+            fx_effective_rate=fx_effective_rate,
+            fx_markup_percent=fx_markup_percent,
+            fx_quoted_at=fx_quoted_at,
             updated=updated,
             created=created,
             id=id,
@@ -336,8 +477,10 @@ class Invoice:
             price_total=price_total,
             gateway=gateway,
             payment_url=payment_url,
-            coingate_order_token=coingate_order_token,
-            coinbase_charge_id=coinbase_charge_id,
+            currency=currency,
+            provider_checkout_id=provider_checkout_id,
+            provider_payment_id=provider_payment_id,
+            checkout_status=checkout_status,
             vat=vat,
             company_name=company_name,
             company_address=company_address,

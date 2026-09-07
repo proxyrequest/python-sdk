@@ -11,6 +11,7 @@ from .._generated.models.message_response import MessageResponse
 from .._generated.models.patched_profile_update_request import PatchedProfileUpdateRequest
 from .._generated.models.two_factor_confirm_request import TwoFactorConfirmRequest
 from .._generated.models.two_factor_disable_request import TwoFactorDisableRequest
+from .._generated.models.two_factor_setup_request_request import TwoFactorSetupRequestRequest
 from .._generated.models.two_factor_setup_response import TwoFactorSetupResponse
 from .._generated.types import UNSET
 from .._generated.types import Unset
@@ -60,7 +61,7 @@ class ProfileResource:
     def confirm_two_factor(
         self, *, body: TwoFactorConfirmRequest, accept_language: str | Unset = UNSET
     ) -> EnabledResponse:
-        """Confirm two-factor setup"""
+        """Confirm two-factor authentication"""
         return cast(
             EnabledResponse,
             self._client._call(
@@ -73,7 +74,7 @@ class ProfileResource:
     def confirm_two_factor_with_response(
         self, *, body: TwoFactorConfirmRequest, accept_language: str | Unset = UNSET
     ) -> ApiResponse[EnabledResponse]:
-        """Confirm two-factor setup; include response metadata."""
+        """Confirm two-factor authentication; include response metadata."""
         return cast(
             ApiResponse[EnabledResponse],
             self._client._call_with_response(
@@ -165,23 +166,31 @@ class ProfileResource:
             ),
         )
 
-    def setup_two_factor(self, *, accept_language: str | Unset = UNSET) -> TwoFactorSetupResponse:
-        """Start two-factor setup"""
+    def setup_two_factor(
+        self,
+        *,
+        body: TwoFactorSetupRequestRequest | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> TwoFactorSetupResponse:
+        """Prepare two-factor authentication"""
         return cast(
             TwoFactorSetupResponse,
             self._client._call(
-                _profile_2fa_setup_create.sync_detailed, accept_language=accept_language
+                _profile_2fa_setup_create.sync_detailed, body=body, accept_language=accept_language
             ),
         )
 
     def setup_two_factor_with_response(
-        self, *, accept_language: str | Unset = UNSET
+        self,
+        *,
+        body: TwoFactorSetupRequestRequest | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
     ) -> ApiResponse[TwoFactorSetupResponse]:
-        """Start two-factor setup; include response metadata."""
+        """Prepare two-factor authentication; include response metadata."""
         return cast(
             ApiResponse[TwoFactorSetupResponse],
             self._client._call_with_response(
-                _profile_2fa_setup_create.sync_detailed, accept_language=accept_language
+                _profile_2fa_setup_create.sync_detailed, body=body, accept_language=accept_language
             ),
         )
 
@@ -255,7 +264,7 @@ class AsyncProfileResource:
     async def confirm_two_factor(
         self, *, body: TwoFactorConfirmRequest, accept_language: str | Unset = UNSET
     ) -> EnabledResponse:
-        """Confirm two-factor setup"""
+        """Confirm two-factor authentication"""
         return cast(
             EnabledResponse,
             await self._client._call(
@@ -268,7 +277,7 @@ class AsyncProfileResource:
     async def confirm_two_factor_with_response(
         self, *, body: TwoFactorConfirmRequest, accept_language: str | Unset = UNSET
     ) -> ApiResponse[EnabledResponse]:
-        """Confirm two-factor setup; include response metadata."""
+        """Confirm two-factor authentication; include response metadata."""
         return cast(
             ApiResponse[EnabledResponse],
             await self._client._call_with_response(
@@ -367,24 +376,34 @@ class AsyncProfileResource:
         )
 
     async def setup_two_factor(
-        self, *, accept_language: str | Unset = UNSET
+        self,
+        *,
+        body: TwoFactorSetupRequestRequest | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
     ) -> TwoFactorSetupResponse:
-        """Start two-factor setup"""
+        """Prepare two-factor authentication"""
         return cast(
             TwoFactorSetupResponse,
             await self._client._call(
-                _profile_2fa_setup_create.asyncio_detailed, accept_language=accept_language
+                _profile_2fa_setup_create.asyncio_detailed,
+                body=body,
+                accept_language=accept_language,
             ),
         )
 
     async def setup_two_factor_with_response(
-        self, *, accept_language: str | Unset = UNSET
+        self,
+        *,
+        body: TwoFactorSetupRequestRequest | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
     ) -> ApiResponse[TwoFactorSetupResponse]:
-        """Start two-factor setup; include response metadata."""
+        """Prepare two-factor authentication; include response metadata."""
         return cast(
             ApiResponse[TwoFactorSetupResponse],
             await self._client._call_with_response(
-                _profile_2fa_setup_create.asyncio_detailed, accept_language=accept_language
+                _profile_2fa_setup_create.asyncio_detailed,
+                body=body,
+                accept_language=accept_language,
             ),
         )
 

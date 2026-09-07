@@ -4,6 +4,8 @@ from urllib.parse import quote
 
 import httpx
 
+from ...._response import parse_response
+
 from ...client import AuthenticatedClient, Client
 from ...types import Response, UNSET
 from ... import errors
@@ -14,7 +16,7 @@ from ...models.invoices_list_response_401 import InvoicesListResponse401
 from ...models.invoices_list_response_403 import InvoicesListResponse403
 from ...models.invoices_list_status import InvoicesListStatus
 from ...models.invoices_list_type import InvoicesListType
-from ...models.paginated_invoice_list import PaginatedInvoiceList
+from ...models.paginated_invoice_read_list import PaginatedInvoiceReadList
 from ...types import UNSET, Unset
 from typing import cast
 from uuid import UUID
@@ -96,11 +98,11 @@ def _parse_response(
     InvoicesListResponse400
     | InvoicesListResponse401
     | InvoicesListResponse403
-    | PaginatedInvoiceList
+    | PaginatedInvoiceReadList
     | None
 ):
     if response.status_code == 200:
-        response_200 = PaginatedInvoiceList.from_dict(response.json())
+        response_200 = PaginatedInvoiceReadList.from_dict(response.json())
 
         return response_200
 
@@ -131,13 +133,14 @@ def _build_response(
     InvoicesListResponse400
     | InvoicesListResponse401
     | InvoicesListResponse403
-    | PaginatedInvoiceList
+    | PaginatedInvoiceReadList
 ]:
+    parsed = parse_response(_parse_response, client=client, response=response)
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
         headers=response.headers,
-        parsed=_parse_response(client=client, response=response),
+        parsed=parsed,
     )
 
 
@@ -160,7 +163,7 @@ def sync_detailed(
     InvoicesListResponse400
     | InvoicesListResponse401
     | InvoicesListResponse403
-    | PaginatedInvoiceList
+    | PaginatedInvoiceReadList
 ]:
     """List invoices
 
@@ -186,7 +189,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[InvoicesListResponse400 | InvoicesListResponse401 | InvoicesListResponse403 | PaginatedInvoiceList]
+        Response[InvoicesListResponse400 | InvoicesListResponse401 | InvoicesListResponse403 | PaginatedInvoiceReadList]
     """
 
     kwargs = _get_kwargs(
@@ -230,7 +233,7 @@ def sync(
     InvoicesListResponse400
     | InvoicesListResponse401
     | InvoicesListResponse403
-    | PaginatedInvoiceList
+    | PaginatedInvoiceReadList
     | None
 ):
     """List invoices
@@ -257,7 +260,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        InvoicesListResponse400 | InvoicesListResponse401 | InvoicesListResponse403 | PaginatedInvoiceList
+        InvoicesListResponse400 | InvoicesListResponse401 | InvoicesListResponse403 | PaginatedInvoiceReadList
     """
 
     return sync_detailed(
@@ -296,7 +299,7 @@ async def asyncio_detailed(
     InvoicesListResponse400
     | InvoicesListResponse401
     | InvoicesListResponse403
-    | PaginatedInvoiceList
+    | PaginatedInvoiceReadList
 ]:
     """List invoices
 
@@ -322,7 +325,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[InvoicesListResponse400 | InvoicesListResponse401 | InvoicesListResponse403 | PaginatedInvoiceList]
+        Response[InvoicesListResponse400 | InvoicesListResponse401 | InvoicesListResponse403 | PaginatedInvoiceReadList]
     """
 
     kwargs = _get_kwargs(
@@ -364,7 +367,7 @@ async def asyncio(
     InvoicesListResponse400
     | InvoicesListResponse401
     | InvoicesListResponse403
-    | PaginatedInvoiceList
+    | PaginatedInvoiceReadList
     | None
 ):
     """List invoices
@@ -391,7 +394,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        InvoicesListResponse400 | InvoicesListResponse401 | InvoicesListResponse403 | PaginatedInvoiceList
+        InvoicesListResponse400 | InvoicesListResponse401 | InvoicesListResponse403 | PaginatedInvoiceReadList
     """
 
     return (

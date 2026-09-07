@@ -15,6 +15,7 @@ from uuid import UUID
 import datetime
 
 if TYPE_CHECKING:
+    from ..models.order import Order
     from ..models.user_coupons_item import UserCouponsItem
     from ..models.user_currency import UserCurrency
 
@@ -55,16 +56,6 @@ class User:
     """ Currency information for the user's transactions """
     coupons: list[UserCouponsItem]
     """ Available coupons for this user """
-    data: int | None
-    """ Available data allowance for the user """
-    data_spent: int | None
-    """ Amount of data consumed by the user """
-    data_updated: datetime.datetime | None
-    """ Last update timestamp for user's data """
-    proxy_password: None | str
-    """ Proxy authentication password """
-    proxy_password_reset: datetime.datetime | None
-    """ Last proxy password reset timestamp """
     is_reseller: bool | Unset = UNSET
     """ Reseller can create sub-users and manage their data. """
     is_marketer: bool | Unset = UNSET
@@ -90,9 +81,22 @@ class User:
     connection_limit: int | Unset = UNSET
     """ The maximum number of concurrent connections allowed for this package. """
     referral_id: str | Unset = UNSET
+    data: int | None | Unset = UNSET
+    """ Present only when SITE_PACKAGE_BASED_AUTH is disabled. """
+    data_spent: int | None | Unset = UNSET
+    """ Present only when SITE_PACKAGE_BASED_AUTH is disabled. """
+    data_updated: datetime.datetime | None | Unset = UNSET
+    """ Present only when SITE_PACKAGE_BASED_AUTH is disabled. """
+    proxy_password: None | str | Unset = UNSET
+    """ Present only when SITE_PACKAGE_BASED_AUTH is disabled. """
+    proxy_password_reset: datetime.datetime | None | Unset = UNSET
+    """ Present only when SITE_PACKAGE_BASED_AUTH is disabled. """
+    orders: list[Order] | Unset = UNSET
+    """ Present only when SITE_PACKAGE_BASED_AUTH is enabled. """
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
+        from ..models.order import Order
         from ..models.user_coupons_item import UserCouponsItem
         from ..models.user_currency import UserCurrency
 
@@ -132,27 +136,6 @@ class User:
         for coupons_item_data in self.coupons:
             coupons_item = coupons_item_data.to_dict()
             coupons.append(coupons_item)
-
-        data: int | None
-        data = self.data
-
-        data_spent: int | None
-        data_spent = self.data_spent
-
-        data_updated: None | str
-        if isinstance(self.data_updated, datetime.datetime):
-            data_updated = self.data_updated.isoformat()
-        else:
-            data_updated = self.data_updated
-
-        proxy_password: None | str
-        proxy_password = self.proxy_password
-
-        proxy_password_reset: None | str
-        if isinstance(self.proxy_password_reset, datetime.datetime):
-            proxy_password_reset = self.proxy_password_reset.isoformat()
-        else:
-            proxy_password_reset = self.proxy_password_reset
 
         is_reseller = self.is_reseller
 
@@ -196,6 +179,47 @@ class User:
 
         referral_id = self.referral_id
 
+        data: int | None | Unset
+        if isinstance(self.data, Unset):
+            data = UNSET
+        else:
+            data = self.data
+
+        data_spent: int | None | Unset
+        if isinstance(self.data_spent, Unset):
+            data_spent = UNSET
+        else:
+            data_spent = self.data_spent
+
+        data_updated: None | str | Unset
+        if isinstance(self.data_updated, Unset):
+            data_updated = UNSET
+        elif isinstance(self.data_updated, datetime.datetime):
+            data_updated = self.data_updated.isoformat()
+        else:
+            data_updated = self.data_updated
+
+        proxy_password: None | str | Unset
+        if isinstance(self.proxy_password, Unset):
+            proxy_password = UNSET
+        else:
+            proxy_password = self.proxy_password
+
+        proxy_password_reset: None | str | Unset
+        if isinstance(self.proxy_password_reset, Unset):
+            proxy_password_reset = UNSET
+        elif isinstance(self.proxy_password_reset, datetime.datetime):
+            proxy_password_reset = self.proxy_password_reset.isoformat()
+        else:
+            proxy_password_reset = self.proxy_password_reset
+
+        orders: list[dict[str, Any]] | Unset = UNSET
+        if not isinstance(self.orders, Unset):
+            orders = []
+            for orders_item_data in self.orders:
+                orders_item = orders_item_data.to_dict()
+                orders.append(orders_item)
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
@@ -217,11 +241,6 @@ class User:
                 "referral_balance_earned": referral_balance_earned,
                 "currency": currency,
                 "coupons": coupons,
-                "data": data,
-                "data_spent": data_spent,
-                "data_updated": data_updated,
-                "proxy_password": proxy_password,
-                "proxy_password_reset": proxy_password_reset,
             }
         )
         if is_reseller is not UNSET:
@@ -264,11 +283,24 @@ class User:
             field_dict["connection_limit"] = connection_limit
         if referral_id is not UNSET:
             field_dict["referral_id"] = referral_id
+        if data is not UNSET:
+            field_dict["data"] = data
+        if data_spent is not UNSET:
+            field_dict["data_spent"] = data_spent
+        if data_updated is not UNSET:
+            field_dict["data_updated"] = data_updated
+        if proxy_password is not UNSET:
+            field_dict["proxy_password"] = proxy_password
+        if proxy_password_reset is not UNSET:
+            field_dict["proxy_password_reset"] = proxy_password_reset
+        if orders is not UNSET:
+            field_dict["orders"] = orders
 
         return field_dict
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+        from ..models.order import Order
         from ..models.user_coupons_item import UserCouponsItem
         from ..models.user_currency import UserCurrency
 
@@ -311,57 +343,6 @@ class User:
             coupons_item = UserCouponsItem.from_dict(coupons_item_data)
 
             coupons.append(coupons_item)
-
-        def _parse_data(data: object) -> int | None:
-            if data is None:
-                return data
-            return cast(int | None, data)
-
-        data = _parse_data(d.pop("data"))
-
-        def _parse_data_spent(data: object) -> int | None:
-            if data is None:
-                return data
-            return cast(int | None, data)
-
-        data_spent = _parse_data_spent(d.pop("data_spent"))
-
-        def _parse_data_updated(data: object) -> datetime.datetime | None:
-            if data is None:
-                return data
-            try:
-                if not isinstance(data, str):
-                    raise TypeError()
-                data_updated_type_0 = datetime.datetime.fromisoformat(data)
-
-                return data_updated_type_0
-            except (TypeError, ValueError, AttributeError, KeyError):
-                pass
-            return cast(datetime.datetime | None, data)
-
-        data_updated = _parse_data_updated(d.pop("data_updated"))
-
-        def _parse_proxy_password(data: object) -> None | str:
-            if data is None:
-                return data
-            return cast(None | str, data)
-
-        proxy_password = _parse_proxy_password(d.pop("proxy_password"))
-
-        def _parse_proxy_password_reset(data: object) -> datetime.datetime | None:
-            if data is None:
-                return data
-            try:
-                if not isinstance(data, str):
-                    raise TypeError()
-                proxy_password_reset_type_0 = datetime.datetime.fromisoformat(data)
-
-                return proxy_password_reset_type_0
-            except (TypeError, ValueError, AttributeError, KeyError):
-                pass
-            return cast(datetime.datetime | None, data)
-
-        proxy_password_reset = _parse_proxy_password_reset(d.pop("proxy_password_reset"))
 
         is_reseller = d.pop("is_reseller", UNSET)
 
@@ -408,6 +389,76 @@ class User:
 
         referral_id = d.pop("referral_id", UNSET)
 
+        def _parse_data(data: object) -> int | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(int | None | Unset, data)
+
+        data = _parse_data(d.pop("data", UNSET))
+
+        def _parse_data_spent(data: object) -> int | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(int | None | Unset, data)
+
+        data_spent = _parse_data_spent(d.pop("data_spent", UNSET))
+
+        def _parse_data_updated(data: object) -> datetime.datetime | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, str):
+                    raise TypeError()
+                data_updated_type_0 = datetime.datetime.fromisoformat(data)
+
+                return data_updated_type_0
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(datetime.datetime | None | Unset, data)
+
+        data_updated = _parse_data_updated(d.pop("data_updated", UNSET))
+
+        def _parse_proxy_password(data: object) -> None | str | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(None | str | Unset, data)
+
+        proxy_password = _parse_proxy_password(d.pop("proxy_password", UNSET))
+
+        def _parse_proxy_password_reset(data: object) -> datetime.datetime | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, str):
+                    raise TypeError()
+                proxy_password_reset_type_0 = datetime.datetime.fromisoformat(data)
+
+                return proxy_password_reset_type_0
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(datetime.datetime | None | Unset, data)
+
+        proxy_password_reset = _parse_proxy_password_reset(d.pop("proxy_password_reset", UNSET))
+
+        _orders = d.pop("orders", UNSET)
+        orders: list[Order] | Unset = UNSET
+        if _orders is not UNSET:
+            orders = []
+            for orders_item_data in _orders:
+                orders_item = Order.from_dict(orders_item_data)
+
+                orders.append(orders_item)
+
         user = cls(
             id=id,
             username=username,
@@ -426,11 +477,6 @@ class User:
             referral_balance_earned=referral_balance_earned,
             currency=currency,
             coupons=coupons,
-            data=data,
-            data_spent=data_spent,
-            data_updated=data_updated,
-            proxy_password=proxy_password,
-            proxy_password_reset=proxy_password_reset,
             is_reseller=is_reseller,
             is_marketer=is_marketer,
             is_superuser=is_superuser,
@@ -451,6 +497,12 @@ class User:
             company_vat_number=company_vat_number,
             connection_limit=connection_limit,
             referral_id=referral_id,
+            data=data,
+            data_spent=data_spent,
+            data_updated=data_updated,
+            proxy_password=proxy_password,
+            proxy_password_reset=proxy_password_reset,
+            orders=orders,
         )
 
         user.additional_properties = d

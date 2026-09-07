@@ -4,11 +4,14 @@ from urllib.parse import quote
 
 import httpx
 
+from ...._response import parse_response
+
 from ...client import AuthenticatedClient, Client
 from ...types import Response, UNSET
 from ... import errors
 
 from ...models.invoice import Invoice
+from ...models.invoice_short import InvoiceShort
 from ...models.invoices_retrieve_response_400 import InvoicesRetrieveResponse400
 from ...models.invoices_retrieve_response_401 import InvoicesRetrieveResponse401
 from ...models.invoices_retrieve_response_403 import InvoicesRetrieveResponse403
@@ -41,6 +44,7 @@ def _parse_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
 ) -> (
     Invoice
+    | InvoiceShort
     | InvoicesRetrieveResponse400
     | InvoicesRetrieveResponse401
     | InvoicesRetrieveResponse403
@@ -48,7 +52,23 @@ def _parse_response(
     | None
 ):
     if response.status_code == 200:
-        response_200 = Invoice.from_dict(response.json())
+
+        def _parse_response_200(data: object) -> Invoice | InvoiceShort:
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                componentsschemas_invoice_read_type_0 = Invoice.from_dict(data)
+
+                return componentsschemas_invoice_read_type_0
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            if not isinstance(data, dict):
+                raise TypeError()
+            componentsschemas_invoice_read_type_1 = InvoiceShort.from_dict(data)
+
+            return componentsschemas_invoice_read_type_1
+
+        response_200 = _parse_response_200(response.json())
 
         return response_200
 
@@ -82,16 +102,18 @@ def _build_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
 ) -> Response[
     Invoice
+    | InvoiceShort
     | InvoicesRetrieveResponse400
     | InvoicesRetrieveResponse401
     | InvoicesRetrieveResponse403
     | InvoicesRetrieveResponse404
 ]:
+    parsed = parse_response(_parse_response, client=client, response=response)
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
         headers=response.headers,
-        parsed=_parse_response(client=client, response=response),
+        parsed=parsed,
     )
 
 
@@ -102,6 +124,7 @@ def sync_detailed(
     accept_language: str | Unset = UNSET,
 ) -> Response[
     Invoice
+    | InvoiceShort
     | InvoicesRetrieveResponse400
     | InvoicesRetrieveResponse401
     | InvoicesRetrieveResponse403
@@ -121,7 +144,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Invoice | InvoicesRetrieveResponse400 | InvoicesRetrieveResponse401 | InvoicesRetrieveResponse403 | InvoicesRetrieveResponse404]
+        Response[Invoice | InvoiceShort | InvoicesRetrieveResponse400 | InvoicesRetrieveResponse401 | InvoicesRetrieveResponse403 | InvoicesRetrieveResponse404]
     """
 
     kwargs = _get_kwargs(
@@ -143,6 +166,7 @@ def sync(
     accept_language: str | Unset = UNSET,
 ) -> (
     Invoice
+    | InvoiceShort
     | InvoicesRetrieveResponse400
     | InvoicesRetrieveResponse401
     | InvoicesRetrieveResponse403
@@ -163,7 +187,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Invoice | InvoicesRetrieveResponse400 | InvoicesRetrieveResponse401 | InvoicesRetrieveResponse403 | InvoicesRetrieveResponse404
+        Invoice | InvoiceShort | InvoicesRetrieveResponse400 | InvoicesRetrieveResponse401 | InvoicesRetrieveResponse403 | InvoicesRetrieveResponse404
     """
 
     return sync_detailed(
@@ -180,6 +204,7 @@ async def asyncio_detailed(
     accept_language: str | Unset = UNSET,
 ) -> Response[
     Invoice
+    | InvoiceShort
     | InvoicesRetrieveResponse400
     | InvoicesRetrieveResponse401
     | InvoicesRetrieveResponse403
@@ -199,7 +224,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Invoice | InvoicesRetrieveResponse400 | InvoicesRetrieveResponse401 | InvoicesRetrieveResponse403 | InvoicesRetrieveResponse404]
+        Response[Invoice | InvoiceShort | InvoicesRetrieveResponse400 | InvoicesRetrieveResponse401 | InvoicesRetrieveResponse403 | InvoicesRetrieveResponse404]
     """
 
     kwargs = _get_kwargs(
@@ -219,6 +244,7 @@ async def asyncio(
     accept_language: str | Unset = UNSET,
 ) -> (
     Invoice
+    | InvoiceShort
     | InvoicesRetrieveResponse400
     | InvoicesRetrieveResponse401
     | InvoicesRetrieveResponse403
@@ -239,7 +265,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Invoice | InvoicesRetrieveResponse400 | InvoicesRetrieveResponse401 | InvoicesRetrieveResponse403 | InvoicesRetrieveResponse404
+        Invoice | InvoiceShort | InvoicesRetrieveResponse400 | InvoicesRetrieveResponse401 | InvoicesRetrieveResponse403 | InvoicesRetrieveResponse404
     """
 
     return (
