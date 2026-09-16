@@ -42,6 +42,7 @@ from .._generated.models.google_auth_request import GoogleAuthRequest
 from .._generated.models.invoice import Invoice
 from .._generated.models.invoice_create_request import InvoiceCreateRequest
 from .._generated.models.invoice_create_request_gateway_enum import InvoiceCreateRequestGatewayEnum
+from .._generated.models.invoice_create_request_status_enum import InvoiceCreateRequestStatusEnum
 from .._generated.models.invoice_gateway_enum import InvoiceGatewayEnum
 from .._generated.models.invoice_short import InvoiceShort
 from .._generated.models.invoice_status_enum import InvoiceStatusEnum
@@ -200,6 +201,7 @@ __all__ = [
     "Invoice",
     "InvoiceCreateRequest",
     "InvoiceCreateRequestGatewayEnum",
+    "InvoiceCreateRequestStatusEnum",
     "InvoiceGatewayEnum",
     "InvoiceShort",
     "InvoiceStatusEnum",

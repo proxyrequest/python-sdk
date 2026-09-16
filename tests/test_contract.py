@@ -12,7 +12,13 @@ from typing import Any
 import yaml
 
 from proxyrequest_sdk import AsyncClient, Client
-from proxyrequest_sdk.models import ProtocolEnum, UserCreateRequest
+from proxyrequest_sdk.models import (
+    InvoiceCreateRequest,
+    InvoiceCreateRequestGatewayEnum,
+    InvoiceCreateRequestStatusEnum,
+    ProtocolEnum,
+    UserCreateRequest,
+)
 
 ROOT = Path(__file__).resolve().parents[1]
 HTTP_METHODS = {"get", "post", "put", "patch", "delete"}
@@ -102,6 +108,11 @@ def test_client_resource_surface_is_symmetric() -> None:
 def test_models_serialize_snake_case_and_enums_keep_unknown_values() -> None:
     model = UserCreateRequest(username="customer", password="secret", first_name="Ada")
     assert model.to_dict()["first_name"] == "Ada"
+    invoice = InvoiceCreateRequest(
+        gateway=InvoiceCreateRequestGatewayEnum.MANUAL,
+        status=InvoiceCreateRequestStatusEnum.PAID,
+    )
+    assert invoice.to_dict()["status"] == "paid"
     future = ProtocolEnum("future-protocol")
     assert future.value == "future-protocol"
 

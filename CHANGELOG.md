@@ -4,8 +4,9 @@ All notable changes to the ProxyRequest Python SDK are documented here.
 
 ## Unreleased
 
-- Regenerated from the public backend contract (81 operations, 129 schemas),
+- Regenerated from the public backend contract (81 operations, 130 schemas),
   excluding the two disabled sessions-management operations from generated clients.
+- Added the optional `pending`/`paid` status to invoice creation requests.
 - Added typed OTP verification and 200/202 login support for sync and async clients.
 - Corrected MFA bodies, payment fields, nullable invoices, and both backend user modes.
 - Preserved HTTP status, raw response, headers, cause, and idempotency key when

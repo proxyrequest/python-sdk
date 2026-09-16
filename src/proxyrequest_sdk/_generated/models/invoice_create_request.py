@@ -9,6 +9,7 @@ from attrs import field as _attrs_field
 from ..types import UNSET, Unset
 
 from ..models.invoice_create_request_gateway_enum import InvoiceCreateRequestGatewayEnum
+from ..models.invoice_create_request_status_enum import InvoiceCreateRequestStatusEnum
 from ..types import UNSET, Unset
 from uuid import UUID
 
@@ -32,6 +33,8 @@ class InvoiceCreateRequest:
     """ Package to purchase. Required for package purchases. """
     user_id: UUID | Unset = UNSET
     """ Managed sub-user that should receive the purchase. """
+    status: InvoiceCreateRequestStatusEnum | Unset = InvoiceCreateRequestStatusEnum.PENDING
+    """ * `pending` - pending * `paid` - paid """
     crypto_currency: str | Unset = UNSET
     payment_currency: str | Unset = UNSET
     """ ISO 4217 currency charged by a regional fiat provider. """
@@ -61,6 +64,10 @@ class InvoiceCreateRequest:
         user_id: str | Unset = UNSET
         if not isinstance(self.user_id, Unset):
             user_id = str(self.user_id)
+
+        status: str | Unset = UNSET
+        if not isinstance(self.status, Unset):
+            status = self.status.value
 
         crypto_currency = self.crypto_currency
 
@@ -97,6 +104,8 @@ class InvoiceCreateRequest:
             field_dict["package_id"] = package_id
         if user_id is not UNSET:
             field_dict["user_id"] = user_id
+        if status is not UNSET:
+            field_dict["status"] = status
         if crypto_currency is not UNSET:
             field_dict["crypto_currency"] = crypto_currency
         if payment_currency is not UNSET:
@@ -143,6 +152,13 @@ class InvoiceCreateRequest:
         else:
             user_id = UUID(_user_id)
 
+        _status = d.pop("status", UNSET)
+        status: InvoiceCreateRequestStatusEnum | Unset
+        if isinstance(_status, Unset):
+            status = UNSET
+        else:
+            status = InvoiceCreateRequestStatusEnum(_status)
+
         crypto_currency = d.pop("crypto_currency", UNSET)
 
         payment_currency = d.pop("payment_currency", UNSET)
@@ -171,6 +187,7 @@ class InvoiceCreateRequest:
             gateway=gateway,
             package_id=package_id,
             user_id=user_id,
+            status=status,
             crypto_currency=crypto_currency,
             payment_currency=payment_currency,
             coupon_code=coupon_code,

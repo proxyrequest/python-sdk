@@ -164,6 +164,7 @@ from .integrations_telegram_link_create_response_403 import (
 from .invoice import Invoice
 from .invoice_create_request import InvoiceCreateRequest
 from .invoice_create_request_gateway_enum import InvoiceCreateRequestGatewayEnum
+from .invoice_create_request_status_enum import InvoiceCreateRequestStatusEnum
 from .invoice_gateway_enum import InvoiceGatewayEnum
 from .invoice_short import InvoiceShort
 from .invoice_status_enum import InvoiceStatusEnum
@@ -604,6 +605,7 @@ __all__ = (
     "Invoice",
     "InvoiceCreateRequest",
     "InvoiceCreateRequestGatewayEnum",
+    "InvoiceCreateRequestStatusEnum",
     "InvoiceGatewayEnum",
     "InvoicesCreateResponse400",
     "InvoicesCreateResponse401",

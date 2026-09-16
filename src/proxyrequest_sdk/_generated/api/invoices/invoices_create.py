@@ -129,8 +129,10 @@ def sync_detailed(
 ]:
     """Create an invoice
 
-     Calculates package pricing, creates a pending invoice, and initializes the selected payment provider
-    when required.
+     Calculates package pricing and initializes the selected payment provider when required. The status
+    defaults to `pending`. Only superusers may create an already-paid invoice by setting `status` to
+    `paid`; other authenticated users receive a 403 response. For wallet payments, omit `status`: the
+    invoice is created as pending and becomes paid after the balance is debited successfully.
 
     Args:
         idempotency_key (str | Unset):
@@ -175,8 +177,10 @@ def sync(
 ):
     """Create an invoice
 
-     Calculates package pricing, creates a pending invoice, and initializes the selected payment provider
-    when required.
+     Calculates package pricing and initializes the selected payment provider when required. The status
+    defaults to `pending`. Only superusers may create an already-paid invoice by setting `status` to
+    `paid`; other authenticated users receive a 403 response. For wallet payments, omit `status`: the
+    invoice is created as pending and becomes paid after the balance is debited successfully.
 
     Args:
         idempotency_key (str | Unset):
@@ -215,8 +219,10 @@ async def asyncio_detailed(
 ]:
     """Create an invoice
 
-     Calculates package pricing, creates a pending invoice, and initializes the selected payment provider
-    when required.
+     Calculates package pricing and initializes the selected payment provider when required. The status
+    defaults to `pending`. Only superusers may create an already-paid invoice by setting `status` to
+    `paid`; other authenticated users receive a 403 response. For wallet payments, omit `status`: the
+    invoice is created as pending and becomes paid after the balance is debited successfully.
 
     Args:
         idempotency_key (str | Unset):
@@ -259,8 +265,10 @@ async def asyncio(
 ):
     """Create an invoice
 
-     Calculates package pricing, creates a pending invoice, and initializes the selected payment provider
-    when required.
+     Calculates package pricing and initializes the selected payment provider when required. The status
+    defaults to `pending`. Only superusers may create an already-paid invoice by setting `status` to
+    `paid`; other authenticated users receive a 403 response. For wallet payments, omit `status`: the
+    invoice is created as pending and becomes paid after the balance is debited successfully.
 
     Args:
         idempotency_key (str | Unset):
