@@ -4,6 +4,8 @@ All notable changes to the ProxyRequest Python SDK are documented here.
 
 ## Unreleased
 
+## 2.0.0 - 2026-09-16
+
 - Replace the incorrect webhook verifier with the actual `X-Signature`
   Base64 HMAC-SHA256 format over exact raw bytes.
 

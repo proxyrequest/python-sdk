@@ -264,7 +264,7 @@ payload = WebhookVerifier.decode_verified_json(
 )
 ```
 
-Deliveries use standard padded Base64 HMAC-SHA256 over the raw body, without a signed timestamp. Verification accepts only this current format. It authenticates the body, but does not prevent replay: deduplicate usage events in your application. These helpers require the upcoming SDK release; version 1.0.0 does not support the current delivery format.
+Deliveries use standard padded Base64 HMAC-SHA256 over the raw body, without a signed timestamp. Verification accepts only this current format. It authenticates the body, but does not prevent replay: deduplicate usage events in your application. These helpers require SDK 2.0.0 or newer; version 1.0.0 does not support the current delivery format.
 
 ## Platform documentation
 
