@@ -1,48 +1,49 @@
 from __future__ import annotations
 
+import base64
 import hashlib
 import hmac
+import json
+from pathlib import Path
 
 import pytest
 
 from proxyrequest_sdk import InvalidSignatureError, WebhookVerifier
 
 
-def signature(body: bytes, secret: str, timestamp: int) -> str:
-    digest = hmac.new(
-        secret.encode(),
-        str(timestamp).encode() + b"." + body,
-        hashlib.sha256,
-    ).hexdigest()
-    return f"t={timestamp},v1={'0' * 64},v1={digest}"
-
-
-def test_valid_signature_and_verified_json() -> None:
-    body = b'{"event":"invoice.paid","data":{"id":"42"}}'
-    header = signature(body, "secret", 1_700_000_000)
-    assert WebhookVerifier.verify(body, header, "secret", "1700000000", now=1_700_000_100)
-    payload = WebhookVerifier.decode_verified_json(
-        body,
-        header,
-        "secret",
-        timestamp_header="1700000000",
-        now=1_700_000_100,
+@pytest.mark.parametrize(
+    "vector", json.loads((Path(__file__).parent / "fixtures/webhook-signatures.json").read_text())
+)
+def test_accountant_base64_vectors(vector: dict[str, str | bool]) -> None:
+    body, secret, header = str(vector["body"]), str(vector["secret"]), str(vector["signature"])
+    assert (
+        base64.b64encode(hmac.new(secret.encode(), body.encode(), hashlib.sha256).digest()).decode()
+        == header
     )
-    assert payload["event"] == "invoice.paid"
+    for raw in (body, body.encode()):
+        assert WebhookVerifier.verify(raw, header, secret)
+        WebhookVerifier.verify_or_raise(raw, header, secret)
+    assert not WebhookVerifier.verify(body + " ", header, secret)
+    assert not WebhookVerifier.verify(body, header, "wrong")
+    if vector["jsonObject"]:
+        assert WebhookVerifier.decode_verified_json(body, header, secret) == json.loads(body)
+    else:
+        with pytest.raises(ValueError):
+            WebhookVerifier.decode_verified_json(body, header, secret)
 
 
-def test_invalid_expired_and_malformed_signatures_are_rejected() -> None:
-    body = b"{}"
-    header = signature(body, "secret", 1_700_000_000)
-    assert not WebhookVerifier.verify(body, header, "secret", now=1_700_001_000)
-    assert not WebhookVerifier.verify(body, header, "secret", "1699999999", now=1_700_000_000)
-    assert not WebhookVerifier.verify(body, "invalid", "secret", now=1_700_000_000)
-    with pytest.raises(InvalidSignatureError):
-        WebhookVerifier.verify_or_raise(body, header, "wrong", now=1_700_000_000)
-
-
-def test_verified_payload_must_be_a_json_object() -> None:
-    body = b"[]"
-    header = signature(body, "secret", 1_700_000_000)
-    with pytest.raises(ValueError, match="JSON object"):
-        WebhookVerifier.decode_verified_json(body, header, "secret", now=1_700_000_000)
+def test_malformed_base64_is_rejected_before_json_decoding() -> None:
+    header = "5wDDfJLTJLjXr4cfnNOxikeVi5Cy4qZleyqDMRlZ048="
+    for malformed in (
+        "",
+        " ",
+        header[:-1],
+        header + "\n",
+        header.replace("8=", "9="),
+        "A" * 44,
+        "A" * 64,
+    ):
+        assert not WebhookVerifier.verify('{"hello":"world"}', malformed, "super-secret")
+        with pytest.raises(InvalidSignatureError):
+            WebhookVerifier.decode_verified_json("not json", malformed, "super-secret")
+    assert not WebhookVerifier.verify('{"hello":"world"}', header, "")

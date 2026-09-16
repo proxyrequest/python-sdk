@@ -71,8 +71,8 @@ reauthenticate explicitly rather than retrying security mutations automatically.
 - New payment fields are typed. Unknown gateway values remain usable via the
   extensible enum, and unknown response fields remain in additional properties.
 - HTTP errors are classified before generated model parsing. Malformed success
-  responses raise `ApiError` with status, raw body, headers, original cause, and
-  the actual idempotency key; they are not silently retried as a fresh create.
+  responses raise `ApiError` with status, raw body, headers, and original cause;
+  they are not silently retried as a fresh create.
 - `*_with_response` methods retain response metadata on successful calls.
 
 The compatibility suite covers sync/async clients with real serializer fixtures,

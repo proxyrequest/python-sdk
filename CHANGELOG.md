@@ -4,6 +4,9 @@ All notable changes to the ProxyRequest Python SDK are documented here.
 
 ## Unreleased
 
+- Replace the incorrect webhook verifier with the actual `X-Signature`
+  Base64 HMAC-SHA256 format over exact raw bytes.
+
 - Regenerated from the public backend contract (81 operations, 130 schemas),
   excluding the two disabled sessions-management operations from generated clients.
 - Added the optional `pending`/`paid` status to invoice creation requests.

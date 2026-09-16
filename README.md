@@ -155,28 +155,25 @@ opaque `str`), and all byte amounts are Python integers.
 See the generated [API resource reference](https://github.com/proxyrequest/python-sdk/blob/main/docs/reference/api.md)
 and [model reference](https://github.com/proxyrequest/python-sdk/blob/main/docs/reference/models.md).
 
-## Safe mutations and optimistic concurrency
+## Automatic retries and optimistic concurrency
 
-For operations that declare `Idempotency-Key`, the SDK generates a UUID by
-default. It reuses that key for up to three total attempts after a network
-failure, or after `409 Conflict` with a numeric `Retry-After` of at most five
-seconds. Other HTTP errors are returned immediately. Existing calls therefore
-remain compatible, while important business operations can provide a stable
-key that survives a process restart:
+The SDK automatically protects supported writes during up to three total
+attempts after a network failure, or after `409 Conflict` with a numeric
+`Retry-After` of at most five seconds. Other HTTP errors are returned
+immediately. This protection applies inside one running call. If the process
+stops before saving the result, inspect the affected resource before submitting
+another write:
 
 ```python
 response = client.users.create_with_response(
     body=UserCreateRequest(username="customer-reference", password="secret"),
-    idempotency_key=f"provision:{external_customer_id}",
 )
 
-print(response.data.id, response.etag, response.idempotency_replayed)
+print(response.data.id, response.etag)
 ```
 
 Every generated method has a `_with_response` variant exposing `status_code`,
-`headers`, `etag`, and `idempotency_replayed`. Disable automatic UUIDs with
-`Client.with_api_key(key, idempotency=False)`; explicitly supplied keys still
-work.
+`headers`, and `etag`.
 
 Operations that declare `If-Match` accept the latest strong ETag. A stale value
 raises `ApiError` with `ErrorKind.PRECONDITION` and exposes the current server
@@ -219,10 +216,9 @@ except ApiError as error:
     print(error.status_code, error.request_id, error.field_errors)
 ```
 
-Only ambiguous outcomes for operations carrying an idempotency key are retried
-automatically. JWTs are never refreshed automatically; call
-`client.authorization.refresh(...)` explicitly when your application owns a
-token pair.
+Supported writes receive bounded automatic retries for transient failures.
+JWTs are never refreshed automatically; call `client.authorization.refresh(...)`
+explicitly when your application owns a token pair.
 
 ## Configuration and custom deployments
 
@@ -263,11 +259,12 @@ from proxyrequest_sdk import WebhookVerifier
 
 payload = WebhookVerifier.decode_verified_json(
     raw_body,
-    request.headers.get("X-Webhook-Signature", ""),
+    request.headers.get("X-Signature", ""),
     os.environ["PROXYREQUEST_WEBHOOK_SECRET"],
-    timestamp_header=request.headers.get("X-Webhook-Timestamp"),
 )
 ```
+
+Deliveries use standard padded Base64 HMAC-SHA256 over the raw body, without a signed timestamp. Verification accepts only this current format. It authenticates the body, but does not prevent replay: deduplicate usage events in your application. These helpers require the upcoming SDK release; version 1.0.0 does not support the current delivery format.
 
 ## Platform documentation
 
