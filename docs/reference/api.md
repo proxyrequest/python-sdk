@@ -153,6 +153,7 @@ All methods exist on both `Client` and `AsyncClient`; async calls must be awaite
 | `get()` | `GET /users/{id}` | `User` |
 | `list()` | `GET /users` | `PaginatedUserList` |
 | `list_orders()` | `GET /users/{id}/orders` | `PaginatedOrderList` |
+| `reset_data()` | `POST /users/{id}/data/reset` | `Order` |
 | `reset_password()` | `POST /users/{id}/password` | `User` |
 | `subtract_data()` | `POST /users/{id}/data/subtract` | `Order` |
 | `update()` | `PATCH /users/{id}` | `User` |

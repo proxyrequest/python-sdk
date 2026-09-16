@@ -31,8 +31,10 @@ class GenerateProxyRequest:
     quantity: int
     """ Number of proxies to generate """
     user_id: UUID | Unset = UNSET
-    """ ProxyRequest sub-user UUID that will use the generated credentials. Headless integrations must resolve this
-    from their local customer mapping. """
+    """ ProxyRequest sub-user UUID that will use the generated credentials. Resolve it from your local customer
+    mapping. Must be the caller's own sub-user, even for superusers. Omit to generate for the authenticated account.
+    For an independent top-level customer, authenticate as that customer rather than sending its ID with a global
+    key. """
     targeting: ProxyGenerationTargetingRequest | Unset = UNSET
     connection: ProxyGenerationConnectionRequest | Unset = UNSET
     session: ProxyGenerationSessionRequest | Unset = UNSET

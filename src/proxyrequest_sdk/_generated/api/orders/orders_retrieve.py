@@ -112,7 +112,9 @@ def sync_detailed(
 ]:
     """Get an order
 
-     Returns one active order with package, usage, expiration, and proxy credential details.
+     Returns one active order with package, usage, expiration, and proxy credential details. Virtual
+    child data_remaining is a personal quota, not the parent's shared balance. The order's expires value
+    is not a list of all purchased bucket deadlines; inspect each returned ledger's expires.
 
     Args:
         id (str):
@@ -153,7 +155,9 @@ def sync(
 ):
     """Get an order
 
-     Returns one active order with package, usage, expiration, and proxy credential details.
+     Returns one active order with package, usage, expiration, and proxy credential details. Virtual
+    child data_remaining is a personal quota, not the parent's shared balance. The order's expires value
+    is not a list of all purchased bucket deadlines; inspect each returned ledger's expires.
 
     Args:
         id (str):
@@ -188,7 +192,9 @@ async def asyncio_detailed(
 ]:
     """Get an order
 
-     Returns one active order with package, usage, expiration, and proxy credential details.
+     Returns one active order with package, usage, expiration, and proxy credential details. Virtual
+    child data_remaining is a personal quota, not the parent's shared balance. The order's expires value
+    is not a list of all purchased bucket deadlines; inspect each returned ledger's expires.
 
     Args:
         id (str):
@@ -227,7 +233,9 @@ async def asyncio(
 ):
     """Get an order
 
-     Returns one active order with package, usage, expiration, and proxy credential details.
+     Returns one active order with package, usage, expiration, and proxy credential details. Virtual
+    child data_remaining is a personal quota, not the parent's shared balance. The order's expires value
+    is not a list of all purchased bucket deadlines; inspect each returned ledger's expires.
 
     Args:
         id (str):

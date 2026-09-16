@@ -11,29 +11,23 @@ from ..types import UNSET, Unset
 from uuid import UUID
 
 
-T = TypeVar("T", bound="AddDataRequest")
+T = TypeVar("T", bound="ResetDataRequest")
 
 
 @_attrs_define
-class AddDataRequest:
+class ResetDataRequest:
     package_id: UUID
-    """ Package for which the caller owns a root order. """
-    data: int
-    """ Positive integer bytes to add to the child's assigned quota. Does not reserve parent data; may exceed the
-    parent's remaining pool. """
+    """ Package whose remaining data is reset to zero. """
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         package_id = str(self.package_id)
-
-        data = self.data
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
                 "package_id": package_id,
-                "data": data,
             }
         )
 
@@ -44,15 +38,12 @@ class AddDataRequest:
         d = dict(src_dict)
         package_id = UUID(d.pop("package_id"))
 
-        data = d.pop("data")
-
-        add_data_request = cls(
+        reset_data_request = cls(
             package_id=package_id,
-            data=data,
         )
 
-        add_data_request.additional_properties = d
-        return add_data_request
+        reset_data_request.additional_properties = d
+        return reset_data_request
 
     @property
     def additional_keys(self) -> list[str]:

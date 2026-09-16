@@ -52,12 +52,15 @@ class UserCreateRequest:
     is_reseller: bool | Unset = False
     """ Whether the user should have reseller privileges. Only superusers can create resellers. """
     is_top_level: bool | Unset = False
-    """ Whether the user is a sub-user under the parent account. """
+    """ Superuser only: true creates an independent account with no parent. False (default) creates a sub-user under
+    the caller. """
     data: int | Unset = UNSET
-    """ Initial data allocation for the user (traditional auth mode only). """
+    """ Initial integer-byte data amount. With package_id, a normal sub-user receives a virtual quota from the
+    caller's existing root order; is_top_level=true provisions a separate paid purchase. Omit both data and
+    package_id to create identity without package access. """
     package_id: UUID | Unset = UNSET
-    """ ProxyRequest package UUID to assign to the user (package-based auth mode only). Headless integrations
-    resolve it from their local product mapping. """
+    """ ProxyRequest package UUID to assign to the user. Headless integrations resolve it from their local product
+    mapping. """
     meta: UserCreateRequestMeta | Unset = UNSET
     """ Additional metadata for the user. Maximum 50 fields. """
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)

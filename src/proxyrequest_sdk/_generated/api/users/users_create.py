@@ -118,10 +118,14 @@ def sync_detailed(
     | UsersCreateResponse403
     | UsersCreateResponse409
 ]:
-    """Create a sub-user
+    """Create a customer account
 
-     Creates a user owned by the authenticated reseller and returns the new account. The caller must be
-    allowed to manage sub-users.
+     Creates a sub-user under the caller by default. A superuser can send is_top_level=true to create an
+    independent customer account. A sub-user cannot create another generation of users. Omit package_id
+    and data to create identity only, then provision the chosen accounting model separately. For shared-
+    pool allocation, supply package_id and positive integer-byte data; the parent must already own a
+    root order for that package. An independent paid purchase is provisioned through invoices, not a
+    shared-pool quota.
 
     Args:
         idempotency_key (str | Unset):
@@ -164,10 +168,14 @@ def sync(
     | UsersCreateResponse409
     | None
 ):
-    """Create a sub-user
+    """Create a customer account
 
-     Creates a user owned by the authenticated reseller and returns the new account. The caller must be
-    allowed to manage sub-users.
+     Creates a sub-user under the caller by default. A superuser can send is_top_level=true to create an
+    independent customer account. A sub-user cannot create another generation of users. Omit package_id
+    and data to create identity only, then provision the chosen accounting model separately. For shared-
+    pool allocation, supply package_id and positive integer-byte data; the parent must already own a
+    root order for that package. An independent paid purchase is provisioned through invoices, not a
+    shared-pool quota.
 
     Args:
         idempotency_key (str | Unset):
@@ -204,10 +212,14 @@ async def asyncio_detailed(
     | UsersCreateResponse403
     | UsersCreateResponse409
 ]:
-    """Create a sub-user
+    """Create a customer account
 
-     Creates a user owned by the authenticated reseller and returns the new account. The caller must be
-    allowed to manage sub-users.
+     Creates a sub-user under the caller by default. A superuser can send is_top_level=true to create an
+    independent customer account. A sub-user cannot create another generation of users. Omit package_id
+    and data to create identity only, then provision the chosen accounting model separately. For shared-
+    pool allocation, supply package_id and positive integer-byte data; the parent must already own a
+    root order for that package. An independent paid purchase is provisioned through invoices, not a
+    shared-pool quota.
 
     Args:
         idempotency_key (str | Unset):
@@ -248,10 +260,14 @@ async def asyncio(
     | UsersCreateResponse409
     | None
 ):
-    """Create a sub-user
+    """Create a customer account
 
-     Creates a user owned by the authenticated reseller and returns the new account. The caller must be
-    allowed to manage sub-users.
+     Creates a sub-user under the caller by default. A superuser can send is_top_level=true to create an
+    independent customer account. A sub-user cannot create another generation of users. Omit package_id
+    and data to create identity only, then provision the chosen accounting model separately. For shared-
+    pool allocation, supply package_id and positive integer-byte data; the parent must already own a
+    root order for that package. An independent paid purchase is provisioned through invoices, not a
+    shared-pool quota.
 
     Args:
         idempotency_key (str | Unset):

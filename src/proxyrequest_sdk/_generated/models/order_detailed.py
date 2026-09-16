@@ -27,7 +27,11 @@ class OrderDetailed:
     is_auto_renewal: bool
     user_id: UUID
     data_remaining: int
+    """ Integer bytes. Root order: sum of usable ledger balances. Virtual child order: max(data - data_spent, 0);
+    access also needs a usable parent pool. """
     ledgers: list[OrderDetailedLedgersItem]
+    """ Usable, non-expired purchased buckets; empty for virtual child orders. Not a complete history, and array
+    position is not spending priority. """
     data_updated: datetime.datetime
     id: str | Unset = UNSET
     is_active: bool | Unset = UNSET

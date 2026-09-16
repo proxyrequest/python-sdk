@@ -145,8 +145,9 @@ def sync_detailed(
 ]:
     """List a sub-user's orders
 
-     Returns active package orders allocated to the selected sub-user. This operation is available when
-    package-based authentication is enabled.
+     Returns the selected user's package orders, including inactive orders. A user may have a purchased
+    root order with its own ledgers or a virtual child order whose quota uses its parent's pool. User
+    ownership and order ownership are different: being a sub-user does not imply shared-pool accounting.
 
     Args:
         id_path (UUID):
@@ -205,8 +206,9 @@ def sync(
 ):
     """List a sub-user's orders
 
-     Returns active package orders allocated to the selected sub-user. This operation is available when
-    package-based authentication is enabled.
+     Returns the selected user's package orders, including inactive orders. A user may have a purchased
+    root order with its own ledgers or a virtual child order whose quota uses its parent's pool. User
+    ownership and order ownership are different: being a sub-user does not imply shared-pool accounting.
 
     Args:
         id_path (UUID):
@@ -259,8 +261,9 @@ async def asyncio_detailed(
 ]:
     """List a sub-user's orders
 
-     Returns active package orders allocated to the selected sub-user. This operation is available when
-    package-based authentication is enabled.
+     Returns the selected user's package orders, including inactive orders. A user may have a purchased
+    root order with its own ledgers or a virtual child order whose quota uses its parent's pool. User
+    ownership and order ownership are different: being a sub-user does not imply shared-pool accounting.
 
     Args:
         id_path (UUID):
@@ -317,8 +320,9 @@ async def asyncio(
 ):
     """List a sub-user's orders
 
-     Returns active package orders allocated to the selected sub-user. This operation is available when
-    package-based authentication is enabled.
+     Returns the selected user's package orders, including inactive orders. A user may have a purchased
+    root order with its own ledgers or a virtual child order whose quota uses its parent's pool. User
+    ownership and order ownership are different: being a sub-user does not imply shared-pool accounting.
 
     Args:
         id_path (UUID):

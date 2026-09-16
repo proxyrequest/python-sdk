@@ -25,22 +25,32 @@ from ...models.locations_countries_retrieve_response_404 import (
 )
 from ...types import UNSET, Unset
 from typing import cast
+from uuid import UUID
 
 
 def _get_kwargs(
     id: str,
     *,
+    package_id: UUID,
     accept_language: str | Unset = UNSET,
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
     if not isinstance(accept_language, Unset):
         headers["Accept-Language"] = accept_language
 
+    params: dict[str, Any] = {}
+
+    json_package_id = str(package_id)
+    params["package_id"] = json_package_id
+
+    params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
+
     _kwargs: dict[str, Any] = {
         "method": "get",
         "url": "/locations/countries/{id}".format(
             id=quote(str(id), safe=""),
         ),
+        "params": params,
     }
 
     _kwargs["headers"] = headers
@@ -110,6 +120,7 @@ def sync_detailed(
     id: str,
     *,
     client: AuthenticatedClient,
+    package_id: UUID,
     accept_language: str | Unset = UNSET,
 ) -> Response[
     Country
@@ -124,6 +135,7 @@ def sync_detailed(
 
     Args:
         id (str):
+        package_id (UUID):
         accept_language (str | Unset):  Defaults to the client language.
 
     Raises:
@@ -136,6 +148,7 @@ def sync_detailed(
 
     kwargs = _get_kwargs(
         id=id,
+        package_id=package_id,
         accept_language=accept_language,
     )
 
@@ -150,6 +163,7 @@ def sync(
     id: str,
     *,
     client: AuthenticatedClient,
+    package_id: UUID,
     accept_language: str | Unset = UNSET,
 ) -> (
     Country
@@ -165,6 +179,7 @@ def sync(
 
     Args:
         id (str):
+        package_id (UUID):
         accept_language (str | Unset):  Defaults to the client language.
 
     Raises:
@@ -178,6 +193,7 @@ def sync(
     return sync_detailed(
         id=id,
         client=client,
+        package_id=package_id,
         accept_language=accept_language,
     ).parsed
 
@@ -186,6 +202,7 @@ async def asyncio_detailed(
     id: str,
     *,
     client: AuthenticatedClient,
+    package_id: UUID,
     accept_language: str | Unset = UNSET,
 ) -> Response[
     Country
@@ -200,6 +217,7 @@ async def asyncio_detailed(
 
     Args:
         id (str):
+        package_id (UUID):
         accept_language (str | Unset):  Defaults to the client language.
 
     Raises:
@@ -212,6 +230,7 @@ async def asyncio_detailed(
 
     kwargs = _get_kwargs(
         id=id,
+        package_id=package_id,
         accept_language=accept_language,
     )
 
@@ -224,6 +243,7 @@ async def asyncio(
     id: str,
     *,
     client: AuthenticatedClient,
+    package_id: UUID,
     accept_language: str | Unset = UNSET,
 ) -> (
     Country
@@ -239,6 +259,7 @@ async def asyncio(
 
     Args:
         id (str):
+        package_id (UUID):
         accept_language (str | Unset):  Defaults to the client language.
 
     Raises:
@@ -253,6 +274,7 @@ async def asyncio(
         await asyncio_detailed(
             id=id,
             client=client,
+            package_id=package_id,
             accept_language=accept_language,
         )
     ).parsed

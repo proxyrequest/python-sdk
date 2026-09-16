@@ -18,8 +18,7 @@ T = TypeVar("T", bound="UserPasswordResetRequest")
 @_attrs_define
 class UserPasswordResetRequest:
     package_id: UUID | Unset = UNSET
-    """ Package whose proxy password should be rotated. Required only when package-based authentication is enabled.
-    """
+    """ Package whose order's proxy password should be rotated. """
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

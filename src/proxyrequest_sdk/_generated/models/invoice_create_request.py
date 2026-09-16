@@ -32,7 +32,9 @@ class InvoiceCreateRequest:
     package_id: UUID | Unset = UNSET
     """ Package to purchase. Required for package purchases. """
     user_id: UUID | Unset = UNSET
-    """ Managed sub-user that should receive the purchase. """
+    """ Account receiving the purchase. Omit for your own account. Sending user_id requires is_reseller; a reseller
+    can target its own sub-user, while a superuser with is_reseller can target another account. Do not send your own
+    ID. """
     status: InvoiceCreateRequestStatusEnum | Unset = InvoiceCreateRequestStatusEnum.PENDING
     """ * `pending` - pending * `paid` - paid """
     crypto_currency: str | Unset = UNSET
@@ -41,14 +43,19 @@ class InvoiceCreateRequest:
     coupon_code: str | Unset = UNSET
     country_code: str | Unset = UNSET
     data: int | Unset = UNSET
-    """ Residential proxy data to purchase, in bytes. """
+    """ Residential proxy data to purchase, in integer bytes (1 GiB = 1073741824). Required with package_id for a
+    residential purchase. A paid purchase funds the recipient's order; it is not a virtual allocation from a parent
+    pool. """
     quantity: int | Unset = UNSET
     """ Number of static proxies to purchase. """
     amount: int | Unset = UNSET
-    """ Account balance amount to purchase, in the smallest currency unit. """
+    """ Account balance amount to purchase, in the smallest currency unit. Use for a wallet top-up without
+    package_id, not for buying proxy data. """
     connection_limit: int | Unset = UNSET
     expires: int | Unset = UNSET
-    """ Optional expiration as a Unix timestamp in seconds. """
+    """ Optional future expiration as a Unix timestamp in seconds, not milliseconds. Otherwise a positive package
+    billing cycle determines the purchased data's expiration from the payment date; a zero cycle has no automatic
+    expiration. A later purchase does not extend earlier finite, expiring ledgers. """
     company_name: str | Unset = UNSET
     company_registration_number: str | Unset = UNSET
     company_vat_number: str | Unset = UNSET

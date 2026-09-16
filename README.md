@@ -5,7 +5,7 @@
 [![Python](https://img.shields.io/pypi/pyversions/proxyrequest-sdk.svg?cacheSeconds=300)](https://pypi.org/project/proxyrequest-sdk/)
 
 Official synchronous and asynchronous Python client for the
-[ProxyRequest](https://proxyrequest.com/) public API. It covers 79 supported operations
+[ProxyRequest](https://proxyrequest.com/) public API. It covers 80 supported operations
 in the current contract: users, orders, proxy generation, analytics, invoices,
 packages, locations, webhooks, API keys, Telegram integration, and more.
 
@@ -121,7 +121,7 @@ async def list_users() -> None:
 ## Resource API
 
 `Client` and `AsyncClient` expose 17 API groups. The pinned public schema contains
-81 operations; disabled `sessions_list` and `sessions_destroy` operations are
+82 operations; disabled `sessions_list` and `sessions_destroy` operations are
 intentionally excluded. Sticky session options in proxy generation remain supported.
 
 See [backend compatibility and MFA](docs/backend-compatibility.md) for updated
@@ -304,3 +304,21 @@ update it. Generation is pinned and CI rejects uncommitted contract changes.
 ## License
 
 MIT
+
+## Reset remaining data (SDK 2.1.0+)
+
+```python
+from proxyrequest_sdk.models import ResetDataRequest
+
+order = client.users.reset_data(
+    id=user_id,
+    body=ResetDataRequest(package_id=package_id),
+    idempotency_key=reset_operation_id,
+)
+```
+
+Send only `package_id`, without `data`. A system administrator can reset any user; other accounts can reset only their direct children. The server atomically clears positive, zero, or negative remaining data for a finite package and returns the updated order. Unlimited packages are rejected. Root orders lose their remaining ledger balances; child orders lose their remaining quota without changing the parent pool. Usage history and invoices are preserved.
+
+Persist one operation ID and reuse it when retrying the same reset, including after a process restart. This prevents a repeated request from clearing a later top-up. Use subtraction when an explicit amount should be removed from a child quota. The backend must support the reset endpoint before calling it.
+
+Version 2.1 retains legacy user and invoice models from 2.0 for compatibility with older deployments. These compatibility types do not change the current public API contract.

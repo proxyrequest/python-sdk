@@ -143,8 +143,11 @@ def sync_detailed(
 ]:
     """List active orders
 
-     Returns active package orders owned by the authenticated account. Filters can narrow the result by
-    package or user.
+     Returns active package orders owned by the authenticated account. Superusers can inspect other
+    accounts, including inactive orders; filters never expand a normal caller's ownership scope.
+    Repeated purchases of one package reuse the same user/package order. Read data_remaining and ledgers
+    for usable purchased data, not data minus data_spent. To inspect a managed customer, use
+    /users/{id}/orders.
 
     Args:
         limit (int | Unset):
@@ -208,8 +211,11 @@ def sync(
 ):
     """List active orders
 
-     Returns active package orders owned by the authenticated account. Filters can narrow the result by
-    package or user.
+     Returns active package orders owned by the authenticated account. Superusers can inspect other
+    accounts, including inactive orders; filters never expand a normal caller's ownership scope.
+    Repeated purchases of one package reuse the same user/package order. Read data_remaining and ledgers
+    for usable purchased data, not data minus data_spent. To inspect a managed customer, use
+    /users/{id}/orders.
 
     Args:
         limit (int | Unset):
@@ -264,8 +270,11 @@ async def asyncio_detailed(
 ]:
     """List active orders
 
-     Returns active package orders owned by the authenticated account. Filters can narrow the result by
-    package or user.
+     Returns active package orders owned by the authenticated account. Superusers can inspect other
+    accounts, including inactive orders; filters never expand a normal caller's ownership scope.
+    Repeated purchases of one package reuse the same user/package order. Read data_remaining and ledgers
+    for usable purchased data, not data minus data_spent. To inspect a managed customer, use
+    /users/{id}/orders.
 
     Args:
         limit (int | Unset):
@@ -327,8 +336,11 @@ async def asyncio(
 ):
     """List active orders
 
-     Returns active package orders owned by the authenticated account. Filters can narrow the result by
-    package or user.
+     Returns active package orders owned by the authenticated account. Superusers can inspect other
+    accounts, including inactive orders; filters never expand a normal caller's ownership scope.
+    Repeated purchases of one package reuse the same user/package order. Read data_remaining and ledgers
+    for usable purchased data, not data minus data_spent. To inspect a managed customer, use
+    /users/{id}/orders.
 
     Args:
         limit (int | Unset):

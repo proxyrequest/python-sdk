@@ -102,6 +102,7 @@ Models use snake_case attributes and provide `to_dict()` / `from_dict()` helpers
 - `ProxyTypeEnum` — * `static` - Static * `residential` - Residential
 - `RecoverPasswordRequest` — Password recovery with enhanced security and comprehensive error handling.
 - `Region`
+- `ResetDataRequest`
 - `ResetPasswordRequest`
 - `Reward`
 - `RewardClaimRequestRequest`

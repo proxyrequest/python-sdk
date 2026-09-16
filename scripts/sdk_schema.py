@@ -1,7 +1,9 @@
 from __future__ import annotations
 
 import copy
+import json
 import re
+from pathlib import Path
 from typing import Any
 
 EXCLUDED_OPERATIONS = frozenset({"sessions_destroy", "sessions_list"})
@@ -26,6 +28,25 @@ def sdk_schema(source: dict[str, Any]) -> dict[str, Any]:
             del document["paths"][path]
     document["tags"] = [tag for tag in document.get("tags", []) if tag["name"] != "Sessions"]
     schemas = document.get("components", {}).get("schemas", {})
+    # Retain the 2.0 response variants and optional legacy password selector in
+    # this minor release. The vendored upstream snapshot stays authoritative.
+    compatibility = json.loads(
+        (Path(__file__).resolve().parents[1] / "openapi/compatibility.json").read_text()
+    )["schemas"]
+    for name, legacy in compatibility.items():
+        if name not in schemas or name == "InvoiceRead":
+            schemas[name] = legacy
+        else:
+            current = schemas[name]
+            current["properties"] = {
+                **legacy.get("properties", {}),
+                **current.get("properties", {}),
+            }
+            current["required"] = [
+                field
+                for field in current.get("required", [])
+                if field in legacy.get("required", [])
+            ]
     for name in list(schemas):
         if re.match(r"^Sessions?(List|Delete|Destroy)", name):
             del schemas[name]

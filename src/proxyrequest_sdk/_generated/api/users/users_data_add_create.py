@@ -134,8 +134,12 @@ def sync_detailed(
 ]:
     """Add data to a sub-user order
 
-     Adds the requested number of bytes to the selected sub-user's order for the supplied package and
-    returns the updated order.
+     Adds data integer bytes to a managed sub-user's virtual quota for package_id and returns the updated
+    order. Both fields are required. The caller must own a root order for this package and the target
+    sub-user. Creates the child order if absent; an existing independently purchased order cannot be
+    converted by this operation. The allocation does not reserve or debit the parent's ledger, and may
+    exceed its remaining data. Actual traffic needs both personal quota and a usable parent pool. Use
+    Idempotency-Key to avoid granting the same quota twice.
 
     Args:
         id (UUID):
@@ -183,8 +187,12 @@ def sync(
 ):
     """Add data to a sub-user order
 
-     Adds the requested number of bytes to the selected sub-user's order for the supplied package and
-    returns the updated order.
+     Adds data integer bytes to a managed sub-user's virtual quota for package_id and returns the updated
+    order. Both fields are required. The caller must own a root order for this package and the target
+    sub-user. Creates the child order if absent; an existing independently purchased order cannot be
+    converted by this operation. The allocation does not reserve or debit the parent's ledger, and may
+    exceed its remaining data. Actual traffic needs both personal quota and a usable parent pool. Use
+    Idempotency-Key to avoid granting the same quota twice.
 
     Args:
         id (UUID):
@@ -226,8 +234,12 @@ async def asyncio_detailed(
 ]:
     """Add data to a sub-user order
 
-     Adds the requested number of bytes to the selected sub-user's order for the supplied package and
-    returns the updated order.
+     Adds data integer bytes to a managed sub-user's virtual quota for package_id and returns the updated
+    order. Both fields are required. The caller must own a root order for this package and the target
+    sub-user. Creates the child order if absent; an existing independently purchased order cannot be
+    converted by this operation. The allocation does not reserve or debit the parent's ledger, and may
+    exceed its remaining data. Actual traffic needs both personal quota and a usable parent pool. Use
+    Idempotency-Key to avoid granting the same quota twice.
 
     Args:
         id (UUID):
@@ -273,8 +285,12 @@ async def asyncio(
 ):
     """Add data to a sub-user order
 
-     Adds the requested number of bytes to the selected sub-user's order for the supplied package and
-    returns the updated order.
+     Adds data integer bytes to a managed sub-user's virtual quota for package_id and returns the updated
+    order. Both fields are required. The caller must own a root order for this package and the target
+    sub-user. Creates the child order if absent; an existing independently purchased order cannot be
+    converted by this operation. The allocation does not reserve or debit the parent's ledger, and may
+    exceed its remaining data. Actual traffic needs both personal quota and a usable parent pool. Use
+    Idempotency-Key to avoid granting the same quota twice.
 
     Args:
         id (UUID):

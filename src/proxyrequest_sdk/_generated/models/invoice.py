@@ -44,8 +44,8 @@ class Invoice:
     type_: InvoiceTypeEnum | Unset = UNSET
     """ * `static` - Static * `residential` - Residential * `balance` - Balance """
     is_one_time: bool | Unset = UNSET
-    """ Indicates whether this invoice is for a one-time purchase. Default is False, meaning it is a recurring
-    invoice. """
+    """ Whether this pricing tier is restricted to a one-time purchase. False does not create a recurring
+    subscription or a renewal schedule. """
     is_payout: bool | Unset = UNSET
     """ Indicates whether this invoice is a payout to the marketer. Default is False. """
     internal_id: str | Unset = UNSET

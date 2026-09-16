@@ -92,7 +92,8 @@ class User:
     proxy_password_reset: datetime.datetime | None | Unset = UNSET
     """ Present only when SITE_PACKAGE_BASED_AUTH is disabled. """
     orders: list[Order] | Unset = UNSET
-    """ Present only when SITE_PACKAGE_BASED_AUTH is enabled. """
+    """ The user's package orders, including inactive orders. Each order contains its own data allowance, usage,
+    ledgers, and proxy credentials. An empty list means the user has no orders. """
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

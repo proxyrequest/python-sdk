@@ -25,7 +25,11 @@ class Order:
     is_auto_renewal: bool
     package: OrderPackage
     data_remaining: int
+    """ Integer bytes. Root order: sum of usable ledger balances, not data minus data_spent. Virtual child order:
+    max(data - data_spent, 0), a personal quota that does not guarantee the parent still has usable data. """
     ledgers: list[OrderLedgersItem]
+    """ Usable, non-expired ledger balances for a purchased root order; empty for a virtual child order using its
+    parent's pool. Not a complete history. Array position does not identify the active ledger or spending order. """
     data_updated: datetime.datetime
     updated: datetime.datetime
     created: datetime.datetime

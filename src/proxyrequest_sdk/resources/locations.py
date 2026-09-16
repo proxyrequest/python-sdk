@@ -36,83 +36,113 @@ class LocationsResource:
     def __init__(self, client: Any) -> None:
         self._client = client
 
-    def get_city(self, id: str, *, accept_language: str | Unset = UNSET) -> City:
+    def get_city(self, id: str, *, package_id: UUID, accept_language: str | Unset = UNSET) -> City:
         """Get a city"""
         return cast(
             City,
             self._client._call(
-                _locations_cities_retrieve.sync_detailed, id=id, accept_language=accept_language
+                _locations_cities_retrieve.sync_detailed,
+                id=id,
+                package_id=package_id,
+                accept_language=accept_language,
             ),
         )
 
     def get_city_with_response(
-        self, id: str, *, accept_language: str | Unset = UNSET
+        self, id: str, *, package_id: UUID, accept_language: str | Unset = UNSET
     ) -> ApiResponse[City]:
         """Get a city; include response metadata."""
         return cast(
             ApiResponse[City],
             self._client._call_with_response(
-                _locations_cities_retrieve.sync_detailed, id=id, accept_language=accept_language
+                _locations_cities_retrieve.sync_detailed,
+                id=id,
+                package_id=package_id,
+                accept_language=accept_language,
             ),
         )
 
-    def get_continent(self, id: str, *, accept_language: str | Unset = UNSET) -> Continent:
+    def get_continent(
+        self, id: str, *, package_id: UUID, accept_language: str | Unset = UNSET
+    ) -> Continent:
         """Get a continent"""
         return cast(
             Continent,
             self._client._call(
-                _locations_continents_retrieve.sync_detailed, id=id, accept_language=accept_language
+                _locations_continents_retrieve.sync_detailed,
+                id=id,
+                package_id=package_id,
+                accept_language=accept_language,
             ),
         )
 
     def get_continent_with_response(
-        self, id: str, *, accept_language: str | Unset = UNSET
+        self, id: str, *, package_id: UUID, accept_language: str | Unset = UNSET
     ) -> ApiResponse[Continent]:
         """Get a continent; include response metadata."""
         return cast(
             ApiResponse[Continent],
             self._client._call_with_response(
-                _locations_continents_retrieve.sync_detailed, id=id, accept_language=accept_language
+                _locations_continents_retrieve.sync_detailed,
+                id=id,
+                package_id=package_id,
+                accept_language=accept_language,
             ),
         )
 
-    def get_country(self, id: str, *, accept_language: str | Unset = UNSET) -> Country:
+    def get_country(
+        self, id: str, *, package_id: UUID, accept_language: str | Unset = UNSET
+    ) -> Country:
         """Get a country"""
         return cast(
             Country,
             self._client._call(
-                _locations_countries_retrieve.sync_detailed, id=id, accept_language=accept_language
+                _locations_countries_retrieve.sync_detailed,
+                id=id,
+                package_id=package_id,
+                accept_language=accept_language,
             ),
         )
 
     def get_country_with_response(
-        self, id: str, *, accept_language: str | Unset = UNSET
+        self, id: str, *, package_id: UUID, accept_language: str | Unset = UNSET
     ) -> ApiResponse[Country]:
         """Get a country; include response metadata."""
         return cast(
             ApiResponse[Country],
             self._client._call_with_response(
-                _locations_countries_retrieve.sync_detailed, id=id, accept_language=accept_language
+                _locations_countries_retrieve.sync_detailed,
+                id=id,
+                package_id=package_id,
+                accept_language=accept_language,
             ),
         )
 
-    def get_region(self, id: str, *, accept_language: str | Unset = UNSET) -> Region:
+    def get_region(
+        self, id: str, *, package_id: UUID, accept_language: str | Unset = UNSET
+    ) -> Region:
         """Get a region"""
         return cast(
             Region,
             self._client._call(
-                _locations_regions_retrieve.sync_detailed, id=id, accept_language=accept_language
+                _locations_regions_retrieve.sync_detailed,
+                id=id,
+                package_id=package_id,
+                accept_language=accept_language,
             ),
         )
 
     def get_region_with_response(
-        self, id: str, *, accept_language: str | Unset = UNSET
+        self, id: str, *, package_id: UUID, accept_language: str | Unset = UNSET
     ) -> ApiResponse[Region]:
         """Get a region; include response metadata."""
         return cast(
             ApiResponse[Region],
             self._client._call_with_response(
-                _locations_regions_retrieve.sync_detailed, id=id, accept_language=accept_language
+                _locations_regions_retrieve.sync_detailed,
+                id=id,
+                package_id=package_id,
+                accept_language=accept_language,
             ),
         )
 
@@ -126,7 +156,7 @@ class LocationsResource:
         name: str | Unset = UNSET,
         offset: int | Unset = UNSET,
         ordering: str | Unset = UNSET,
-        package_id: UUID | Unset = UNSET,
+        package_id: UUID,
         search: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
     ) -> PaginatedLocationASNRecordList:
@@ -158,7 +188,7 @@ class LocationsResource:
         name: str | Unset = UNSET,
         offset: int | Unset = UNSET,
         ordering: str | Unset = UNSET,
-        package_id: UUID | Unset = UNSET,
+        package_id: UUID,
         search: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
     ) -> ApiResponse[PaginatedLocationASNRecordList]:
@@ -189,7 +219,7 @@ class LocationsResource:
         name: str | Unset = UNSET,
         offset: int | Unset = UNSET,
         ordering: str | Unset = UNSET,
-        package_id: UUID | Unset = UNSET,
+        package_id: UUID,
         region_code: str | Unset = UNSET,
         search: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
@@ -221,7 +251,7 @@ class LocationsResource:
         name: str | Unset = UNSET,
         offset: int | Unset = UNSET,
         ordering: str | Unset = UNSET,
-        package_id: UUID | Unset = UNSET,
+        package_id: UUID,
         region_code: str | Unset = UNSET,
         search: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
@@ -252,7 +282,7 @@ class LocationsResource:
         name: str | Unset = UNSET,
         offset: int | Unset = UNSET,
         ordering: str | Unset = UNSET,
-        package_id: UUID | Unset = UNSET,
+        package_id: UUID,
         search: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
     ) -> PaginatedContinentList:
@@ -280,7 +310,7 @@ class LocationsResource:
         name: str | Unset = UNSET,
         offset: int | Unset = UNSET,
         ordering: str | Unset = UNSET,
-        package_id: UUID | Unset = UNSET,
+        package_id: UUID,
         search: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
     ) -> ApiResponse[PaginatedContinentList]:
@@ -308,7 +338,7 @@ class LocationsResource:
         name: str | Unset = UNSET,
         offset: int | Unset = UNSET,
         ordering: str | Unset = UNSET,
-        package_id: UUID | Unset = UNSET,
+        package_id: UUID,
         search: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
     ) -> PaginatedCountryList:
@@ -336,7 +366,7 @@ class LocationsResource:
         name: str | Unset = UNSET,
         offset: int | Unset = UNSET,
         ordering: str | Unset = UNSET,
-        package_id: UUID | Unset = UNSET,
+        package_id: UUID,
         search: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
     ) -> ApiResponse[PaginatedCountryList]:
@@ -365,7 +395,7 @@ class LocationsResource:
         name: str | Unset = UNSET,
         offset: int | Unset = UNSET,
         ordering: str | Unset = UNSET,
-        package_id: UUID | Unset = UNSET,
+        package_id: UUID,
         search: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
     ) -> PaginatedISPList:
@@ -395,7 +425,7 @@ class LocationsResource:
         name: str | Unset = UNSET,
         offset: int | Unset = UNSET,
         ordering: str | Unset = UNSET,
-        package_id: UUID | Unset = UNSET,
+        package_id: UUID,
         search: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
     ) -> ApiResponse[PaginatedISPList]:
@@ -425,7 +455,7 @@ class LocationsResource:
         name: str | Unset = UNSET,
         offset: int | Unset = UNSET,
         ordering: str | Unset = UNSET,
-        package_id: UUID | Unset = UNSET,
+        package_id: UUID,
         search: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
     ) -> PaginatedRegionList:
@@ -455,7 +485,7 @@ class LocationsResource:
         name: str | Unset = UNSET,
         offset: int | Unset = UNSET,
         ordering: str | Unset = UNSET,
-        package_id: UUID | Unset = UNSET,
+        package_id: UUID,
         search: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
     ) -> ApiResponse[PaginatedRegionList]:
@@ -481,39 +511,50 @@ class AsyncLocationsResource:
     def __init__(self, client: Any) -> None:
         self._client = client
 
-    async def get_city(self, id: str, *, accept_language: str | Unset = UNSET) -> City:
+    async def get_city(
+        self, id: str, *, package_id: UUID, accept_language: str | Unset = UNSET
+    ) -> City:
         """Get a city"""
         return cast(
             City,
             await self._client._call(
-                _locations_cities_retrieve.asyncio_detailed, id=id, accept_language=accept_language
+                _locations_cities_retrieve.asyncio_detailed,
+                id=id,
+                package_id=package_id,
+                accept_language=accept_language,
             ),
         )
 
     async def get_city_with_response(
-        self, id: str, *, accept_language: str | Unset = UNSET
+        self, id: str, *, package_id: UUID, accept_language: str | Unset = UNSET
     ) -> ApiResponse[City]:
         """Get a city; include response metadata."""
         return cast(
             ApiResponse[City],
             await self._client._call_with_response(
-                _locations_cities_retrieve.asyncio_detailed, id=id, accept_language=accept_language
+                _locations_cities_retrieve.asyncio_detailed,
+                id=id,
+                package_id=package_id,
+                accept_language=accept_language,
             ),
         )
 
-    async def get_continent(self, id: str, *, accept_language: str | Unset = UNSET) -> Continent:
+    async def get_continent(
+        self, id: str, *, package_id: UUID, accept_language: str | Unset = UNSET
+    ) -> Continent:
         """Get a continent"""
         return cast(
             Continent,
             await self._client._call(
                 _locations_continents_retrieve.asyncio_detailed,
                 id=id,
+                package_id=package_id,
                 accept_language=accept_language,
             ),
         )
 
     async def get_continent_with_response(
-        self, id: str, *, accept_language: str | Unset = UNSET
+        self, id: str, *, package_id: UUID, accept_language: str | Unset = UNSET
     ) -> ApiResponse[Continent]:
         """Get a continent; include response metadata."""
         return cast(
@@ -521,23 +562,27 @@ class AsyncLocationsResource:
             await self._client._call_with_response(
                 _locations_continents_retrieve.asyncio_detailed,
                 id=id,
+                package_id=package_id,
                 accept_language=accept_language,
             ),
         )
 
-    async def get_country(self, id: str, *, accept_language: str | Unset = UNSET) -> Country:
+    async def get_country(
+        self, id: str, *, package_id: UUID, accept_language: str | Unset = UNSET
+    ) -> Country:
         """Get a country"""
         return cast(
             Country,
             await self._client._call(
                 _locations_countries_retrieve.asyncio_detailed,
                 id=id,
+                package_id=package_id,
                 accept_language=accept_language,
             ),
         )
 
     async def get_country_with_response(
-        self, id: str, *, accept_language: str | Unset = UNSET
+        self, id: str, *, package_id: UUID, accept_language: str | Unset = UNSET
     ) -> ApiResponse[Country]:
         """Get a country; include response metadata."""
         return cast(
@@ -545,27 +590,36 @@ class AsyncLocationsResource:
             await self._client._call_with_response(
                 _locations_countries_retrieve.asyncio_detailed,
                 id=id,
+                package_id=package_id,
                 accept_language=accept_language,
             ),
         )
 
-    async def get_region(self, id: str, *, accept_language: str | Unset = UNSET) -> Region:
+    async def get_region(
+        self, id: str, *, package_id: UUID, accept_language: str | Unset = UNSET
+    ) -> Region:
         """Get a region"""
         return cast(
             Region,
             await self._client._call(
-                _locations_regions_retrieve.asyncio_detailed, id=id, accept_language=accept_language
+                _locations_regions_retrieve.asyncio_detailed,
+                id=id,
+                package_id=package_id,
+                accept_language=accept_language,
             ),
         )
 
     async def get_region_with_response(
-        self, id: str, *, accept_language: str | Unset = UNSET
+        self, id: str, *, package_id: UUID, accept_language: str | Unset = UNSET
     ) -> ApiResponse[Region]:
         """Get a region; include response metadata."""
         return cast(
             ApiResponse[Region],
             await self._client._call_with_response(
-                _locations_regions_retrieve.asyncio_detailed, id=id, accept_language=accept_language
+                _locations_regions_retrieve.asyncio_detailed,
+                id=id,
+                package_id=package_id,
+                accept_language=accept_language,
             ),
         )
 
@@ -579,7 +633,7 @@ class AsyncLocationsResource:
         name: str | Unset = UNSET,
         offset: int | Unset = UNSET,
         ordering: str | Unset = UNSET,
-        package_id: UUID | Unset = UNSET,
+        package_id: UUID,
         search: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
     ) -> PaginatedLocationASNRecordList:
@@ -611,7 +665,7 @@ class AsyncLocationsResource:
         name: str | Unset = UNSET,
         offset: int | Unset = UNSET,
         ordering: str | Unset = UNSET,
-        package_id: UUID | Unset = UNSET,
+        package_id: UUID,
         search: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
     ) -> ApiResponse[PaginatedLocationASNRecordList]:
@@ -642,7 +696,7 @@ class AsyncLocationsResource:
         name: str | Unset = UNSET,
         offset: int | Unset = UNSET,
         ordering: str | Unset = UNSET,
-        package_id: UUID | Unset = UNSET,
+        package_id: UUID,
         region_code: str | Unset = UNSET,
         search: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
@@ -674,7 +728,7 @@ class AsyncLocationsResource:
         name: str | Unset = UNSET,
         offset: int | Unset = UNSET,
         ordering: str | Unset = UNSET,
-        package_id: UUID | Unset = UNSET,
+        package_id: UUID,
         region_code: str | Unset = UNSET,
         search: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
@@ -705,7 +759,7 @@ class AsyncLocationsResource:
         name: str | Unset = UNSET,
         offset: int | Unset = UNSET,
         ordering: str | Unset = UNSET,
-        package_id: UUID | Unset = UNSET,
+        package_id: UUID,
         search: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
     ) -> PaginatedContinentList:
@@ -733,7 +787,7 @@ class AsyncLocationsResource:
         name: str | Unset = UNSET,
         offset: int | Unset = UNSET,
         ordering: str | Unset = UNSET,
-        package_id: UUID | Unset = UNSET,
+        package_id: UUID,
         search: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
     ) -> ApiResponse[PaginatedContinentList]:
@@ -761,7 +815,7 @@ class AsyncLocationsResource:
         name: str | Unset = UNSET,
         offset: int | Unset = UNSET,
         ordering: str | Unset = UNSET,
-        package_id: UUID | Unset = UNSET,
+        package_id: UUID,
         search: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
     ) -> PaginatedCountryList:
@@ -789,7 +843,7 @@ class AsyncLocationsResource:
         name: str | Unset = UNSET,
         offset: int | Unset = UNSET,
         ordering: str | Unset = UNSET,
-        package_id: UUID | Unset = UNSET,
+        package_id: UUID,
         search: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
     ) -> ApiResponse[PaginatedCountryList]:
@@ -818,7 +872,7 @@ class AsyncLocationsResource:
         name: str | Unset = UNSET,
         offset: int | Unset = UNSET,
         ordering: str | Unset = UNSET,
-        package_id: UUID | Unset = UNSET,
+        package_id: UUID,
         search: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
     ) -> PaginatedISPList:
@@ -848,7 +902,7 @@ class AsyncLocationsResource:
         name: str | Unset = UNSET,
         offset: int | Unset = UNSET,
         ordering: str | Unset = UNSET,
-        package_id: UUID | Unset = UNSET,
+        package_id: UUID,
         search: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
     ) -> ApiResponse[PaginatedISPList]:
@@ -878,7 +932,7 @@ class AsyncLocationsResource:
         name: str | Unset = UNSET,
         offset: int | Unset = UNSET,
         ordering: str | Unset = UNSET,
-        package_id: UUID | Unset = UNSET,
+        package_id: UUID,
         search: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
     ) -> PaginatedRegionList:
@@ -908,7 +962,7 @@ class AsyncLocationsResource:
         name: str | Unset = UNSET,
         offset: int | Unset = UNSET,
         ordering: str | Unset = UNSET,
-        package_id: UUID | Unset = UNSET,
+        package_id: UUID,
         search: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
     ) -> ApiResponse[PaginatedRegionList]:

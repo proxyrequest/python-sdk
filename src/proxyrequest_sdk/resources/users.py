@@ -10,6 +10,7 @@ from .._generated.models.order import Order
 from .._generated.models.paginated_order_list import PaginatedOrderList
 from .._generated.models.paginated_user_list import PaginatedUserList
 from .._generated.models.patched_user_update_request import PatchedUserUpdateRequest
+from .._generated.models.reset_data_request import ResetDataRequest
 from .._generated.models.subtract_data_request import SubtractDataRequest
 from .._generated.types import UNSET
 from uuid import UUID
@@ -23,6 +24,7 @@ from .._generated.api.users import users_destroy as _users_destroy
 from .._generated.api.users import users_retrieve as _users_retrieve
 from .._generated.api.users import users_list as _users_list
 from .._generated.api.users import users_orders_list as _users_orders_list
+from .._generated.api.users import users_data_reset_create as _users_data_reset_create
 from .._generated.api.users import users_password_create as _users_password_create
 from .._generated.api.users import users_data_subtract_create as _users_data_subtract_create
 from .._generated.api.users import users_partial_update as _users_partial_update
@@ -81,7 +83,7 @@ class UsersResource:
         idempotency_key: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
     ) -> User:
-        """Create a sub-user"""
+        """Create a customer account"""
         return cast(
             User,
             self._client._call(
@@ -100,7 +102,7 @@ class UsersResource:
         idempotency_key: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
     ) -> ApiResponse[User]:
-        """Create a sub-user; include response metadata."""
+        """Create a customer account; include response metadata."""
         return cast(
             ApiResponse[User],
             self._client._call_with_response(
@@ -288,12 +290,50 @@ class UsersResource:
             ),
         )
 
-    def reset_password(
+    def reset_data(
         self,
         id: UUID,
         *,
-        body: UserPasswordResetRequest | Unset = UNSET,
+        body: ResetDataRequest,
+        idempotency_key: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+    ) -> Order:
+        """Reset a user's remaining data"""
+        return cast(
+            Order,
+            self._client._call(
+                _users_data_reset_create.sync_detailed,
+                _idempotent=True,
+                id=id,
+                body=body,
+                idempotency_key=idempotency_key,
+                accept_language=accept_language,
+            ),
+        )
+
+    def reset_data_with_response(
+        self,
+        id: UUID,
+        *,
+        body: ResetDataRequest,
+        idempotency_key: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[Order]:
+        """Reset a user's remaining data; include response metadata."""
+        return cast(
+            ApiResponse[Order],
+            self._client._call_with_response(
+                _users_data_reset_create.sync_detailed,
+                _idempotent=True,
+                id=id,
+                body=body,
+                idempotency_key=idempotency_key,
+                accept_language=accept_language,
+            ),
+        )
+
+    def reset_password(
+        self, id: UUID, *, body: UserPasswordResetRequest, accept_language: str | Unset = UNSET
     ) -> User:
         """Rotate a sub-user proxy password"""
         return cast(
@@ -307,11 +347,7 @@ class UsersResource:
         )
 
     def reset_password_with_response(
-        self,
-        id: UUID,
-        *,
-        body: UserPasswordResetRequest | Unset = UNSET,
-        accept_language: str | Unset = UNSET,
+        self, id: UUID, *, body: UserPasswordResetRequest, accept_language: str | Unset = UNSET
     ) -> ApiResponse[User]:
         """Rotate a sub-user proxy password; include response metadata."""
         return cast(
@@ -460,7 +496,7 @@ class AsyncUsersResource:
         idempotency_key: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
     ) -> User:
-        """Create a sub-user"""
+        """Create a customer account"""
         return cast(
             User,
             await self._client._call(
@@ -479,7 +515,7 @@ class AsyncUsersResource:
         idempotency_key: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
     ) -> ApiResponse[User]:
-        """Create a sub-user; include response metadata."""
+        """Create a customer account; include response metadata."""
         return cast(
             ApiResponse[User],
             await self._client._call_with_response(
@@ -667,12 +703,50 @@ class AsyncUsersResource:
             ),
         )
 
-    async def reset_password(
+    async def reset_data(
         self,
         id: UUID,
         *,
-        body: UserPasswordResetRequest | Unset = UNSET,
+        body: ResetDataRequest,
+        idempotency_key: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+    ) -> Order:
+        """Reset a user's remaining data"""
+        return cast(
+            Order,
+            await self._client._call(
+                _users_data_reset_create.asyncio_detailed,
+                _idempotent=True,
+                id=id,
+                body=body,
+                idempotency_key=idempotency_key,
+                accept_language=accept_language,
+            ),
+        )
+
+    async def reset_data_with_response(
+        self,
+        id: UUID,
+        *,
+        body: ResetDataRequest,
+        idempotency_key: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+    ) -> ApiResponse[Order]:
+        """Reset a user's remaining data; include response metadata."""
+        return cast(
+            ApiResponse[Order],
+            await self._client._call_with_response(
+                _users_data_reset_create.asyncio_detailed,
+                _idempotent=True,
+                id=id,
+                body=body,
+                idempotency_key=idempotency_key,
+                accept_language=accept_language,
+            ),
+        )
+
+    async def reset_password(
+        self, id: UUID, *, body: UserPasswordResetRequest, accept_language: str | Unset = UNSET
     ) -> User:
         """Rotate a sub-user proxy password"""
         return cast(
@@ -686,11 +760,7 @@ class AsyncUsersResource:
         )
 
     async def reset_password_with_response(
-        self,
-        id: UUID,
-        *,
-        body: UserPasswordResetRequest | Unset = UNSET,
-        accept_language: str | Unset = UNSET,
+        self, id: UUID, *, body: UserPasswordResetRequest, accept_language: str | Unset = UNSET
     ) -> ApiResponse[User]:
         """Rotate a sub-user proxy password; include response metadata."""
         return cast(

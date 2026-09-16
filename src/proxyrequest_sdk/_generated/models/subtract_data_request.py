@@ -17,7 +17,10 @@ T = TypeVar("T", bound="SubtractDataRequest")
 @_attrs_define
 class SubtractDataRequest:
     package_id: UUID
+    """ Package of the managed virtual child order. """
     data: int
+    """ Positive integer bytes to remove from assigned quota, not from usage. Cannot exceed total assigned data.
+    Does not credit the parent's pool. """
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

@@ -24,7 +24,7 @@ from uuid import UUID
 def _get_kwargs(
     id: UUID,
     *,
-    body: UserPasswordResetRequest | Unset = UNSET,
+    body: UserPasswordResetRequest,
     accept_language: str | Unset = UNSET,
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
@@ -38,8 +38,7 @@ def _get_kwargs(
         ),
     }
 
-    if not isinstance(body, Unset):
-        _kwargs["json"] = body.to_dict()
+    _kwargs["json"] = body.to_dict()
 
     headers["Content-Type"] = "application/json"
 
@@ -110,7 +109,7 @@ def sync_detailed(
     id: UUID,
     *,
     client: AuthenticatedClient,
-    body: UserPasswordResetRequest | Unset = UNSET,
+    body: UserPasswordResetRequest,
     accept_language: str | Unset = UNSET,
 ) -> Response[
     User
@@ -121,13 +120,13 @@ def sync_detailed(
 ]:
     """Rotate a sub-user proxy password
 
-     Rotates the proxy password for the selected user. When package-based authentication is enabled, send
-    package_id to select the affected order.
+     Rotates the proxy password for the selected user's package order. Send package_id to select the
+    affected order.
 
     Args:
         id (UUID):
         accept_language (str | Unset):  Defaults to the client language.
-        body (UserPasswordResetRequest | Unset):
+        body (UserPasswordResetRequest):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -154,7 +153,7 @@ def sync(
     id: UUID,
     *,
     client: AuthenticatedClient,
-    body: UserPasswordResetRequest | Unset = UNSET,
+    body: UserPasswordResetRequest,
     accept_language: str | Unset = UNSET,
 ) -> (
     User
@@ -166,13 +165,13 @@ def sync(
 ):
     """Rotate a sub-user proxy password
 
-     Rotates the proxy password for the selected user. When package-based authentication is enabled, send
-    package_id to select the affected order.
+     Rotates the proxy password for the selected user's package order. Send package_id to select the
+    affected order.
 
     Args:
         id (UUID):
         accept_language (str | Unset):  Defaults to the client language.
-        body (UserPasswordResetRequest | Unset):
+        body (UserPasswordResetRequest):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -194,7 +193,7 @@ async def asyncio_detailed(
     id: UUID,
     *,
     client: AuthenticatedClient,
-    body: UserPasswordResetRequest | Unset = UNSET,
+    body: UserPasswordResetRequest,
     accept_language: str | Unset = UNSET,
 ) -> Response[
     User
@@ -205,13 +204,13 @@ async def asyncio_detailed(
 ]:
     """Rotate a sub-user proxy password
 
-     Rotates the proxy password for the selected user. When package-based authentication is enabled, send
-    package_id to select the affected order.
+     Rotates the proxy password for the selected user's package order. Send package_id to select the
+    affected order.
 
     Args:
         id (UUID):
         accept_language (str | Unset):  Defaults to the client language.
-        body (UserPasswordResetRequest | Unset):
+        body (UserPasswordResetRequest):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -236,7 +235,7 @@ async def asyncio(
     id: UUID,
     *,
     client: AuthenticatedClient,
-    body: UserPasswordResetRequest | Unset = UNSET,
+    body: UserPasswordResetRequest,
     accept_language: str | Unset = UNSET,
 ) -> (
     User
@@ -248,13 +247,13 @@ async def asyncio(
 ):
     """Rotate a sub-user proxy password
 
-     Rotates the proxy password for the selected user. When package-based authentication is enabled, send
-    package_id to select the affected order.
+     Rotates the proxy password for the selected user's package order. Send package_id to select the
+    affected order.
 
     Args:
         id (UUID):
         accept_language (str | Unset):  Defaults to the client language.
-        body (UserPasswordResetRequest | Unset):
+        body (UserPasswordResetRequest):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

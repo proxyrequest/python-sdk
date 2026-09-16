@@ -364,6 +364,7 @@ from .recover_password_request import RecoverPasswordRequest
 from .refresh_create_response_400 import RefreshCreateResponse400
 from .refresh_create_response_401 import RefreshCreateResponse401
 from .region import Region
+from .reset_data_request import ResetDataRequest
 from .reset_password_create_response_400 import ResetPasswordCreateResponse400
 from .reset_password_create_response_404 import ResetPasswordCreateResponse404
 from .reset_password_request import ResetPasswordRequest
@@ -416,6 +417,11 @@ from .users_data_add_create_response_401 import UsersDataAddCreateResponse401
 from .users_data_add_create_response_403 import UsersDataAddCreateResponse403
 from .users_data_add_create_response_404 import UsersDataAddCreateResponse404
 from .users_data_add_create_response_409 import UsersDataAddCreateResponse409
+from .users_data_reset_create_response_400 import UsersDataResetCreateResponse400
+from .users_data_reset_create_response_401 import UsersDataResetCreateResponse401
+from .users_data_reset_create_response_403 import UsersDataResetCreateResponse403
+from .users_data_reset_create_response_404 import UsersDataResetCreateResponse404
+from .users_data_reset_create_response_409 import UsersDataResetCreateResponse409
 from .users_data_subtract_create_response_400 import UsersDataSubtractCreateResponse400
 from .users_data_subtract_create_response_401 import UsersDataSubtractCreateResponse401
 from .users_data_subtract_create_response_403 import UsersDataSubtractCreateResponse403
@@ -805,6 +811,7 @@ __all__ = (
     "RefreshCreateResponse400",
     "RefreshCreateResponse401",
     "Region",
+    "ResetDataRequest",
     "ResetPasswordCreateResponse400",
     "ResetPasswordCreateResponse404",
     "ResetPasswordRequest",
@@ -857,6 +864,11 @@ __all__ = (
     "UsersDataAddCreateResponse403",
     "UsersDataAddCreateResponse404",
     "UsersDataAddCreateResponse409",
+    "UsersDataResetCreateResponse400",
+    "UsersDataResetCreateResponse401",
+    "UsersDataResetCreateResponse403",
+    "UsersDataResetCreateResponse404",
+    "UsersDataResetCreateResponse409",
     "UsersDataSubtractCreateResponse400",
     "UsersDataSubtractCreateResponse401",
     "UsersDataSubtractCreateResponse403",

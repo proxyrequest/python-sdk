@@ -138,8 +138,10 @@ def sync_detailed(
 ]:
     """Delete a sub-user order
 
-     Removes an active order owned by a managed sub-user. Remaining data is returned to the reseller's
-    matching order when possible.
+     Removes an order in the caller's permitted scope. This is destructive, not a payment refund.
+    Deleting a virtual child order does not credit its quota to the shared ledger. Independently
+    purchased sub-user orders have a legacy parent-order data-counter adjustment; do not treat it as a
+    guaranteed restoration of usable ledger balance.
 
     Args:
         id (str):
@@ -188,8 +190,10 @@ def sync(
 ):
     """Delete a sub-user order
 
-     Removes an active order owned by a managed sub-user. Remaining data is returned to the reseller's
-    matching order when possible.
+     Removes an order in the caller's permitted scope. This is destructive, not a payment refund.
+    Deleting a virtual child order does not credit its quota to the shared ledger. Independently
+    purchased sub-user orders have a legacy parent-order data-counter adjustment; do not treat it as a
+    guaranteed restoration of usable ledger balance.
 
     Args:
         id (str):
@@ -232,8 +236,10 @@ async def asyncio_detailed(
 ]:
     """Delete a sub-user order
 
-     Removes an active order owned by a managed sub-user. Remaining data is returned to the reseller's
-    matching order when possible.
+     Removes an order in the caller's permitted scope. This is destructive, not a payment refund.
+    Deleting a virtual child order does not credit its quota to the shared ledger. Independently
+    purchased sub-user orders have a legacy parent-order data-counter adjustment; do not treat it as a
+    guaranteed restoration of usable ledger balance.
 
     Args:
         id (str):
@@ -280,8 +286,10 @@ async def asyncio(
 ):
     """Delete a sub-user order
 
-     Removes an active order owned by a managed sub-user. Remaining data is returned to the reseller's
-    matching order when possible.
+     Removes an order in the caller's permitted scope. This is destructive, not a payment refund.
+    Deleting a virtual child order does not credit its quota to the shared ledger. Independently
+    purchased sub-user orders have a legacy parent-order data-counter adjustment; do not treat it as a
+    guaranteed restoration of usable ledger balance.
 
     Args:
         id (str):

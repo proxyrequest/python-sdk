@@ -28,7 +28,7 @@ def _get_kwargs(
     name: str | Unset = UNSET,
     offset: int | Unset = UNSET,
     ordering: str | Unset = UNSET,
-    package_id: UUID | Unset = UNSET,
+    package_id: UUID,
     search: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
 ) -> dict[str, Any]:
@@ -52,9 +52,7 @@ def _get_kwargs(
 
     params["ordering"] = ordering
 
-    json_package_id: str | Unset = UNSET
-    if not isinstance(package_id, Unset):
-        json_package_id = str(package_id)
+    json_package_id = str(package_id)
     params["package_id"] = json_package_id
 
     params["search"] = search
@@ -133,7 +131,7 @@ def sync_detailed(
     name: str | Unset = UNSET,
     offset: int | Unset = UNSET,
     ordering: str | Unset = UNSET,
-    package_id: UUID | Unset = UNSET,
+    package_id: UUID,
     search: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
 ) -> Response[
@@ -155,7 +153,7 @@ def sync_detailed(
         name (str | Unset):
         offset (int | Unset):
         ordering (str | Unset):
-        package_id (UUID | Unset):
+        package_id (UUID):
         search (str | Unset):
         accept_language (str | Unset):  Defaults to the client language.
 
@@ -197,7 +195,7 @@ def sync(
     name: str | Unset = UNSET,
     offset: int | Unset = UNSET,
     ordering: str | Unset = UNSET,
-    package_id: UUID | Unset = UNSET,
+    package_id: UUID,
     search: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
 ) -> (
@@ -220,7 +218,7 @@ def sync(
         name (str | Unset):
         offset (int | Unset):
         ordering (str | Unset):
-        package_id (UUID | Unset):
+        package_id (UUID):
         search (str | Unset):
         accept_language (str | Unset):  Defaults to the client language.
 
@@ -257,7 +255,7 @@ async def asyncio_detailed(
     name: str | Unset = UNSET,
     offset: int | Unset = UNSET,
     ordering: str | Unset = UNSET,
-    package_id: UUID | Unset = UNSET,
+    package_id: UUID,
     search: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
 ) -> Response[
@@ -279,7 +277,7 @@ async def asyncio_detailed(
         name (str | Unset):
         offset (int | Unset):
         ordering (str | Unset):
-        package_id (UUID | Unset):
+        package_id (UUID):
         search (str | Unset):
         accept_language (str | Unset):  Defaults to the client language.
 
@@ -319,7 +317,7 @@ async def asyncio(
     name: str | Unset = UNSET,
     offset: int | Unset = UNSET,
     ordering: str | Unset = UNSET,
-    package_id: UUID | Unset = UNSET,
+    package_id: UUID,
     search: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
 ) -> (
@@ -342,7 +340,7 @@ async def asyncio(
         name (str | Unset):
         offset (int | Unset):
         ordering (str | Unset):
-        package_id (UUID | Unset):
+        package_id (UUID):
         search (str | Unset):
         accept_language (str | Unset):  Defaults to the client language.
 

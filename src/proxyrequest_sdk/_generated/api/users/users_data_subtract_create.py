@@ -134,8 +134,11 @@ def sync_detailed(
 ]:
     """Subtract data from a sub-user order
 
-     Subtracts the requested number of bytes from the selected sub-user's order for the supplied package
-    and returns the updated order.
+     Subtracts data from the assigned quota of a managed virtual child order in integer bytes for
+    package_id. Both fields are required. This is not a refund or a transfer back into the parent's
+    ledger, and does not erase data_spent. The amount cannot exceed the total assigned data; reducing
+    the quota below usage can stop the child's access. An independently purchased order is not managed
+    through this allocation endpoint. Use Idempotency-Key for safe retries.
 
     Args:
         id (UUID):
@@ -183,8 +186,11 @@ def sync(
 ):
     """Subtract data from a sub-user order
 
-     Subtracts the requested number of bytes from the selected sub-user's order for the supplied package
-    and returns the updated order.
+     Subtracts data from the assigned quota of a managed virtual child order in integer bytes for
+    package_id. Both fields are required. This is not a refund or a transfer back into the parent's
+    ledger, and does not erase data_spent. The amount cannot exceed the total assigned data; reducing
+    the quota below usage can stop the child's access. An independently purchased order is not managed
+    through this allocation endpoint. Use Idempotency-Key for safe retries.
 
     Args:
         id (UUID):
@@ -226,8 +232,11 @@ async def asyncio_detailed(
 ]:
     """Subtract data from a sub-user order
 
-     Subtracts the requested number of bytes from the selected sub-user's order for the supplied package
-    and returns the updated order.
+     Subtracts data from the assigned quota of a managed virtual child order in integer bytes for
+    package_id. Both fields are required. This is not a refund or a transfer back into the parent's
+    ledger, and does not erase data_spent. The amount cannot exceed the total assigned data; reducing
+    the quota below usage can stop the child's access. An independently purchased order is not managed
+    through this allocation endpoint. Use Idempotency-Key for safe retries.
 
     Args:
         id (UUID):
@@ -273,8 +282,11 @@ async def asyncio(
 ):
     """Subtract data from a sub-user order
 
-     Subtracts the requested number of bytes from the selected sub-user's order for the supplied package
-    and returns the updated order.
+     Subtracts data from the assigned quota of a managed virtual child order in integer bytes for
+    package_id. Both fields are required. This is not a refund or a transfer back into the parent's
+    ledger, and does not erase data_spent. The amount cannot exceed the total assigned data; reducing
+    the quota below usage can stop the child's access. An independently purchased order is not managed
+    through this allocation endpoint. Use Idempotency-Key for safe retries.
 
     Args:
         id (UUID):

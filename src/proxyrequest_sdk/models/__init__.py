@@ -122,6 +122,7 @@ from .._generated.models.proxy_password_reset_response import ProxyPasswordReset
 from .._generated.models.proxy_type_enum import ProxyTypeEnum
 from .._generated.models.recover_password_request import RecoverPasswordRequest
 from .._generated.models.region import Region
+from .._generated.models.reset_data_request import ResetDataRequest
 from .._generated.models.reset_password_request import ResetPasswordRequest
 from .._generated.models.reward import Reward
 from .._generated.models.reward_claim_request import RewardClaimRequest
@@ -277,6 +278,7 @@ __all__ = [
     "ProxyTypeEnum",
     "RecoverPasswordRequest",
     "Region",
+    "ResetDataRequest",
     "ResetPasswordRequest",
     "Reward",
     "RewardClaimRequest",
