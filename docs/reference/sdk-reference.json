@@ -9,15 +9,15 @@
     "runtime": "Python 3.11 or later",
     "install": "python -m pip install proxyrequest-sdk",
     "openapi": {
-      "commit": "2c4505aed434b7317098e48da673fc075d8ad85f",
+      "commit": "a2d72455d3b91a7d6be962f0e056f7d04fbd7f05",
       "excludedOperations": [
         "sessions_destroy",
         "sessions_list"
       ],
       "operations": 82,
       "repository": "papaproxy/api",
-      "schemas": 130,
-      "sha256": "12c616254465752eb13753a7cb9807307c9ff40f64608c355f129d4ef2d4365c",
+      "schemas": 133,
+      "sha256": "9a20a33711a9291dcba57046b1d2b4cf14b3eec506383a3986b0ac7a15f14c6e",
       "source": "openapi.yml"
     }
   },
@@ -4155,7 +4155,7 @@
           "operationId": "invoices_create",
           "name": "create",
           "summary": "Create an invoice",
-          "description": "Calculates package pricing and initializes the selected payment provider when required. The status defaults to `pending`. Only superusers may create an already-paid invoice by setting `status` to `paid`; other authenticated users receive a 403 response. For wallet payments, omit `status`: the invoice is created as pending and becomes paid after the balance is debited successfully. For your own billing system, confirm payment on your backend before sending gateway=manual and status=paid with a superuser credential. Sending user_id also requires is_reseller; omit user_id for a purchase by the caller. Sub-users cannot create invoices themselves. A paid package purchase creates or tops up the recipient's order for that package. Repeated purchases reuse the order. Finite expiring purchases have separate data ledgers; compatible non-expiring purchases and unlimited packages may reuse a ledger. This is different from assigning a child quota with /users/{id}/data/add. An amount-only invoice tops up money, not data. Persist the invoice ID and use Idempotency-Key for retries. Before delivering access, read the paid invoice and the resulting order: fulfillment can be recovered asynchronously. Accounting webhooks do not include invoice.paid.",
+          "description": "Calculates package pricing and initializes the selected payment provider when required. The status defaults to `pending`. Creating an already-paid invoice by setting `status` to `paid` requires a superuser or an active superuser's API key (Static or Bearer), including requests using `X-Impersonate-User`. Other authenticated users receive a 403 response. During API-key impersonation, the invoice recipient and user_id access rules are still determined by the impersonated user. For wallet payments, omit `status`: the invoice is created as pending and becomes paid after the balance is debited successfully. For your own billing system, confirm payment on your backend before sending gateway=manual and status=paid with a superuser credential. Sending user_id also requires is_reseller; omit user_id for a purchase by the caller. Sub-users cannot create invoices themselves. A paid package purchase creates or tops up the recipient's order for that package. Repeated purchases reuse the order. Finite expiring purchases have separate data ledgers; compatible non-expiring purchases and unlimited packages may reuse a ledger. This is different from assigning a child quota with /users/{id}/data/add. An amount-only invoice tops up money, not data. Persist the invoice ID and use Idempotency-Key for retries. Before delivering access, read the paid invoice and the resulting order: fulfillment can be recovered asynchronously. Accounting webhooks do not include invoice.paid.",
           "httpMethod": "POST",
           "path": "/invoices",
           "signatures": [
@@ -12053,13 +12053,13 @@
         },
         {
           "name": "stats",
-          "type": "CouponStatsType0 | None",
+          "type": "CouponStats | None",
           "required": true,
           "default": null,
           "description": "",
           "enum": null,
           "modelRefs": [
-            "CouponStatsType0"
+            "CouponStats"
           ]
         },
         {
@@ -12418,13 +12418,13 @@
         },
         {
           "name": "packages",
-          "type": "list[CouponShortPackagesItem]",
+          "type": "list[PackageShort]",
           "required": true,
           "default": null,
           "description": "",
           "enum": null,
           "modelRefs": [
-            "CouponShortPackagesItem"
+            "PackageShort"
           ]
         },
         {
@@ -12531,16 +12531,56 @@
       ]
     },
     {
-      "name": "CouponShortPackagesItem",
+      "name": "CouponStats",
       "kind": "class",
       "description": "",
-      "fields": []
-    },
-    {
-      "name": "CouponStatsType0",
-      "kind": "class",
-      "description": "",
-      "fields": []
+      "fields": [
+        {
+          "name": "total_redeems",
+          "type": "int",
+          "required": true,
+          "default": null,
+          "description": "",
+          "enum": null,
+          "modelRefs": []
+        },
+        {
+          "name": "unique_users",
+          "type": "int",
+          "required": true,
+          "default": null,
+          "description": "",
+          "enum": null,
+          "modelRefs": []
+        },
+        {
+          "name": "total_revenue",
+          "type": "int",
+          "required": true,
+          "default": null,
+          "description": "",
+          "enum": null,
+          "modelRefs": []
+        },
+        {
+          "name": "total_discount_given",
+          "type": "int",
+          "required": true,
+          "default": null,
+          "description": "",
+          "enum": null,
+          "modelRefs": []
+        },
+        {
+          "name": "total_data_given",
+          "type": "int",
+          "required": true,
+          "default": null,
+          "description": "",
+          "enum": null,
+          "modelRefs": []
+        }
+      ]
     },
     {
       "name": "CouponTypeEnum",
@@ -12649,6 +12689,67 @@
       "kind": "enum",
       "description": "",
       "fields": []
+    },
+    {
+      "name": "DataLedger",
+      "kind": "class",
+      "description": "A purchased data bucket, not a complete transaction history. Finite purchases with an expiration have separate buckets. Compatible non-expiring top-ups and unlimited packages may reuse an existing bucket.",
+      "fields": [
+        {
+          "name": "id",
+          "type": "str",
+          "required": true,
+          "default": null,
+          "description": "",
+          "enum": null,
+          "modelRefs": []
+        },
+        {
+          "name": "data",
+          "type": "int",
+          "required": true,
+          "default": null,
+          "description": "Total data allocated to this ledger entry in bytes. 1073741824 = 1 GiB 10737418240 = 10 GiB",
+          "enum": null,
+          "modelRefs": []
+        },
+        {
+          "name": "data_remaining",
+          "type": "int",
+          "required": true,
+          "default": null,
+          "description": "Bytes still available for consumption from this ledger entry. Decremented in FIFO order as the customer uses the proxy. When this reaches zero the entry is exhausted.",
+          "enum": null,
+          "modelRefs": []
+        },
+        {
+          "name": "expires",
+          "type": "datetime.datetime | None",
+          "required": true,
+          "default": null,
+          "description": "Date and time when this ledger entry expires and any remaining data is forfeited. Leave blank for entries that do not expire.",
+          "enum": null,
+          "modelRefs": []
+        },
+        {
+          "name": "updated",
+          "type": "datetime.datetime",
+          "required": true,
+          "default": null,
+          "description": "",
+          "enum": null,
+          "modelRefs": []
+        },
+        {
+          "name": "created",
+          "type": "datetime.datetime",
+          "required": true,
+          "default": null,
+          "description": "",
+          "enum": null,
+          "modelRefs": []
+        }
+      ]
     },
     {
       "name": "DomainRecord",
@@ -14690,13 +14791,13 @@
         },
         {
           "name": "package",
-          "type": "OrderPackage",
+          "type": "PackageShort",
           "required": true,
           "default": null,
           "description": "",
           "enum": null,
           "modelRefs": [
-            "OrderPackage"
+            "PackageShort"
           ]
         },
         {
@@ -14710,13 +14811,13 @@
         },
         {
           "name": "ledgers",
-          "type": "list[OrderLedgersItem]",
+          "type": "list[DataLedger]",
           "required": true,
           "default": null,
           "description": "Usable, non-expired ledger balances for a purchased root order; empty for a virtual child order using its parent's pool. Not a complete history. Array position does not identify the active ledger or spending order.",
           "enum": null,
           "modelRefs": [
-            "OrderLedgersItem"
+            "DataLedger"
           ]
         },
         {
@@ -14883,13 +14984,13 @@
         },
         {
           "name": "ledgers",
-          "type": "list[OrderDetailedLedgersItem]",
+          "type": "list[DataLedger]",
           "required": true,
           "default": null,
           "description": "Usable, non-expired purchased buckets; empty for virtual child orders. Not a complete history, and array position is not spending priority.",
           "enum": null,
           "modelRefs": [
-            "OrderDetailedLedgersItem"
+            "DataLedger"
           ]
         },
         {
@@ -15010,24 +15111,6 @@
           "modelRefs": []
         }
       ]
-    },
-    {
-      "name": "OrderDetailedLedgersItem",
-      "kind": "class",
-      "description": "",
-      "fields": []
-    },
-    {
-      "name": "OrderLedgersItem",
-      "kind": "class",
-      "description": "",
-      "fields": []
-    },
-    {
-      "name": "OrderPackage",
-      "kind": "class",
-      "description": "",
-      "fields": []
     },
     {
       "name": "OrdersListPackageType",
@@ -15333,9 +15416,19 @@
     },
     {
       "name": "PackageBillingModel",
-      "kind": "class",
+      "kind": "map",
       "description": "",
-      "fields": []
+      "fields": [
+        {
+          "name": "[key: str]",
+          "type": "Any",
+          "required": false,
+          "default": null,
+          "description": "Arbitrary additional property.",
+          "enum": null,
+          "modelRefs": []
+        }
+      ]
     },
     {
       "name": "PackageCommission",
@@ -16875,9 +16968,19 @@
     },
     {
       "name": "PatchedUserUpdateRequestMeta",
-      "kind": "class",
+      "kind": "map",
       "description": "Additional metadata for the user. Maximum 50 fields.",
-      "fields": []
+      "fields": [
+        {
+          "name": "[key: str]",
+          "type": "Any",
+          "required": false,
+          "default": null,
+          "description": "Arbitrary additional property.",
+          "enum": null,
+          "modelRefs": []
+        }
+      ]
     },
     {
       "name": "PaymentGateway",
@@ -18552,7 +18655,7 @@
           "type": "UserCurrency",
           "required": true,
           "default": null,
-          "description": "Currency information for the user's transactions",
+          "description": "",
           "enum": null,
           "modelRefs": [
             "UserCurrency"
@@ -18560,13 +18663,13 @@
         },
         {
           "name": "coupons",
-          "type": "list[UserCouponsItem]",
+          "type": "list[CouponShort]",
           "required": true,
           "default": null,
           "description": "Available coupons for this user",
           "enum": null,
           "modelRefs": [
-            "UserCouponsItem"
+            "CouponShort"
           ]
         },
         {
@@ -18810,12 +18913,6 @@
       ]
     },
     {
-      "name": "UserCouponsItem",
-      "kind": "class",
-      "description": "",
-      "fields": []
-    },
-    {
       "name": "UserCreateRequest",
       "kind": "class",
       "description": "Fields accepted when a reseller or administrator creates a customer account.",
@@ -18988,15 +19085,44 @@
     },
     {
       "name": "UserCreateRequestMeta",
-      "kind": "class",
+      "kind": "map",
       "description": "Additional metadata for the user. Maximum 50 fields.",
-      "fields": []
+      "fields": [
+        {
+          "name": "[key: str]",
+          "type": "Any",
+          "required": false,
+          "default": null,
+          "description": "Arbitrary additional property.",
+          "enum": null,
+          "modelRefs": []
+        }
+      ]
     },
     {
       "name": "UserCurrency",
       "kind": "class",
-      "description": "Currency information for the user's transactions",
-      "fields": []
+      "description": "",
+      "fields": [
+        {
+          "name": "code",
+          "type": "str",
+          "required": true,
+          "default": null,
+          "description": "",
+          "enum": null,
+          "modelRefs": []
+        },
+        {
+          "name": "symbol",
+          "type": "str",
+          "required": true,
+          "default": null,
+          "description": "",
+          "enum": null,
+          "modelRefs": []
+        }
+      ]
     },
     {
       "name": "UserPasswordResetRequest",

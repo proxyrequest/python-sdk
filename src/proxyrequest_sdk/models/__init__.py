@@ -24,12 +24,12 @@ from .._generated.models.coupon_create_request import CouponCreateRequest
 from .._generated.models.coupon_price_response import CouponPriceResponse
 from .._generated.models.coupon_redeem import CouponRedeem
 from .._generated.models.coupon_short import CouponShort
-from .._generated.models.coupon_short_packages_item import CouponShortPackagesItem
-from .._generated.models.coupon_stats_type_0 import CouponStatsType0
+from .._generated.models.coupon_stats import CouponStats
 from .._generated.models.coupon_type_enum import CouponTypeEnum
 from .._generated.models.coupon_update_request import CouponUpdateRequest
 from .._generated.models.coupons_list_type import CouponsListType
 from .._generated.models.coupons_redeems_list_type import CouponsRedeemsListType
+from .._generated.models.data_ledger import DataLedger
 from .._generated.models.domain_record import DomainRecord
 from .._generated.models.domains_response import DomainsResponse
 from .._generated.models.enabled_response import EnabledResponse
@@ -65,9 +65,6 @@ from .._generated.models.message_response import MessageResponse
 from .._generated.models.news import News
 from .._generated.models.order import Order
 from .._generated.models.order_detailed import OrderDetailed
-from .._generated.models.order_detailed_ledgers_item import OrderDetailedLedgersItem
-from .._generated.models.order_ledgers_item import OrderLedgersItem
-from .._generated.models.order_package import OrderPackage
 from .._generated.models.orders_list_package_type import OrdersListPackageType
 from .._generated.models.otp_challenge import OTPChallenge
 from .._generated.models.overall_point import OverallPoint
@@ -147,7 +144,6 @@ from .._generated.models.two_factor_disable_request import TwoFactorDisableReque
 from .._generated.models.two_factor_setup_request_request import TwoFactorSetupRequestRequest
 from .._generated.models.two_factor_setup_response import TwoFactorSetupResponse
 from .._generated.models.user import User
-from .._generated.models.user_coupons_item import UserCouponsItem
 from .._generated.models.user_create_request import UserCreateRequest
 from .._generated.models.user_create_request_meta import UserCreateRequestMeta
 from .._generated.models.user_currency import UserCurrency
@@ -184,12 +180,12 @@ __all__ = [
     "CouponPriceResponse",
     "CouponRedeem",
     "CouponShort",
-    "CouponShortPackagesItem",
-    "CouponStatsType0",
+    "CouponStats",
     "CouponTypeEnum",
     "CouponUpdateRequest",
     "CouponsListType",
     "CouponsRedeemsListType",
+    "DataLedger",
     "DomainRecord",
     "DomainsResponse",
     "EnabledResponse",
@@ -225,9 +221,6 @@ __all__ = [
     "News",
     "Order",
     "OrderDetailed",
-    "OrderDetailedLedgersItem",
-    "OrderLedgersItem",
-    "OrderPackage",
     "OrdersListPackageType",
     "OTPChallenge",
     "OverallPoint",
@@ -303,7 +296,6 @@ __all__ = [
     "TwoFactorSetupRequestRequest",
     "TwoFactorSetupResponse",
     "User",
-    "UserCouponsItem",
     "UserCreateRequest",
     "UserCreateRequestMeta",
     "UserCurrency",

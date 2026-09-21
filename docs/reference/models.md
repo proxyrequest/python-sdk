@@ -24,8 +24,10 @@ Models use snake_case attributes and provide `to_dict()` / `from_dict()` helpers
 - `CouponPriceResponse`
 - `CouponRedeem`
 - `CouponShort`
+- `CouponStats`
 - `CouponTypeEnum` — * `free_data` - Free Data * `monetary` - Money * `percentage` - Percentage
 - `CouponUpdateRequest`
+- `DataLedger` — A purchased data bucket, not a complete transaction history. Finite purchases with an expiration have separate buckets. Compatible non-expiring top-ups and unlimited packages may reuse an existing bucket.
 - `DomainRecord`
 - `DomainsResponse`
 - `EnabledResponse`
@@ -127,6 +129,7 @@ Models use snake_case attributes and provide `to_dict()` / `from_dict()` helpers
 - `TwoFactorSetupResponse`
 - `User` — Customer account with contact details, security settings, package data, referral information, and managed sub-users visible to the caller.
 - `UserCreateRequest` — Fields accepted when a reseller or administrator creates a customer account.
+- `UserCurrency`
 - `UserPasswordResetRequestRequest`
 - `VerifyOTPRequest`
 - `WebhookCreateRequest`

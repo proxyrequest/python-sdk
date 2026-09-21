@@ -13,8 +13,8 @@ from typing import cast
 import datetime
 
 if TYPE_CHECKING:
-    from ..models.order_ledgers_item import OrderLedgersItem
-    from ..models.order_package import OrderPackage
+    from ..models.data_ledger import DataLedger
+    from ..models.package_short import PackageShort
 
 
 T = TypeVar("T", bound="Order")
@@ -23,11 +23,11 @@ T = TypeVar("T", bound="Order")
 @_attrs_define
 class Order:
     is_auto_renewal: bool
-    package: OrderPackage
+    package: PackageShort
     data_remaining: int
     """ Integer bytes. Root order: sum of usable ledger balances, not data minus data_spent. Virtual child order:
     max(data - data_spent, 0), a personal quota that does not guarantee the parent still has usable data. """
-    ledgers: list[OrderLedgersItem]
+    ledgers: list[DataLedger]
     """ Usable, non-expired ledger balances for a purchased root order; empty for a virtual child order using its
     parent's pool. Not a complete history. Array position does not identify the active ledger or spending order. """
     data_updated: datetime.datetime
@@ -60,8 +60,8 @@ class Order:
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        from ..models.order_ledgers_item import OrderLedgersItem
-        from ..models.order_package import OrderPackage
+        from ..models.data_ledger import DataLedger
+        from ..models.package_short import PackageShort
 
         is_auto_renewal = self.is_auto_renewal
 
@@ -152,20 +152,20 @@ class Order:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.order_ledgers_item import OrderLedgersItem
-        from ..models.order_package import OrderPackage
+        from ..models.data_ledger import DataLedger
+        from ..models.package_short import PackageShort
 
         d = dict(src_dict)
         is_auto_renewal = d.pop("is_auto_renewal")
 
-        package = OrderPackage.from_dict(d.pop("package"))
+        package = PackageShort.from_dict(d.pop("package"))
 
         data_remaining = d.pop("data_remaining")
 
         ledgers = []
         _ledgers = d.pop("ledgers")
         for ledgers_item_data in _ledgers:
-            ledgers_item = OrderLedgersItem.from_dict(ledgers_item_data)
+            ledgers_item = DataLedger.from_dict(ledgers_item_data)
 
             ledgers.append(ledgers_item)
 

@@ -14,7 +14,7 @@ from uuid import UUID
 import datetime
 
 if TYPE_CHECKING:
-    from ..models.order_detailed_ledgers_item import OrderDetailedLedgersItem
+    from ..models.data_ledger import DataLedger
     from ..models.package_short import PackageShort
 
 
@@ -29,7 +29,7 @@ class OrderDetailed:
     data_remaining: int
     """ Integer bytes. Root order: sum of usable ledger balances. Virtual child order: max(data - data_spent, 0);
     access also needs a usable parent pool. """
-    ledgers: list[OrderDetailedLedgersItem]
+    ledgers: list[DataLedger]
     """ Usable, non-expired purchased buckets; empty for virtual child orders. Not a complete history, and array
     position is not spending priority. """
     data_updated: datetime.datetime
@@ -65,7 +65,7 @@ class OrderDetailed:
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        from ..models.order_detailed_ledgers_item import OrderDetailedLedgersItem
+        from ..models.data_ledger import DataLedger
         from ..models.package_short import PackageShort
 
         package = self.package.to_dict()
@@ -168,7 +168,7 @@ class OrderDetailed:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.order_detailed_ledgers_item import OrderDetailedLedgersItem
+        from ..models.data_ledger import DataLedger
         from ..models.package_short import PackageShort
 
         d = dict(src_dict)
@@ -183,7 +183,7 @@ class OrderDetailed:
         ledgers = []
         _ledgers = d.pop("ledgers")
         for ledgers_item_data in _ledgers:
-            ledgers_item = OrderDetailedLedgersItem.from_dict(ledgers_item_data)
+            ledgers_item = DataLedger.from_dict(ledgers_item_data)
 
             ledgers.append(ledgers_item)
 

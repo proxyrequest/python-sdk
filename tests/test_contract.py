@@ -154,6 +154,21 @@ def test_generated_reference_covers_public_operations_and_examples_parse() -> No
         assert all(set(value["modelRefs"]) <= model_names for value in typed_values)
     for model in models.values():
         assert all(set(field["modelRefs"]) <= model_names for field in model["fields"])
+        if model["kind"] != "enum":
+            assert model["fields"], f"{model['name']} must describe its shape"
+    dynamic_meta = models["PatchedUserUpdateRequestMeta"]
+    assert dynamic_meta["kind"] == "map"
+    assert dynamic_meta["fields"] == [
+        {
+            "name": "[key: str]",
+            "type": "Any",
+            "required": False,
+            "default": None,
+            "description": "Arbitrary additional property.",
+            "enum": None,
+            "modelRefs": [],
+        }
+    ]
     settings_method = next(
         method for method in methods if method["operationId"] == "settings_retrieve"
     )

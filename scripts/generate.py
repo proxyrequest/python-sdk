@@ -883,11 +883,14 @@ def generate_reference(
             for base in model_class.bases
         )
         fields = []
+        additional_properties_annotation = None
+        is_dynamic_map = False
         if not is_enum:
             for index, node in enumerate(model_class.body):
                 if not isinstance(node, ast.AnnAssign) or not isinstance(node.target, ast.Name):
                     continue
                 if node.target.id == "additional_properties":
+                    additional_properties_annotation = node.annotation
                     continue
                 field_type, optional = public_type(node.annotation)
                 description = ""
@@ -909,10 +912,29 @@ def generate_reference(
                         "enum": None,
                     }
                 )
+            if not fields and additional_properties_annotation is not None:
+                is_dynamic_map = True
+                value_annotation: ast.expr = ast.Name(id="Any")
+                if (
+                    isinstance(additional_properties_annotation, ast.Subscript)
+                    and isinstance(additional_properties_annotation.slice, ast.Tuple)
+                    and len(additional_properties_annotation.slice.elts) == 2
+                ):
+                    value_annotation = additional_properties_annotation.slice.elts[1]
+                fields.append(
+                    {
+                        "name": "[key: str]",
+                        "type": public_type(value_annotation)[0],
+                        "required": False,
+                        "default": None,
+                        "description": "Arbitrary additional property.",
+                        "enum": None,
+                    }
+                )
         model_values.append(
             {
                 "name": name,
-                "kind": "enum" if is_enum else "class",
+                "kind": ("enum" if is_enum else "map" if is_dynamic_map else "class"),
                 "description": clean(ast.get_docstring(model_class)),
                 "fields": fields,
             }

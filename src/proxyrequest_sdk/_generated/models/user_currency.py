@@ -14,21 +14,37 @@ T = TypeVar("T", bound="UserCurrency")
 
 @_attrs_define
 class UserCurrency:
-    """Currency information for the user's transactions"""
-
-    additional_properties: dict[str, str] = _attrs_field(init=False, factory=dict)
+    code: str
+    symbol: str
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
+        code = self.code
+
+        symbol = self.symbol
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
+        field_dict.update(
+            {
+                "code": code,
+                "symbol": symbol,
+            }
+        )
 
         return field_dict
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
-        user_currency = cls()
+        code = d.pop("code")
+
+        symbol = d.pop("symbol")
+
+        user_currency = cls(
+            code=code,
+            symbol=symbol,
+        )
 
         user_currency.additional_properties = d
         return user_currency
@@ -37,10 +53,10 @@ class UserCurrency:
     def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
-    def __getitem__(self, key: str) -> str:
+    def __getitem__(self, key: str) -> Any:
         return self.additional_properties[key]
 
-    def __setitem__(self, key: str, value: str) -> None:
+    def __setitem__(self, key: str, value: Any) -> None:
         self.additional_properties[key] = value
 
     def __delitem__(self, key: str) -> None:

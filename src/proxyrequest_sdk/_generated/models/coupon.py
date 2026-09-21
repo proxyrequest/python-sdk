@@ -15,7 +15,7 @@ from uuid import UUID
 import datetime
 
 if TYPE_CHECKING:
-    from ..models.coupon_stats_type_0 import CouponStatsType0
+    from ..models.coupon_stats import CouponStats
     from ..models.package_short import PackageShort
 
 
@@ -28,7 +28,7 @@ class Coupon:
     is_expired: bool
     is_redeemed: bool
     packages: list[PackageShort]
-    stats: CouponStatsType0 | None
+    stats: CouponStats | None
     created: datetime.datetime
     value: int
     """ Arbitrary coupon value """
@@ -52,7 +52,7 @@ class Coupon:
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        from ..models.coupon_stats_type_0 import CouponStatsType0
+        from ..models.coupon_stats import CouponStats
         from ..models.package_short import PackageShort
 
         redeemed_count = self.redeemed_count
@@ -67,7 +67,7 @@ class Coupon:
             packages.append(packages_item)
 
         stats: dict[str, Any] | None
-        if isinstance(self.stats, CouponStatsType0):
+        if isinstance(self.stats, CouponStats):
             stats = self.stats.to_dict()
         else:
             stats = self.stats
@@ -143,7 +143,7 @@ class Coupon:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.coupon_stats_type_0 import CouponStatsType0
+        from ..models.coupon_stats import CouponStats
         from ..models.package_short import PackageShort
 
         d = dict(src_dict)
@@ -160,18 +160,18 @@ class Coupon:
 
             packages.append(packages_item)
 
-        def _parse_stats(data: object) -> CouponStatsType0 | None:
+        def _parse_stats(data: object) -> CouponStats | None:
             if data is None:
                 return data
             try:
                 if not isinstance(data, dict):
                     raise TypeError()
-                stats_type_0 = CouponStatsType0.from_dict(data)
+                stats_type_1 = CouponStats.from_dict(data)
 
-                return stats_type_0
+                return stats_type_1
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
-            return cast(CouponStatsType0 | None, data)
+            return cast(CouponStats | None, data)
 
         stats = _parse_stats(d.pop("stats"))
 

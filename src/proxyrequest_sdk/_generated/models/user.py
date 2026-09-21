@@ -15,8 +15,8 @@ from uuid import UUID
 import datetime
 
 if TYPE_CHECKING:
+    from ..models.coupon_short import CouponShort
     from ..models.order import Order
-    from ..models.user_coupons_item import UserCouponsItem
     from ..models.user_currency import UserCurrency
 
 
@@ -53,8 +53,7 @@ class User:
     referral_balance_pending: int
     referral_balance_earned: int
     currency: UserCurrency
-    """ Currency information for the user's transactions """
-    coupons: list[UserCouponsItem]
+    coupons: list[CouponShort]
     """ Available coupons for this user """
     is_reseller: bool | Unset = UNSET
     """ Reseller can create sub-users and manage their data. """
@@ -97,8 +96,8 @@ class User:
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
+        from ..models.coupon_short import CouponShort
         from ..models.order import Order
-        from ..models.user_coupons_item import UserCouponsItem
         from ..models.user_currency import UserCurrency
 
         id = str(self.id)
@@ -301,8 +300,8 @@ class User:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+        from ..models.coupon_short import CouponShort
         from ..models.order import Order
-        from ..models.user_coupons_item import UserCouponsItem
         from ..models.user_currency import UserCurrency
 
         d = dict(src_dict)
@@ -341,7 +340,7 @@ class User:
         coupons = []
         _coupons = d.pop("coupons")
         for coupons_item_data in _coupons:
-            coupons_item = UserCouponsItem.from_dict(coupons_item_data)
+            coupons_item = CouponShort.from_dict(coupons_item_data)
 
             coupons.append(coupons_item)
 

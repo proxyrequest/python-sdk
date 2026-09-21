@@ -15,7 +15,7 @@ from uuid import UUID
 import datetime
 
 if TYPE_CHECKING:
-    from ..models.coupon_short_packages_item import CouponShortPackagesItem
+    from ..models.package_short import PackageShort
 
 
 T = TypeVar("T", bound="CouponShort")
@@ -25,7 +25,7 @@ T = TypeVar("T", bound="CouponShort")
 class CouponShort:
     is_expired: bool
     is_redeemed: bool
-    packages: list[CouponShortPackagesItem]
+    packages: list[PackageShort]
     created: datetime.datetime
     value: int
     """ Arbitrary coupon value """
@@ -49,7 +49,7 @@ class CouponShort:
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        from ..models.coupon_short_packages_item import CouponShortPackagesItem
+        from ..models.package_short import PackageShort
 
         is_expired = self.is_expired
 
@@ -129,7 +129,7 @@ class CouponShort:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.coupon_short_packages_item import CouponShortPackagesItem
+        from ..models.package_short import PackageShort
 
         d = dict(src_dict)
         is_expired = d.pop("is_expired")
@@ -139,7 +139,7 @@ class CouponShort:
         packages = []
         _packages = d.pop("packages")
         for packages_item_data in _packages:
-            packages_item = CouponShortPackagesItem.from_dict(packages_item_data)
+            packages_item = PackageShort.from_dict(packages_item_data)
 
             packages.append(packages_item)
 
