@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import ast
 import asyncio
 import hashlib
 import importlib
@@ -128,3 +129,39 @@ def test_local_documentation_links_resolve() -> None:
             if relative and not (document.parent / relative).resolve().exists():
                 missing.append(f"{document.relative_to(ROOT)} -> {target}")
     assert missing == []
+
+
+def test_generated_reference_covers_public_operations_and_examples_parse() -> None:
+    manifest = json.loads((ROOT / "docs/reference/sdk-reference.json").read_text())
+    methods = [method for resource in manifest["resources"] for method in resource["methods"]]
+    expected = manifest["sdk"]["openapi"]["operations"] - len(
+        manifest["sdk"]["openapi"]["excludedOperations"]
+    )
+    assert manifest["schemaVersion"] == 3
+    assert manifest["sdk"]["version"] == "2.2.0"
+    assert len(methods) == expected
+    assert len({method["operationId"] for method in methods}) == len(methods)
+    assert len(manifest["models"]) > 100
+    models = {model["name"]: model for model in manifest["models"]}
+    model_names = set(models)
+    assert all(method["returns"]["type"] for method in methods)
+    assert all(method["throws"][0]["type"] == "ApiError" for method in methods)
+    assert all(len(method["throws"][0]["conditions"]) > 1 for method in methods)
+    for method in methods:
+        typed_values = [*method["parameters"], method["returns"]]
+        if method["body"] is not None:
+            typed_values.append(method["body"])
+        assert all(set(value["modelRefs"]) <= model_names for value in typed_values)
+    for model in models.values():
+        assert all(set(field["modelRefs"]) <= model_names for field in model["fields"])
+    settings_method = next(
+        method for method in methods if method["operationId"] == "settings_retrieve"
+    )
+    assert settings_method["returns"]["modelRefs"] == ["SettingsResponse"]
+    assert len(models["PaginatedAPIKeyList"]["fields"]) > 0
+    assert len(models["InvoiceCreateRequest"]["fields"]) > 0
+    for setup in manifest["setup"]:
+        ast.parse(setup["code"])
+    for method in methods:
+        ast.parse(method["example"]["code"])
+        ast.parse(method["asyncExample"]["code"])
