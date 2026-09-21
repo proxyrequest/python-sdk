@@ -20,7 +20,7 @@ class ProxyGenerationConnectionRequest:
     protocol: ProtocolEnum | Unset = ProtocolEnum.HTTP
     """ * `http` - http * `socks5` - socks5 * `auto` - auto """
     host: str | Unset = UNSET
-    """ Gateway host. Leave empty to use the default gateway. """
+    """ Gateway host. Leave empty to choose one available gateway for the entire request. """
     port: int | Unset = UNSET
     """ Gateway port. Leave empty to use the port for the selected protocol. """
     format_: str | Unset = "{protocol}://{username}:{password}@{host}:{port}"

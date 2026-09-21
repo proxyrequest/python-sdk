@@ -24,7 +24,7 @@ import datetime
 
 def _get_kwargs(
     *,
-    end: datetime.datetime | Unset = UNSET,
+    end: datetime.datetime | float | int | str | Unset = UNSET,
     hostname: str | Unset = UNSET,
     include_sub_users: bool | Unset = False,
     ledger_id: UUID | Unset = UNSET,
@@ -33,7 +33,7 @@ def _get_kwargs(
     ordering: AnalyticsDomainsRetrieveOrdering | Unset = AnalyticsDomainsRetrieveOrdering.VALUE_0,
     package_id: UUID | Unset = UNSET,
     search: str | Unset = UNSET,
-    start: datetime.datetime | Unset = UNSET,
+    start: datetime.datetime | float | int | str | Unset = UNSET,
     timezone: str | Unset = UNSET,
     user_id: UUID | Unset = UNSET,
     accept_language: str | Unset = UNSET,
@@ -44,9 +44,13 @@ def _get_kwargs(
 
     params: dict[str, Any] = {}
 
-    json_end: str | Unset = UNSET
-    if not isinstance(end, Unset):
+    json_end: float | int | str | Unset
+    if isinstance(end, Unset):
+        json_end = UNSET
+    elif isinstance(end, datetime.datetime):
         json_end = end.isoformat()
+    else:
+        json_end = end
     params["end"] = json_end
 
     params["hostname"] = hostname
@@ -75,9 +79,13 @@ def _get_kwargs(
 
     params["search"] = search
 
-    json_start: str | Unset = UNSET
-    if not isinstance(start, Unset):
+    json_start: float | int | str | Unset
+    if isinstance(start, Unset):
+        json_start = UNSET
+    elif isinstance(start, datetime.datetime):
         json_start = start.isoformat()
+    else:
+        json_start = start
     params["start"] = json_start
 
     params["timezone"] = timezone
@@ -161,7 +169,7 @@ def _build_response(
 def sync_detailed(
     *,
     client: AuthenticatedClient,
-    end: datetime.datetime | Unset = UNSET,
+    end: datetime.datetime | float | int | str | Unset = UNSET,
     hostname: str | Unset = UNSET,
     include_sub_users: bool | Unset = False,
     ledger_id: UUID | Unset = UNSET,
@@ -170,7 +178,7 @@ def sync_detailed(
     ordering: AnalyticsDomainsRetrieveOrdering | Unset = AnalyticsDomainsRetrieveOrdering.VALUE_0,
     package_id: UUID | Unset = UNSET,
     search: str | Unset = UNSET,
-    start: datetime.datetime | Unset = UNSET,
+    start: datetime.datetime | float | int | str | Unset = UNSET,
     timezone: str | Unset = UNSET,
     user_id: UUID | Unset = UNSET,
     accept_language: str | Unset = UNSET,
@@ -187,7 +195,7 @@ def sync_detailed(
     window and account scope.
 
     Args:
-        end (datetime.datetime | Unset):
+        end (datetime.datetime | float | int | str | Unset):
         hostname (str | Unset):
         include_sub_users (bool | Unset):  Default: False.
         ledger_id (UUID | Unset):
@@ -197,7 +205,7 @@ def sync_detailed(
             AnalyticsDomainsRetrieveOrdering.VALUE_0.
         package_id (UUID | Unset):
         search (str | Unset):
-        start (datetime.datetime | Unset):
+        start (datetime.datetime | float | int | str | Unset):
         timezone (str | Unset):
         user_id (UUID | Unset):
         accept_language (str | Unset):  Defaults to the client language.
@@ -236,7 +244,7 @@ def sync_detailed(
 def sync(
     *,
     client: AuthenticatedClient,
-    end: datetime.datetime | Unset = UNSET,
+    end: datetime.datetime | float | int | str | Unset = UNSET,
     hostname: str | Unset = UNSET,
     include_sub_users: bool | Unset = False,
     ledger_id: UUID | Unset = UNSET,
@@ -245,7 +253,7 @@ def sync(
     ordering: AnalyticsDomainsRetrieveOrdering | Unset = AnalyticsDomainsRetrieveOrdering.VALUE_0,
     package_id: UUID | Unset = UNSET,
     search: str | Unset = UNSET,
-    start: datetime.datetime | Unset = UNSET,
+    start: datetime.datetime | float | int | str | Unset = UNSET,
     timezone: str | Unset = UNSET,
     user_id: UUID | Unset = UNSET,
     accept_language: str | Unset = UNSET,
@@ -263,7 +271,7 @@ def sync(
     window and account scope.
 
     Args:
-        end (datetime.datetime | Unset):
+        end (datetime.datetime | float | int | str | Unset):
         hostname (str | Unset):
         include_sub_users (bool | Unset):  Default: False.
         ledger_id (UUID | Unset):
@@ -273,7 +281,7 @@ def sync(
             AnalyticsDomainsRetrieveOrdering.VALUE_0.
         package_id (UUID | Unset):
         search (str | Unset):
-        start (datetime.datetime | Unset):
+        start (datetime.datetime | float | int | str | Unset):
         timezone (str | Unset):
         user_id (UUID | Unset):
         accept_language (str | Unset):  Defaults to the client language.
@@ -307,7 +315,7 @@ def sync(
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
-    end: datetime.datetime | Unset = UNSET,
+    end: datetime.datetime | float | int | str | Unset = UNSET,
     hostname: str | Unset = UNSET,
     include_sub_users: bool | Unset = False,
     ledger_id: UUID | Unset = UNSET,
@@ -316,7 +324,7 @@ async def asyncio_detailed(
     ordering: AnalyticsDomainsRetrieveOrdering | Unset = AnalyticsDomainsRetrieveOrdering.VALUE_0,
     package_id: UUID | Unset = UNSET,
     search: str | Unset = UNSET,
-    start: datetime.datetime | Unset = UNSET,
+    start: datetime.datetime | float | int | str | Unset = UNSET,
     timezone: str | Unset = UNSET,
     user_id: UUID | Unset = UNSET,
     accept_language: str | Unset = UNSET,
@@ -333,7 +341,7 @@ async def asyncio_detailed(
     window and account scope.
 
     Args:
-        end (datetime.datetime | Unset):
+        end (datetime.datetime | float | int | str | Unset):
         hostname (str | Unset):
         include_sub_users (bool | Unset):  Default: False.
         ledger_id (UUID | Unset):
@@ -343,7 +351,7 @@ async def asyncio_detailed(
             AnalyticsDomainsRetrieveOrdering.VALUE_0.
         package_id (UUID | Unset):
         search (str | Unset):
-        start (datetime.datetime | Unset):
+        start (datetime.datetime | float | int | str | Unset):
         timezone (str | Unset):
         user_id (UUID | Unset):
         accept_language (str | Unset):  Defaults to the client language.
@@ -380,7 +388,7 @@ async def asyncio_detailed(
 async def asyncio(
     *,
     client: AuthenticatedClient,
-    end: datetime.datetime | Unset = UNSET,
+    end: datetime.datetime | float | int | str | Unset = UNSET,
     hostname: str | Unset = UNSET,
     include_sub_users: bool | Unset = False,
     ledger_id: UUID | Unset = UNSET,
@@ -389,7 +397,7 @@ async def asyncio(
     ordering: AnalyticsDomainsRetrieveOrdering | Unset = AnalyticsDomainsRetrieveOrdering.VALUE_0,
     package_id: UUID | Unset = UNSET,
     search: str | Unset = UNSET,
-    start: datetime.datetime | Unset = UNSET,
+    start: datetime.datetime | float | int | str | Unset = UNSET,
     timezone: str | Unset = UNSET,
     user_id: UUID | Unset = UNSET,
     accept_language: str | Unset = UNSET,
@@ -407,7 +415,7 @@ async def asyncio(
     window and account scope.
 
     Args:
-        end (datetime.datetime | Unset):
+        end (datetime.datetime | float | int | str | Unset):
         hostname (str | Unset):
         include_sub_users (bool | Unset):  Default: False.
         ledger_id (UUID | Unset):
@@ -417,7 +425,7 @@ async def asyncio(
             AnalyticsDomainsRetrieveOrdering.VALUE_0.
         package_id (UUID | Unset):
         search (str | Unset):
-        start (datetime.datetime | Unset):
+        start (datetime.datetime | float | int | str | Unset):
         timezone (str | Unset):
         user_id (UUID | Unset):
         accept_language (str | Unset):  Defaults to the client language.

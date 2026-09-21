@@ -4,6 +4,7 @@ import inspect
 import json
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
+from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any
 from uuid import UUID
@@ -14,6 +15,9 @@ import pytest
 from proxyrequest_sdk import ApiError, AsyncClient, Client, ErrorKind
 from proxyrequest_sdk._generated.types import UNSET
 from proxyrequest_sdk.models import (
+    DomainsResponse,
+    FeedRecord,
+    FeedResponse,
     GoogleAuthRequest,
     Invoice,
     InvoiceCreateRequest,
@@ -29,6 +33,7 @@ from proxyrequest_sdk.models import (
 )
 
 FIXTURES = json.loads((Path(__file__).parent / "fixtures/backend-responses.json").read_text())
+ANALYTICS = json.loads((Path(__file__).parent / "fixtures/analytics-responses.json").read_text())
 BASE_URL = "https://api.proxyrequest.com/api/v1"
 CHALLENGE = {"status": "otp_required", "challenge": "synthetic-challenge", "expires_in": 300}
 TOKENS = {"token": "synthetic-access", "refresh": "synthetic-refresh"}
@@ -60,6 +65,117 @@ async def mocked_client(
 
 async def result(value: Any) -> Any:
     return await value if inspect.isawaitable(value) else value
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize("asynchronous", [False, True])
+@pytest.mark.parametrize("metadata", [False, True])
+@pytest.mark.parametrize("endpoint", ["feed", "domains"])
+@pytest.mark.parametrize("variant", ["first", "last", "empty"])
+async def test_runtime_analytics_responses(
+    asynchronous: bool, metadata: bool, endpoint: str, variant: str
+) -> None:
+    payload = ANALYTICS[f"{endpoint}_{variant}"]
+    async with mocked_client(
+        asynchronous, [httpx.Response(200, json=payload, headers={"X-Request-ID": "analytics"})]
+    ) as (client, requests):
+        method = f"list_{endpoint}" + ("_with_response" if metadata else "")
+        response = await result(getattr(client.analytics, method)(limit=1))
+        if metadata:
+            assert response.status_code == 200
+            assert response.headers["x-request-id"] == "analytics"
+        page = response.data if metadata else response
+        assert isinstance(page, FeedResponse if endpoint == "feed" else DomainsResponse)
+        assert page.next_ == payload["next"]
+        assert page.previous == payload["previous"]
+        assert page.start == datetime.fromisoformat(payload["start"])
+        assert page.end == datetime.fromisoformat(payload["end"])
+        assert page.start.utcoffset() == timedelta(hours=3)
+        assert page.timezone == "Europe/Kyiv"
+        assert len(page.results) == len(payload["results"])
+        records: list[Any] = page.results
+        for record, expected in zip(records, payload["results"], strict=True):
+            serialized = record.to_dict()
+            if expected.get("timestamp") is not None:
+                assert isinstance(record, FeedRecord)
+                assert record.timestamp == datetime.fromisoformat(expected["timestamp"])
+                serialized["timestamp"] = expected["timestamp"]
+            assert serialized == expected
+        if endpoint == "feed":
+            assert isinstance(page, FeedResponse)
+            assert page.count == payload["count"]
+        else:
+            assert "count" not in page.to_dict()
+        assert requests[0].url.path == f"/api/v1/analytics/{endpoint}"
+        assert requests[0].url.params["limit"] == "1"
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize("asynchronous", [False, True])
+@pytest.mark.parametrize("endpoint", ["feed", "domains"])
+async def test_runtime_analytics_pagination(asynchronous: bool, endpoint: str) -> None:
+    responses = [
+        httpx.Response(200, json=ANALYTICS[f"{endpoint}_{variant}"])
+        for variant in ("first", "last")
+    ]
+    async with mocked_client(asynchronous, responses) as (client, requests):
+        pages = client.paginate(getattr(client.analytics, f"list_{endpoint}"), limit=1)
+        records = [item async for item in pages] if asynchronous else list(pages)
+        assert len(records) == 2
+        assert [request.url.params["offset"] for request in requests] == ["0", "1"]
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize("asynchronous", [False, True])
+async def test_feed_reported_date_window(asynchronous: bool) -> None:
+    async with mocked_client(
+        asynchronous, [httpx.Response(200, json=ANALYTICS["feed_reported_window"])]
+    ) as (client, requests):
+        page = await result(
+            client.analytics.list_feed(
+                limit=20,
+                offset=0,
+                start=datetime.fromisoformat("2026-09-21T02:20:06Z"),
+                end=datetime.fromisoformat("2026-09-21T14:20:06Z"),
+                timezone="Europe/Kiev",
+            )
+        )
+        assert page.count == 1
+        assert page.start.isoformat() == "2026-09-21T05:20:00+03:00"
+        assert page.end.isoformat() == "2026-09-21T17:20:00+03:00"
+        assert page.timezone == "Europe/Kiev"
+        assert page.results[0].timestamp == datetime.fromisoformat("2026-09-21T12:00:00Z")
+        assert dict(requests[0].url.params) == {
+            "limit": "20",
+            "offset": "0",
+            "start": "2026-09-21T02:20:06+00:00",
+            "end": "2026-09-21T14:20:06+00:00",
+            "timezone": "Europe/Kiev",
+        }
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize("asynchronous", [False, True])
+@pytest.mark.parametrize("endpoint", ["feed", "domains"])
+async def test_analytics_decode_failure_preserves_missing_field(
+    asynchronous: bool, endpoint: str
+) -> None:
+    payload = dict(ANALYTICS[f"{endpoint}_first"])
+    del payload["start"]
+    async with mocked_client(
+        asynchronous, [httpx.Response(200, json=payload, headers={"X-Request-ID": "analytics"})]
+    ) as (client, requests):
+        with pytest.raises(ApiError) as captured:
+            await result(getattr(client.analytics, f"list_{endpoint}")())
+        error = captured.value
+        assert str(error) == "Unable to decode the ProxyRequest HTTP 200 response."
+        assert error.status_code == 200
+        assert error.kind == ErrorKind.UNEXPECTED
+        assert isinstance(error.__cause__, KeyError)
+        assert error.__cause__.args == ("start",)
+        assert json.loads(error.raw_body) == payload
+        assert error.request_id == "analytics"
+        assert len(requests) == 1
 
 
 @pytest.mark.asyncio

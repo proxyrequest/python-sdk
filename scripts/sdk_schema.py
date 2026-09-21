@@ -13,6 +13,33 @@ HTTP_METHODS = {"get", "post", "put", "patch", "delete", "head", "options", "tra
 def sdk_schema(source: dict[str, Any]) -> dict[str, Any]:
     """Project the canonical schema without mutating the upstream snapshot."""
     document = copy.deepcopy(source)
+    for path, item in document.get("paths", {}).items():
+        if not path.startswith("/analytics/"):
+            continue
+        operation = item.get("get", {})
+        parameters = operation.get("parameters", [])
+        for parameter in parameters:
+            if parameter.get("in") == "query" and parameter.get("name") in {"start", "end"}:
+                # Keep datetime callers working while accepting every server date format.
+                parameter["schema"] = {
+                    "anyOf": [
+                        {"type": "string", "format": "date-time"},
+                        {"type": "string"},
+                        {"type": "integer"},
+                        {"type": "number"},
+                    ]
+                }
+        if operation.get("operationId") == "analytics_logs_retrieve":
+            parameters.append(
+                {
+                    "in": "query",
+                    "name": "hostname",
+                    "schema": {"type": "string"},
+                    "deprecated": True,
+                    "description": "Compatibility parameter; ignored by the server.",
+                }
+            )
+            parameters.sort(key=lambda parameter: parameter["name"])
     seen: set[str] = set()
     for path, item in list(document.get("paths", {}).items()):
         for method, operation in list(item.items()):

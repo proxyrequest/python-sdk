@@ -78,3 +78,41 @@ reauthenticate explicitly rather than retrying security mutations automatically.
 The compatibility suite covers sync/async clients with real serializer fixtures,
 OTP challenges, nullable and variable responses, and decoding/HTTP failures. No
 production mutations are used. See [audit and resolution status](SDK-AUDIT.md).
+
+## Analytics decoding diagnostics
+
+`analytics.list_feed()` returns `FeedResponse` with `count`, `next`, `previous`,
+`timezone`, `start`, `end`, and `results`. `analytics.list_domains()` returns
+`DomainsResponse` without a total `count`. Feed records support empty identifier
+strings and a null `timestamp`. Both endpoints use `limit`/`offset`; an integration
+that exposes `page`/`page_size` should translate them to
+`limit=page_size, offset=(page-1)*page_size`.
+
+`Unable to decode the ProxyRequest HTTP 200 response.` means that the SDK received
+HTTP 200 but could not parse the JSON or construct the response model. The message
+alone does not identify the cause. Capture the original exception and request ID:
+
+```python
+from importlib.metadata import version
+
+from proxyrequest_sdk import ApiError
+
+try:
+    page = client.analytics.list_feed(limit=20, offset=0)
+except ApiError as error:
+    print("SDK:", version("proxyrequest-sdk"))
+    print("HTTP:", error.status_code, "request:", error.request_id)
+    print("Decoder:", repr(error.__cause__))
+    raise
+```
+
+For example, a missing required field produces `KeyError('field_name')`;
+non-JSON response content produces `JSONDecodeError`. `error.raw_body` contains
+the original bytes for local inspection. Redact customer data before sharing it.
+The same diagnostics apply to `AsyncClient` and `*_with_response` calls.
+
+The analytics regression fixtures were rendered by the backend with synthetic
+ClickHouse rows; see [fixture provenance](../tests/fixtures/analytics-responses.md).
+They cover empty pages, nullable timestamps, timezone offsets, pagination without
+a total count, and the reported `Europe/Kiev` date window. Passing these tests does
+not establish the shape of a particular deployed server's response.

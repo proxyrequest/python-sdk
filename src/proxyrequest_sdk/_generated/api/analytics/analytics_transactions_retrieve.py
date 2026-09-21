@@ -35,12 +35,12 @@ import datetime
 def _get_kwargs(
     id: str,
     *,
-    end: datetime.datetime | Unset = UNSET,
+    end: datetime.datetime | float | int | str | Unset = UNSET,
     limit: int | Unset = UNSET,
     offset: int | Unset = UNSET,
     recipient_id: UUID | Unset = UNSET,
     sender_id: UUID | Unset = UNSET,
-    start: datetime.datetime | Unset = UNSET,
+    start: datetime.datetime | float | int | str | Unset = UNSET,
     timezone: str | Unset = UNSET,
     type_: int | Unset = UNSET,
     accept_language: str | Unset = UNSET,
@@ -51,9 +51,13 @@ def _get_kwargs(
 
     params: dict[str, Any] = {}
 
-    json_end: str | Unset = UNSET
-    if not isinstance(end, Unset):
+    json_end: float | int | str | Unset
+    if isinstance(end, Unset):
+        json_end = UNSET
+    elif isinstance(end, datetime.datetime):
         json_end = end.isoformat()
+    else:
+        json_end = end
     params["end"] = json_end
 
     params["limit"] = limit
@@ -70,9 +74,13 @@ def _get_kwargs(
         json_sender_id = str(sender_id)
     params["sender_id"] = json_sender_id
 
-    json_start: str | Unset = UNSET
-    if not isinstance(start, Unset):
+    json_start: float | int | str | Unset
+    if isinstance(start, Unset):
+        json_start = UNSET
+    elif isinstance(start, datetime.datetime):
         json_start = start.isoformat()
+    else:
+        json_start = start
     params["start"] = json_start
 
     params["timezone"] = timezone
@@ -163,12 +171,12 @@ def sync_detailed(
     id: str,
     *,
     client: AuthenticatedClient,
-    end: datetime.datetime | Unset = UNSET,
+    end: datetime.datetime | float | int | str | Unset = UNSET,
     limit: int | Unset = UNSET,
     offset: int | Unset = UNSET,
     recipient_id: UUID | Unset = UNSET,
     sender_id: UUID | Unset = UNSET,
-    start: datetime.datetime | Unset = UNSET,
+    start: datetime.datetime | float | int | str | Unset = UNSET,
     timezone: str | Unset = UNSET,
     type_: int | Unset = UNSET,
     accept_language: str | Unset = UNSET,
@@ -187,12 +195,12 @@ def sync_detailed(
 
     Args:
         id (str):
-        end (datetime.datetime | Unset):
+        end (datetime.datetime | float | int | str | Unset):
         limit (int | Unset):
         offset (int | Unset):
         recipient_id (UUID | Unset):
         sender_id (UUID | Unset):
-        start (datetime.datetime | Unset):
+        start (datetime.datetime | float | int | str | Unset):
         timezone (str | Unset):
         type_ (int | Unset):
         accept_language (str | Unset):  Defaults to the client language.
@@ -229,12 +237,12 @@ def sync(
     id: str,
     *,
     client: AuthenticatedClient,
-    end: datetime.datetime | Unset = UNSET,
+    end: datetime.datetime | float | int | str | Unset = UNSET,
     limit: int | Unset = UNSET,
     offset: int | Unset = UNSET,
     recipient_id: UUID | Unset = UNSET,
     sender_id: UUID | Unset = UNSET,
-    start: datetime.datetime | Unset = UNSET,
+    start: datetime.datetime | float | int | str | Unset = UNSET,
     timezone: str | Unset = UNSET,
     type_: int | Unset = UNSET,
     accept_language: str | Unset = UNSET,
@@ -254,12 +262,12 @@ def sync(
 
     Args:
         id (str):
-        end (datetime.datetime | Unset):
+        end (datetime.datetime | float | int | str | Unset):
         limit (int | Unset):
         offset (int | Unset):
         recipient_id (UUID | Unset):
         sender_id (UUID | Unset):
-        start (datetime.datetime | Unset):
+        start (datetime.datetime | float | int | str | Unset):
         timezone (str | Unset):
         type_ (int | Unset):
         accept_language (str | Unset):  Defaults to the client language.
@@ -291,12 +299,12 @@ async def asyncio_detailed(
     id: str,
     *,
     client: AuthenticatedClient,
-    end: datetime.datetime | Unset = UNSET,
+    end: datetime.datetime | float | int | str | Unset = UNSET,
     limit: int | Unset = UNSET,
     offset: int | Unset = UNSET,
     recipient_id: UUID | Unset = UNSET,
     sender_id: UUID | Unset = UNSET,
-    start: datetime.datetime | Unset = UNSET,
+    start: datetime.datetime | float | int | str | Unset = UNSET,
     timezone: str | Unset = UNSET,
     type_: int | Unset = UNSET,
     accept_language: str | Unset = UNSET,
@@ -315,12 +323,12 @@ async def asyncio_detailed(
 
     Args:
         id (str):
-        end (datetime.datetime | Unset):
+        end (datetime.datetime | float | int | str | Unset):
         limit (int | Unset):
         offset (int | Unset):
         recipient_id (UUID | Unset):
         sender_id (UUID | Unset):
-        start (datetime.datetime | Unset):
+        start (datetime.datetime | float | int | str | Unset):
         timezone (str | Unset):
         type_ (int | Unset):
         accept_language (str | Unset):  Defaults to the client language.
@@ -355,12 +363,12 @@ async def asyncio(
     id: str,
     *,
     client: AuthenticatedClient,
-    end: datetime.datetime | Unset = UNSET,
+    end: datetime.datetime | float | int | str | Unset = UNSET,
     limit: int | Unset = UNSET,
     offset: int | Unset = UNSET,
     recipient_id: UUID | Unset = UNSET,
     sender_id: UUID | Unset = UNSET,
-    start: datetime.datetime | Unset = UNSET,
+    start: datetime.datetime | float | int | str | Unset = UNSET,
     timezone: str | Unset = UNSET,
     type_: int | Unset = UNSET,
     accept_language: str | Unset = UNSET,
@@ -380,12 +388,12 @@ async def asyncio(
 
     Args:
         id (str):
-        end (datetime.datetime | Unset):
+        end (datetime.datetime | float | int | str | Unset):
         limit (int | Unset):
         offset (int | Unset):
         recipient_id (UUID | Unset):
         sender_id (UUID | Unset):
-        start (datetime.datetime | Unset):
+        start (datetime.datetime | float | int | str | Unset):
         timezone (str | Unset):
         type_ (int | Unset):
         accept_language (str | Unset):  Defaults to the client language.

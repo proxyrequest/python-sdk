@@ -4,6 +4,13 @@ All notable changes to the ProxyRequest Python SDK are documented here.
 
 ## Unreleased
 
+## 2.2.0 - 2026-09-21
+
+- Synchronize the public OpenAPI contract from backend commit `2c4505a`.
+- Accept Unix seconds and all documented date strings while preserving existing date inputs.
+- Keep the legacy logs hostname argument and existing response contracts.
+- Cover feed/domains pagination, nullable feed timestamps, and UInt64 IDs with regression tests.
+
 ## 2.1.0 - 2026-09-17
 
 - Add atomic per-package data reset with typed requests, response metadata, and idempotent retries.

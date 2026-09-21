@@ -26,7 +26,7 @@ def _get_kwargs(
     *,
     city: str | Unset = UNSET,
     country: str | Unset = UNSET,
-    end: datetime.datetime | Unset = UNSET,
+    end: datetime.datetime | float | int | str | Unset = UNSET,
     hostname: str | Unset = UNSET,
     ledger_id: UUID | Unset = UNSET,
     limit: int | Unset = UNSET,
@@ -35,7 +35,7 @@ def _get_kwargs(
     protocol: AnalyticsFeedRetrieveProtocol | Unset = UNSET,
     region: str | Unset = UNSET,
     search: str | Unset = UNSET,
-    start: datetime.datetime | Unset = UNSET,
+    start: datetime.datetime | float | int | str | Unset = UNSET,
     timezone: str | Unset = UNSET,
     user_id: UUID | Unset = UNSET,
     accept_language: str | Unset = UNSET,
@@ -50,9 +50,13 @@ def _get_kwargs(
 
     params["country"] = country
 
-    json_end: str | Unset = UNSET
-    if not isinstance(end, Unset):
+    json_end: float | int | str | Unset
+    if isinstance(end, Unset):
+        json_end = UNSET
+    elif isinstance(end, datetime.datetime):
         json_end = end.isoformat()
+    else:
+        json_end = end
     params["end"] = json_end
 
     params["hostname"] = hostname
@@ -81,9 +85,13 @@ def _get_kwargs(
 
     params["search"] = search
 
-    json_start: str | Unset = UNSET
-    if not isinstance(start, Unset):
+    json_start: float | int | str | Unset
+    if isinstance(start, Unset):
+        json_start = UNSET
+    elif isinstance(start, datetime.datetime):
         json_start = start.isoformat()
+    else:
+        json_start = start
     params["start"] = json_start
 
     params["timezone"] = timezone
@@ -169,7 +177,7 @@ def sync_detailed(
     client: AuthenticatedClient,
     city: str | Unset = UNSET,
     country: str | Unset = UNSET,
-    end: datetime.datetime | Unset = UNSET,
+    end: datetime.datetime | float | int | str | Unset = UNSET,
     hostname: str | Unset = UNSET,
     ledger_id: UUID | Unset = UNSET,
     limit: int | Unset = UNSET,
@@ -178,7 +186,7 @@ def sync_detailed(
     protocol: AnalyticsFeedRetrieveProtocol | Unset = UNSET,
     region: str | Unset = UNSET,
     search: str | Unset = UNSET,
-    start: datetime.datetime | Unset = UNSET,
+    start: datetime.datetime | float | int | str | Unset = UNSET,
     timezone: str | Unset = UNSET,
     user_id: UUID | Unset = UNSET,
     accept_language: str | Unset = UNSET,
@@ -197,7 +205,7 @@ def sync_detailed(
     Args:
         city (str | Unset):
         country (str | Unset):
-        end (datetime.datetime | Unset):
+        end (datetime.datetime | float | int | str | Unset):
         hostname (str | Unset):
         ledger_id (UUID | Unset):
         limit (int | Unset):
@@ -206,7 +214,7 @@ def sync_detailed(
         protocol (AnalyticsFeedRetrieveProtocol | Unset):
         region (str | Unset):
         search (str | Unset):
-        start (datetime.datetime | Unset):
+        start (datetime.datetime | float | int | str | Unset):
         timezone (str | Unset):
         user_id (UUID | Unset):
         accept_language (str | Unset):  Defaults to the client language.
@@ -249,7 +257,7 @@ def sync(
     client: AuthenticatedClient,
     city: str | Unset = UNSET,
     country: str | Unset = UNSET,
-    end: datetime.datetime | Unset = UNSET,
+    end: datetime.datetime | float | int | str | Unset = UNSET,
     hostname: str | Unset = UNSET,
     ledger_id: UUID | Unset = UNSET,
     limit: int | Unset = UNSET,
@@ -258,7 +266,7 @@ def sync(
     protocol: AnalyticsFeedRetrieveProtocol | Unset = UNSET,
     region: str | Unset = UNSET,
     search: str | Unset = UNSET,
-    start: datetime.datetime | Unset = UNSET,
+    start: datetime.datetime | float | int | str | Unset = UNSET,
     timezone: str | Unset = UNSET,
     user_id: UUID | Unset = UNSET,
     accept_language: str | Unset = UNSET,
@@ -278,7 +286,7 @@ def sync(
     Args:
         city (str | Unset):
         country (str | Unset):
-        end (datetime.datetime | Unset):
+        end (datetime.datetime | float | int | str | Unset):
         hostname (str | Unset):
         ledger_id (UUID | Unset):
         limit (int | Unset):
@@ -287,7 +295,7 @@ def sync(
         protocol (AnalyticsFeedRetrieveProtocol | Unset):
         region (str | Unset):
         search (str | Unset):
-        start (datetime.datetime | Unset):
+        start (datetime.datetime | float | int | str | Unset):
         timezone (str | Unset):
         user_id (UUID | Unset):
         accept_language (str | Unset):  Defaults to the client language.
@@ -325,7 +333,7 @@ async def asyncio_detailed(
     client: AuthenticatedClient,
     city: str | Unset = UNSET,
     country: str | Unset = UNSET,
-    end: datetime.datetime | Unset = UNSET,
+    end: datetime.datetime | float | int | str | Unset = UNSET,
     hostname: str | Unset = UNSET,
     ledger_id: UUID | Unset = UNSET,
     limit: int | Unset = UNSET,
@@ -334,7 +342,7 @@ async def asyncio_detailed(
     protocol: AnalyticsFeedRetrieveProtocol | Unset = UNSET,
     region: str | Unset = UNSET,
     search: str | Unset = UNSET,
-    start: datetime.datetime | Unset = UNSET,
+    start: datetime.datetime | float | int | str | Unset = UNSET,
     timezone: str | Unset = UNSET,
     user_id: UUID | Unset = UNSET,
     accept_language: str | Unset = UNSET,
@@ -353,7 +361,7 @@ async def asyncio_detailed(
     Args:
         city (str | Unset):
         country (str | Unset):
-        end (datetime.datetime | Unset):
+        end (datetime.datetime | float | int | str | Unset):
         hostname (str | Unset):
         ledger_id (UUID | Unset):
         limit (int | Unset):
@@ -362,7 +370,7 @@ async def asyncio_detailed(
         protocol (AnalyticsFeedRetrieveProtocol | Unset):
         region (str | Unset):
         search (str | Unset):
-        start (datetime.datetime | Unset):
+        start (datetime.datetime | float | int | str | Unset):
         timezone (str | Unset):
         user_id (UUID | Unset):
         accept_language (str | Unset):  Defaults to the client language.
@@ -403,7 +411,7 @@ async def asyncio(
     client: AuthenticatedClient,
     city: str | Unset = UNSET,
     country: str | Unset = UNSET,
-    end: datetime.datetime | Unset = UNSET,
+    end: datetime.datetime | float | int | str | Unset = UNSET,
     hostname: str | Unset = UNSET,
     ledger_id: UUID | Unset = UNSET,
     limit: int | Unset = UNSET,
@@ -412,7 +420,7 @@ async def asyncio(
     protocol: AnalyticsFeedRetrieveProtocol | Unset = UNSET,
     region: str | Unset = UNSET,
     search: str | Unset = UNSET,
-    start: datetime.datetime | Unset = UNSET,
+    start: datetime.datetime | float | int | str | Unset = UNSET,
     timezone: str | Unset = UNSET,
     user_id: UUID | Unset = UNSET,
     accept_language: str | Unset = UNSET,
@@ -432,7 +440,7 @@ async def asyncio(
     Args:
         city (str | Unset):
         country (str | Unset):
-        end (datetime.datetime | Unset):
+        end (datetime.datetime | float | int | str | Unset):
         hostname (str | Unset):
         ledger_id (UUID | Unset):
         limit (int | Unset):
@@ -441,7 +449,7 @@ async def asyncio(
         protocol (AnalyticsFeedRetrieveProtocol | Unset):
         region (str | Unset):
         search (str | Unset):
-        start (datetime.datetime | Unset):
+        start (datetime.datetime | float | int | str | Unset):
         timezone (str | Unset):
         user_id (UUID | Unset):
         accept_language (str | Unset):  Defaults to the client language.

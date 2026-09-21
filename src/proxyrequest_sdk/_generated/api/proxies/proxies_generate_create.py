@@ -117,7 +117,9 @@ def sync_detailed(
 
      Creates ready-to-use proxy credentials for a purchased package. Use targeting to choose a location
     or provider scope, connection to choose protocol and output format, and session to control sticky
-    session lifetime.
+    session lifetime. Omit connection.host to choose one random eligible gateway for the entire request.
+    The default port comes from that gateway's cluster. Targeting location does not select the entry
+    gateway's region. Explicit host and port remain supported for custom endpoints.
 
     Args:
         accept_language (str | Unset):  Defaults to the client language.
@@ -161,7 +163,9 @@ def sync(
 
      Creates ready-to-use proxy credentials for a purchased package. Use targeting to choose a location
     or provider scope, connection to choose protocol and output format, and session to control sticky
-    session lifetime.
+    session lifetime. Omit connection.host to choose one random eligible gateway for the entire request.
+    The default port comes from that gateway's cluster. Targeting location does not select the entry
+    gateway's region. Explicit host and port remain supported for custom endpoints.
 
     Args:
         accept_language (str | Unset):  Defaults to the client language.
@@ -199,7 +203,9 @@ async def asyncio_detailed(
 
      Creates ready-to-use proxy credentials for a purchased package. Use targeting to choose a location
     or provider scope, connection to choose protocol and output format, and session to control sticky
-    session lifetime.
+    session lifetime. Omit connection.host to choose one random eligible gateway for the entire request.
+    The default port comes from that gateway's cluster. Targeting location does not select the entry
+    gateway's region. Explicit host and port remain supported for custom endpoints.
 
     Args:
         accept_language (str | Unset):  Defaults to the client language.
@@ -241,7 +247,9 @@ async def asyncio(
 
      Creates ready-to-use proxy credentials for a purchased package. Use targeting to choose a location
     or provider scope, connection to choose protocol and output format, and session to control sticky
-    session lifetime.
+    session lifetime. Omit connection.host to choose one random eligible gateway for the entire request.
+    The default port comes from that gateway's cluster. Targeting location does not select the entry
+    gateway's region. Explicit host and port remain supported for custom endpoints.
 
     Args:
         accept_language (str | Unset):  Defaults to the client language.

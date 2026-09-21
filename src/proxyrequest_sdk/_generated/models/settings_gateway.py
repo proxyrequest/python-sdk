@@ -21,7 +21,9 @@ class SettingsGateway:
     name: str
     region: str
     hostname: str
+    """ Cluster gateway domain, or a server IP when no domain is configured. """
     hostnames: list[str]
+    """ The cluster domain, or unique server IPs when no domain is configured. """
     port_http: int
     port_socks5: int
     port_auto: int
