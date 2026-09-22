@@ -870,7 +870,7 @@ wheels = [
 
 [[package]]
 name = "proxyrequest-sdk"
-version = "2.2.0"
+version = "4.0.0"
 source = { editable = "." }
 dependencies = [
     { name = "attrs" },

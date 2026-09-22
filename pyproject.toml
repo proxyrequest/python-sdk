@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "proxyrequest-sdk"
-version = "2.2.0"
+version = "4.0.0"
 description = "Official sync and async Python SDK for the ProxyRequest public API."
 readme = "README.md"
 requires-python = ">=3.11"

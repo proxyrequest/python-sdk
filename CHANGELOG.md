@@ -4,6 +4,14 @@ All notable changes to the ProxyRequest Python SDK are documented here.
 
 ## Unreleased
 
+## 4.0.0 - 2026-09-22
+
+- **Breaking:** replace empty inline nested response classes with the concrete public models used by the API contract.
+- Type order packages as `PackageShort`, order ledgers as `DataLedger`, coupon packages and stats as `PackageShort` and `CouponStats`, and user coupons and currency as `CouponShort` and `UserCurrency`.
+- Render true arbitrary JSON objects as mappings in the generated SDK Reference.
+- Regenerate the SDK Reference from backend contract commit `a2d7245`, including expandable nested model fields.
+- Start the synchronized JavaScript, Python, and PHP SDK release train at version 4.0.0.
+
 ## 2.2.0 - 2026-09-21
 
 - Synchronize the public OpenAPI contract from backend commit `2c4505a`.
