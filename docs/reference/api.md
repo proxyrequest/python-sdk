@@ -115,6 +115,12 @@ All methods exist on both `Client` and `AsyncClient`; async calls must be awaite
 | `setup_two_factor()` | `POST /profile/2fa/setup` | `TwoFactorSetupResponse` |
 | `update()` | `PATCH /profile` | `User` |
 
+## `providers`
+
+| Method | HTTP endpoint | Returns |
+| --- | --- | --- |
+| `list_data_balances()` | `GET /providers/data-balances` | `PaginatedProviderDataBalanceList` |
+
 ## `proxies`
 
 | Method | HTTP endpoint | Returns |

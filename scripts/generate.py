@@ -214,6 +214,11 @@ def postprocess_generated(generated: Path) -> None:
             r"\1UNSET",
             source,
         )
+        source = re.sub(
+            r"(include_asns:\s*bool\s*\|\s*Unset\s*=\s*)False",
+            r"\1UNSET",
+            source,
+        )
         source = source.replace("Default: 'en'.", "Defaults to the client language.")
         source = make_enums_forward_compatible(source)
         if path.parent.parent.name == "api" and "def _build_response(" in source:
@@ -595,7 +600,7 @@ def generate_reference(
         if "language" in lower:
             return "en"
         if lower == "data" or lower.endswith("_bytes"):
-            return 1073741824
+            return "1073741824" if value.get("type") == "string" else 1073741824
         if value.get("type") in {"integer", "number"}:
             return value.get("minimum", 1)
         if value.get("type") == "boolean":

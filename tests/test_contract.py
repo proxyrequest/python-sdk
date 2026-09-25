@@ -138,7 +138,7 @@ def test_generated_reference_covers_public_operations_and_examples_parse() -> No
         manifest["sdk"]["openapi"]["excludedOperations"]
     )
     assert manifest["schemaVersion"] == 3
-    assert manifest["sdk"]["version"] == "4.0.0"
+    assert manifest["sdk"]["version"] == "4.1.0"
     assert len(methods) == expected
     assert len({method["operationId"] for method in methods}) == len(methods)
     assert len(manifest["models"]) > 100

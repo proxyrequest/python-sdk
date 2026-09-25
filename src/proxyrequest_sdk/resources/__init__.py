@@ -21,6 +21,8 @@ from .packages import PackagesResource
 from .packages import AsyncPackagesResource
 from .profile import ProfileResource
 from .profile import AsyncProfileResource
+from .providers import ProvidersResource
+from .providers import AsyncProvidersResource
 from .proxies import ProxiesResource
 from .proxies import AsyncProxiesResource
 from .rewards import RewardsResource
@@ -57,6 +59,8 @@ __all__ = [
     "AsyncPackagesResource",
     "ProfileResource",
     "AsyncProfileResource",
+    "ProvidersResource",
+    "AsyncProvidersResource",
     "ProxiesResource",
     "AsyncProxiesResource",
     "RewardsResource",

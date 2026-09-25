@@ -5,7 +5,7 @@
 [![Python](https://img.shields.io/pypi/pyversions/proxyrequest-sdk.svg?cacheSeconds=300)](https://pypi.org/project/proxyrequest-sdk/)
 
 Official synchronous and asynchronous Python client for the
-[ProxyRequest](https://proxyrequest.com/) public API. It covers 80 supported operations
+[ProxyRequest](https://proxyrequest.com/) public API. It covers 81 supported operations
 in the current contract: users, orders, proxy generation, analytics, invoices,
 packages, locations, webhooks, API keys, Telegram integration, and more.
 
@@ -123,8 +123,8 @@ async def list_users() -> None:
 
 ## Resource API
 
-`Client` and `AsyncClient` expose 17 API groups. The pinned public schema contains
-82 operations; disabled `sessions_list` and `sessions_destroy` operations are
+`Client` and `AsyncClient` expose 18 API groups. The pinned public schema contains
+83 operations; disabled `sessions_list` and `sessions_destroy` operations are
 intentionally excluded. Sticky session options in proxy generation remain supported.
 
 See [backend compatibility and MFA](docs/backend-compatibility.md) for updated
@@ -135,6 +135,7 @@ client.authorization
 client.users
 client.profile
 client.orders
+client.providers
 client.proxies
 client.analytics
 client.invoices
@@ -153,7 +154,7 @@ client.news
 All operation parameters and return values are typed. Request and response
 models live in `proxyrequest_sdk.models`, use snake_case attributes, and expose
 `to_dict()` / `from_dict()` helpers. IDs follow their OpenAPI type (`UUID` or
-opaque `str`), and all byte amounts are Python integers.
+opaque `str`). Provider balance byte amounts are decimal strings; other byte amounts are Python integers.
 
 See the generated [API resource reference](https://github.com/proxyrequest/python-sdk/blob/main/docs/reference/api.md)
 and [model reference](https://github.com/proxyrequest/python-sdk/blob/main/docs/reference/models.md).
@@ -325,3 +326,17 @@ Send only `package_id`, without `data`. A system administrator can reset any use
 Persist one operation ID and reuse it when retrying the same reset, including after a process restart. This prevents a repeated request from clearing a later top-up. Use subtraction when an explicit amount should be removed from a child quota. The backend must support the reset endpoint before calling it.
 
 Version 2.1 retains legacy user and invoice models from 2.0 for compatibility with older deployments. These compatibility types do not change the current public API contract.
+
+## Provider data balances
+
+Available since 4.1.0. Authenticate with a superuser JWT or an API key owned by an active superuser.
+
+```python
+page = client.providers.list_data_balances(limit=20)
+for balance in page.results:
+    print(balance.provider_name, balance.remaining_bytes, balance.history)
+```
+
+Provider byte amounts are exact decimal **strings**, including history entries; calculated usage and remaining amounts can be `null`. The response includes observation and calculation times, freshness, errors, and recent checkpoint history. History is limited by the server's `PROVIDER_DATA_BALANCE_HISTORY_LIMIT` setting (default 10). Standard pagination applies to providers.
+
+Country, region, and city methods also support `include_asns`. Set it to `true` to populate nested ASN arrays; omitted or false uses the API's empty-array default.

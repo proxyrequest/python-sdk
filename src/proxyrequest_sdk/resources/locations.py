@@ -36,20 +36,33 @@ class LocationsResource:
     def __init__(self, client: Any) -> None:
         self._client = client
 
-    def get_city(self, id: str, *, package_id: UUID, accept_language: str | Unset = UNSET) -> City:
+    def get_city(
+        self,
+        id: str,
+        *,
+        include_asns: bool | Unset = UNSET,
+        package_id: UUID,
+        accept_language: str | Unset = UNSET,
+    ) -> City:
         """Get a city"""
         return cast(
             City,
             self._client._call(
                 _locations_cities_retrieve.sync_detailed,
                 id=id,
+                include_asns=include_asns,
                 package_id=package_id,
                 accept_language=accept_language,
             ),
         )
 
     def get_city_with_response(
-        self, id: str, *, package_id: UUID, accept_language: str | Unset = UNSET
+        self,
+        id: str,
+        *,
+        include_asns: bool | Unset = UNSET,
+        package_id: UUID,
+        accept_language: str | Unset = UNSET,
     ) -> ApiResponse[City]:
         """Get a city; include response metadata."""
         return cast(
@@ -57,6 +70,7 @@ class LocationsResource:
             self._client._call_with_response(
                 _locations_cities_retrieve.sync_detailed,
                 id=id,
+                include_asns=include_asns,
                 package_id=package_id,
                 accept_language=accept_language,
             ),
@@ -91,7 +105,12 @@ class LocationsResource:
         )
 
     def get_country(
-        self, id: str, *, package_id: UUID, accept_language: str | Unset = UNSET
+        self,
+        id: str,
+        *,
+        include_asns: bool | Unset = UNSET,
+        package_id: UUID,
+        accept_language: str | Unset = UNSET,
     ) -> Country:
         """Get a country"""
         return cast(
@@ -99,13 +118,19 @@ class LocationsResource:
             self._client._call(
                 _locations_countries_retrieve.sync_detailed,
                 id=id,
+                include_asns=include_asns,
                 package_id=package_id,
                 accept_language=accept_language,
             ),
         )
 
     def get_country_with_response(
-        self, id: str, *, package_id: UUID, accept_language: str | Unset = UNSET
+        self,
+        id: str,
+        *,
+        include_asns: bool | Unset = UNSET,
+        package_id: UUID,
+        accept_language: str | Unset = UNSET,
     ) -> ApiResponse[Country]:
         """Get a country; include response metadata."""
         return cast(
@@ -113,13 +138,19 @@ class LocationsResource:
             self._client._call_with_response(
                 _locations_countries_retrieve.sync_detailed,
                 id=id,
+                include_asns=include_asns,
                 package_id=package_id,
                 accept_language=accept_language,
             ),
         )
 
     def get_region(
-        self, id: str, *, package_id: UUID, accept_language: str | Unset = UNSET
+        self,
+        id: str,
+        *,
+        include_asns: bool | Unset = UNSET,
+        package_id: UUID,
+        accept_language: str | Unset = UNSET,
     ) -> Region:
         """Get a region"""
         return cast(
@@ -127,13 +158,19 @@ class LocationsResource:
             self._client._call(
                 _locations_regions_retrieve.sync_detailed,
                 id=id,
+                include_asns=include_asns,
                 package_id=package_id,
                 accept_language=accept_language,
             ),
         )
 
     def get_region_with_response(
-        self, id: str, *, package_id: UUID, accept_language: str | Unset = UNSET
+        self,
+        id: str,
+        *,
+        include_asns: bool | Unset = UNSET,
+        package_id: UUID,
+        accept_language: str | Unset = UNSET,
     ) -> ApiResponse[Region]:
         """Get a region; include response metadata."""
         return cast(
@@ -141,6 +178,7 @@ class LocationsResource:
             self._client._call_with_response(
                 _locations_regions_retrieve.sync_detailed,
                 id=id,
+                include_asns=include_asns,
                 package_id=package_id,
                 accept_language=accept_language,
             ),
@@ -215,6 +253,7 @@ class LocationsResource:
         *,
         code: str | Unset = UNSET,
         country_code: str | Unset = UNSET,
+        include_asns: bool | Unset = UNSET,
         limit: int | Unset = UNSET,
         name: str | Unset = UNSET,
         offset: int | Unset = UNSET,
@@ -231,6 +270,7 @@ class LocationsResource:
                 _locations_cities_list.sync_detailed,
                 code=code,
                 country_code=country_code,
+                include_asns=include_asns,
                 limit=limit,
                 name=name,
                 offset=offset,
@@ -247,6 +287,7 @@ class LocationsResource:
         *,
         code: str | Unset = UNSET,
         country_code: str | Unset = UNSET,
+        include_asns: bool | Unset = UNSET,
         limit: int | Unset = UNSET,
         name: str | Unset = UNSET,
         offset: int | Unset = UNSET,
@@ -263,6 +304,7 @@ class LocationsResource:
                 _locations_cities_list.sync_detailed,
                 code=code,
                 country_code=country_code,
+                include_asns=include_asns,
                 limit=limit,
                 name=name,
                 offset=offset,
@@ -334,6 +376,7 @@ class LocationsResource:
         self,
         *,
         code: str | Unset = UNSET,
+        include_asns: bool | Unset = UNSET,
         limit: int | Unset = UNSET,
         name: str | Unset = UNSET,
         offset: int | Unset = UNSET,
@@ -348,6 +391,7 @@ class LocationsResource:
             self._client._call(
                 _locations_countries_list.sync_detailed,
                 code=code,
+                include_asns=include_asns,
                 limit=limit,
                 name=name,
                 offset=offset,
@@ -362,6 +406,7 @@ class LocationsResource:
         self,
         *,
         code: str | Unset = UNSET,
+        include_asns: bool | Unset = UNSET,
         limit: int | Unset = UNSET,
         name: str | Unset = UNSET,
         offset: int | Unset = UNSET,
@@ -376,6 +421,7 @@ class LocationsResource:
             self._client._call_with_response(
                 _locations_countries_list.sync_detailed,
                 code=code,
+                include_asns=include_asns,
                 limit=limit,
                 name=name,
                 offset=offset,
@@ -451,6 +497,7 @@ class LocationsResource:
         *,
         code: str | Unset = UNSET,
         country_code: str | Unset = UNSET,
+        include_asns: bool | Unset = UNSET,
         limit: int | Unset = UNSET,
         name: str | Unset = UNSET,
         offset: int | Unset = UNSET,
@@ -466,6 +513,7 @@ class LocationsResource:
                 _locations_regions_list.sync_detailed,
                 code=code,
                 country_code=country_code,
+                include_asns=include_asns,
                 limit=limit,
                 name=name,
                 offset=offset,
@@ -481,6 +529,7 @@ class LocationsResource:
         *,
         code: str | Unset = UNSET,
         country_code: str | Unset = UNSET,
+        include_asns: bool | Unset = UNSET,
         limit: int | Unset = UNSET,
         name: str | Unset = UNSET,
         offset: int | Unset = UNSET,
@@ -496,6 +545,7 @@ class LocationsResource:
                 _locations_regions_list.sync_detailed,
                 code=code,
                 country_code=country_code,
+                include_asns=include_asns,
                 limit=limit,
                 name=name,
                 offset=offset,
@@ -512,7 +562,12 @@ class AsyncLocationsResource:
         self._client = client
 
     async def get_city(
-        self, id: str, *, package_id: UUID, accept_language: str | Unset = UNSET
+        self,
+        id: str,
+        *,
+        include_asns: bool | Unset = UNSET,
+        package_id: UUID,
+        accept_language: str | Unset = UNSET,
     ) -> City:
         """Get a city"""
         return cast(
@@ -520,13 +575,19 @@ class AsyncLocationsResource:
             await self._client._call(
                 _locations_cities_retrieve.asyncio_detailed,
                 id=id,
+                include_asns=include_asns,
                 package_id=package_id,
                 accept_language=accept_language,
             ),
         )
 
     async def get_city_with_response(
-        self, id: str, *, package_id: UUID, accept_language: str | Unset = UNSET
+        self,
+        id: str,
+        *,
+        include_asns: bool | Unset = UNSET,
+        package_id: UUID,
+        accept_language: str | Unset = UNSET,
     ) -> ApiResponse[City]:
         """Get a city; include response metadata."""
         return cast(
@@ -534,6 +595,7 @@ class AsyncLocationsResource:
             await self._client._call_with_response(
                 _locations_cities_retrieve.asyncio_detailed,
                 id=id,
+                include_asns=include_asns,
                 package_id=package_id,
                 accept_language=accept_language,
             ),
@@ -568,7 +630,12 @@ class AsyncLocationsResource:
         )
 
     async def get_country(
-        self, id: str, *, package_id: UUID, accept_language: str | Unset = UNSET
+        self,
+        id: str,
+        *,
+        include_asns: bool | Unset = UNSET,
+        package_id: UUID,
+        accept_language: str | Unset = UNSET,
     ) -> Country:
         """Get a country"""
         return cast(
@@ -576,13 +643,19 @@ class AsyncLocationsResource:
             await self._client._call(
                 _locations_countries_retrieve.asyncio_detailed,
                 id=id,
+                include_asns=include_asns,
                 package_id=package_id,
                 accept_language=accept_language,
             ),
         )
 
     async def get_country_with_response(
-        self, id: str, *, package_id: UUID, accept_language: str | Unset = UNSET
+        self,
+        id: str,
+        *,
+        include_asns: bool | Unset = UNSET,
+        package_id: UUID,
+        accept_language: str | Unset = UNSET,
     ) -> ApiResponse[Country]:
         """Get a country; include response metadata."""
         return cast(
@@ -590,13 +663,19 @@ class AsyncLocationsResource:
             await self._client._call_with_response(
                 _locations_countries_retrieve.asyncio_detailed,
                 id=id,
+                include_asns=include_asns,
                 package_id=package_id,
                 accept_language=accept_language,
             ),
         )
 
     async def get_region(
-        self, id: str, *, package_id: UUID, accept_language: str | Unset = UNSET
+        self,
+        id: str,
+        *,
+        include_asns: bool | Unset = UNSET,
+        package_id: UUID,
+        accept_language: str | Unset = UNSET,
     ) -> Region:
         """Get a region"""
         return cast(
@@ -604,13 +683,19 @@ class AsyncLocationsResource:
             await self._client._call(
                 _locations_regions_retrieve.asyncio_detailed,
                 id=id,
+                include_asns=include_asns,
                 package_id=package_id,
                 accept_language=accept_language,
             ),
         )
 
     async def get_region_with_response(
-        self, id: str, *, package_id: UUID, accept_language: str | Unset = UNSET
+        self,
+        id: str,
+        *,
+        include_asns: bool | Unset = UNSET,
+        package_id: UUID,
+        accept_language: str | Unset = UNSET,
     ) -> ApiResponse[Region]:
         """Get a region; include response metadata."""
         return cast(
@@ -618,6 +703,7 @@ class AsyncLocationsResource:
             await self._client._call_with_response(
                 _locations_regions_retrieve.asyncio_detailed,
                 id=id,
+                include_asns=include_asns,
                 package_id=package_id,
                 accept_language=accept_language,
             ),
@@ -692,6 +778,7 @@ class AsyncLocationsResource:
         *,
         code: str | Unset = UNSET,
         country_code: str | Unset = UNSET,
+        include_asns: bool | Unset = UNSET,
         limit: int | Unset = UNSET,
         name: str | Unset = UNSET,
         offset: int | Unset = UNSET,
@@ -708,6 +795,7 @@ class AsyncLocationsResource:
                 _locations_cities_list.asyncio_detailed,
                 code=code,
                 country_code=country_code,
+                include_asns=include_asns,
                 limit=limit,
                 name=name,
                 offset=offset,
@@ -724,6 +812,7 @@ class AsyncLocationsResource:
         *,
         code: str | Unset = UNSET,
         country_code: str | Unset = UNSET,
+        include_asns: bool | Unset = UNSET,
         limit: int | Unset = UNSET,
         name: str | Unset = UNSET,
         offset: int | Unset = UNSET,
@@ -740,6 +829,7 @@ class AsyncLocationsResource:
                 _locations_cities_list.asyncio_detailed,
                 code=code,
                 country_code=country_code,
+                include_asns=include_asns,
                 limit=limit,
                 name=name,
                 offset=offset,
@@ -811,6 +901,7 @@ class AsyncLocationsResource:
         self,
         *,
         code: str | Unset = UNSET,
+        include_asns: bool | Unset = UNSET,
         limit: int | Unset = UNSET,
         name: str | Unset = UNSET,
         offset: int | Unset = UNSET,
@@ -825,6 +916,7 @@ class AsyncLocationsResource:
             await self._client._call(
                 _locations_countries_list.asyncio_detailed,
                 code=code,
+                include_asns=include_asns,
                 limit=limit,
                 name=name,
                 offset=offset,
@@ -839,6 +931,7 @@ class AsyncLocationsResource:
         self,
         *,
         code: str | Unset = UNSET,
+        include_asns: bool | Unset = UNSET,
         limit: int | Unset = UNSET,
         name: str | Unset = UNSET,
         offset: int | Unset = UNSET,
@@ -853,6 +946,7 @@ class AsyncLocationsResource:
             await self._client._call_with_response(
                 _locations_countries_list.asyncio_detailed,
                 code=code,
+                include_asns=include_asns,
                 limit=limit,
                 name=name,
                 offset=offset,
@@ -928,6 +1022,7 @@ class AsyncLocationsResource:
         *,
         code: str | Unset = UNSET,
         country_code: str | Unset = UNSET,
+        include_asns: bool | Unset = UNSET,
         limit: int | Unset = UNSET,
         name: str | Unset = UNSET,
         offset: int | Unset = UNSET,
@@ -943,6 +1038,7 @@ class AsyncLocationsResource:
                 _locations_regions_list.asyncio_detailed,
                 code=code,
                 country_code=country_code,
+                include_asns=include_asns,
                 limit=limit,
                 name=name,
                 offset=offset,
@@ -958,6 +1054,7 @@ class AsyncLocationsResource:
         *,
         code: str | Unset = UNSET,
         country_code: str | Unset = UNSET,
+        include_asns: bool | Unset = UNSET,
         limit: int | Unset = UNSET,
         name: str | Unset = UNSET,
         offset: int | Unset = UNSET,
@@ -973,6 +1070,7 @@ class AsyncLocationsResource:
                 _locations_regions_list.asyncio_detailed,
                 code=code,
                 country_code=country_code,
+                include_asns=include_asns,
                 limit=limit,
                 name=name,
                 offset=offset,

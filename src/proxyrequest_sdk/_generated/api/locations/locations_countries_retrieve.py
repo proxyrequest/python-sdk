@@ -31,6 +31,7 @@ from uuid import UUID
 def _get_kwargs(
     id: str,
     *,
+    include_asns: bool | Unset = UNSET,
     package_id: UUID,
     accept_language: str | Unset = UNSET,
 ) -> dict[str, Any]:
@@ -39,6 +40,8 @@ def _get_kwargs(
         headers["Accept-Language"] = accept_language
 
     params: dict[str, Any] = {}
+
+    params["include_asns"] = include_asns
 
     json_package_id = str(package_id)
     params["package_id"] = json_package_id
@@ -120,6 +123,7 @@ def sync_detailed(
     id: str,
     *,
     client: AuthenticatedClient,
+    include_asns: bool | Unset = UNSET,
     package_id: UUID,
     accept_language: str | Unset = UNSET,
 ) -> Response[
@@ -131,10 +135,14 @@ def sync_detailed(
 ]:
     """Get a country
 
-     Returns one country and its available network targeting options.
+     Returns one country and its available network targeting options. The asns field is always present
+    and defaults to an empty array. Pass include_asns=true to include available autonomous system
+    numbers. This option does not affect the standalone /locations/asn endpoint or the compact proxy-
+    node response format.
 
     Args:
         id (str):
+        include_asns (bool | Unset):  Default: False.
         package_id (UUID):
         accept_language (str | Unset):  Defaults to the client language.
 
@@ -148,6 +156,7 @@ def sync_detailed(
 
     kwargs = _get_kwargs(
         id=id,
+        include_asns=include_asns,
         package_id=package_id,
         accept_language=accept_language,
     )
@@ -163,6 +172,7 @@ def sync(
     id: str,
     *,
     client: AuthenticatedClient,
+    include_asns: bool | Unset = UNSET,
     package_id: UUID,
     accept_language: str | Unset = UNSET,
 ) -> (
@@ -175,10 +185,14 @@ def sync(
 ):
     """Get a country
 
-     Returns one country and its available network targeting options.
+     Returns one country and its available network targeting options. The asns field is always present
+    and defaults to an empty array. Pass include_asns=true to include available autonomous system
+    numbers. This option does not affect the standalone /locations/asn endpoint or the compact proxy-
+    node response format.
 
     Args:
         id (str):
+        include_asns (bool | Unset):  Default: False.
         package_id (UUID):
         accept_language (str | Unset):  Defaults to the client language.
 
@@ -193,6 +207,7 @@ def sync(
     return sync_detailed(
         id=id,
         client=client,
+        include_asns=include_asns,
         package_id=package_id,
         accept_language=accept_language,
     ).parsed
@@ -202,6 +217,7 @@ async def asyncio_detailed(
     id: str,
     *,
     client: AuthenticatedClient,
+    include_asns: bool | Unset = UNSET,
     package_id: UUID,
     accept_language: str | Unset = UNSET,
 ) -> Response[
@@ -213,10 +229,14 @@ async def asyncio_detailed(
 ]:
     """Get a country
 
-     Returns one country and its available network targeting options.
+     Returns one country and its available network targeting options. The asns field is always present
+    and defaults to an empty array. Pass include_asns=true to include available autonomous system
+    numbers. This option does not affect the standalone /locations/asn endpoint or the compact proxy-
+    node response format.
 
     Args:
         id (str):
+        include_asns (bool | Unset):  Default: False.
         package_id (UUID):
         accept_language (str | Unset):  Defaults to the client language.
 
@@ -230,6 +250,7 @@ async def asyncio_detailed(
 
     kwargs = _get_kwargs(
         id=id,
+        include_asns=include_asns,
         package_id=package_id,
         accept_language=accept_language,
     )
@@ -243,6 +264,7 @@ async def asyncio(
     id: str,
     *,
     client: AuthenticatedClient,
+    include_asns: bool | Unset = UNSET,
     package_id: UUID,
     accept_language: str | Unset = UNSET,
 ) -> (
@@ -255,10 +277,14 @@ async def asyncio(
 ):
     """Get a country
 
-     Returns one country and its available network targeting options.
+     Returns one country and its available network targeting options. The asns field is always present
+    and defaults to an empty array. Pass include_asns=true to include available autonomous system
+    numbers. This option does not affect the standalone /locations/asn endpoint or the compact proxy-
+    node response format.
 
     Args:
         id (str):
+        include_asns (bool | Unset):  Default: False.
         package_id (UUID):
         accept_language (str | Unset):  Defaults to the client language.
 
@@ -274,6 +300,7 @@ async def asyncio(
         await asyncio_detailed(
             id=id,
             client=client,
+            include_asns=include_asns,
             package_id=package_id,
             accept_language=accept_language,
         )

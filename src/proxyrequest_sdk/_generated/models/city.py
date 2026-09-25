@@ -30,6 +30,9 @@ class City:
     region: LocationRegionSummary
     isps: list[LocationCodeName]
     asns: list[LocationCodeName]
+    """ The asns field is always present and defaults to an empty array. Pass include_asns=true to include available
+    autonomous system numbers. This option does not affect the standalone /locations/asn endpoint or the compact
+    proxy-node response format. """
     id: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 

@@ -29,6 +29,9 @@ class Region:
     country: LocationCountrySummary
     isps: list[LocationCodeName]
     asns: list[LocationCodeName]
+    """ The asns field is always present and defaults to an empty array. Pass include_asns=true to include available
+    autonomous system numbers. This option does not affect the standalone /locations/asn endpoint or the compact
+    proxy-node response format. """
     id: str | Unset = UNSET
     iso31662: str | Unset = UNSET
     """ ISO 3166-2 subdivision code for this region. US-CA FR-IDF """

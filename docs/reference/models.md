@@ -33,6 +33,7 @@ Models use snake_case attributes and provide `to_dict()` / `from_dict()` helpers
 - `EnabledResponse`
 - `FeedRecord`
 - `FeedResponse`
+- `FreshnessEnum` — * `fresh` - fresh * `stale` - stale * `unavailable` - unavailable
 - `GenerateProxyRequest` — Validates proxy generation request data and builds generator config.
 - `GenerateProxyResponse`
 - `GeneratedProxy`
@@ -59,6 +60,7 @@ Models use snake_case attributes and provide `to_dict()` / `from_dict()` helpers
 - `LogsResponse`
 - `MessageResponse`
 - `News`
+- `NullEnum`
 - `OTPChallenge`
 - `Order`
 - `OrderDetailed`
@@ -82,6 +84,7 @@ Models use snake_case attributes and provide `to_dict()` / `from_dict()` helpers
 - `PaginatedOrderList`
 - `PaginatedPackageCommissionList`
 - `PaginatedPackageList`
+- `PaginatedProviderDataBalanceList`
 - `PaginatedRegionList`
 - `PaginatedRewardList`
 - `PaginatedUserList`
@@ -97,6 +100,8 @@ Models use snake_case attributes and provide `to_dict()` / `from_dict()` helpers
 - `PricingEnum` — * `fixed` - Fixed * `range` - Range
 - `PricingUnitEnum` — * `data` - Data * `proxy` - Proxy
 - `ProtocolEnum` — * `http` - http * `socks5` - socks5 * `auto` - auto
+- `ProviderBalanceCheckpoint`
+- `ProviderDataBalance`
 - `ProxyGenerationConnectionRequest`
 - `ProxyGenerationSessionRequest`
 - `ProxyGenerationTargetingRequest`
@@ -113,6 +118,7 @@ Models use snake_case attributes and provide `to_dict()` / `from_dict()` helpers
 - `SettingsGateway`
 - `SettingsReferral`
 - `SettingsResponse`
+- `SeverityEnum` — * `warning` - warning * `danger` - danger
 - `SignUpRequest` — Comprehensive user registration with enhanced validation, security measures, and referral/affiliate code handling.
 - `SubtractDataRequest`
 - `TargetingOptions`

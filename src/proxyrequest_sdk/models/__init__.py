@@ -35,6 +35,7 @@ from .._generated.models.domains_response import DomainsResponse
 from .._generated.models.enabled_response import EnabledResponse
 from .._generated.models.feed_record import FeedRecord
 from .._generated.models.feed_response import FeedResponse
+from .._generated.models.freshness_enum import FreshnessEnum
 from .._generated.models.generate_proxy_request import GenerateProxyRequest
 from .._generated.models.generate_proxy_response import GenerateProxyResponse
 from .._generated.models.generated_proxy import GeneratedProxy
@@ -94,6 +95,9 @@ from .._generated.models.paginated_news_list import PaginatedNewsList
 from .._generated.models.paginated_order_list import PaginatedOrderList
 from .._generated.models.paginated_package_commission_list import PaginatedPackageCommissionList
 from .._generated.models.paginated_package_list import PaginatedPackageList
+from .._generated.models.paginated_provider_data_balance_list import (
+    PaginatedProviderDataBalanceList,
+)
 from .._generated.models.paginated_region_list import PaginatedRegionList
 from .._generated.models.paginated_reward_list import PaginatedRewardList
 from .._generated.models.paginated_user_list import PaginatedUserList
@@ -112,6 +116,8 @@ from .._generated.models.payment_link_response import PaymentLinkResponse
 from .._generated.models.pricing_enum import PricingEnum
 from .._generated.models.pricing_unit_enum import PricingUnitEnum
 from .._generated.models.protocol_enum import ProtocolEnum
+from .._generated.models.provider_balance_checkpoint import ProviderBalanceCheckpoint
+from .._generated.models.provider_data_balance import ProviderDataBalance
 from .._generated.models.proxy_generation_connection_request import ProxyGenerationConnectionRequest
 from .._generated.models.proxy_generation_session_request import ProxyGenerationSessionRequest
 from .._generated.models.proxy_generation_targeting_request import ProxyGenerationTargetingRequest
@@ -129,6 +135,7 @@ from .._generated.models.settings_crypto import SettingsCrypto
 from .._generated.models.settings_gateway import SettingsGateway
 from .._generated.models.settings_referral import SettingsReferral
 from .._generated.models.settings_response import SettingsResponse
+from .._generated.models.severity_enum import SeverityEnum
 from .._generated.models.sign_up_request import SignUpRequest
 from .._generated.models.subtract_data_request import SubtractDataRequest
 from .._generated.models.targeting_options import TargetingOptions
@@ -191,6 +198,7 @@ __all__ = [
     "EnabledResponse",
     "FeedRecord",
     "FeedResponse",
+    "FreshnessEnum",
     "GenerateProxyRequest",
     "GenerateProxyResponse",
     "GeneratedProxy",
@@ -248,6 +256,7 @@ __all__ = [
     "PaginatedOrderList",
     "PaginatedPackageCommissionList",
     "PaginatedPackageList",
+    "PaginatedProviderDataBalanceList",
     "PaginatedRegionList",
     "PaginatedRewardList",
     "PaginatedUserList",
@@ -264,6 +273,8 @@ __all__ = [
     "PricingEnum",
     "PricingUnitEnum",
     "ProtocolEnum",
+    "ProviderBalanceCheckpoint",
+    "ProviderDataBalance",
     "ProxyGenerationConnectionRequest",
     "ProxyGenerationSessionRequest",
     "ProxyGenerationTargetingRequest",
@@ -281,6 +292,7 @@ __all__ = [
     "SettingsGateway",
     "SettingsReferral",
     "SettingsResponse",
+    "SeverityEnum",
     "SignUpRequest",
     "SubtractDataRequest",
     "TargetingOptions",

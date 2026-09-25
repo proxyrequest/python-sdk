@@ -26,6 +26,9 @@ class Country:
     """ English display name of the country used across the admin and API responses. """
     isps: list[LocationCodeName]
     asns: list[LocationCodeName]
+    """ The asns field is always present and defaults to an empty array. Pass include_asns=true to include available
+    autonomous system numbers. This option does not affect the standalone /locations/asn endpoint or the compact
+    proxy-node response format. """
     id: str | Unset = UNSET
     original_name: str | Unset = UNSET
     """ Native-language name of the country as it appears in the source data. Deutschland Français """

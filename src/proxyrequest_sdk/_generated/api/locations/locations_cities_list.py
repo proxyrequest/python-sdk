@@ -23,6 +23,7 @@ def _get_kwargs(
     *,
     code: str | Unset = UNSET,
     country_code: str | Unset = UNSET,
+    include_asns: bool | Unset = UNSET,
     limit: int | Unset = UNSET,
     name: str | Unset = UNSET,
     offset: int | Unset = UNSET,
@@ -41,6 +42,8 @@ def _get_kwargs(
     params["code"] = code
 
     params["country__code"] = country_code
+
+    params["include_asns"] = include_asns
 
     params["limit"] = limit
 
@@ -126,6 +129,7 @@ def sync_detailed(
     client: AuthenticatedClient,
     code: str | Unset = UNSET,
     country_code: str | Unset = UNSET,
+    include_asns: bool | Unset = UNSET,
     limit: int | Unset = UNSET,
     name: str | Unset = UNSET,
     offset: int | Unset = UNSET,
@@ -142,12 +146,15 @@ def sync_detailed(
 ]:
     """List available cities
 
-     Returns cities supported by the selected package, country, and region, including targetable ISPs and
-    autonomous system numbers.
+     Returns cities supported by the selected package, country, and region, including targetable ISPs.
+    The asns field is always present and defaults to an empty array. Pass include_asns=true to include
+    available autonomous system numbers. This option does not affect the standalone /locations/asn
+    endpoint or the compact proxy-node response format.
 
     Args:
         code (str | Unset):
         country_code (str | Unset):
+        include_asns (bool | Unset):  Default: False.
         limit (int | Unset):
         name (str | Unset):
         offset (int | Unset):
@@ -168,6 +175,7 @@ def sync_detailed(
     kwargs = _get_kwargs(
         code=code,
         country_code=country_code,
+        include_asns=include_asns,
         limit=limit,
         name=name,
         offset=offset,
@@ -190,6 +198,7 @@ def sync(
     client: AuthenticatedClient,
     code: str | Unset = UNSET,
     country_code: str | Unset = UNSET,
+    include_asns: bool | Unset = UNSET,
     limit: int | Unset = UNSET,
     name: str | Unset = UNSET,
     offset: int | Unset = UNSET,
@@ -207,12 +216,15 @@ def sync(
 ):
     """List available cities
 
-     Returns cities supported by the selected package, country, and region, including targetable ISPs and
-    autonomous system numbers.
+     Returns cities supported by the selected package, country, and region, including targetable ISPs.
+    The asns field is always present and defaults to an empty array. Pass include_asns=true to include
+    available autonomous system numbers. This option does not affect the standalone /locations/asn
+    endpoint or the compact proxy-node response format.
 
     Args:
         code (str | Unset):
         country_code (str | Unset):
+        include_asns (bool | Unset):  Default: False.
         limit (int | Unset):
         name (str | Unset):
         offset (int | Unset):
@@ -234,6 +246,7 @@ def sync(
         client=client,
         code=code,
         country_code=country_code,
+        include_asns=include_asns,
         limit=limit,
         name=name,
         offset=offset,
@@ -250,6 +263,7 @@ async def asyncio_detailed(
     client: AuthenticatedClient,
     code: str | Unset = UNSET,
     country_code: str | Unset = UNSET,
+    include_asns: bool | Unset = UNSET,
     limit: int | Unset = UNSET,
     name: str | Unset = UNSET,
     offset: int | Unset = UNSET,
@@ -266,12 +280,15 @@ async def asyncio_detailed(
 ]:
     """List available cities
 
-     Returns cities supported by the selected package, country, and region, including targetable ISPs and
-    autonomous system numbers.
+     Returns cities supported by the selected package, country, and region, including targetable ISPs.
+    The asns field is always present and defaults to an empty array. Pass include_asns=true to include
+    available autonomous system numbers. This option does not affect the standalone /locations/asn
+    endpoint or the compact proxy-node response format.
 
     Args:
         code (str | Unset):
         country_code (str | Unset):
+        include_asns (bool | Unset):  Default: False.
         limit (int | Unset):
         name (str | Unset):
         offset (int | Unset):
@@ -292,6 +309,7 @@ async def asyncio_detailed(
     kwargs = _get_kwargs(
         code=code,
         country_code=country_code,
+        include_asns=include_asns,
         limit=limit,
         name=name,
         offset=offset,
@@ -312,6 +330,7 @@ async def asyncio(
     client: AuthenticatedClient,
     code: str | Unset = UNSET,
     country_code: str | Unset = UNSET,
+    include_asns: bool | Unset = UNSET,
     limit: int | Unset = UNSET,
     name: str | Unset = UNSET,
     offset: int | Unset = UNSET,
@@ -329,12 +348,15 @@ async def asyncio(
 ):
     """List available cities
 
-     Returns cities supported by the selected package, country, and region, including targetable ISPs and
-    autonomous system numbers.
+     Returns cities supported by the selected package, country, and region, including targetable ISPs.
+    The asns field is always present and defaults to an empty array. Pass include_asns=true to include
+    available autonomous system numbers. This option does not affect the standalone /locations/asn
+    endpoint or the compact proxy-node response format.
 
     Args:
         code (str | Unset):
         country_code (str | Unset):
+        include_asns (bool | Unset):  Default: False.
         limit (int | Unset):
         name (str | Unset):
         offset (int | Unset):
@@ -357,6 +379,7 @@ async def asyncio(
             client=client,
             code=code,
             country_code=country_code,
+            include_asns=include_asns,
             limit=limit,
             name=name,
             offset=offset,

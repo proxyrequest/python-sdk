@@ -4,20 +4,20 @@
     "id": "python",
     "label": "Python",
     "language": "Python",
-    "version": "4.0.0",
+    "version": "4.1.0",
     "package": "proxyrequest-sdk",
     "runtime": "Python 3.11 or later",
     "install": "python -m pip install proxyrequest-sdk",
     "openapi": {
-      "commit": "a2d72455d3b91a7d6be962f0e056f7d04fbd7f05",
+      "commit": "09dab1ad6f5ab4e879120074e55f817e58856a6f",
       "excludedOperations": [
         "sessions_destroy",
         "sessions_list"
       ],
-      "operations": 82,
+      "operations": 83,
       "repository": "papaproxy/api",
-      "schemas": 133,
-      "sha256": "9a20a33711a9291dcba57046b1d2b4cf14b3eec506383a3986b0ac7a15f14c6e",
+      "schemas": 139,
+      "sha256": "b9106a09b1fadc44722b22afec3b37fe1f9839298e3878ac366268627ce78741",
       "source": "openapi.yml"
     }
   },
@@ -103,6 +103,11 @@
         {
           "name": "profile",
           "signature": "profile: ProfileResource",
+          "description": ""
+        },
+        {
+          "name": "providers",
+          "signature": "providers: ProvidersResource",
           "description": ""
         },
         {
@@ -204,6 +209,11 @@
         {
           "name": "profile",
           "signature": "profile: AsyncProfileResource",
+          "description": ""
+        },
+        {
+          "name": "providers",
+          "signature": "providers: AsyncProvidersResource",
           "description": ""
         },
         {
@@ -4982,23 +4992,23 @@
           "operationId": "locations_cities_list",
           "name": "list_cities",
           "summary": "List available cities",
-          "description": "Returns cities supported by the selected package, country, and region, including targetable ISPs and autonomous system numbers.",
+          "description": "Returns cities supported by the selected package, country, and region, including targetable ISPs. The asns field is always present and defaults to an empty array. Pass include_asns=true to include available autonomous system numbers. This option does not affect the standalone /locations/asn endpoint or the compact proxy-node response format.",
           "httpMethod": "GET",
           "path": "/locations/cities",
           "signatures": [
             {
               "label": "Sync",
-              "signature": "client.locations.list_cities(*, code: str | Unset=UNSET, country_code: str | Unset=UNSET, limit: int | Unset=UNSET, name: str | Unset=UNSET, offset: int | Unset=UNSET, ordering: str | Unset=UNSET, package_id: UUID, region_code: str | Unset=UNSET, search: str | Unset=UNSET, accept_language: str | Unset=UNSET) -> PaginatedCityList"
+              "signature": "client.locations.list_cities(*, code: str | Unset=UNSET, country_code: str | Unset=UNSET, include_asns: bool | Unset=UNSET, limit: int | Unset=UNSET, name: str | Unset=UNSET, offset: int | Unset=UNSET, ordering: str | Unset=UNSET, package_id: UUID, region_code: str | Unset=UNSET, search: str | Unset=UNSET, accept_language: str | Unset=UNSET) -> PaginatedCityList"
             },
             {
               "label": "Async",
-              "signature": "await async_client.locations.list_cities(*, code: str | Unset=UNSET, country_code: str | Unset=UNSET, limit: int | Unset=UNSET, name: str | Unset=UNSET, offset: int | Unset=UNSET, ordering: str | Unset=UNSET, package_id: UUID, region_code: str | Unset=UNSET, search: str | Unset=UNSET, accept_language: str | Unset=UNSET) -> PaginatedCityList"
+              "signature": "await async_client.locations.list_cities(*, code: str | Unset=UNSET, country_code: str | Unset=UNSET, include_asns: bool | Unset=UNSET, limit: int | Unset=UNSET, name: str | Unset=UNSET, offset: int | Unset=UNSET, ordering: str | Unset=UNSET, package_id: UUID, region_code: str | Unset=UNSET, search: str | Unset=UNSET, accept_language: str | Unset=UNSET) -> PaginatedCityList"
             }
           ],
           "variants": [
             {
               "name": "list_cities_with_response",
-              "signature": "client.locations.list_cities_with_response(*, code: str | Unset=UNSET, country_code: str | Unset=UNSET, limit: int | Unset=UNSET, name: str | Unset=UNSET, offset: int | Unset=UNSET, ordering: str | Unset=UNSET, package_id: UUID, region_code: str | Unset=UNSET, search: str | Unset=UNSET, accept_language: str | Unset=UNSET) -> ApiResponse[PaginatedCityList]",
+              "signature": "client.locations.list_cities_with_response(*, code: str | Unset=UNSET, country_code: str | Unset=UNSET, include_asns: bool | Unset=UNSET, limit: int | Unset=UNSET, name: str | Unset=UNSET, offset: int | Unset=UNSET, ordering: str | Unset=UNSET, package_id: UUID, region_code: str | Unset=UNSET, search: str | Unset=UNSET, accept_language: str | Unset=UNSET) -> ApiResponse[PaginatedCityList]",
               "description": "Returns response status, headers, ETag and idempotency metadata with the decoded data."
             }
           ],
@@ -5023,6 +5033,17 @@
               "default": null,
               "description": "",
               "example": "{country__code}",
+              "modelRefs": []
+            },
+            {
+              "name": "include_asns",
+              "wireName": "include_asns",
+              "in": "query",
+              "required": false,
+              "type": "bool",
+              "default": false,
+              "description": "The asns field is always present and defaults to an empty array. Pass include_asns=true to include available autonomous system numbers. This option does not affect the standalone /locations/asn endpoint or the compact proxy-node response format.",
+              "example": false,
               "modelRefs": []
             },
             {
@@ -5177,23 +5198,23 @@
           "operationId": "locations_cities_retrieve",
           "name": "get_city",
           "summary": "Get a city",
-          "description": "Returns one city and its available network targeting options.",
+          "description": "Returns one city and its available network targeting options. The asns field is always present and defaults to an empty array. Pass include_asns=true to include available autonomous system numbers. This option does not affect the standalone /locations/asn endpoint or the compact proxy-node response format.",
           "httpMethod": "GET",
           "path": "/locations/cities/{id}",
           "signatures": [
             {
               "label": "Sync",
-              "signature": "client.locations.get_city(id: str, *, package_id: UUID, accept_language: str | Unset=UNSET) -> City"
+              "signature": "client.locations.get_city(id: str, *, include_asns: bool | Unset=UNSET, package_id: UUID, accept_language: str | Unset=UNSET) -> City"
             },
             {
               "label": "Async",
-              "signature": "await async_client.locations.get_city(id: str, *, package_id: UUID, accept_language: str | Unset=UNSET) -> City"
+              "signature": "await async_client.locations.get_city(id: str, *, include_asns: bool | Unset=UNSET, package_id: UUID, accept_language: str | Unset=UNSET) -> City"
             }
           ],
           "variants": [
             {
               "name": "get_city_with_response",
-              "signature": "client.locations.get_city_with_response(id: str, *, package_id: UUID, accept_language: str | Unset=UNSET) -> ApiResponse[City]",
+              "signature": "client.locations.get_city_with_response(id: str, *, include_asns: bool | Unset=UNSET, package_id: UUID, accept_language: str | Unset=UNSET) -> ApiResponse[City]",
               "description": "Returns response status, headers, ETag and idempotency metadata with the decoded data."
             }
           ],
@@ -5207,6 +5228,17 @@
               "default": null,
               "description": "",
               "example": "550e8400-e29b-41d4-a716-446655440000",
+              "modelRefs": []
+            },
+            {
+              "name": "include_asns",
+              "wireName": "include_asns",
+              "in": "query",
+              "required": false,
+              "type": "bool",
+              "default": false,
+              "description": "The asns field is always present and defaults to an empty array. Pass include_asns=true to include available autonomous system numbers. This option does not affect the standalone /locations/asn endpoint or the compact proxy-node response format.",
+              "example": false,
               "modelRefs": []
             },
             {
@@ -5602,23 +5634,23 @@
           "operationId": "locations_countries_list",
           "name": "list_countries",
           "summary": "List available countries",
-          "description": "Returns countries supported by the selected package, including targetable ISPs and autonomous system numbers when available.",
+          "description": "Returns countries supported by the selected package, including targetable ISPs. The asns field is always present and defaults to an empty array. Pass include_asns=true to include available autonomous system numbers. This option does not affect the standalone /locations/asn endpoint or the compact proxy-node response format.",
           "httpMethod": "GET",
           "path": "/locations/countries",
           "signatures": [
             {
               "label": "Sync",
-              "signature": "client.locations.list_countries(*, code: str | Unset=UNSET, limit: int | Unset=UNSET, name: str | Unset=UNSET, offset: int | Unset=UNSET, ordering: str | Unset=UNSET, package_id: UUID, search: str | Unset=UNSET, accept_language: str | Unset=UNSET) -> PaginatedCountryList"
+              "signature": "client.locations.list_countries(*, code: str | Unset=UNSET, include_asns: bool | Unset=UNSET, limit: int | Unset=UNSET, name: str | Unset=UNSET, offset: int | Unset=UNSET, ordering: str | Unset=UNSET, package_id: UUID, search: str | Unset=UNSET, accept_language: str | Unset=UNSET) -> PaginatedCountryList"
             },
             {
               "label": "Async",
-              "signature": "await async_client.locations.list_countries(*, code: str | Unset=UNSET, limit: int | Unset=UNSET, name: str | Unset=UNSET, offset: int | Unset=UNSET, ordering: str | Unset=UNSET, package_id: UUID, search: str | Unset=UNSET, accept_language: str | Unset=UNSET) -> PaginatedCountryList"
+              "signature": "await async_client.locations.list_countries(*, code: str | Unset=UNSET, include_asns: bool | Unset=UNSET, limit: int | Unset=UNSET, name: str | Unset=UNSET, offset: int | Unset=UNSET, ordering: str | Unset=UNSET, package_id: UUID, search: str | Unset=UNSET, accept_language: str | Unset=UNSET) -> PaginatedCountryList"
             }
           ],
           "variants": [
             {
               "name": "list_countries_with_response",
-              "signature": "client.locations.list_countries_with_response(*, code: str | Unset=UNSET, limit: int | Unset=UNSET, name: str | Unset=UNSET, offset: int | Unset=UNSET, ordering: str | Unset=UNSET, package_id: UUID, search: str | Unset=UNSET, accept_language: str | Unset=UNSET) -> ApiResponse[PaginatedCountryList]",
+              "signature": "client.locations.list_countries_with_response(*, code: str | Unset=UNSET, include_asns: bool | Unset=UNSET, limit: int | Unset=UNSET, name: str | Unset=UNSET, offset: int | Unset=UNSET, ordering: str | Unset=UNSET, package_id: UUID, search: str | Unset=UNSET, accept_language: str | Unset=UNSET) -> ApiResponse[PaginatedCountryList]",
               "description": "Returns response status, headers, ETag and idempotency metadata with the decoded data."
             }
           ],
@@ -5632,6 +5664,17 @@
               "default": null,
               "description": "",
               "example": "{code}",
+              "modelRefs": []
+            },
+            {
+              "name": "include_asns",
+              "wireName": "include_asns",
+              "in": "query",
+              "required": false,
+              "type": "bool",
+              "default": false,
+              "description": "The asns field is always present and defaults to an empty array. Pass include_asns=true to include available autonomous system numbers. This option does not affect the standalone /locations/asn endpoint or the compact proxy-node response format.",
+              "example": false,
               "modelRefs": []
             },
             {
@@ -5775,23 +5818,23 @@
           "operationId": "locations_countries_retrieve",
           "name": "get_country",
           "summary": "Get a country",
-          "description": "Returns one country and its available network targeting options.",
+          "description": "Returns one country and its available network targeting options. The asns field is always present and defaults to an empty array. Pass include_asns=true to include available autonomous system numbers. This option does not affect the standalone /locations/asn endpoint or the compact proxy-node response format.",
           "httpMethod": "GET",
           "path": "/locations/countries/{id}",
           "signatures": [
             {
               "label": "Sync",
-              "signature": "client.locations.get_country(id: str, *, package_id: UUID, accept_language: str | Unset=UNSET) -> Country"
+              "signature": "client.locations.get_country(id: str, *, include_asns: bool | Unset=UNSET, package_id: UUID, accept_language: str | Unset=UNSET) -> Country"
             },
             {
               "label": "Async",
-              "signature": "await async_client.locations.get_country(id: str, *, package_id: UUID, accept_language: str | Unset=UNSET) -> Country"
+              "signature": "await async_client.locations.get_country(id: str, *, include_asns: bool | Unset=UNSET, package_id: UUID, accept_language: str | Unset=UNSET) -> Country"
             }
           ],
           "variants": [
             {
               "name": "get_country_with_response",
-              "signature": "client.locations.get_country_with_response(id: str, *, package_id: UUID, accept_language: str | Unset=UNSET) -> ApiResponse[Country]",
+              "signature": "client.locations.get_country_with_response(id: str, *, include_asns: bool | Unset=UNSET, package_id: UUID, accept_language: str | Unset=UNSET) -> ApiResponse[Country]",
               "description": "Returns response status, headers, ETag and idempotency metadata with the decoded data."
             }
           ],
@@ -5805,6 +5848,17 @@
               "default": null,
               "description": "",
               "example": "550e8400-e29b-41d4-a716-446655440000",
+              "modelRefs": []
+            },
+            {
+              "name": "include_asns",
+              "wireName": "include_asns",
+              "in": "query",
+              "required": false,
+              "type": "bool",
+              "default": false,
+              "description": "The asns field is always present and defaults to an empty array. Pass include_asns=true to include available autonomous system numbers. This option does not affect the standalone /locations/asn endpoint or the compact proxy-node response format.",
+              "example": false,
               "modelRefs": []
             },
             {
@@ -6085,23 +6139,23 @@
           "operationId": "locations_regions_list",
           "name": "list_regions",
           "summary": "List available regions",
-          "description": "Returns regions supported by the selected package and country, including targetable ISPs and autonomous system numbers.",
+          "description": "Returns regions supported by the selected package and country, including targetable ISPs. The asns field is always present and defaults to an empty array. Pass include_asns=true to include available autonomous system numbers. This option does not affect the standalone /locations/asn endpoint or the compact proxy-node response format.",
           "httpMethod": "GET",
           "path": "/locations/regions",
           "signatures": [
             {
               "label": "Sync",
-              "signature": "client.locations.list_regions(*, code: str | Unset=UNSET, country_code: str | Unset=UNSET, limit: int | Unset=UNSET, name: str | Unset=UNSET, offset: int | Unset=UNSET, ordering: str | Unset=UNSET, package_id: UUID, search: str | Unset=UNSET, accept_language: str | Unset=UNSET) -> PaginatedRegionList"
+              "signature": "client.locations.list_regions(*, code: str | Unset=UNSET, country_code: str | Unset=UNSET, include_asns: bool | Unset=UNSET, limit: int | Unset=UNSET, name: str | Unset=UNSET, offset: int | Unset=UNSET, ordering: str | Unset=UNSET, package_id: UUID, search: str | Unset=UNSET, accept_language: str | Unset=UNSET) -> PaginatedRegionList"
             },
             {
               "label": "Async",
-              "signature": "await async_client.locations.list_regions(*, code: str | Unset=UNSET, country_code: str | Unset=UNSET, limit: int | Unset=UNSET, name: str | Unset=UNSET, offset: int | Unset=UNSET, ordering: str | Unset=UNSET, package_id: UUID, search: str | Unset=UNSET, accept_language: str | Unset=UNSET) -> PaginatedRegionList"
+              "signature": "await async_client.locations.list_regions(*, code: str | Unset=UNSET, country_code: str | Unset=UNSET, include_asns: bool | Unset=UNSET, limit: int | Unset=UNSET, name: str | Unset=UNSET, offset: int | Unset=UNSET, ordering: str | Unset=UNSET, package_id: UUID, search: str | Unset=UNSET, accept_language: str | Unset=UNSET) -> PaginatedRegionList"
             }
           ],
           "variants": [
             {
               "name": "list_regions_with_response",
-              "signature": "client.locations.list_regions_with_response(*, code: str | Unset=UNSET, country_code: str | Unset=UNSET, limit: int | Unset=UNSET, name: str | Unset=UNSET, offset: int | Unset=UNSET, ordering: str | Unset=UNSET, package_id: UUID, search: str | Unset=UNSET, accept_language: str | Unset=UNSET) -> ApiResponse[PaginatedRegionList]",
+              "signature": "client.locations.list_regions_with_response(*, code: str | Unset=UNSET, country_code: str | Unset=UNSET, include_asns: bool | Unset=UNSET, limit: int | Unset=UNSET, name: str | Unset=UNSET, offset: int | Unset=UNSET, ordering: str | Unset=UNSET, package_id: UUID, search: str | Unset=UNSET, accept_language: str | Unset=UNSET) -> ApiResponse[PaginatedRegionList]",
               "description": "Returns response status, headers, ETag and idempotency metadata with the decoded data."
             }
           ],
@@ -6126,6 +6180,17 @@
               "default": null,
               "description": "",
               "example": "{country__code}",
+              "modelRefs": []
+            },
+            {
+              "name": "include_asns",
+              "wireName": "include_asns",
+              "in": "query",
+              "required": false,
+              "type": "bool",
+              "default": false,
+              "description": "The asns field is always present and defaults to an empty array. Pass include_asns=true to include available autonomous system numbers. This option does not affect the standalone /locations/asn endpoint or the compact proxy-node response format.",
+              "example": false,
               "modelRefs": []
             },
             {
@@ -6269,23 +6334,23 @@
           "operationId": "locations_regions_retrieve",
           "name": "get_region",
           "summary": "Get a region",
-          "description": "Returns one region and its available network targeting options.",
+          "description": "Returns one region and its available network targeting options. The asns field is always present and defaults to an empty array. Pass include_asns=true to include available autonomous system numbers. This option does not affect the standalone /locations/asn endpoint or the compact proxy-node response format.",
           "httpMethod": "GET",
           "path": "/locations/regions/{id}",
           "signatures": [
             {
               "label": "Sync",
-              "signature": "client.locations.get_region(id: str, *, package_id: UUID, accept_language: str | Unset=UNSET) -> Region"
+              "signature": "client.locations.get_region(id: str, *, include_asns: bool | Unset=UNSET, package_id: UUID, accept_language: str | Unset=UNSET) -> Region"
             },
             {
               "label": "Async",
-              "signature": "await async_client.locations.get_region(id: str, *, package_id: UUID, accept_language: str | Unset=UNSET) -> Region"
+              "signature": "await async_client.locations.get_region(id: str, *, include_asns: bool | Unset=UNSET, package_id: UUID, accept_language: str | Unset=UNSET) -> Region"
             }
           ],
           "variants": [
             {
               "name": "get_region_with_response",
-              "signature": "client.locations.get_region_with_response(id: str, *, package_id: UUID, accept_language: str | Unset=UNSET) -> ApiResponse[Region]",
+              "signature": "client.locations.get_region_with_response(id: str, *, include_asns: bool | Unset=UNSET, package_id: UUID, accept_language: str | Unset=UNSET) -> ApiResponse[Region]",
               "description": "Returns response status, headers, ETag and idempotency metadata with the decoded data."
             }
           ],
@@ -6299,6 +6364,17 @@
               "default": null,
               "description": "",
               "example": "550e8400-e29b-41d4-a716-446655440000",
+              "modelRefs": []
+            },
+            {
+              "name": "include_asns",
+              "wireName": "include_asns",
+              "in": "query",
+              "required": false,
+              "type": "bool",
+              "default": false,
+              "description": "The asns field is always present and defaults to an empty array. Pass include_asns=true to include available autonomous system numbers. This option does not affect the standalone /locations/asn endpoint or the compact proxy-node response format.",
+              "example": false,
               "modelRefs": []
             },
             {
@@ -8439,6 +8515,132 @@
           "asyncExample": {
             "language": "python",
             "code": "result = await async_client.profile.change_password(\n        body=models.ChangePasswordRequest.from_dict({'old_password': 'Correct-Horse-Battery-Staple-42', 'new_password1': 'Correct-Horse-Battery-Staple-42', 'new_password2': 'Correct-Horse-Battery-Staple-42'}),\n    )"
+          }
+        }
+      ]
+    },
+    {
+      "tag": "Providers",
+      "accessor": "providers",
+      "className": "ProvidersResource",
+      "description": "Read provider data balances and observation history. Superuser credentials required.",
+      "methods": [
+        {
+          "operationId": "providers_data_balances_list",
+          "name": "list_data_balances",
+          "summary": "List provider data balances",
+          "description": "Requires a JWT belonging to an active superuser or an API key owned by an active superuser, including requests using X-Impersonate-User. Returns one result per provider with recorded balances. The latest observation by observed_at is the baseline; available_bytes is that observation's balance, not a sum of purchased data. All byte amounts are decimal strings. Calculations are saved asynchronously; inspect freshness, error and calculated_at before using them. History is ordered by creation time descending and limited by PROVIDER_DATA_BALANCE_HISTORY_LIMIT (default 10). Pagination counts providers, not history entries.",
+          "httpMethod": "GET",
+          "path": "/providers/data-balances",
+          "signatures": [
+            {
+              "label": "Sync",
+              "signature": "client.providers.list_data_balances(*, limit: int | Unset=UNSET, offset: int | Unset=UNSET, accept_language: str | Unset=UNSET) -> PaginatedProviderDataBalanceList"
+            },
+            {
+              "label": "Async",
+              "signature": "await async_client.providers.list_data_balances(*, limit: int | Unset=UNSET, offset: int | Unset=UNSET, accept_language: str | Unset=UNSET) -> PaginatedProviderDataBalanceList"
+            }
+          ],
+          "variants": [
+            {
+              "name": "list_data_balances_with_response",
+              "signature": "client.providers.list_data_balances_with_response(*, limit: int | Unset=UNSET, offset: int | Unset=UNSET, accept_language: str | Unset=UNSET) -> ApiResponse[PaginatedProviderDataBalanceList]",
+              "description": "Returns response status, headers, ETag and idempotency metadata with the decoded data."
+            }
+          ],
+          "parameters": [
+            {
+              "name": "limit",
+              "wireName": "limit",
+              "in": "query",
+              "required": false,
+              "type": "int",
+              "default": null,
+              "description": "Number of results to return per page.",
+              "example": 1,
+              "modelRefs": []
+            },
+            {
+              "name": "offset",
+              "wireName": "offset",
+              "in": "query",
+              "required": false,
+              "type": "int",
+              "default": null,
+              "description": "The initial index from which to return the results.",
+              "example": 1,
+              "modelRefs": []
+            },
+            {
+              "name": "accept_language",
+              "wireName": "Accept-Language",
+              "in": "header",
+              "required": false,
+              "type": "str",
+              "default": "en",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es, zh-hans, ja. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "example": "en",
+              "modelRefs": []
+            }
+          ],
+          "body": null,
+          "returns": {
+            "type": "PaginatedProviderDataBalanceList",
+            "description": "The operation completed successfully.",
+            "modelRefs": [
+              "PaginatedProviderDataBalanceList"
+            ]
+          },
+          "errors": [
+            {
+              "status": "401",
+              "description": "Authentication credentials are missing, expired, or invalid."
+            },
+            {
+              "status": "403",
+              "description": "The authenticated account cannot perform this operation."
+            },
+            {
+              "status": "400",
+              "description": "The request is malformed or violates a business rule."
+            }
+          ],
+          "throws": [
+            {
+              "type": "ApiError",
+              "description": "Normalized API, transport, and response processing failure.",
+              "conditions": [
+                {
+                  "kind": "ErrorKind.AUTHENTICATION",
+                  "description": "Authentication credentials are missing, expired, or invalid."
+                },
+                {
+                  "kind": "ErrorKind.PERMISSION",
+                  "description": "The authenticated account cannot perform this operation."
+                },
+                {
+                  "kind": "ErrorKind.VALIDATION",
+                  "description": "The request arguments or business rules are invalid."
+                },
+                {
+                  "kind": "ErrorKind.NETWORK",
+                  "description": "The request could not reach ProxyRequest."
+                },
+                {
+                  "kind": "ErrorKind.UNEXPECTED",
+                  "description": "The response could not be decoded or did not match the SDK contract."
+                }
+              ]
+            }
+          ],
+          "example": {
+            "language": "python",
+            "code": "result = client.providers.list_data_balances()"
+          },
+          "asyncExample": {
+            "language": "python",
+            "code": "result = await async_client.providers.list_data_balances()"
           }
         }
       ]
@@ -11798,7 +12000,7 @@
           "type": "list[LocationCodeName]",
           "required": true,
           "default": null,
-          "description": "",
+          "description": "The asns field is always present and defaults to an empty array. Pass include_asns=true to include available autonomous system numbers. This option does not affect the standalone /locations/asn endpoint or the compact proxy-node response format.",
           "enum": null,
           "modelRefs": [
             "LocationCodeName"
@@ -11982,7 +12184,7 @@
           "type": "list[LocationCodeName]",
           "required": true,
           "default": null,
-          "description": "",
+          "description": "The asns field is always present and defaults to an empty array. Pass include_asns=true to include available autonomous system numbers. This option does not affect the standalone /locations/asn endpoint or the compact proxy-node response format.",
           "enum": null,
           "modelRefs": [
             "LocationCodeName"
@@ -13122,6 +13324,12 @@
           ]
         }
       ]
+    },
+    {
+      "name": "FreshnessEnum",
+      "kind": "enum",
+      "description": "",
+      "fields": []
     },
     {
       "name": "GenerateProxyRequest",
@@ -16264,6 +16472,51 @@
       ]
     },
     {
+      "name": "PaginatedProviderDataBalanceList",
+      "kind": "class",
+      "description": "",
+      "fields": [
+        {
+          "name": "count",
+          "type": "int",
+          "required": true,
+          "default": null,
+          "description": "",
+          "enum": null,
+          "modelRefs": []
+        },
+        {
+          "name": "results",
+          "type": "list[ProviderDataBalance]",
+          "required": true,
+          "default": null,
+          "description": "",
+          "enum": null,
+          "modelRefs": [
+            "ProviderDataBalance"
+          ]
+        },
+        {
+          "name": "next_",
+          "type": "None | str",
+          "required": false,
+          "default": null,
+          "description": "",
+          "enum": null,
+          "modelRefs": []
+        },
+        {
+          "name": "previous",
+          "type": "None | str",
+          "required": false,
+          "default": null,
+          "description": "",
+          "enum": null,
+          "modelRefs": []
+        }
+      ]
+    },
+    {
       "name": "PaginatedRegionList",
       "kind": "class",
       "description": "",
@@ -17078,6 +17331,188 @@
       "fields": []
     },
     {
+      "name": "ProviderBalanceCheckpoint",
+      "kind": "class",
+      "description": "",
+      "fields": [
+        {
+          "name": "id",
+          "type": "UUID",
+          "required": true,
+          "default": null,
+          "description": "",
+          "enum": null,
+          "modelRefs": []
+        },
+        {
+          "name": "available_bytes",
+          "type": "str",
+          "required": true,
+          "default": null,
+          "description": "Observed balance in bytes, as a decimal string.",
+          "enum": null,
+          "modelRefs": []
+        },
+        {
+          "name": "observed_at",
+          "type": "datetime.datetime",
+          "required": true,
+          "default": null,
+          "description": "",
+          "enum": null,
+          "modelRefs": []
+        },
+        {
+          "name": "created",
+          "type": "datetime.datetime",
+          "required": true,
+          "default": null,
+          "description": "",
+          "enum": null,
+          "modelRefs": []
+        },
+        {
+          "name": "created_by",
+          "type": "None | str",
+          "required": true,
+          "default": null,
+          "description": "",
+          "enum": null,
+          "modelRefs": []
+        }
+      ]
+    },
+    {
+      "name": "ProviderDataBalance",
+      "kind": "class",
+      "description": "",
+      "fields": [
+        {
+          "name": "checkpoint_id",
+          "type": "UUID",
+          "required": true,
+          "default": null,
+          "description": "",
+          "enum": null,
+          "modelRefs": []
+        },
+        {
+          "name": "provider_id",
+          "type": "str",
+          "required": true,
+          "default": null,
+          "description": "",
+          "enum": null,
+          "modelRefs": []
+        },
+        {
+          "name": "provider_name",
+          "type": "str",
+          "required": true,
+          "default": null,
+          "description": "",
+          "enum": null,
+          "modelRefs": []
+        },
+        {
+          "name": "observed_at",
+          "type": "datetime.datetime",
+          "required": true,
+          "default": null,
+          "description": "Time the available balance was observed.",
+          "enum": null,
+          "modelRefs": []
+        },
+        {
+          "name": "available_bytes",
+          "type": "str",
+          "required": true,
+          "default": null,
+          "description": "Observed balance in bytes, as a decimal string.",
+          "enum": null,
+          "modelRefs": []
+        },
+        {
+          "name": "used_bytes",
+          "type": "None | str",
+          "required": true,
+          "default": null,
+          "description": "Calculated usage since the observation, in bytes.",
+          "enum": null,
+          "modelRefs": []
+        },
+        {
+          "name": "remaining_bytes",
+          "type": "None | str",
+          "required": true,
+          "default": null,
+          "description": "Remaining bytes at calculated_at, as a decimal string.",
+          "enum": null,
+          "modelRefs": []
+        },
+        {
+          "name": "remaining_percent",
+          "type": "float | None",
+          "required": true,
+          "default": null,
+          "description": "",
+          "enum": null,
+          "modelRefs": []
+        },
+        {
+          "name": "severity",
+          "type": "None | SeverityEnum",
+          "required": true,
+          "default": null,
+          "description": "",
+          "enum": null,
+          "modelRefs": [
+            "SeverityEnum"
+          ]
+        },
+        {
+          "name": "freshness",
+          "type": "FreshnessEnum",
+          "required": true,
+          "default": null,
+          "description": "* `fresh` - fresh * `stale` - stale * `unavailable` - unavailable",
+          "enum": null,
+          "modelRefs": [
+            "FreshnessEnum"
+          ]
+        },
+        {
+          "name": "error",
+          "type": "str",
+          "required": true,
+          "default": null,
+          "description": "",
+          "enum": null,
+          "modelRefs": []
+        },
+        {
+          "name": "calculated_at",
+          "type": "datetime.datetime | None",
+          "required": true,
+          "default": null,
+          "description": "Time of the last successful calculation.",
+          "enum": null,
+          "modelRefs": []
+        },
+        {
+          "name": "history",
+          "type": "list[ProviderBalanceCheckpoint]",
+          "required": true,
+          "default": null,
+          "description": "Latest entries by creation time, limited by PROVIDER_DATA_BALANCE_HISTORY_LIMIT (default 10).",
+          "enum": null,
+          "modelRefs": [
+            "ProviderBalanceCheckpoint"
+          ]
+        }
+      ]
+    },
+    {
       "name": "ProxyGenerationConnectionRequest",
       "kind": "class",
       "description": "",
@@ -17323,7 +17758,7 @@
           "type": "list[LocationCodeName]",
           "required": true,
           "default": null,
-          "description": "",
+          "description": "The asns field is always present and defaults to an empty array. Pass include_asns=true to include available autonomous system numbers. This option does not affect the standalone /locations/asn endpoint or the compact proxy-node response format.",
           "enum": null,
           "modelRefs": [
             "LocationCodeName"
@@ -17761,6 +18196,12 @@
           ]
         }
       ]
+    },
+    {
+      "name": "SeverityEnum",
+      "kind": "enum",
+      "description": "",
+      "fields": []
     },
     {
       "name": "SignUpRequest",
