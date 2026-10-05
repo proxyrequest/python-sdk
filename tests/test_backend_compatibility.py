@@ -22,6 +22,7 @@ from proxyrequest_sdk.models import (
     Invoice,
     InvoiceCreateRequest,
     InvoiceCreateRequestGatewayEnum,
+    InvoiceCreateRequestStatusEnum,
     InvoiceGatewayEnum,
     InvoiceShort,
     LoginRequest,
@@ -244,6 +245,32 @@ async def test_runtime_user_variants(asynchronous: bool, mode: str) -> None:
         assert user.orders == ([] if mode == "package" else UNSET)
         assert user.data == (UNSET if mode == "package" else 0)
         assert ("data" in user.to_dict()) == (mode == "legacy")
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize("asynchronous", [False, True])
+@pytest.mark.parametrize("total", [None, 0, 2375, 10_000_000_000])
+async def test_explicit_invoice_totals_are_preserved_on_the_wire(
+    asynchronous: bool, total: int | None
+) -> None:
+    async with mocked_client(
+        asynchronous, [httpx.Response(201, json=FIXTURES["invoice_full"])]
+    ) as (client, requests):
+        await result(
+            client.invoices.create(
+                body=InvoiceCreateRequest(
+                    gateway=InvoiceCreateRequestGatewayEnum.MANUAL,
+                    status=InvoiceCreateRequestStatusEnum.PAID,
+                    data=1_073_741_824,
+                    price_total=UNSET if total is None else total,
+                )
+            )
+        )
+        sent = json.loads(requests[0].content)
+        if total is None:
+            assert "price_total" not in sent
+        else:
+            assert sent["price_total"] == total
 
 
 @pytest.mark.asyncio

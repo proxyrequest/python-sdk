@@ -52,10 +52,10 @@ class InvoiceCreateRequest:
     """ Account balance amount to purchase, in the smallest currency unit. Use for a wallet top-up without
     package_id, not for buying proxy data. """
     price_total: int | Unset = UNSET
-    """ Optional final invoice total in the smallest currency unit, including tax and discounts. For a balance
-    invoice, this is also the balance credit and takes precedence over amount. Only superusers or active superuser
-    API keys may supply it, including during API-key impersonation; coupon_code cannot be supplied with price_total.
-    """
+    """ Optional final invoice total in the smallest currency unit, including tax and discounts. Zero is allowed for
+    a free product purchase. For a balance invoice, this is also the balance credit, must satisfy the balance top-up
+    limits, and takes precedence over amount. Only superusers or active superuser API keys may supply it, including
+    zero and during API-key impersonation; coupon_code cannot be supplied with price_total. """
     connection_limit: int | Unset = UNSET
     expires: int | Unset = UNSET
     """ Optional future expiration as a Unix timestamp in seconds, not milliseconds. Otherwise a positive package
