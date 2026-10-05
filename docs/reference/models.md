@@ -38,6 +38,7 @@ Models use snake_case attributes and provide `to_dict()` / `from_dict()` helpers
 - `GenerateProxyResponse`
 - `GeneratedProxy`
 - `GoogleAuthRequest` — Enhanced Google OAuth authentication with comprehensive security validation and user management.
+- `GoogleConnectRequestRequest`
 - `ISP`
 - `Invoice`
 - `InvoiceCreateRequestGatewayEnum` — * `crypto` - crypto * `credit_card` - credit_card * `wallet` - wallet * `manual` - manual * `stripe` - stripe * `coinbase` - coinbase * `cryptomus` - cryptomus * `coingate` - coingate * `whitepay` - whitepay * `wayforpay` - wayforpay * `usegateway` - usegateway * `binance` - binance * `anymoney` - anymoney * `coinpayments` - coinpayments * `checkoutcom` - checkoutcom * `nowpayments` - nowpayments * `btcpay` - btcpay * `braintree` - braintree * `monobank` - monobank * `liqpay` - liqpay * `iyzico` - iyzico * `paytr` - paytr * `payu` - payu * `tpay` - tpay * `przelewy24` - przelewy24 * `gopay` - gopay * `comgate` - comgate * `monei` - monei * `redsys` - redsys * `payplug` - payplug * `mollie` - mollie * `unzer` - unzer * `payone` - payone * `nexi_xpay` - nexi_xpay * `halyk_epay` - halyk_epay * `kaspi_pay` - kaspi_pay * `vipps_mobilepay` - vipps_mobilepay * `paytrail` - paytrail
@@ -102,6 +103,7 @@ Models use snake_case attributes and provide `to_dict()` / `from_dict()` helpers
 - `ProtocolEnum` — * `http` - http * `socks5` - socks5 * `auto` - auto
 - `ProviderBalanceCheckpoint`
 - `ProviderDataBalance`
+- `ProviderEnum` — * `discord` - discord * `google` - google * `meta` - meta * `twitter` - twitter
 - `ProxyGenerationConnectionRequest`
 - `ProxyGenerationSessionRequest`
 - `ProxyGenerationTargetingRequest`
@@ -120,6 +122,7 @@ Models use snake_case attributes and provide `to_dict()` / `from_dict()` helpers
 - `SettingsResponse`
 - `SeverityEnum` — * `warning` - warning * `danger` - danger
 - `SignUpRequest` — Comprehensive user registration with enhanced validation, security measures, and referral/affiliate code handling.
+- `SocialAccountState`
 - `SubtractDataRequest`
 - `TargetingOptions`
 - `TelegramConnectionResponse`

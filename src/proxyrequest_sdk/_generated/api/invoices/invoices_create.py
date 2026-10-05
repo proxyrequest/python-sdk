@@ -129,22 +129,26 @@ def sync_detailed(
 ]:
     """Create an invoice
 
-     Calculates package pricing and initializes the selected payment provider when required. The status
-    defaults to `pending`. Creating an already-paid invoice by setting `status` to `paid` requires a
-    superuser or an active superuser's API key (Static or Bearer), including requests using
-    `X-Impersonate-User`. Other authenticated users receive a 403 response. During API-key
-    impersonation, the invoice recipient and user_id access rules are still determined by the
-    impersonated user. For wallet payments, omit `status`: the invoice is created as pending and becomes
-    paid after the balance is debited successfully. For your own billing system, confirm payment on your
-    backend before sending gateway=manual and status=paid with a superuser credential. Sending user_id
-    also requires is_reseller; omit user_id for a purchase by the caller. Sub-users cannot create
-    invoices themselves. A paid package purchase creates or tops up the recipient's order for that
-    package. Repeated purchases reuse the order. Finite expiring purchases have separate data ledgers;
-    compatible non-expiring purchases and unlimited packages may reuse a ledger. This is different from
-    assigning a child quota with /users/{id}/data/add. An amount-only invoice tops up money, not data.
-    Persist the invoice ID and use Idempotency-Key for retries. Before delivering access, read the paid
-    invoice and the resulting order: fulfillment can be recovered asynchronously. Accounting webhooks do
-    not include invoice.paid.
+     Validates package and purchase details, calculates package pricing unless a superuser supplies
+    `price_total`, and initializes the selected payment provider when required. `price_total` is the
+    final amount in the smallest currency unit, including tax and discounts; it also sets the credit for
+    a balance invoice. It requires a superuser or an active superuser's API key (Static or Bearer),
+    including during API-key impersonation, and cannot be combined with `coupon_code`. Other
+    authenticated users receive a 403 response. The status defaults to `pending`. Creating an already-
+    paid invoice by setting `status` to `paid` requires a superuser or an active superuser's API key
+    (Static or Bearer), including requests using `X-Impersonate-User`. Other authenticated users receive
+    a 403 response. During API-key impersonation, the invoice recipient and user_id access rules are
+    still determined by the impersonated user. For wallet payments, omit `status`: the invoice is
+    created as pending and becomes paid after the balance is debited successfully. For your own billing
+    system, confirm payment on your backend before sending gateway=manual and status=paid with a
+    superuser credential. Sending user_id also requires is_reseller; omit user_id for a purchase by the
+    caller. Sub-users cannot create invoices themselves. A paid package purchase creates or tops up the
+    recipient's order for that package. Repeated purchases reuse the order. Finite expiring purchases
+    have separate data ledgers; compatible non-expiring purchases and unlimited packages may reuse a
+    ledger. This is different from assigning a child quota with /users/{id}/data/add. An amount-only
+    invoice tops up money, not data. Persist the invoice ID and use Idempotency-Key for retries. Before
+    delivering access, read the paid invoice and the resulting order: fulfillment can be recovered
+    asynchronously. Accounting webhooks do not include invoice.paid.
 
     Args:
         idempotency_key (str | Unset):
@@ -189,22 +193,26 @@ def sync(
 ):
     """Create an invoice
 
-     Calculates package pricing and initializes the selected payment provider when required. The status
-    defaults to `pending`. Creating an already-paid invoice by setting `status` to `paid` requires a
-    superuser or an active superuser's API key (Static or Bearer), including requests using
-    `X-Impersonate-User`. Other authenticated users receive a 403 response. During API-key
-    impersonation, the invoice recipient and user_id access rules are still determined by the
-    impersonated user. For wallet payments, omit `status`: the invoice is created as pending and becomes
-    paid after the balance is debited successfully. For your own billing system, confirm payment on your
-    backend before sending gateway=manual and status=paid with a superuser credential. Sending user_id
-    also requires is_reseller; omit user_id for a purchase by the caller. Sub-users cannot create
-    invoices themselves. A paid package purchase creates or tops up the recipient's order for that
-    package. Repeated purchases reuse the order. Finite expiring purchases have separate data ledgers;
-    compatible non-expiring purchases and unlimited packages may reuse a ledger. This is different from
-    assigning a child quota with /users/{id}/data/add. An amount-only invoice tops up money, not data.
-    Persist the invoice ID and use Idempotency-Key for retries. Before delivering access, read the paid
-    invoice and the resulting order: fulfillment can be recovered asynchronously. Accounting webhooks do
-    not include invoice.paid.
+     Validates package and purchase details, calculates package pricing unless a superuser supplies
+    `price_total`, and initializes the selected payment provider when required. `price_total` is the
+    final amount in the smallest currency unit, including tax and discounts; it also sets the credit for
+    a balance invoice. It requires a superuser or an active superuser's API key (Static or Bearer),
+    including during API-key impersonation, and cannot be combined with `coupon_code`. Other
+    authenticated users receive a 403 response. The status defaults to `pending`. Creating an already-
+    paid invoice by setting `status` to `paid` requires a superuser or an active superuser's API key
+    (Static or Bearer), including requests using `X-Impersonate-User`. Other authenticated users receive
+    a 403 response. During API-key impersonation, the invoice recipient and user_id access rules are
+    still determined by the impersonated user. For wallet payments, omit `status`: the invoice is
+    created as pending and becomes paid after the balance is debited successfully. For your own billing
+    system, confirm payment on your backend before sending gateway=manual and status=paid with a
+    superuser credential. Sending user_id also requires is_reseller; omit user_id for a purchase by the
+    caller. Sub-users cannot create invoices themselves. A paid package purchase creates or tops up the
+    recipient's order for that package. Repeated purchases reuse the order. Finite expiring purchases
+    have separate data ledgers; compatible non-expiring purchases and unlimited packages may reuse a
+    ledger. This is different from assigning a child quota with /users/{id}/data/add. An amount-only
+    invoice tops up money, not data. Persist the invoice ID and use Idempotency-Key for retries. Before
+    delivering access, read the paid invoice and the resulting order: fulfillment can be recovered
+    asynchronously. Accounting webhooks do not include invoice.paid.
 
     Args:
         idempotency_key (str | Unset):
@@ -243,22 +251,26 @@ async def asyncio_detailed(
 ]:
     """Create an invoice
 
-     Calculates package pricing and initializes the selected payment provider when required. The status
-    defaults to `pending`. Creating an already-paid invoice by setting `status` to `paid` requires a
-    superuser or an active superuser's API key (Static or Bearer), including requests using
-    `X-Impersonate-User`. Other authenticated users receive a 403 response. During API-key
-    impersonation, the invoice recipient and user_id access rules are still determined by the
-    impersonated user. For wallet payments, omit `status`: the invoice is created as pending and becomes
-    paid after the balance is debited successfully. For your own billing system, confirm payment on your
-    backend before sending gateway=manual and status=paid with a superuser credential. Sending user_id
-    also requires is_reseller; omit user_id for a purchase by the caller. Sub-users cannot create
-    invoices themselves. A paid package purchase creates or tops up the recipient's order for that
-    package. Repeated purchases reuse the order. Finite expiring purchases have separate data ledgers;
-    compatible non-expiring purchases and unlimited packages may reuse a ledger. This is different from
-    assigning a child quota with /users/{id}/data/add. An amount-only invoice tops up money, not data.
-    Persist the invoice ID and use Idempotency-Key for retries. Before delivering access, read the paid
-    invoice and the resulting order: fulfillment can be recovered asynchronously. Accounting webhooks do
-    not include invoice.paid.
+     Validates package and purchase details, calculates package pricing unless a superuser supplies
+    `price_total`, and initializes the selected payment provider when required. `price_total` is the
+    final amount in the smallest currency unit, including tax and discounts; it also sets the credit for
+    a balance invoice. It requires a superuser or an active superuser's API key (Static or Bearer),
+    including during API-key impersonation, and cannot be combined with `coupon_code`. Other
+    authenticated users receive a 403 response. The status defaults to `pending`. Creating an already-
+    paid invoice by setting `status` to `paid` requires a superuser or an active superuser's API key
+    (Static or Bearer), including requests using `X-Impersonate-User`. Other authenticated users receive
+    a 403 response. During API-key impersonation, the invoice recipient and user_id access rules are
+    still determined by the impersonated user. For wallet payments, omit `status`: the invoice is
+    created as pending and becomes paid after the balance is debited successfully. For your own billing
+    system, confirm payment on your backend before sending gateway=manual and status=paid with a
+    superuser credential. Sending user_id also requires is_reseller; omit user_id for a purchase by the
+    caller. Sub-users cannot create invoices themselves. A paid package purchase creates or tops up the
+    recipient's order for that package. Repeated purchases reuse the order. Finite expiring purchases
+    have separate data ledgers; compatible non-expiring purchases and unlimited packages may reuse a
+    ledger. This is different from assigning a child quota with /users/{id}/data/add. An amount-only
+    invoice tops up money, not data. Persist the invoice ID and use Idempotency-Key for retries. Before
+    delivering access, read the paid invoice and the resulting order: fulfillment can be recovered
+    asynchronously. Accounting webhooks do not include invoice.paid.
 
     Args:
         idempotency_key (str | Unset):
@@ -301,22 +313,26 @@ async def asyncio(
 ):
     """Create an invoice
 
-     Calculates package pricing and initializes the selected payment provider when required. The status
-    defaults to `pending`. Creating an already-paid invoice by setting `status` to `paid` requires a
-    superuser or an active superuser's API key (Static or Bearer), including requests using
-    `X-Impersonate-User`. Other authenticated users receive a 403 response. During API-key
-    impersonation, the invoice recipient and user_id access rules are still determined by the
-    impersonated user. For wallet payments, omit `status`: the invoice is created as pending and becomes
-    paid after the balance is debited successfully. For your own billing system, confirm payment on your
-    backend before sending gateway=manual and status=paid with a superuser credential. Sending user_id
-    also requires is_reseller; omit user_id for a purchase by the caller. Sub-users cannot create
-    invoices themselves. A paid package purchase creates or tops up the recipient's order for that
-    package. Repeated purchases reuse the order. Finite expiring purchases have separate data ledgers;
-    compatible non-expiring purchases and unlimited packages may reuse a ledger. This is different from
-    assigning a child quota with /users/{id}/data/add. An amount-only invoice tops up money, not data.
-    Persist the invoice ID and use Idempotency-Key for retries. Before delivering access, read the paid
-    invoice and the resulting order: fulfillment can be recovered asynchronously. Accounting webhooks do
-    not include invoice.paid.
+     Validates package and purchase details, calculates package pricing unless a superuser supplies
+    `price_total`, and initializes the selected payment provider when required. `price_total` is the
+    final amount in the smallest currency unit, including tax and discounts; it also sets the credit for
+    a balance invoice. It requires a superuser or an active superuser's API key (Static or Bearer),
+    including during API-key impersonation, and cannot be combined with `coupon_code`. Other
+    authenticated users receive a 403 response. The status defaults to `pending`. Creating an already-
+    paid invoice by setting `status` to `paid` requires a superuser or an active superuser's API key
+    (Static or Bearer), including requests using `X-Impersonate-User`. Other authenticated users receive
+    a 403 response. During API-key impersonation, the invoice recipient and user_id access rules are
+    still determined by the impersonated user. For wallet payments, omit `status`: the invoice is
+    created as pending and becomes paid after the balance is debited successfully. For your own billing
+    system, confirm payment on your backend before sending gateway=manual and status=paid with a
+    superuser credential. Sending user_id also requires is_reseller; omit user_id for a purchase by the
+    caller. Sub-users cannot create invoices themselves. A paid package purchase creates or tops up the
+    recipient's order for that package. Repeated purchases reuse the order. Finite expiring purchases
+    have separate data ledgers; compatible non-expiring purchases and unlimited packages may reuse a
+    ledger. This is different from assigning a child quota with /users/{id}/data/add. An amount-only
+    invoice tops up money, not data. Persist the invoice ID and use Idempotency-Key for retries. Before
+    delivering access, read the paid invoice and the resulting order: fulfillment can be recovered
+    asynchronously. Accounting webhooks do not include invoice.paid.
 
     Args:
         idempotency_key (str | Unset):

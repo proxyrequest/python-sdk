@@ -235,7 +235,13 @@ def postprocess_generated(generated: Path) -> None:
 
 
 def find_endpoint(generated: Path, operation_id: str) -> Path:
-    matches = list((generated / "api").glob(f"*/{operation_id}.py"))
+    normalized_id = re.sub(r"(?<!^)(?=[A-Z])", "_", operation_id).lower()
+    module_names = {operation_id, normalized_id}
+    matches = [
+        path
+        for module_name in module_names
+        for path in (generated / "api").glob(f"*/{module_name}.py")
+    ]
     if len(matches) != 1:
         raise SystemExit(f"Expected one generated module for {operation_id}, found {len(matches)}")
     return matches[0]
@@ -349,7 +355,7 @@ def render_resource(
         endpoint = find_endpoint(generated, operation.operation_id)
         tag_module = endpoint.parent.name
         imports.append(
-            f"from .._generated.api.{tag_module} import {operation.operation_id} as _{operation.operation_id}"
+            f"from .._generated.api.{tag_module} import {endpoint.stem} as _{operation.operation_id}"
         )
         arguments, names, argument_type_names = public_arguments(endpoint, {})
         type_names.update(argument_type_names)

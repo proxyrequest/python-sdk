@@ -4,20 +4,20 @@
     "id": "python",
     "label": "Python",
     "language": "Python",
-    "version": "4.1.0",
+    "version": "4.2.0",
     "package": "proxyrequest-sdk",
     "runtime": "Python 3.11 or later",
     "install": "python -m pip install proxyrequest-sdk",
     "openapi": {
-      "commit": "09dab1ad6f5ab4e879120074e55f817e58856a6f",
+      "commit": "3bd7c30b6727264a0eae42f6d536e1cce34b3b5b",
       "excludedOperations": [
         "sessions_destroy",
         "sessions_list"
       ],
-      "operations": 83,
+      "operations": 85,
       "repository": "papaproxy/api",
-      "schemas": 139,
-      "sha256": "b9106a09b1fadc44722b22afec3b37fe1f9839298e3878ac366268627ce78741",
+      "schemas": 142,
+      "sha256": "08b890bf82142b5a60d198ef7cf53f5cbc073e8f4a44b7b7994b7a49baae4a88",
       "source": "openapi.yml"
     }
   },
@@ -310,7 +310,7 @@
               "required": false,
               "type": "str",
               "default": "en",
-              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es, zh-hans, ja. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
               "example": "en",
               "modelRefs": []
             }
@@ -406,7 +406,7 @@
               "required": false,
               "type": "str",
               "default": "en",
-              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es, zh-hans, ja. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
               "example": "en",
               "modelRefs": []
             }
@@ -532,7 +532,7 @@
               "required": false,
               "type": "str",
               "default": "en",
-              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es, zh-hans, ja. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
               "example": "en",
               "modelRefs": []
             }
@@ -672,7 +672,7 @@
               "required": false,
               "type": "str",
               "default": "en",
-              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es, zh-hans, ja. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
               "example": "en",
               "modelRefs": []
             }
@@ -790,7 +790,7 @@
               "required": false,
               "type": "str",
               "default": "en",
-              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es, zh-hans, ja. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
               "example": "en",
               "modelRefs": []
             }
@@ -886,7 +886,7 @@
               "required": false,
               "type": "str",
               "default": "en",
-              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es, zh-hans, ja. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
               "example": "en",
               "modelRefs": []
             }
@@ -1089,7 +1089,7 @@
               "required": false,
               "type": "str",
               "default": "en",
-              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es, zh-hans, ja. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
               "example": "en",
               "modelRefs": []
             }
@@ -1245,7 +1245,7 @@
               "required": false,
               "type": "str",
               "default": "en",
-              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es, zh-hans, ja. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
               "example": "en",
               "modelRefs": []
             }
@@ -1481,7 +1481,7 @@
               "required": false,
               "type": "str",
               "default": "en",
-              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es, zh-hans, ja. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
               "example": "en",
               "modelRefs": []
             }
@@ -1739,7 +1739,7 @@
               "required": false,
               "type": "str",
               "default": "en",
-              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es, zh-hans, ja. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
               "example": "en",
               "modelRefs": []
             }
@@ -1843,7 +1843,7 @@
               "required": false,
               "type": "str",
               "default": "en",
-              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es, zh-hans, ja. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
               "example": "en",
               "modelRefs": []
             },
@@ -2189,7 +2189,7 @@
               "required": false,
               "type": "str",
               "default": "en",
-              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es, zh-hans, ja. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
               "example": "en",
               "modelRefs": []
             }
@@ -2301,7 +2301,7 @@
               "required": false,
               "type": "str",
               "default": "en",
-              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es, zh-hans, ja. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
               "example": "en",
               "modelRefs": []
             }
@@ -2388,7 +2388,7 @@
               "required": false,
               "type": "str",
               "default": "en",
-              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es, zh-hans, ja. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
               "example": "en",
               "modelRefs": []
             }
@@ -2485,7 +2485,7 @@
               "required": false,
               "type": "str",
               "default": "en",
-              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es, zh-hans, ja. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
               "example": "en",
               "modelRefs": []
             }
@@ -2573,7 +2573,7 @@
               "required": false,
               "type": "str",
               "default": "en",
-              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es, zh-hans, ja. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
               "example": "en",
               "modelRefs": []
             }
@@ -2661,7 +2661,7 @@
               "required": false,
               "type": "str",
               "default": "en",
-              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es, zh-hans, ja. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
               "example": "en",
               "modelRefs": []
             }
@@ -2755,7 +2755,7 @@
               "required": false,
               "type": "str",
               "default": "en",
-              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es, zh-hans, ja. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
               "example": "en",
               "modelRefs": []
             }
@@ -2925,7 +2925,7 @@
               "required": false,
               "type": "str",
               "default": "en",
-              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es, zh-hans, ja. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
               "example": "en",
               "modelRefs": []
             }
@@ -3032,7 +3032,7 @@
               "required": false,
               "type": "str",
               "default": "en",
-              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es, zh-hans, ja. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
               "example": "en",
               "modelRefs": []
             }
@@ -3105,11 +3105,11 @@
           ],
           "example": {
             "language": "python",
-            "code": "result = client.coupons.create(\n        body=models.CouponCreateRequest.from_dict({'value': -9223372036854775808, 'type': 'free_data'}),\n    )"
+            "code": "result = client.coupons.create(\n        body=models.CouponCreateRequest.from_dict({'value': 1, 'type': 'free_data'}),\n    )"
           },
           "asyncExample": {
             "language": "python",
-            "code": "result = await async_client.coupons.create(\n        body=models.CouponCreateRequest.from_dict({'value': -9223372036854775808, 'type': 'free_data'}),\n    )"
+            "code": "result = await async_client.coupons.create(\n        body=models.CouponCreateRequest.from_dict({'value': 1, 'type': 'free_data'}),\n    )"
           }
         },
         {
@@ -3155,7 +3155,7 @@
               "required": false,
               "type": "str",
               "default": "en",
-              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es, zh-hans, ja. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
               "example": "en",
               "modelRefs": []
             }
@@ -3281,7 +3281,7 @@
               "required": false,
               "type": "str",
               "default": "en",
-              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es, zh-hans, ja. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
               "example": "en",
               "modelRefs": []
             }
@@ -3362,11 +3362,11 @@
           ],
           "example": {
             "language": "python",
-            "code": "result = client.coupons.replace(\n        id='550e8400-e29b-41d4-a716-446655440000',\n        body=models.CouponUpdateRequest.from_dict({'value': -9223372036854775808, 'type': 'free_data'}),\n    )"
+            "code": "result = client.coupons.replace(\n        id='550e8400-e29b-41d4-a716-446655440000',\n        body=models.CouponUpdateRequest.from_dict({'value': 1, 'type': 'free_data'}),\n    )"
           },
           "asyncExample": {
             "language": "python",
-            "code": "result = await async_client.coupons.replace(\n        id='550e8400-e29b-41d4-a716-446655440000',\n        body=models.CouponUpdateRequest.from_dict({'value': -9223372036854775808, 'type': 'free_data'}),\n    )"
+            "code": "result = await async_client.coupons.replace(\n        id='550e8400-e29b-41d4-a716-446655440000',\n        body=models.CouponUpdateRequest.from_dict({'value': 1, 'type': 'free_data'}),\n    )"
           }
         },
         {
@@ -3423,7 +3423,7 @@
               "required": false,
               "type": "str",
               "default": "en",
-              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es, zh-hans, ja. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
               "example": "en",
               "modelRefs": []
             }
@@ -3576,7 +3576,7 @@
               "required": false,
               "type": "str",
               "default": "en",
-              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es, zh-hans, ja. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
               "example": "en",
               "modelRefs": []
             }
@@ -3760,7 +3760,7 @@
               "required": false,
               "type": "str",
               "default": "en",
-              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es, zh-hans, ja. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
               "example": "en",
               "modelRefs": []
             }
@@ -3864,7 +3864,7 @@
               "required": false,
               "type": "str",
               "default": "en",
-              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es, zh-hans, ja. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
               "example": "en",
               "modelRefs": []
             }
@@ -4097,7 +4097,7 @@
               "required": false,
               "type": "str",
               "default": "en",
-              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es, zh-hans, ja. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
               "example": "en",
               "modelRefs": []
             }
@@ -4165,7 +4165,7 @@
           "operationId": "invoices_create",
           "name": "create",
           "summary": "Create an invoice",
-          "description": "Calculates package pricing and initializes the selected payment provider when required. The status defaults to `pending`. Creating an already-paid invoice by setting `status` to `paid` requires a superuser or an active superuser's API key (Static or Bearer), including requests using `X-Impersonate-User`. Other authenticated users receive a 403 response. During API-key impersonation, the invoice recipient and user_id access rules are still determined by the impersonated user. For wallet payments, omit `status`: the invoice is created as pending and becomes paid after the balance is debited successfully. For your own billing system, confirm payment on your backend before sending gateway=manual and status=paid with a superuser credential. Sending user_id also requires is_reseller; omit user_id for a purchase by the caller. Sub-users cannot create invoices themselves. A paid package purchase creates or tops up the recipient's order for that package. Repeated purchases reuse the order. Finite expiring purchases have separate data ledgers; compatible non-expiring purchases and unlimited packages may reuse a ledger. This is different from assigning a child quota with /users/{id}/data/add. An amount-only invoice tops up money, not data. Persist the invoice ID and use Idempotency-Key for retries. Before delivering access, read the paid invoice and the resulting order: fulfillment can be recovered asynchronously. Accounting webhooks do not include invoice.paid.",
+          "description": "Validates package and purchase details, calculates package pricing unless a superuser supplies `price_total`, and initializes the selected payment provider when required. `price_total` is the final amount in the smallest currency unit, including tax and discounts; it also sets the credit for a balance invoice. It requires a superuser or an active superuser's API key (Static or Bearer), including during API-key impersonation, and cannot be combined with `coupon_code`. Other authenticated users receive a 403 response. The status defaults to `pending`. Creating an already-paid invoice by setting `status` to `paid` requires a superuser or an active superuser's API key (Static or Bearer), including requests using `X-Impersonate-User`. Other authenticated users receive a 403 response. During API-key impersonation, the invoice recipient and user_id access rules are still determined by the impersonated user. For wallet payments, omit `status`: the invoice is created as pending and becomes paid after the balance is debited successfully. For your own billing system, confirm payment on your backend before sending gateway=manual and status=paid with a superuser credential. Sending user_id also requires is_reseller; omit user_id for a purchase by the caller. Sub-users cannot create invoices themselves. A paid package purchase creates or tops up the recipient's order for that package. Repeated purchases reuse the order. Finite expiring purchases have separate data ledgers; compatible non-expiring purchases and unlimited packages may reuse a ledger. This is different from assigning a child quota with /users/{id}/data/add. An amount-only invoice tops up money, not data. Persist the invoice ID and use Idempotency-Key for retries. Before delivering access, read the paid invoice and the resulting order: fulfillment can be recovered asynchronously. Accounting webhooks do not include invoice.paid.",
           "httpMethod": "POST",
           "path": "/invoices",
           "signatures": [
@@ -4204,7 +4204,7 @@
               "required": false,
               "type": "str",
               "default": "en",
-              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es, zh-hans, ja. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
               "example": "en",
               "modelRefs": []
             }
@@ -4333,7 +4333,7 @@
               "required": false,
               "type": "str",
               "default": "en",
-              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es, zh-hans, ja. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
               "example": "en",
               "modelRefs": []
             }
@@ -4471,7 +4471,7 @@
               "required": false,
               "type": "str",
               "default": "en",
-              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es, zh-hans, ja. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
               "example": "en",
               "modelRefs": []
             }
@@ -4600,7 +4600,7 @@
               "required": false,
               "type": "str",
               "default": "en",
-              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es, zh-hans, ja. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
               "example": "en",
               "modelRefs": []
             }
@@ -4713,7 +4713,7 @@
               "required": false,
               "type": "str",
               "default": "en",
-              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es, zh-hans, ja. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
               "example": "en",
               "modelRefs": []
             }
@@ -4924,7 +4924,7 @@
               "required": false,
               "type": "str",
               "default": "en",
-              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es, zh-hans, ja. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
               "example": "en",
               "modelRefs": []
             }
@@ -5130,7 +5130,7 @@
               "required": false,
               "type": "str",
               "default": "en",
-              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es, zh-hans, ja. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
               "example": "en",
               "modelRefs": []
             }
@@ -5259,7 +5259,7 @@
               "required": false,
               "type": "str",
               "default": "en",
-              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es, zh-hans, ja. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
               "example": "en",
               "modelRefs": []
             }
@@ -5440,7 +5440,7 @@
               "required": false,
               "type": "str",
               "default": "en",
-              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es, zh-hans, ja. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
               "example": "en",
               "modelRefs": []
             }
@@ -5558,7 +5558,7 @@
               "required": false,
               "type": "str",
               "default": "en",
-              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es, zh-hans, ja. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
               "example": "en",
               "modelRefs": []
             }
@@ -5750,7 +5750,7 @@
               "required": false,
               "type": "str",
               "default": "en",
-              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es, zh-hans, ja. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
               "example": "en",
               "modelRefs": []
             }
@@ -5879,7 +5879,7 @@
               "required": false,
               "type": "str",
               "default": "en",
-              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es, zh-hans, ja. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
               "example": "en",
               "modelRefs": []
             }
@@ -6071,7 +6071,7 @@
               "required": false,
               "type": "str",
               "default": "en",
-              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es, zh-hans, ja. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
               "example": "en",
               "modelRefs": []
             }
@@ -6266,7 +6266,7 @@
               "required": false,
               "type": "str",
               "default": "en",
-              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es, zh-hans, ja. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
               "example": "en",
               "modelRefs": []
             }
@@ -6395,7 +6395,7 @@
               "required": false,
               "type": "str",
               "default": "en",
-              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es, zh-hans, ja. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
               "example": "en",
               "modelRefs": []
             }
@@ -6551,7 +6551,7 @@
               "required": false,
               "type": "str",
               "default": "en",
-              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es, zh-hans, ja. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
               "example": "en",
               "modelRefs": []
             }
@@ -6754,7 +6754,7 @@
               "required": false,
               "type": "str",
               "default": "en",
-              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es, zh-hans, ja. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
               "example": "en",
               "modelRefs": []
             }
@@ -6861,7 +6861,7 @@
               "required": false,
               "type": "str",
               "default": "en",
-              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es, zh-hans, ja. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
               "example": "en",
               "modelRefs": []
             }
@@ -6987,7 +6987,7 @@
               "required": false,
               "type": "str",
               "default": "en",
-              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es, zh-hans, ja. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
               "example": "en",
               "modelRefs": []
             }
@@ -7140,7 +7140,7 @@
               "required": false,
               "type": "str",
               "default": "en",
-              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es, zh-hans, ja. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
               "example": "en",
               "modelRefs": []
             }
@@ -7258,7 +7258,7 @@
               "required": false,
               "type": "str",
               "default": "en",
-              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es, zh-hans, ja. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
               "example": "en",
               "modelRefs": []
             }
@@ -7439,7 +7439,7 @@
               "required": false,
               "type": "str",
               "default": "en",
-              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es, zh-hans, ja. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
               "example": "en",
               "modelRefs": []
             }
@@ -7601,7 +7601,7 @@
               "required": false,
               "type": "str",
               "default": "en",
-              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es, zh-hans, ja. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
               "example": "en",
               "modelRefs": []
             }
@@ -7705,7 +7705,7 @@
               "required": false,
               "type": "str",
               "default": "en",
-              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es, zh-hans, ja. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
               "example": "en",
               "modelRefs": []
             }
@@ -7812,7 +7812,7 @@
               "required": false,
               "type": "str",
               "default": "en",
-              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es, zh-hans, ja. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
               "example": "en",
               "modelRefs": []
             }
@@ -7935,7 +7935,7 @@
               "required": false,
               "type": "str",
               "default": "en",
-              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es, zh-hans, ja. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
               "example": "en",
               "modelRefs": []
             }
@@ -8037,7 +8037,7 @@
               "required": false,
               "type": "str",
               "default": "en",
-              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es, zh-hans, ja. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
               "example": "en",
               "modelRefs": []
             }
@@ -8141,7 +8141,7 @@
               "required": false,
               "type": "str",
               "default": "en",
-              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es, zh-hans, ja. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
               "example": "en",
               "modelRefs": []
             }
@@ -8245,7 +8245,7 @@
               "required": false,
               "type": "str",
               "default": "en",
-              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es, zh-hans, ja. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
               "example": "en",
               "modelRefs": []
             }
@@ -8349,7 +8349,7 @@
               "required": false,
               "type": "str",
               "default": "en",
-              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es, zh-hans, ja. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
               "example": "en",
               "modelRefs": []
             }
@@ -8445,7 +8445,7 @@
               "required": false,
               "type": "str",
               "default": "en",
-              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es, zh-hans, ja. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
               "example": "en",
               "modelRefs": []
             }
@@ -8516,6 +8516,206 @@
             "language": "python",
             "code": "result = await async_client.profile.change_password(\n        body=models.ChangePasswordRequest.from_dict({'old_password': 'Correct-Horse-Battery-Staple-42', 'new_password1': 'Correct-Horse-Battery-Staple-42', 'new_password2': 'Correct-Horse-Battery-Staple-42'}),\n    )"
           }
+        },
+        {
+          "operationId": "profileSocialAccounts",
+          "name": "list_social_accounts",
+          "summary": "List social account connections",
+          "description": "Returns social sign-in connections and unlink restrictions for the signed-in account.",
+          "httpMethod": "GET",
+          "path": "/profile/social-accounts",
+          "signatures": [
+            {
+              "label": "Sync",
+              "signature": "client.profile.list_social_accounts(*, accept_language: str | Unset=UNSET) -> list[SocialAccountState]"
+            },
+            {
+              "label": "Async",
+              "signature": "await async_client.profile.list_social_accounts(*, accept_language: str | Unset=UNSET) -> list[SocialAccountState]"
+            }
+          ],
+          "variants": [
+            {
+              "name": "list_social_accounts_with_response",
+              "signature": "client.profile.list_social_accounts_with_response(*, accept_language: str | Unset=UNSET) -> ApiResponse[list[SocialAccountState]]",
+              "description": "Returns response status, headers, ETag and idempotency metadata with the decoded data."
+            }
+          ],
+          "parameters": [
+            {
+              "name": "accept_language",
+              "wireName": "Accept-Language",
+              "in": "header",
+              "required": false,
+              "type": "str",
+              "default": "en",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "example": "en",
+              "modelRefs": []
+            }
+          ],
+          "body": null,
+          "returns": {
+            "type": "list[SocialAccountState]",
+            "description": "The operation completed successfully.",
+            "modelRefs": [
+              "SocialAccountState"
+            ]
+          },
+          "errors": [
+            {
+              "status": "400",
+              "description": "The request is malformed or violates a business rule."
+            },
+            {
+              "status": "401",
+              "description": "Authentication credentials are missing, expired, or invalid."
+            },
+            {
+              "status": "403",
+              "description": "The authenticated account cannot perform this operation."
+            }
+          ],
+          "throws": [
+            {
+              "type": "ApiError",
+              "description": "Normalized API, transport, and response processing failure.",
+              "conditions": [
+                {
+                  "kind": "ErrorKind.VALIDATION",
+                  "description": "The request arguments or business rules are invalid."
+                },
+                {
+                  "kind": "ErrorKind.AUTHENTICATION",
+                  "description": "Authentication credentials are missing, expired, or invalid."
+                },
+                {
+                  "kind": "ErrorKind.PERMISSION",
+                  "description": "The authenticated account cannot perform this operation."
+                },
+                {
+                  "kind": "ErrorKind.NETWORK",
+                  "description": "The request could not reach ProxyRequest."
+                },
+                {
+                  "kind": "ErrorKind.UNEXPECTED",
+                  "description": "The response could not be decoded or did not match the SDK contract."
+                }
+              ]
+            }
+          ],
+          "example": {
+            "language": "python",
+            "code": "result = client.profile.list_social_accounts()"
+          },
+          "asyncExample": {
+            "language": "python",
+            "code": "result = await async_client.profile.list_social_accounts()"
+          }
+        },
+        {
+          "operationId": "profileConnectGoogle",
+          "name": "connect_google",
+          "summary": "Connect Google to the signed-in account",
+          "description": "Connect a verified Google identity to the signed-in account after confirming its password.",
+          "httpMethod": "POST",
+          "path": "/profile/social-accounts/google",
+          "signatures": [
+            {
+              "label": "Sync",
+              "signature": "client.profile.connect_google(*, body: GoogleConnectRequestRequest, accept_language: str | Unset=UNSET) -> list[SocialAccountState]"
+            },
+            {
+              "label": "Async",
+              "signature": "await async_client.profile.connect_google(*, body: GoogleConnectRequestRequest, accept_language: str | Unset=UNSET) -> list[SocialAccountState]"
+            }
+          ],
+          "variants": [
+            {
+              "name": "connect_google_with_response",
+              "signature": "client.profile.connect_google_with_response(*, body: GoogleConnectRequestRequest, accept_language: str | Unset=UNSET) -> ApiResponse[list[SocialAccountState]]",
+              "description": "Returns response status, headers, ETag and idempotency metadata with the decoded data."
+            }
+          ],
+          "parameters": [
+            {
+              "name": "accept_language",
+              "wireName": "Accept-Language",
+              "in": "header",
+              "required": false,
+              "type": "str",
+              "default": "en",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "example": "en",
+              "modelRefs": []
+            }
+          ],
+          "body": {
+            "name": "body",
+            "required": true,
+            "type": "GoogleConnectRequestRequest",
+            "description": "",
+            "modelRefs": [
+              "GoogleConnectRequestRequest"
+            ]
+          },
+          "returns": {
+            "type": "list[SocialAccountState]",
+            "description": "The operation completed successfully.",
+            "modelRefs": [
+              "SocialAccountState"
+            ]
+          },
+          "errors": [
+            {
+              "status": "400",
+              "description": "The request is malformed or violates a business rule."
+            },
+            {
+              "status": "401",
+              "description": "Authentication credentials are missing, expired, or invalid."
+            },
+            {
+              "status": "403",
+              "description": "The authenticated account cannot perform this operation."
+            }
+          ],
+          "throws": [
+            {
+              "type": "ApiError",
+              "description": "Normalized API, transport, and response processing failure.",
+              "conditions": [
+                {
+                  "kind": "ErrorKind.VALIDATION",
+                  "description": "The request arguments or business rules are invalid."
+                },
+                {
+                  "kind": "ErrorKind.AUTHENTICATION",
+                  "description": "Authentication credentials are missing, expired, or invalid."
+                },
+                {
+                  "kind": "ErrorKind.PERMISSION",
+                  "description": "The authenticated account cannot perform this operation."
+                },
+                {
+                  "kind": "ErrorKind.NETWORK",
+                  "description": "The request could not reach ProxyRequest."
+                },
+                {
+                  "kind": "ErrorKind.UNEXPECTED",
+                  "description": "The response could not be decoded or did not match the SDK contract."
+                }
+              ]
+            }
+          ],
+          "example": {
+            "language": "python",
+            "code": "result = client.profile.connect_google(\n        body=models.GoogleConnectRequestRequest.from_dict({'credential': '{credential}', 'password': 'Correct-Horse-Battery-Staple-42'}),\n    )"
+          },
+          "asyncExample": {
+            "language": "python",
+            "code": "result = await async_client.profile.connect_google(\n        body=models.GoogleConnectRequestRequest.from_dict({'credential': '{credential}', 'password': 'Correct-Horse-Battery-Staple-42'}),\n    )"
+          }
         }
       ]
     },
@@ -8579,7 +8779,7 @@
               "required": false,
               "type": "str",
               "default": "en",
-              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es, zh-hans, ja. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
               "example": "en",
               "modelRefs": []
             }
@@ -8683,7 +8883,7 @@
               "required": false,
               "type": "str",
               "default": "en",
-              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es, zh-hans, ja. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
               "example": "en",
               "modelRefs": []
             }
@@ -8869,7 +9069,7 @@
               "required": false,
               "type": "str",
               "default": "en",
-              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es, zh-hans, ja. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
               "example": "en",
               "modelRefs": []
             }
@@ -8965,7 +9165,7 @@
               "required": false,
               "type": "str",
               "default": "en",
-              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es, zh-hans, ja. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
               "example": "en",
               "modelRefs": []
             }
@@ -9073,7 +9273,7 @@
               "required": false,
               "type": "str",
               "default": "en",
-              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es, zh-hans, ja. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
               "example": "en",
               "modelRefs": []
             }
@@ -9185,7 +9385,7 @@
               "required": false,
               "type": "str",
               "default": "en",
-              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es, zh-hans, ja. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
               "example": "en",
               "modelRefs": []
             }
@@ -9281,7 +9481,7 @@
               "required": false,
               "type": "str",
               "default": "en",
-              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es, zh-hans, ja. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
               "example": "en",
               "modelRefs": []
             }
@@ -9385,7 +9585,7 @@
               "required": false,
               "type": "str",
               "default": "en",
-              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es, zh-hans, ja. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
               "example": "en",
               "modelRefs": []
             }
@@ -9479,7 +9679,7 @@
               "required": false,
               "type": "str",
               "default": "en",
-              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es, zh-hans, ja. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
               "example": "en",
               "modelRefs": []
             }
@@ -9671,7 +9871,7 @@
               "required": false,
               "type": "str",
               "default": "en",
-              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es, zh-hans, ja. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
               "example": "en",
               "modelRefs": []
             }
@@ -9778,7 +9978,7 @@
               "required": false,
               "type": "str",
               "default": "en",
-              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es, zh-hans, ja. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
               "example": "en",
               "modelRefs": []
             }
@@ -9901,7 +10101,7 @@
               "required": false,
               "type": "str",
               "default": "en",
-              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es, zh-hans, ja. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
               "example": "en",
               "modelRefs": []
             }
@@ -10027,7 +10227,7 @@
               "required": false,
               "type": "str",
               "default": "en",
-              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es, zh-hans, ja. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
               "example": "en",
               "modelRefs": []
             }
@@ -10180,7 +10380,7 @@
               "required": false,
               "type": "str",
               "default": "en",
-              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es, zh-hans, ja. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
               "example": "en",
               "modelRefs": []
             }
@@ -10320,7 +10520,7 @@
               "required": false,
               "type": "str",
               "default": "en",
-              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es, zh-hans, ja. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
               "example": "en",
               "modelRefs": []
             }
@@ -10462,7 +10662,7 @@
               "required": false,
               "type": "str",
               "default": "en",
-              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es, zh-hans, ja. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
               "example": "en",
               "modelRefs": []
             }
@@ -10604,7 +10804,7 @@
               "required": false,
               "type": "str",
               "default": "en",
-              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es, zh-hans, ja. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
               "example": "en",
               "modelRefs": []
             }
@@ -10801,7 +11001,7 @@
               "required": false,
               "type": "str",
               "default": "en",
-              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es, zh-hans, ja. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
               "example": "en",
               "modelRefs": []
             }
@@ -10916,7 +11116,7 @@
               "required": false,
               "type": "str",
               "default": "en",
-              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es, zh-hans, ja. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
               "example": "en",
               "modelRefs": []
             }
@@ -11056,7 +11256,7 @@
               "required": false,
               "type": "str",
               "default": "en",
-              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es, zh-hans, ja. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
               "example": "en",
               "modelRefs": []
             }
@@ -11163,7 +11363,7 @@
               "required": false,
               "type": "str",
               "default": "en",
-              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es, zh-hans, ja. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
               "example": "en",
               "modelRefs": []
             }
@@ -11286,7 +11486,7 @@
               "required": false,
               "type": "str",
               "default": "en",
-              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es, zh-hans, ja. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
               "example": "en",
               "modelRefs": []
             }
@@ -11423,7 +11623,7 @@
               "required": false,
               "type": "str",
               "default": "en",
-              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es, zh-hans, ja. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
+              "description": "Preferred language for human-readable API errors. Supported languages: en, ru, uk, de, it, fr, es. Regional language tags and quality weights are accepted; unsupported or omitted values use English.",
               "example": "en",
               "modelRefs": []
             }
@@ -12386,7 +12586,7 @@
           "type": "int",
           "required": true,
           "default": null,
-          "description": "",
+          "description": "Bytes; zero only for an unlimited Residential package.",
           "enum": null,
           "modelRefs": []
         },
@@ -13539,6 +13739,31 @@
       ]
     },
     {
+      "name": "GoogleConnectRequestRequest",
+      "kind": "class",
+      "description": "",
+      "fields": [
+        {
+          "name": "credential",
+          "type": "str",
+          "required": true,
+          "default": null,
+          "description": "",
+          "enum": null,
+          "modelRefs": []
+        },
+        {
+          "name": "password",
+          "type": "str",
+          "required": true,
+          "default": null,
+          "description": "",
+          "enum": null,
+          "modelRefs": []
+        }
+      ]
+    },
+    {
       "name": "ISP",
       "kind": "class",
       "description": "",
@@ -14012,7 +14237,7 @@
           "type": "int",
           "required": false,
           "default": null,
-          "description": "Residential proxy data to purchase, in integer bytes (1 GiB = 1073741824). Required with package_id for a residential purchase. A paid purchase funds the recipient's order; it is not a virtual allocation from a parent pool.",
+          "description": "Residential proxy data to purchase, in integer bytes (1 GiB = 1073741824). Use 0 for an unlimited Residential package; its fixed price is not multiplied by volume. Required with package_id for a residential purchase. A paid purchase funds the recipient's order; it is not a virtual allocation from a parent pool.",
           "enum": null,
           "modelRefs": []
         },
@@ -14031,6 +14256,15 @@
           "required": false,
           "default": null,
           "description": "Account balance amount to purchase, in the smallest currency unit. Use for a wallet top-up without package_id, not for buying proxy data.",
+          "enum": null,
+          "modelRefs": []
+        },
+        {
+          "name": "price_total",
+          "type": "int",
+          "required": false,
+          "default": null,
+          "description": "Optional final invoice total in the smallest currency unit, including tax and discounts. For a balance invoice, this is also the balance credit and takes precedence over amount. Only superusers or active superuser API keys may supply it, including during API-key impersonation; coupon_code cannot be supplied with price_total.",
           "enum": null,
           "modelRefs": []
         },
@@ -15018,6 +15252,15 @@
           "modelRefs": []
         },
         {
+          "name": "data_spent",
+          "type": "int",
+          "required": true,
+          "default": null,
+          "description": "Integer bytes. Root order: its own usage plus usage of existing linked child orders, including inactive ones. Deleted child orders are excluded. Child order: its own usage.",
+          "enum": null,
+          "modelRefs": []
+        },
+        {
           "name": "ledgers",
           "type": "list[DataLedger]",
           "required": true,
@@ -15119,15 +15362,6 @@
           "modelRefs": []
         },
         {
-          "name": "data_spent",
-          "type": "int",
-          "required": false,
-          "default": null,
-          "description": "Total bytes consumed from this order's data allowance so far. Updated in real time as the customer uses the proxy.",
-          "enum": null,
-          "modelRefs": []
-        },
-        {
           "name": "latest_data_top_up",
           "type": "int",
           "required": false,
@@ -15187,6 +15421,15 @@
           "required": true,
           "default": null,
           "description": "Integer bytes. Root order: sum of usable ledger balances. Virtual child order: max(data - data_spent, 0); access also needs a usable parent pool.",
+          "enum": null,
+          "modelRefs": []
+        },
+        {
+          "name": "data_spent",
+          "type": "int",
+          "required": true,
+          "default": null,
+          "description": "Integer bytes. Root order: its own usage plus usage of existing linked child orders, including inactive ones. Deleted child orders are excluded. Child order: its own usage.",
           "enum": null,
           "modelRefs": []
         },
@@ -15279,15 +15522,6 @@
           "required": false,
           "default": null,
           "description": "Total data allowance for this order in bytes. 1073741824 = 1 GiB 10737418240 = 10 GiB",
-          "enum": null,
-          "modelRefs": []
-        },
-        {
-          "name": "data_spent",
-          "type": "int",
-          "required": false,
-          "default": null,
-          "description": "Total bytes consumed from this order's data allowance so far. Updated in real time as the customer uses the proxy.",
           "enum": null,
           "modelRefs": []
         },
@@ -15485,6 +15719,15 @@
           ]
         },
         {
+          "name": "price_requires_configuration",
+          "type": "bool",
+          "required": true,
+          "default": null,
+          "description": "",
+          "enum": null,
+          "modelRefs": []
+        },
+        {
           "name": "targeting_options",
           "type": "TargetingOptions",
           "required": true,
@@ -15599,6 +15842,24 @@
           "modelRefs": [
             "PricingUnitEnum"
           ]
+        },
+        {
+          "name": "is_unlimited_data",
+          "type": "bool",
+          "required": false,
+          "default": null,
+          "description": "When enabled, users on this package have no data cap. The proxy will not enforce any bandwidth limit.",
+          "enum": null,
+          "modelRefs": []
+        },
+        {
+          "name": "billing_unlimited",
+          "type": "int",
+          "required": false,
+          "default": null,
+          "description": "Price charged for unlimited data access on this package. Set to 0 to disable unlimited option.",
+          "enum": null,
+          "modelRefs": []
         },
         {
           "name": "commission_rate",
@@ -17513,6 +17774,12 @@
       ]
     },
     {
+      "name": "ProviderEnum",
+      "kind": "enum",
+      "description": "",
+      "fields": []
+    },
+    {
       "name": "ProxyGenerationConnectionRequest",
       "kind": "class",
       "description": "",
@@ -17566,7 +17833,7 @@
           "name": "ttl",
           "type": "int",
           "required": false,
-          "default": 3600,
+          "default": 600,
           "description": "Sticky session lifetime in seconds. The accepted range is configured per deployment.",
           "enum": null,
           "modelRefs": []
@@ -18250,6 +18517,51 @@
           "required": false,
           "default": null,
           "description": "Optional user referral code",
+          "enum": null,
+          "modelRefs": []
+        }
+      ]
+    },
+    {
+      "name": "SocialAccountState",
+      "kind": "class",
+      "description": "",
+      "fields": [
+        {
+          "name": "provider",
+          "type": "ProviderEnum",
+          "required": true,
+          "default": null,
+          "description": "* `discord` - discord * `google` - google * `meta` - meta * `twitter` - twitter",
+          "enum": null,
+          "modelRefs": [
+            "ProviderEnum"
+          ]
+        },
+        {
+          "name": "linked",
+          "type": "bool",
+          "required": true,
+          "default": null,
+          "description": "",
+          "enum": null,
+          "modelRefs": []
+        },
+        {
+          "name": "can_unlink",
+          "type": "bool",
+          "required": true,
+          "default": null,
+          "description": "",
+          "enum": null,
+          "modelRefs": []
+        },
+        {
+          "name": "unlink_block_reason",
+          "type": "str",
+          "required": true,
+          "default": null,
+          "description": "",
           "enum": null,
           "modelRefs": []
         }

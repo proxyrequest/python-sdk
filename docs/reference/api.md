@@ -108,10 +108,12 @@ All methods exist on both `Client` and `AsyncClient`; async calls must be awaite
 | --- | --- | --- |
 | `change_password()` | `POST /profile/change-password` | `MessageResponse` |
 | `confirm_two_factor()` | `POST /profile/2fa/confirm` | `EnabledResponse` |
+| `connect_google()` | `POST /profile/social-accounts/google` | `list[SocialAccountState]` |
 | `delete()` | `DELETE /profile` | `None` |
 | `disable_two_factor()` | `POST /profile/2fa/disable` | `EnabledResponse` |
 | `get()` | `GET /profile` | `User` |
 | `get_two_factor_status()` | `GET /profile/2fa/status` | `EnabledResponse` |
+| `list_social_accounts()` | `GET /profile/social-accounts` | `list[SocialAccountState]` |
 | `setup_two_factor()` | `POST /profile/2fa/setup` | `TwoFactorSetupResponse` |
 | `update()` | `PATCH /profile` | `User` |
 

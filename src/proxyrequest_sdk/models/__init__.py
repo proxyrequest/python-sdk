@@ -40,6 +40,7 @@ from .._generated.models.generate_proxy_request import GenerateProxyRequest
 from .._generated.models.generate_proxy_response import GenerateProxyResponse
 from .._generated.models.generated_proxy import GeneratedProxy
 from .._generated.models.google_auth_request import GoogleAuthRequest
+from .._generated.models.google_connect_request_request import GoogleConnectRequestRequest
 from .._generated.models.invoice import Invoice
 from .._generated.models.invoice_create_request import InvoiceCreateRequest
 from .._generated.models.invoice_create_request_gateway_enum import InvoiceCreateRequestGatewayEnum
@@ -118,6 +119,7 @@ from .._generated.models.pricing_unit_enum import PricingUnitEnum
 from .._generated.models.protocol_enum import ProtocolEnum
 from .._generated.models.provider_balance_checkpoint import ProviderBalanceCheckpoint
 from .._generated.models.provider_data_balance import ProviderDataBalance
+from .._generated.models.provider_enum import ProviderEnum
 from .._generated.models.proxy_generation_connection_request import ProxyGenerationConnectionRequest
 from .._generated.models.proxy_generation_session_request import ProxyGenerationSessionRequest
 from .._generated.models.proxy_generation_targeting_request import ProxyGenerationTargetingRequest
@@ -137,6 +139,7 @@ from .._generated.models.settings_referral import SettingsReferral
 from .._generated.models.settings_response import SettingsResponse
 from .._generated.models.severity_enum import SeverityEnum
 from .._generated.models.sign_up_request import SignUpRequest
+from .._generated.models.social_account_state import SocialAccountState
 from .._generated.models.subtract_data_request import SubtractDataRequest
 from .._generated.models.targeting_options import TargetingOptions
 from .._generated.models.telegram_connection_response import TelegramConnectionResponse
@@ -203,6 +206,7 @@ __all__ = [
     "GenerateProxyResponse",
     "GeneratedProxy",
     "GoogleAuthRequest",
+    "GoogleConnectRequestRequest",
     "Invoice",
     "InvoiceCreateRequest",
     "InvoiceCreateRequestGatewayEnum",
@@ -275,6 +279,7 @@ __all__ = [
     "ProtocolEnum",
     "ProviderBalanceCheckpoint",
     "ProviderDataBalance",
+    "ProviderEnum",
     "ProxyGenerationConnectionRequest",
     "ProxyGenerationSessionRequest",
     "ProxyGenerationTargetingRequest",
@@ -294,6 +299,7 @@ __all__ = [
     "SettingsResponse",
     "SeverityEnum",
     "SignUpRequest",
+    "SocialAccountState",
     "SubtractDataRequest",
     "TargetingOptions",
     "TelegramConnectionResponse",

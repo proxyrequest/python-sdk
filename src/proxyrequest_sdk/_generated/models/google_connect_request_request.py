@@ -8,40 +8,46 @@ from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-from ..types import UNSET, Unset
 
-
-T = TypeVar("T", bound="ProxyGenerationSessionRequest")
+T = TypeVar("T", bound="GoogleConnectRequestRequest")
 
 
 @_attrs_define
-class ProxyGenerationSessionRequest:
-    ttl: int | Unset = 600
-    """ Sticky session lifetime in seconds. The accepted range is configured per deployment. """
+class GoogleConnectRequestRequest:
+    credential: str
+    password: str
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        ttl = self.ttl
+        credential = self.credential
+
+        password = self.password
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
-        if ttl is not UNSET:
-            field_dict["ttl"] = ttl
+        field_dict.update(
+            {
+                "credential": credential,
+                "password": password,
+            }
+        )
 
         return field_dict
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
-        ttl = d.pop("ttl", UNSET)
+        credential = d.pop("credential")
 
-        proxy_generation_session_request = cls(
-            ttl=ttl,
+        password = d.pop("password")
+
+        google_connect_request_request = cls(
+            credential=credential,
+            password=password,
         )
 
-        proxy_generation_session_request.additional_properties = d
-        return proxy_generation_session_request
+        google_connect_request_request.additional_properties = d
+        return google_connect_request_request
 
     @property
     def additional_keys(self) -> list[str]:

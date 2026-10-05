@@ -29,6 +29,9 @@ class OrderDetailed:
     data_remaining: int
     """ Integer bytes. Root order: sum of usable ledger balances. Virtual child order: max(data - data_spent, 0);
     access also needs a usable parent pool. """
+    data_spent: int
+    """ Integer bytes. Root order: its own usage plus usage of existing linked child orders, including inactive
+    ones. Deleted child orders are excluded. Child order: its own usage. """
     ledgers: list[DataLedger]
     """ Usable, non-expired purchased buckets; empty for virtual child orders. Not a complete history, and array
     position is not spending priority. """
@@ -53,9 +56,6 @@ class OrderDetailed:
     Leave blank to use the full provider pool. """
     data: int | Unset = UNSET
     """ Total data allowance for this order in bytes. 1073741824 = 1 GiB 10737418240 = 10 GiB """
-    data_spent: int | Unset = UNSET
-    """ Total bytes consumed from this order's data allowance so far. Updated in real time as the customer uses the
-    proxy. """
     latest_data_top_up: int | Unset = UNSET
     """ Amount of data added to this order in bytes during the most recent top-up. """
     latest_data_top_up_date: datetime.datetime | None | Unset = UNSET
@@ -75,6 +75,8 @@ class OrderDetailed:
         user_id = str(self.user_id)
 
         data_remaining = self.data_remaining
+
+        data_spent = self.data_spent
 
         ledgers = []
         for ledgers_item_data in self.ledgers:
@@ -107,8 +109,6 @@ class OrderDetailed:
 
         data = self.data
 
-        data_spent = self.data_spent
-
         latest_data_top_up = self.latest_data_top_up
 
         latest_data_top_up_date: None | str | Unset
@@ -135,6 +135,7 @@ class OrderDetailed:
                 "is_auto_renewal": is_auto_renewal,
                 "user_id": user_id,
                 "data_remaining": data_remaining,
+                "data_spent": data_spent,
                 "ledgers": ledgers,
                 "data_updated": data_updated,
             }
@@ -155,8 +156,6 @@ class OrderDetailed:
             field_dict["pools"] = pools
         if data is not UNSET:
             field_dict["data"] = data
-        if data_spent is not UNSET:
-            field_dict["data_spent"] = data_spent
         if latest_data_top_up is not UNSET:
             field_dict["latest_data_top_up"] = latest_data_top_up
         if latest_data_top_up_date is not UNSET:
@@ -179,6 +178,8 @@ class OrderDetailed:
         user_id = UUID(d.pop("user_id"))
 
         data_remaining = d.pop("data_remaining")
+
+        data_spent = d.pop("data_spent")
 
         ledgers = []
         _ledgers = d.pop("ledgers")
@@ -219,8 +220,6 @@ class OrderDetailed:
         pools = cast(list[str], d.pop("pools", UNSET))
 
         data = d.pop("data", UNSET)
-
-        data_spent = d.pop("data_spent", UNSET)
 
         latest_data_top_up = d.pop("latest_data_top_up", UNSET)
 
@@ -265,6 +264,7 @@ class OrderDetailed:
             is_auto_renewal=is_auto_renewal,
             user_id=user_id,
             data_remaining=data_remaining,
+            data_spent=data_spent,
             ledgers=ledgers,
             data_updated=data_updated,
             id=id,
@@ -275,7 +275,6 @@ class OrderDetailed:
             proxy_password_reset=proxy_password_reset,
             pools=pools,
             data=data,
-            data_spent=data_spent,
             latest_data_top_up=latest_data_top_up,
             latest_data_top_up_date=latest_data_top_up_date,
             expires=expires,

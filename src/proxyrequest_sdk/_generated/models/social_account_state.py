@@ -8,65 +8,63 @@ from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-from ..types import UNSET, Unset
-from uuid import UUID
+from ..models.provider_enum import ProviderEnum
 
 
-T = TypeVar("T", bound="CouponCalculatePriceRequest")
+T = TypeVar("T", bound="SocialAccountState")
 
 
 @_attrs_define
-class CouponCalculatePriceRequest:
-    coupon_code: str
-    data: int
-    """ Bytes; zero only for an unlimited Residential package. """
-    package_id: UUID | Unset = UNSET
+class SocialAccountState:
+    provider: ProviderEnum
+    """ * `discord` - discord * `google` - google * `meta` - meta * `twitter` - twitter """
+    linked: bool
+    can_unlink: bool
+    unlink_block_reason: str
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        coupon_code = self.coupon_code
+        provider = self.provider.value
 
-        data = self.data
+        linked = self.linked
 
-        package_id: str | Unset = UNSET
-        if not isinstance(self.package_id, Unset):
-            package_id = str(self.package_id)
+        can_unlink = self.can_unlink
+
+        unlink_block_reason = self.unlink_block_reason
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
-                "coupon_code": coupon_code,
-                "data": data,
+                "provider": provider,
+                "linked": linked,
+                "can_unlink": can_unlink,
+                "unlink_block_reason": unlink_block_reason,
             }
         )
-        if package_id is not UNSET:
-            field_dict["package_id"] = package_id
 
         return field_dict
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
-        coupon_code = d.pop("coupon_code")
+        provider = ProviderEnum(d.pop("provider"))
 
-        data = d.pop("data")
+        linked = d.pop("linked")
 
-        _package_id = d.pop("package_id", UNSET)
-        package_id: UUID | Unset
-        if isinstance(_package_id, Unset):
-            package_id = UNSET
-        else:
-            package_id = UUID(_package_id)
+        can_unlink = d.pop("can_unlink")
 
-        coupon_calculate_price_request = cls(
-            coupon_code=coupon_code,
-            data=data,
-            package_id=package_id,
+        unlink_block_reason = d.pop("unlink_block_reason")
+
+        social_account_state = cls(
+            provider=provider,
+            linked=linked,
+            can_unlink=can_unlink,
+            unlink_block_reason=unlink_block_reason,
         )
 
-        coupon_calculate_price_request.additional_properties = d
-        return coupon_calculate_price_request
+        social_account_state.additional_properties = d
+        return social_account_state
 
     @property
     def additional_keys(self) -> list[str]:

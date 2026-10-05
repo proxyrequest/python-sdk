@@ -36,6 +36,7 @@ class Package:
     """ Number of days before purchased data expires. Set to -1 for data that never expires. 30 monthly -1 never
     expires """
     billing_model: PackageBillingModel
+    price_requires_configuration: bool
     targeting_options: TargetingOptions
     id: str | Unset = UNSET
     type_: ProxyTypeEnum | Unset = UNSET
@@ -62,6 +63,10 @@ class Package:
     """ * `fixed` - Fixed * `range` - Range """
     pricing_unit: PricingUnitEnum | Unset = UNSET
     """ * `data` - Data * `proxy` - Proxy """
+    is_unlimited_data: bool | Unset = UNSET
+    """ When enabled, users on this package have no data cap. The proxy will not enforce any bandwidth limit. """
+    billing_unlimited: int | Unset = UNSET
+    """ Price charged for unlimited data access on this package. Set to 0 to disable unlimited option. """
     commission_rate: str | Unset = UNSET
     """ Reseller commission rate as a percentage of the sale price. Applies to all purchases of this package. 10.00
     → 10 percent commission on every purchase """
@@ -82,6 +87,8 @@ class Package:
         billing_cycle = self.billing_cycle
 
         billing_model = self.billing_model.to_dict()
+
+        price_requires_configuration = self.price_requires_configuration
 
         targeting_options = self.targeting_options.to_dict()
 
@@ -113,6 +120,10 @@ class Package:
         if not isinstance(self.pricing_unit, Unset):
             pricing_unit = self.pricing_unit.value
 
+        is_unlimited_data = self.is_unlimited_data
+
+        billing_unlimited = self.billing_unlimited
+
         commission_rate = self.commission_rate
 
         commission_type: str | Unset = UNSET
@@ -128,6 +139,7 @@ class Package:
                 "features": features,
                 "billing_cycle": billing_cycle,
                 "billing_model": billing_model,
+                "price_requires_configuration": price_requires_configuration,
                 "targeting_options": targeting_options,
             }
         )
@@ -153,6 +165,10 @@ class Package:
             field_dict["pricing"] = pricing
         if pricing_unit is not UNSET:
             field_dict["pricing_unit"] = pricing_unit
+        if is_unlimited_data is not UNSET:
+            field_dict["is_unlimited_data"] = is_unlimited_data
+        if billing_unlimited is not UNSET:
+            field_dict["billing_unlimited"] = billing_unlimited
         if commission_rate is not UNSET:
             field_dict["commission_rate"] = commission_rate
         if commission_type is not UNSET:
@@ -175,6 +191,8 @@ class Package:
         billing_cycle = d.pop("billing_cycle")
 
         billing_model = PackageBillingModel.from_dict(d.pop("billing_model"))
+
+        price_requires_configuration = d.pop("price_requires_configuration")
 
         targeting_options = TargetingOptions.from_dict(d.pop("targeting_options"))
 
@@ -215,6 +233,10 @@ class Package:
         else:
             pricing_unit = PricingUnitEnum(_pricing_unit)
 
+        is_unlimited_data = d.pop("is_unlimited_data", UNSET)
+
+        billing_unlimited = d.pop("billing_unlimited", UNSET)
+
         commission_rate = d.pop("commission_rate", UNSET)
 
         _commission_type = d.pop("commission_type", UNSET)
@@ -230,6 +252,7 @@ class Package:
             features=features,
             billing_cycle=billing_cycle,
             billing_model=billing_model,
+            price_requires_configuration=price_requires_configuration,
             targeting_options=targeting_options,
             id=id,
             type_=type_,
@@ -242,6 +265,8 @@ class Package:
             description=description,
             pricing=pricing,
             pricing_unit=pricing_unit,
+            is_unlimited_data=is_unlimited_data,
+            billing_unlimited=billing_unlimited,
             commission_rate=commission_rate,
             commission_type=commission_type,
         )

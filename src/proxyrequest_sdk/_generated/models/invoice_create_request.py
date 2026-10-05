@@ -43,14 +43,19 @@ class InvoiceCreateRequest:
     coupon_code: str | Unset = UNSET
     country_code: str | Unset = UNSET
     data: int | Unset = UNSET
-    """ Residential proxy data to purchase, in integer bytes (1 GiB = 1073741824). Required with package_id for a
-    residential purchase. A paid purchase funds the recipient's order; it is not a virtual allocation from a parent
-    pool. """
+    """ Residential proxy data to purchase, in integer bytes (1 GiB = 1073741824). Use 0 for an unlimited
+    Residential package; its fixed price is not multiplied by volume. Required with package_id for a residential
+    purchase. A paid purchase funds the recipient's order; it is not a virtual allocation from a parent pool. """
     quantity: int | Unset = UNSET
     """ Number of static proxies to purchase. """
     amount: int | Unset = UNSET
     """ Account balance amount to purchase, in the smallest currency unit. Use for a wallet top-up without
     package_id, not for buying proxy data. """
+    price_total: int | Unset = UNSET
+    """ Optional final invoice total in the smallest currency unit, including tax and discounts. For a balance
+    invoice, this is also the balance credit and takes precedence over amount. Only superusers or active superuser
+    API keys may supply it, including during API-key impersonation; coupon_code cannot be supplied with price_total.
+    """
     connection_limit: int | Unset = UNSET
     expires: int | Unset = UNSET
     """ Optional future expiration as a Unix timestamp in seconds, not milliseconds. Otherwise a positive package
@@ -90,6 +95,8 @@ class InvoiceCreateRequest:
 
         amount = self.amount
 
+        price_total = self.price_total
+
         connection_limit = self.connection_limit
 
         expires = self.expires
@@ -127,6 +134,8 @@ class InvoiceCreateRequest:
             field_dict["quantity"] = quantity
         if amount is not UNSET:
             field_dict["amount"] = amount
+        if price_total is not UNSET:
+            field_dict["price_total"] = price_total
         if connection_limit is not UNSET:
             field_dict["connection_limit"] = connection_limit
         if expires is not UNSET:
@@ -180,6 +189,8 @@ class InvoiceCreateRequest:
 
         amount = d.pop("amount", UNSET)
 
+        price_total = d.pop("price_total", UNSET)
+
         connection_limit = d.pop("connection_limit", UNSET)
 
         expires = d.pop("expires", UNSET)
@@ -202,6 +213,7 @@ class InvoiceCreateRequest:
             data=data,
             quantity=quantity,
             amount=amount,
+            price_total=price_total,
             connection_limit=connection_limit,
             expires=expires,
             company_name=company_name,

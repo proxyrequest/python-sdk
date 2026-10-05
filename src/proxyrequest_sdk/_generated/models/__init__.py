@@ -126,6 +126,7 @@ from .generate_proxy_request import GenerateProxyRequest
 from .generate_proxy_response import GenerateProxyResponse
 from .generated_proxy import GeneratedProxy
 from .google_auth_request import GoogleAuthRequest
+from .google_connect_request_request import GoogleConnectRequestRequest
 from .integrations_telegram_connection_destroy_response_400 import (
     IntegrationsTelegramConnectionDestroyResponse400,
 )
@@ -337,6 +338,9 @@ from .profile_2_fa_status_retrieve_response_403 import Profile2FaStatusRetrieveR
 from .profile_change_password_create_response_400 import ProfileChangePasswordCreateResponse400
 from .profile_change_password_create_response_401 import ProfileChangePasswordCreateResponse401
 from .profile_change_password_create_response_403 import ProfileChangePasswordCreateResponse403
+from .profile_connect_google_response_400 import ProfileConnectGoogleResponse400
+from .profile_connect_google_response_401 import ProfileConnectGoogleResponse401
+from .profile_connect_google_response_403 import ProfileConnectGoogleResponse403
 from .profile_destroy_response_400 import ProfileDestroyResponse400
 from .profile_destroy_response_401 import ProfileDestroyResponse401
 from .profile_destroy_response_403 import ProfileDestroyResponse403
@@ -348,9 +352,13 @@ from .profile_partial_update_response_412 import ProfilePartialUpdateResponse412
 from .profile_retrieve_response_400 import ProfileRetrieveResponse400
 from .profile_retrieve_response_401 import ProfileRetrieveResponse401
 from .profile_retrieve_response_403 import ProfileRetrieveResponse403
+from .profile_social_accounts_response_400 import ProfileSocialAccountsResponse400
+from .profile_social_accounts_response_401 import ProfileSocialAccountsResponse401
+from .profile_social_accounts_response_403 import ProfileSocialAccountsResponse403
 from .protocol_enum import ProtocolEnum
 from .provider_balance_checkpoint import ProviderBalanceCheckpoint
 from .provider_data_balance import ProviderDataBalance
+from .provider_enum import ProviderEnum
 from .providers_data_balances_list_response_400 import ProvidersDataBalancesListResponse400
 from .providers_data_balances_list_response_401 import ProvidersDataBalancesListResponse401
 from .providers_data_balances_list_response_403 import ProvidersDataBalancesListResponse403
@@ -394,6 +402,7 @@ from .severity_enum import SeverityEnum
 from .sign_up_request import SignUpRequest
 from .signup_create_response_400 import SignupCreateResponse400
 from .signup_create_response_403 import SignupCreateResponse403
+from .social_account_state import SocialAccountState
 from .subtract_data_request import SubtractDataRequest
 from .targeting_options import TargetingOptions
 from .telegram_connection_response import TelegramConnectionResponse
@@ -601,6 +610,7 @@ __all__ = (
     "GenerateProxyRequest",
     "GenerateProxyResponse",
     "GoogleAuthRequest",
+    "GoogleConnectRequestRequest",
     "IntegrationsTelegramConnectionDestroyResponse400",
     "IntegrationsTelegramConnectionDestroyResponse401",
     "IntegrationsTelegramConnectionDestroyResponse403",
@@ -788,6 +798,9 @@ __all__ = (
     "ProfileChangePasswordCreateResponse400",
     "ProfileChangePasswordCreateResponse401",
     "ProfileChangePasswordCreateResponse403",
+    "ProfileConnectGoogleResponse400",
+    "ProfileConnectGoogleResponse401",
+    "ProfileConnectGoogleResponse403",
     "ProfileDestroyResponse400",
     "ProfileDestroyResponse401",
     "ProfileDestroyResponse403",
@@ -799,9 +812,13 @@ __all__ = (
     "ProfileRetrieveResponse400",
     "ProfileRetrieveResponse401",
     "ProfileRetrieveResponse403",
+    "ProfileSocialAccountsResponse400",
+    "ProfileSocialAccountsResponse401",
+    "ProfileSocialAccountsResponse403",
     "ProtocolEnum",
     "ProviderBalanceCheckpoint",
     "ProviderDataBalance",
+    "ProviderEnum",
     "ProvidersDataBalancesListResponse400",
     "ProvidersDataBalancesListResponse401",
     "ProvidersDataBalancesListResponse403",
@@ -845,6 +862,7 @@ __all__ = (
     "SignupCreateResponse400",
     "SignupCreateResponse403",
     "SignUpRequest",
+    "SocialAccountState",
     "SubtractDataRequest",
     "TargetingOptions",
     "TelegramConnectionResponse",

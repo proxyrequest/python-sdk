@@ -2,13 +2,18 @@
 
 All notable changes to the ProxyRequest Python SDK are documented here.
 
+## Unreleased
+
+## 4.2.0 (2026-10-05)
+
+- Add the optional price_total invoice creation field.
+- Regenerate the Python SDK from the current public API contract.
+
 ## 4.1.0 (2026-09-25)
 
 - Add provider data balances with typed pagination, byte strings, calculation status, and checkpoint history. Access requires a superuser JWT or a superuser-owned API key.
 - Add optional `include_asns` to country, region, and city methods. Request `true` to include nested ASNs; the current API returns empty nested ASN arrays by default.
 - Preserve existing public methods and argument compatibility, and regenerate SDK reference documentation from the latest public API contract.
-
-## Unreleased
 
 ## 4.0.0 - 2026-09-22
 
