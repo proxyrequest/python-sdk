@@ -340,3 +340,5 @@ for balance in page.results:
 Provider byte amounts are exact decimal **strings**, including history entries; calculated usage and remaining amounts can be `null`. The response includes observation and calculation times, freshness, errors, and recent checkpoint history. History is limited by the server's `PROVIDER_DATA_BALANCE_HISTORY_LIMIT` setting (default 10). Standard pagination applies to providers.
 
 Country, region, and city methods also support `include_asns`. Set it to `true` to populate nested ASN arrays; omitted or false uses the API's empty-array default.
+
+`client.locations.list_asns(package_id=package_id, include_geo=True)` includes country, region, and city scopes in each ASN's `geo` list. Without `include_geo`, `geo` is empty; `country_codes` still lists the available country codes. The same option is available on `AsyncClient`.

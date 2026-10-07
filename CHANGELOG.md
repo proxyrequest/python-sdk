@@ -4,6 +4,12 @@ All notable changes to the ProxyRequest Python SDK are documented here.
 
 ## Unreleased
 
+## 4.3.0 (2026-10-07)
+
+- Add `include_geo` to synchronous and asynchronous `locations.list_asns()`. Set it to `True` to request country, region, and city scopes in each ASN's `geo` list; the API returns an empty list by default.
+- Expose the always-present `country_codes` summary on `LocationASNRecord`.
+- Regenerate the SDK and reference from the latest public API contract while preserving existing arguments.
+
 ## 4.2.1 (2026-10-05)
 
 - Allow an explicit zero invoice total for free product purchases; setting any explicit total requires superuser authorization.

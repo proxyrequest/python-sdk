@@ -8,7 +8,6 @@ from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-from ..types import UNSET, Unset
 from typing import cast
 
 if TYPE_CHECKING:
@@ -22,7 +21,8 @@ T = TypeVar("T", bound="LocationASNRecord")
 class LocationASNRecord:
     code: str
     name: str
-    geo: list[LocationASNGeoItem] | Unset = UNSET
+    country_codes: list[str]
+    geo: list[LocationASNGeoItem]
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -32,12 +32,12 @@ class LocationASNRecord:
 
         name = self.name
 
-        geo: list[dict[str, Any]] | Unset = UNSET
-        if not isinstance(self.geo, Unset):
-            geo = []
-            for geo_item_data in self.geo:
-                geo_item = geo_item_data.to_dict()
-                geo.append(geo_item)
+        country_codes = self.country_codes
+
+        geo = []
+        for geo_item_data in self.geo:
+            geo_item = geo_item_data.to_dict()
+            geo.append(geo_item)
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -45,10 +45,10 @@ class LocationASNRecord:
             {
                 "code": code,
                 "name": name,
+                "country_codes": country_codes,
+                "geo": geo,
             }
         )
-        if geo is not UNSET:
-            field_dict["geo"] = geo
 
         return field_dict
 
@@ -61,18 +61,19 @@ class LocationASNRecord:
 
         name = d.pop("name")
 
-        _geo = d.pop("geo", UNSET)
-        geo: list[LocationASNGeoItem] | Unset = UNSET
-        if _geo is not UNSET:
-            geo = []
-            for geo_item_data in _geo:
-                geo_item = LocationASNGeoItem.from_dict(geo_item_data)
+        country_codes = cast(list[str], d.pop("country_codes"))
 
-                geo.append(geo_item)
+        geo = []
+        _geo = d.pop("geo")
+        for geo_item_data in _geo:
+            geo_item = LocationASNGeoItem.from_dict(geo_item_data)
+
+            geo.append(geo_item)
 
         location_asn_record = cls(
             code=code,
             name=name,
+            country_codes=country_codes,
             geo=geo,
         )
 

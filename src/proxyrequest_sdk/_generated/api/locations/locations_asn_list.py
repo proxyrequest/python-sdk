@@ -24,6 +24,7 @@ def _get_kwargs(
     code: str | Unset = UNSET,
     country_code: str | Unset = UNSET,
     global_: bool | Unset = UNSET,
+    include_geo: bool | Unset = False,
     limit: int | Unset = UNSET,
     name: str | Unset = UNSET,
     offset: int | Unset = UNSET,
@@ -43,6 +44,8 @@ def _get_kwargs(
     params["country__code"] = country_code
 
     params["global"] = global_
+
+    params["include_geo"] = include_geo
 
     params["limit"] = limit
 
@@ -127,6 +130,7 @@ def sync_detailed(
     code: str | Unset = UNSET,
     country_code: str | Unset = UNSET,
     global_: bool | Unset = UNSET,
+    include_geo: bool | Unset = False,
     limit: int | Unset = UNSET,
     name: str | Unset = UNSET,
     offset: int | Unset = UNSET,
@@ -142,13 +146,14 @@ def sync_detailed(
 ]:
     """List available autonomous systems
 
-     Returns targetable ASNs for the selected package. Geo-scoped records include the country, region, or
-    city where the ASN can be selected.
+     Returns targetable ASNs for the selected package. The geo field is empty unless include_geo=true;
+    then it contains targetable geographic scopes.
 
     Args:
         code (str | Unset):
         country_code (str | Unset):
         global_ (bool | Unset):
+        include_geo (bool | Unset):  Default: False.
         limit (int | Unset):
         name (str | Unset):
         offset (int | Unset):
@@ -169,6 +174,7 @@ def sync_detailed(
         code=code,
         country_code=country_code,
         global_=global_,
+        include_geo=include_geo,
         limit=limit,
         name=name,
         offset=offset,
@@ -191,6 +197,7 @@ def sync(
     code: str | Unset = UNSET,
     country_code: str | Unset = UNSET,
     global_: bool | Unset = UNSET,
+    include_geo: bool | Unset = False,
     limit: int | Unset = UNSET,
     name: str | Unset = UNSET,
     offset: int | Unset = UNSET,
@@ -207,13 +214,14 @@ def sync(
 ):
     """List available autonomous systems
 
-     Returns targetable ASNs for the selected package. Geo-scoped records include the country, region, or
-    city where the ASN can be selected.
+     Returns targetable ASNs for the selected package. The geo field is empty unless include_geo=true;
+    then it contains targetable geographic scopes.
 
     Args:
         code (str | Unset):
         country_code (str | Unset):
         global_ (bool | Unset):
+        include_geo (bool | Unset):  Default: False.
         limit (int | Unset):
         name (str | Unset):
         offset (int | Unset):
@@ -235,6 +243,7 @@ def sync(
         code=code,
         country_code=country_code,
         global_=global_,
+        include_geo=include_geo,
         limit=limit,
         name=name,
         offset=offset,
@@ -251,6 +260,7 @@ async def asyncio_detailed(
     code: str | Unset = UNSET,
     country_code: str | Unset = UNSET,
     global_: bool | Unset = UNSET,
+    include_geo: bool | Unset = False,
     limit: int | Unset = UNSET,
     name: str | Unset = UNSET,
     offset: int | Unset = UNSET,
@@ -266,13 +276,14 @@ async def asyncio_detailed(
 ]:
     """List available autonomous systems
 
-     Returns targetable ASNs for the selected package. Geo-scoped records include the country, region, or
-    city where the ASN can be selected.
+     Returns targetable ASNs for the selected package. The geo field is empty unless include_geo=true;
+    then it contains targetable geographic scopes.
 
     Args:
         code (str | Unset):
         country_code (str | Unset):
         global_ (bool | Unset):
+        include_geo (bool | Unset):  Default: False.
         limit (int | Unset):
         name (str | Unset):
         offset (int | Unset):
@@ -293,6 +304,7 @@ async def asyncio_detailed(
         code=code,
         country_code=country_code,
         global_=global_,
+        include_geo=include_geo,
         limit=limit,
         name=name,
         offset=offset,
@@ -313,6 +325,7 @@ async def asyncio(
     code: str | Unset = UNSET,
     country_code: str | Unset = UNSET,
     global_: bool | Unset = UNSET,
+    include_geo: bool | Unset = False,
     limit: int | Unset = UNSET,
     name: str | Unset = UNSET,
     offset: int | Unset = UNSET,
@@ -329,13 +342,14 @@ async def asyncio(
 ):
     """List available autonomous systems
 
-     Returns targetable ASNs for the selected package. Geo-scoped records include the country, region, or
-    city where the ASN can be selected.
+     Returns targetable ASNs for the selected package. The geo field is empty unless include_geo=true;
+    then it contains targetable geographic scopes.
 
     Args:
         code (str | Unset):
         country_code (str | Unset):
         global_ (bool | Unset):
+        include_geo (bool | Unset):  Default: False.
         limit (int | Unset):
         name (str | Unset):
         offset (int | Unset):
@@ -358,6 +372,7 @@ async def asyncio(
             code=code,
             country_code=country_code,
             global_=global_,
+            include_geo=include_geo,
             limit=limit,
             name=name,
             offset=offset,

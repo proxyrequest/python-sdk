@@ -4,12 +4,12 @@
     "id": "python",
     "label": "Python",
     "language": "Python",
-    "version": "4.2.1",
+    "version": "4.3.0",
     "package": "proxyrequest-sdk",
     "runtime": "Python 3.11 or later",
     "install": "python -m pip install proxyrequest-sdk",
     "openapi": {
-      "commit": "3bd7c30b6727264a0eae42f6d536e1cce34b3b5b",
+      "commit": "19f5f67335bbd888e9454914eca4a59acfce270c",
       "excludedOperations": [
         "sessions_destroy",
         "sessions_list"
@@ -17,7 +17,7 @@
       "operations": 85,
       "repository": "papaproxy/api",
       "schemas": 142,
-      "sha256": "44538b2e5f651dc95ff0883b62239bb06b8803caf537d78e5a815e289a6545e5",
+      "sha256": "b787e51bd6b990ad492a97c3ff09d823a6d3269855fb46ddc82a02a2becaac9d",
       "source": "openapi.yml"
     }
   },
@@ -4797,23 +4797,23 @@
           "operationId": "locations_asn_list",
           "name": "list_asns",
           "summary": "List available autonomous systems",
-          "description": "Returns targetable ASNs for the selected package. Geo-scoped records include the country, region, or city where the ASN can be selected.",
+          "description": "Returns targetable ASNs for the selected package. The geo field is empty unless include_geo=true; then it contains targetable geographic scopes.",
           "httpMethod": "GET",
           "path": "/locations/asn",
           "signatures": [
             {
               "label": "Sync",
-              "signature": "client.locations.list_asns(*, code: str | Unset=UNSET, country_code: str | Unset=UNSET, global_: bool | Unset=UNSET, limit: int | Unset=UNSET, name: str | Unset=UNSET, offset: int | Unset=UNSET, ordering: str | Unset=UNSET, package_id: UUID, search: str | Unset=UNSET, accept_language: str | Unset=UNSET) -> PaginatedLocationASNRecordList"
+              "signature": "client.locations.list_asns(*, code: str | Unset=UNSET, country_code: str | Unset=UNSET, global_: bool | Unset=UNSET, include_geo: bool | Unset=False, limit: int | Unset=UNSET, name: str | Unset=UNSET, offset: int | Unset=UNSET, ordering: str | Unset=UNSET, package_id: UUID, search: str | Unset=UNSET, accept_language: str | Unset=UNSET) -> PaginatedLocationASNRecordList"
             },
             {
               "label": "Async",
-              "signature": "await async_client.locations.list_asns(*, code: str | Unset=UNSET, country_code: str | Unset=UNSET, global_: bool | Unset=UNSET, limit: int | Unset=UNSET, name: str | Unset=UNSET, offset: int | Unset=UNSET, ordering: str | Unset=UNSET, package_id: UUID, search: str | Unset=UNSET, accept_language: str | Unset=UNSET) -> PaginatedLocationASNRecordList"
+              "signature": "await async_client.locations.list_asns(*, code: str | Unset=UNSET, country_code: str | Unset=UNSET, global_: bool | Unset=UNSET, include_geo: bool | Unset=False, limit: int | Unset=UNSET, name: str | Unset=UNSET, offset: int | Unset=UNSET, ordering: str | Unset=UNSET, package_id: UUID, search: str | Unset=UNSET, accept_language: str | Unset=UNSET) -> PaginatedLocationASNRecordList"
             }
           ],
           "variants": [
             {
               "name": "list_asns_with_response",
-              "signature": "client.locations.list_asns_with_response(*, code: str | Unset=UNSET, country_code: str | Unset=UNSET, global_: bool | Unset=UNSET, limit: int | Unset=UNSET, name: str | Unset=UNSET, offset: int | Unset=UNSET, ordering: str | Unset=UNSET, package_id: UUID, search: str | Unset=UNSET, accept_language: str | Unset=UNSET) -> ApiResponse[PaginatedLocationASNRecordList]",
+              "signature": "client.locations.list_asns_with_response(*, code: str | Unset=UNSET, country_code: str | Unset=UNSET, global_: bool | Unset=UNSET, include_geo: bool | Unset=False, limit: int | Unset=UNSET, name: str | Unset=UNSET, offset: int | Unset=UNSET, ordering: str | Unset=UNSET, package_id: UUID, search: str | Unset=UNSET, accept_language: str | Unset=UNSET) -> ApiResponse[PaginatedLocationASNRecordList]",
               "description": "Returns response status, headers, ETag and idempotency metadata with the decoded data."
             }
           ],
@@ -4848,6 +4848,17 @@
               "type": "bool",
               "default": null,
               "description": "Set to true to return only globally targetable ASNs.",
+              "example": false,
+              "modelRefs": []
+            },
+            {
+              "name": "include_geo",
+              "wireName": "include_geo",
+              "in": "query",
+              "required": false,
+              "type": "bool",
+              "default": false,
+              "description": "Include geographic scopes for each ASN. By default geo is an empty list.",
               "example": false,
               "modelRefs": []
             },
@@ -14708,9 +14719,18 @@
           "modelRefs": []
         },
         {
+          "name": "country_codes",
+          "type": "list[str]",
+          "required": true,
+          "default": null,
+          "description": "",
+          "enum": null,
+          "modelRefs": []
+        },
+        {
           "name": "geo",
           "type": "list[LocationASNGeoItem]",
-          "required": false,
+          "required": true,
           "default": null,
           "description": "",
           "enum": null,
