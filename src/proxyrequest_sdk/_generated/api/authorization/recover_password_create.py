@@ -21,10 +21,14 @@ def _get_kwargs(
     *,
     body: RecoverPasswordRequest,
     accept_language: str | Unset = UNSET,
+    x_impersonate_user: str | Unset = UNSET,
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
     if not isinstance(accept_language, Unset):
         headers["Accept-Language"] = accept_language
+
+    if not isinstance(x_impersonate_user, Unset):
+        headers["X-Impersonate-User"] = x_impersonate_user
 
     _kwargs: dict[str, Any] = {
         "method": "post",
@@ -75,6 +79,7 @@ def sync_detailed(
     client: AuthenticatedClient,
     body: RecoverPasswordRequest,
     accept_language: str | Unset = UNSET,
+    x_impersonate_user: str | Unset = UNSET,
 ) -> Response[PasswordRecoveryResponse | RecoverPasswordCreateResponse400]:
     """Send a password recovery email
 
@@ -82,6 +87,7 @@ def sync_detailed(
 
     Args:
         accept_language (str | Unset):  Defaults to the client language.
+        x_impersonate_user (str | Unset):
         body (RecoverPasswordRequest): Password recovery with enhanced security and comprehensive
             error handling.
 
@@ -96,6 +102,7 @@ def sync_detailed(
     kwargs = _get_kwargs(
         body=body,
         accept_language=accept_language,
+        x_impersonate_user=x_impersonate_user,
     )
 
     response = client.get_httpx_client().request(
@@ -110,6 +117,7 @@ def sync(
     client: AuthenticatedClient,
     body: RecoverPasswordRequest,
     accept_language: str | Unset = UNSET,
+    x_impersonate_user: str | Unset = UNSET,
 ) -> PasswordRecoveryResponse | RecoverPasswordCreateResponse400 | None:
     """Send a password recovery email
 
@@ -117,6 +125,7 @@ def sync(
 
     Args:
         accept_language (str | Unset):  Defaults to the client language.
+        x_impersonate_user (str | Unset):
         body (RecoverPasswordRequest): Password recovery with enhanced security and comprehensive
             error handling.
 
@@ -132,6 +141,7 @@ def sync(
         client=client,
         body=body,
         accept_language=accept_language,
+        x_impersonate_user=x_impersonate_user,
     ).parsed
 
 
@@ -140,6 +150,7 @@ async def asyncio_detailed(
     client: AuthenticatedClient,
     body: RecoverPasswordRequest,
     accept_language: str | Unset = UNSET,
+    x_impersonate_user: str | Unset = UNSET,
 ) -> Response[PasswordRecoveryResponse | RecoverPasswordCreateResponse400]:
     """Send a password recovery email
 
@@ -147,6 +158,7 @@ async def asyncio_detailed(
 
     Args:
         accept_language (str | Unset):  Defaults to the client language.
+        x_impersonate_user (str | Unset):
         body (RecoverPasswordRequest): Password recovery with enhanced security and comprehensive
             error handling.
 
@@ -161,6 +173,7 @@ async def asyncio_detailed(
     kwargs = _get_kwargs(
         body=body,
         accept_language=accept_language,
+        x_impersonate_user=x_impersonate_user,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -173,6 +186,7 @@ async def asyncio(
     client: AuthenticatedClient,
     body: RecoverPasswordRequest,
     accept_language: str | Unset = UNSET,
+    x_impersonate_user: str | Unset = UNSET,
 ) -> PasswordRecoveryResponse | RecoverPasswordCreateResponse400 | None:
     """Send a password recovery email
 
@@ -180,6 +194,7 @@ async def asyncio(
 
     Args:
         accept_language (str | Unset):  Defaults to the client language.
+        x_impersonate_user (str | Unset):
         body (RecoverPasswordRequest): Password recovery with enhanced security and comprehensive
             error handling.
 
@@ -196,5 +211,6 @@ async def asyncio(
             client=client,
             body=body,
             accept_language=accept_language,
+            x_impersonate_user=x_impersonate_user,
         )
     ).parsed

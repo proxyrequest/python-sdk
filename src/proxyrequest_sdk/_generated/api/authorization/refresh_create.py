@@ -22,10 +22,14 @@ def _get_kwargs(
     *,
     body: TokenRefreshRequest,
     accept_language: str | Unset = UNSET,
+    x_impersonate_user: str | Unset = UNSET,
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
     if not isinstance(accept_language, Unset):
         headers["Accept-Language"] = accept_language
+
+    if not isinstance(x_impersonate_user, Unset):
+        headers["X-Impersonate-User"] = x_impersonate_user
 
     _kwargs: dict[str, Any] = {
         "method": "post",
@@ -81,6 +85,7 @@ def sync_detailed(
     client: AuthenticatedClient | Client,
     body: TokenRefreshRequest,
     accept_language: str | Unset = UNSET,
+    x_impersonate_user: str | Unset = UNSET,
 ) -> Response[RefreshCreateResponse400 | RefreshCreateResponse401 | TokenRefreshResponse]:
     """Refresh an access token
 
@@ -88,6 +93,7 @@ def sync_detailed(
 
     Args:
         accept_language (str | Unset):  Defaults to the client language.
+        x_impersonate_user (str | Unset):
         body (TokenRefreshRequest):
 
     Raises:
@@ -101,6 +107,7 @@ def sync_detailed(
     kwargs = _get_kwargs(
         body=body,
         accept_language=accept_language,
+        x_impersonate_user=x_impersonate_user,
     )
 
     response = client.get_httpx_client().request(
@@ -115,6 +122,7 @@ def sync(
     client: AuthenticatedClient | Client,
     body: TokenRefreshRequest,
     accept_language: str | Unset = UNSET,
+    x_impersonate_user: str | Unset = UNSET,
 ) -> RefreshCreateResponse400 | RefreshCreateResponse401 | TokenRefreshResponse | None:
     """Refresh an access token
 
@@ -122,6 +130,7 @@ def sync(
 
     Args:
         accept_language (str | Unset):  Defaults to the client language.
+        x_impersonate_user (str | Unset):
         body (TokenRefreshRequest):
 
     Raises:
@@ -136,6 +145,7 @@ def sync(
         client=client,
         body=body,
         accept_language=accept_language,
+        x_impersonate_user=x_impersonate_user,
     ).parsed
 
 
@@ -144,6 +154,7 @@ async def asyncio_detailed(
     client: AuthenticatedClient | Client,
     body: TokenRefreshRequest,
     accept_language: str | Unset = UNSET,
+    x_impersonate_user: str | Unset = UNSET,
 ) -> Response[RefreshCreateResponse400 | RefreshCreateResponse401 | TokenRefreshResponse]:
     """Refresh an access token
 
@@ -151,6 +162,7 @@ async def asyncio_detailed(
 
     Args:
         accept_language (str | Unset):  Defaults to the client language.
+        x_impersonate_user (str | Unset):
         body (TokenRefreshRequest):
 
     Raises:
@@ -164,6 +176,7 @@ async def asyncio_detailed(
     kwargs = _get_kwargs(
         body=body,
         accept_language=accept_language,
+        x_impersonate_user=x_impersonate_user,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -176,6 +189,7 @@ async def asyncio(
     client: AuthenticatedClient | Client,
     body: TokenRefreshRequest,
     accept_language: str | Unset = UNSET,
+    x_impersonate_user: str | Unset = UNSET,
 ) -> RefreshCreateResponse400 | RefreshCreateResponse401 | TokenRefreshResponse | None:
     """Refresh an access token
 
@@ -183,6 +197,7 @@ async def asyncio(
 
     Args:
         accept_language (str | Unset):  Defaults to the client language.
+        x_impersonate_user (str | Unset):
         body (TokenRefreshRequest):
 
     Raises:
@@ -198,5 +213,6 @@ async def asyncio(
             client=client,
             body=body,
             accept_language=accept_language,
+            x_impersonate_user=x_impersonate_user,
         )
     ).parsed

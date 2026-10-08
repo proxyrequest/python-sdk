@@ -39,10 +39,14 @@ def _get_kwargs(
     timezone: str | Unset = UNSET,
     user_id: UUID | Unset = UNSET,
     accept_language: str | Unset = UNSET,
+    x_impersonate_user: str | Unset = UNSET,
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
     if not isinstance(accept_language, Unset):
         headers["Accept-Language"] = accept_language
+
+    if not isinstance(x_impersonate_user, Unset):
+        headers["X-Impersonate-User"] = x_impersonate_user
 
     params: dict[str, Any] = {}
 
@@ -190,6 +194,7 @@ def sync_detailed(
     timezone: str | Unset = UNSET,
     user_id: UUID | Unset = UNSET,
     accept_language: str | Unset = UNSET,
+    x_impersonate_user: str | Unset = UNSET,
 ) -> Response[
     AnalyticsLogsRetrieveResponse400
     | AnalyticsLogsRetrieveResponse401
@@ -217,6 +222,7 @@ def sync_detailed(
         timezone (str | Unset):
         user_id (UUID | Unset):
         accept_language (str | Unset):  Defaults to the client language.
+        x_impersonate_user (str | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -242,6 +248,7 @@ def sync_detailed(
         timezone=timezone,
         user_id=user_id,
         accept_language=accept_language,
+        x_impersonate_user=x_impersonate_user,
     )
 
     response = client.get_httpx_client().request(
@@ -269,6 +276,7 @@ def sync(
     timezone: str | Unset = UNSET,
     user_id: UUID | Unset = UNSET,
     accept_language: str | Unset = UNSET,
+    x_impersonate_user: str | Unset = UNSET,
 ) -> (
     AnalyticsLogsRetrieveResponse400
     | AnalyticsLogsRetrieveResponse401
@@ -297,6 +305,7 @@ def sync(
         timezone (str | Unset):
         user_id (UUID | Unset):
         accept_language (str | Unset):  Defaults to the client language.
+        x_impersonate_user (str | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -323,6 +332,7 @@ def sync(
         timezone=timezone,
         user_id=user_id,
         accept_language=accept_language,
+        x_impersonate_user=x_impersonate_user,
     ).parsed
 
 
@@ -344,6 +354,7 @@ async def asyncio_detailed(
     timezone: str | Unset = UNSET,
     user_id: UUID | Unset = UNSET,
     accept_language: str | Unset = UNSET,
+    x_impersonate_user: str | Unset = UNSET,
 ) -> Response[
     AnalyticsLogsRetrieveResponse400
     | AnalyticsLogsRetrieveResponse401
@@ -371,6 +382,7 @@ async def asyncio_detailed(
         timezone (str | Unset):
         user_id (UUID | Unset):
         accept_language (str | Unset):  Defaults to the client language.
+        x_impersonate_user (str | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -396,6 +408,7 @@ async def asyncio_detailed(
         timezone=timezone,
         user_id=user_id,
         accept_language=accept_language,
+        x_impersonate_user=x_impersonate_user,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -421,6 +434,7 @@ async def asyncio(
     timezone: str | Unset = UNSET,
     user_id: UUID | Unset = UNSET,
     accept_language: str | Unset = UNSET,
+    x_impersonate_user: str | Unset = UNSET,
 ) -> (
     AnalyticsLogsRetrieveResponse400
     | AnalyticsLogsRetrieveResponse401
@@ -449,6 +463,7 @@ async def asyncio(
         timezone (str | Unset):
         user_id (UUID | Unset):
         accept_language (str | Unset):  Defaults to the client language.
+        x_impersonate_user (str | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -476,5 +491,6 @@ async def asyncio(
             timezone=timezone,
             user_id=user_id,
             accept_language=accept_language,
+            x_impersonate_user=x_impersonate_user,
         )
     ).parsed

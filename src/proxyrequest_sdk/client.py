@@ -8,6 +8,7 @@ from importlib.metadata import PackageNotFoundError, version
 from types import TracebackType
 from typing import Any, TypeVar
 from urllib.parse import parse_qs, urlparse
+from uuid import UUID
 
 import httpx
 
@@ -271,11 +272,18 @@ class Client:
         params: Mapping[str, Any] | None = None,
         json: Any = None,
         headers: Mapping[str, str] | None = None,
+        impersonate_user_id: str | UUID | None = None,
         **options: Any,
     ) -> httpx.Response:
+        request_headers = dict(headers or {})
+        if impersonate_user_id is not None:
+            value = str(impersonate_user_id).strip()
+            if not value:
+                raise ValueError("impersonate_user_id must not be empty")
+            request_headers["X-Impersonate-User"] = value
         try:
             response = self._http_client.request(
-                method.upper(), path, params=params, json=json, headers=headers, **options
+                method.upper(), path, params=params, json=json, headers=request_headers, **options
             )
         except httpx.HTTPError as error:
             raise ApiError.network(error) from error
@@ -466,11 +474,18 @@ class AsyncClient:
         params: Mapping[str, Any] | None = None,
         json: Any = None,
         headers: Mapping[str, str] | None = None,
+        impersonate_user_id: str | UUID | None = None,
         **options: Any,
     ) -> httpx.Response:
+        request_headers = dict(headers or {})
+        if impersonate_user_id is not None:
+            value = str(impersonate_user_id).strip()
+            if not value:
+                raise ValueError("impersonate_user_id must not be empty")
+            request_headers["X-Impersonate-User"] = value
         try:
             response = await self._http_client.request(
-                method.upper(), path, params=params, json=json, headers=headers, **options
+                method.upper(), path, params=params, json=json, headers=request_headers, **options
             )
         except httpx.HTTPError as error:
             raise ApiError.network(error) from error

@@ -309,6 +309,19 @@ update it. Generation is pinned and CI rejects uncommitted contract changes.
 
 MIT
 
+## Per-call reseller impersonation
+
+The generated resource methods accept an optional `impersonate_user_id`. The
+header applies only to that request, so one client can make scoped and ordinary
+calls, including concurrently.
+
+```python
+child = client.users.get(id=child_id, impersonate_user_id=str(reseller_id))
+admin = client.users.get(id=admin_id)
+```
+
+The API key must have permission to impersonate the selected reseller.
+
 ## Reset remaining data (SDK 2.1.0+)
 
 ```python

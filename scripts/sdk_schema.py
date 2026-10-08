@@ -51,6 +51,19 @@ def sdk_schema(source: dict[str, Any]) -> dict[str, Any]:
             seen.add(operation_id)
             if operation_id in EXCLUDED_OPERATIONS:
                 del item[method]
+                continue
+            operation.setdefault("parameters", []).append(
+                {
+                    "name": "X-Impersonate-User",
+                    "in": "header",
+                    "required": False,
+                    "description": (
+                        "Act as this reseller for this request only. "
+                        "Requires a superuser Static API key."
+                    ),
+                    "schema": {"type": "string"},
+                }
+            )
         if not HTTP_METHODS.intersection(item):
             del document["paths"][path]
     document["tags"] = [tag for tag in document.get("tags", []) if tag["name"] != "Sessions"]

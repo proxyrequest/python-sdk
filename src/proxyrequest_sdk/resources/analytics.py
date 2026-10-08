@@ -42,6 +42,7 @@ class AnalyticsResource:
         package_id: UUID | Unset = UNSET,
         user_id: UUID | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ConnectionsResponse:
         """List active proxy connections"""
         return cast(
@@ -53,6 +54,7 @@ class AnalyticsResource:
                 package_id=package_id,
                 user_id=user_id,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -64,6 +66,7 @@ class AnalyticsResource:
         package_id: UUID | Unset = UNSET,
         user_id: UUID | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[ConnectionsResponse]:
         """List active proxy connections; include response metadata."""
         return cast(
@@ -75,6 +78,7 @@ class AnalyticsResource:
                 package_id=package_id,
                 user_id=user_id,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -90,6 +94,7 @@ class AnalyticsResource:
         timezone: str | Unset = UNSET,
         user_id: UUID | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> OverallResponse:
         """Get traffic totals over time"""
         return cast(
@@ -105,6 +110,7 @@ class AnalyticsResource:
                 timezone=timezone,
                 user_id=user_id,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -120,6 +126,7 @@ class AnalyticsResource:
         timezone: str | Unset = UNSET,
         user_id: UUID | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[OverallResponse]:
         """Get traffic totals over time; include response metadata."""
         return cast(
@@ -135,6 +142,7 @@ class AnalyticsResource:
                 timezone=timezone,
                 user_id=user_id,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -151,6 +159,7 @@ class AnalyticsResource:
         timezone: str | Unset = UNSET,
         type_: int | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> TransactionsResponse:
         """List data transactions"""
         return cast(
@@ -167,6 +176,7 @@ class AnalyticsResource:
                 timezone=timezone,
                 type_=type_,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -183,6 +193,7 @@ class AnalyticsResource:
         timezone: str | Unset = UNSET,
         type_: int | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[TransactionsResponse]:
         """List data transactions; include response metadata."""
         return cast(
@@ -199,6 +210,7 @@ class AnalyticsResource:
                 timezone=timezone,
                 type_=type_,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -219,6 +231,7 @@ class AnalyticsResource:
         timezone: str | Unset = UNSET,
         user_id: UUID | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> DomainsResponse:
         """List top destination domains"""
         return cast(
@@ -238,6 +251,7 @@ class AnalyticsResource:
                 timezone=timezone,
                 user_id=user_id,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -258,6 +272,7 @@ class AnalyticsResource:
         timezone: str | Unset = UNSET,
         user_id: UUID | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[DomainsResponse]:
         """List top destination domains; include response metadata."""
         return cast(
@@ -277,6 +292,7 @@ class AnalyticsResource:
                 timezone=timezone,
                 user_id=user_id,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -298,6 +314,7 @@ class AnalyticsResource:
         timezone: str | Unset = UNSET,
         user_id: UUID | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> FeedResponse:
         """List proxy request activity"""
         return cast(
@@ -319,6 +336,7 @@ class AnalyticsResource:
                 timezone=timezone,
                 user_id=user_id,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -340,6 +358,7 @@ class AnalyticsResource:
         timezone: str | Unset = UNSET,
         user_id: UUID | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[FeedResponse]:
         """List proxy request activity; include response metadata."""
         return cast(
@@ -361,6 +380,7 @@ class AnalyticsResource:
                 timezone=timezone,
                 user_id=user_id,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -382,6 +402,7 @@ class AnalyticsResource:
         timezone: str | Unset = UNSET,
         user_id: UUID | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> LogsResponse:
         """List proxy error logs"""
         return cast(
@@ -403,6 +424,7 @@ class AnalyticsResource:
                 timezone=timezone,
                 user_id=user_id,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -424,6 +446,7 @@ class AnalyticsResource:
         timezone: str | Unset = UNSET,
         user_id: UUID | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[LogsResponse]:
         """List proxy error logs; include response metadata."""
         return cast(
@@ -445,6 +468,7 @@ class AnalyticsResource:
                 timezone=timezone,
                 user_id=user_id,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -461,6 +485,7 @@ class AsyncAnalyticsResource:
         package_id: UUID | Unset = UNSET,
         user_id: UUID | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ConnectionsResponse:
         """List active proxy connections"""
         return cast(
@@ -472,6 +497,7 @@ class AsyncAnalyticsResource:
                 package_id=package_id,
                 user_id=user_id,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -483,6 +509,7 @@ class AsyncAnalyticsResource:
         package_id: UUID | Unset = UNSET,
         user_id: UUID | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[ConnectionsResponse]:
         """List active proxy connections; include response metadata."""
         return cast(
@@ -494,6 +521,7 @@ class AsyncAnalyticsResource:
                 package_id=package_id,
                 user_id=user_id,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -509,6 +537,7 @@ class AsyncAnalyticsResource:
         timezone: str | Unset = UNSET,
         user_id: UUID | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> OverallResponse:
         """Get traffic totals over time"""
         return cast(
@@ -524,6 +553,7 @@ class AsyncAnalyticsResource:
                 timezone=timezone,
                 user_id=user_id,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -539,6 +569,7 @@ class AsyncAnalyticsResource:
         timezone: str | Unset = UNSET,
         user_id: UUID | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[OverallResponse]:
         """Get traffic totals over time; include response metadata."""
         return cast(
@@ -554,6 +585,7 @@ class AsyncAnalyticsResource:
                 timezone=timezone,
                 user_id=user_id,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -570,6 +602,7 @@ class AsyncAnalyticsResource:
         timezone: str | Unset = UNSET,
         type_: int | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> TransactionsResponse:
         """List data transactions"""
         return cast(
@@ -586,6 +619,7 @@ class AsyncAnalyticsResource:
                 timezone=timezone,
                 type_=type_,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -602,6 +636,7 @@ class AsyncAnalyticsResource:
         timezone: str | Unset = UNSET,
         type_: int | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[TransactionsResponse]:
         """List data transactions; include response metadata."""
         return cast(
@@ -618,6 +653,7 @@ class AsyncAnalyticsResource:
                 timezone=timezone,
                 type_=type_,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -638,6 +674,7 @@ class AsyncAnalyticsResource:
         timezone: str | Unset = UNSET,
         user_id: UUID | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> DomainsResponse:
         """List top destination domains"""
         return cast(
@@ -657,6 +694,7 @@ class AsyncAnalyticsResource:
                 timezone=timezone,
                 user_id=user_id,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -677,6 +715,7 @@ class AsyncAnalyticsResource:
         timezone: str | Unset = UNSET,
         user_id: UUID | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[DomainsResponse]:
         """List top destination domains; include response metadata."""
         return cast(
@@ -696,6 +735,7 @@ class AsyncAnalyticsResource:
                 timezone=timezone,
                 user_id=user_id,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -717,6 +757,7 @@ class AsyncAnalyticsResource:
         timezone: str | Unset = UNSET,
         user_id: UUID | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> FeedResponse:
         """List proxy request activity"""
         return cast(
@@ -738,6 +779,7 @@ class AsyncAnalyticsResource:
                 timezone=timezone,
                 user_id=user_id,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -759,6 +801,7 @@ class AsyncAnalyticsResource:
         timezone: str | Unset = UNSET,
         user_id: UUID | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[FeedResponse]:
         """List proxy request activity; include response metadata."""
         return cast(
@@ -780,6 +823,7 @@ class AsyncAnalyticsResource:
                 timezone=timezone,
                 user_id=user_id,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -801,6 +845,7 @@ class AsyncAnalyticsResource:
         timezone: str | Unset = UNSET,
         user_id: UUID | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> LogsResponse:
         """List proxy error logs"""
         return cast(
@@ -822,6 +867,7 @@ class AsyncAnalyticsResource:
                 timezone=timezone,
                 user_id=user_id,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -843,6 +889,7 @@ class AsyncAnalyticsResource:
         timezone: str | Unset = UNSET,
         user_id: UUID | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[LogsResponse]:
         """List proxy error logs; include response metadata."""
         return cast(
@@ -864,5 +911,6 @@ class AsyncAnalyticsResource:
                 timezone=timezone,
                 user_id=user_id,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )

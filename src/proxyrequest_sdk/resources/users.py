@@ -41,6 +41,7 @@ class UsersResource:
         body: AddDataRequest,
         idempotency_key: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> Order:
         """Add data to a sub-user order"""
         return cast(
@@ -52,6 +53,7 @@ class UsersResource:
                 body=body,
                 idempotency_key=idempotency_key,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -62,6 +64,7 @@ class UsersResource:
         body: AddDataRequest,
         idempotency_key: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[Order]:
         """Add data to a sub-user order; include response metadata."""
         return cast(
@@ -73,6 +76,7 @@ class UsersResource:
                 body=body,
                 idempotency_key=idempotency_key,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -82,6 +86,7 @@ class UsersResource:
         body: UserCreateRequest,
         idempotency_key: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> User:
         """Create a customer account"""
         return cast(
@@ -92,6 +97,7 @@ class UsersResource:
                 body=body,
                 idempotency_key=idempotency_key,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -101,6 +107,7 @@ class UsersResource:
         body: UserCreateRequest,
         idempotency_key: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[User]:
         """Create a customer account; include response metadata."""
         return cast(
@@ -111,6 +118,7 @@ class UsersResource:
                 body=body,
                 idempotency_key=idempotency_key,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -121,6 +129,7 @@ class UsersResource:
         idempotency_key: str | Unset = UNSET,
         if_match: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> None:
         """Delete a user"""
         self._client._call(
@@ -130,6 +139,7 @@ class UsersResource:
             idempotency_key=idempotency_key,
             if_match=if_match,
             accept_language=accept_language,
+            x_impersonate_user=impersonate_user_id,
         )
         return None
 
@@ -140,6 +150,7 @@ class UsersResource:
         idempotency_key: str | Unset = UNSET,
         if_match: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[None]:
         """Delete a user; include response metadata."""
         return cast(
@@ -151,26 +162,43 @@ class UsersResource:
                 idempotency_key=idempotency_key,
                 if_match=if_match,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
-    def get(self, id: UUID, *, accept_language: str | Unset = UNSET) -> User:
+    def get(
+        self,
+        id: UUID,
+        *,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
+    ) -> User:
         """Get a user"""
         return cast(
             User,
             self._client._call(
-                _users_retrieve.sync_detailed, id=id, accept_language=accept_language
+                _users_retrieve.sync_detailed,
+                id=id,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
     def get_with_response(
-        self, id: UUID, *, accept_language: str | Unset = UNSET
+        self,
+        id: UUID,
+        *,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[User]:
         """Get a user; include response metadata."""
         return cast(
             ApiResponse[User],
             self._client._call_with_response(
-                _users_retrieve.sync_detailed, id=id, accept_language=accept_language
+                _users_retrieve.sync_detailed,
+                id=id,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -186,6 +214,7 @@ class UsersResource:
         search: str | Unset = UNSET,
         username: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> PaginatedUserList:
         """List users in the current account"""
         return cast(
@@ -201,6 +230,7 @@ class UsersResource:
                 search=search,
                 username=username,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -216,6 +246,7 @@ class UsersResource:
         search: str | Unset = UNSET,
         username: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[PaginatedUserList]:
         """List users in the current account; include response metadata."""
         return cast(
@@ -231,6 +262,7 @@ class UsersResource:
                 search=search,
                 username=username,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -245,6 +277,7 @@ class UsersResource:
         ordering: str | Unset = UNSET,
         username: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> PaginatedOrderList:
         """List a sub-user's orders"""
         return cast(
@@ -259,6 +292,7 @@ class UsersResource:
                 ordering=ordering,
                 username=username,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -273,6 +307,7 @@ class UsersResource:
         ordering: str | Unset = UNSET,
         username: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[PaginatedOrderList]:
         """List a sub-user's orders; include response metadata."""
         return cast(
@@ -287,6 +322,7 @@ class UsersResource:
                 ordering=ordering,
                 username=username,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -297,6 +333,7 @@ class UsersResource:
         body: ResetDataRequest,
         idempotency_key: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> Order:
         """Reset a user's remaining data"""
         return cast(
@@ -308,6 +345,7 @@ class UsersResource:
                 body=body,
                 idempotency_key=idempotency_key,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -318,6 +356,7 @@ class UsersResource:
         body: ResetDataRequest,
         idempotency_key: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[Order]:
         """Reset a user's remaining data; include response metadata."""
         return cast(
@@ -329,11 +368,17 @@ class UsersResource:
                 body=body,
                 idempotency_key=idempotency_key,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
     def reset_password(
-        self, id: UUID, *, body: UserPasswordResetRequest, accept_language: str | Unset = UNSET
+        self,
+        id: UUID,
+        *,
+        body: UserPasswordResetRequest,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> User:
         """Rotate a sub-user proxy password"""
         return cast(
@@ -343,11 +388,17 @@ class UsersResource:
                 id=id,
                 body=body,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
     def reset_password_with_response(
-        self, id: UUID, *, body: UserPasswordResetRequest, accept_language: str | Unset = UNSET
+        self,
+        id: UUID,
+        *,
+        body: UserPasswordResetRequest,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[User]:
         """Rotate a sub-user proxy password; include response metadata."""
         return cast(
@@ -357,6 +408,7 @@ class UsersResource:
                 id=id,
                 body=body,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -367,6 +419,7 @@ class UsersResource:
         body: SubtractDataRequest,
         idempotency_key: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> Order:
         """Subtract data from a sub-user order"""
         return cast(
@@ -378,6 +431,7 @@ class UsersResource:
                 body=body,
                 idempotency_key=idempotency_key,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -388,6 +442,7 @@ class UsersResource:
         body: SubtractDataRequest,
         idempotency_key: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[Order]:
         """Subtract data from a sub-user order; include response metadata."""
         return cast(
@@ -399,6 +454,7 @@ class UsersResource:
                 body=body,
                 idempotency_key=idempotency_key,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -409,6 +465,7 @@ class UsersResource:
         body: PatchedUserUpdateRequest | Unset = UNSET,
         if_match: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> User:
         """Update a user"""
         return cast(
@@ -419,6 +476,7 @@ class UsersResource:
                 body=body,
                 if_match=if_match,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -429,6 +487,7 @@ class UsersResource:
         body: PatchedUserUpdateRequest | Unset = UNSET,
         if_match: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[User]:
         """Update a user; include response metadata."""
         return cast(
@@ -439,6 +498,7 @@ class UsersResource:
                 body=body,
                 if_match=if_match,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -454,6 +514,7 @@ class AsyncUsersResource:
         body: AddDataRequest,
         idempotency_key: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> Order:
         """Add data to a sub-user order"""
         return cast(
@@ -465,6 +526,7 @@ class AsyncUsersResource:
                 body=body,
                 idempotency_key=idempotency_key,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -475,6 +537,7 @@ class AsyncUsersResource:
         body: AddDataRequest,
         idempotency_key: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[Order]:
         """Add data to a sub-user order; include response metadata."""
         return cast(
@@ -486,6 +549,7 @@ class AsyncUsersResource:
                 body=body,
                 idempotency_key=idempotency_key,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -495,6 +559,7 @@ class AsyncUsersResource:
         body: UserCreateRequest,
         idempotency_key: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> User:
         """Create a customer account"""
         return cast(
@@ -505,6 +570,7 @@ class AsyncUsersResource:
                 body=body,
                 idempotency_key=idempotency_key,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -514,6 +580,7 @@ class AsyncUsersResource:
         body: UserCreateRequest,
         idempotency_key: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[User]:
         """Create a customer account; include response metadata."""
         return cast(
@@ -524,6 +591,7 @@ class AsyncUsersResource:
                 body=body,
                 idempotency_key=idempotency_key,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -534,6 +602,7 @@ class AsyncUsersResource:
         idempotency_key: str | Unset = UNSET,
         if_match: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> None:
         """Delete a user"""
         await self._client._call(
@@ -543,6 +612,7 @@ class AsyncUsersResource:
             idempotency_key=idempotency_key,
             if_match=if_match,
             accept_language=accept_language,
+            x_impersonate_user=impersonate_user_id,
         )
         return None
 
@@ -553,6 +623,7 @@ class AsyncUsersResource:
         idempotency_key: str | Unset = UNSET,
         if_match: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[None]:
         """Delete a user; include response metadata."""
         return cast(
@@ -564,26 +635,43 @@ class AsyncUsersResource:
                 idempotency_key=idempotency_key,
                 if_match=if_match,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
-    async def get(self, id: UUID, *, accept_language: str | Unset = UNSET) -> User:
+    async def get(
+        self,
+        id: UUID,
+        *,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
+    ) -> User:
         """Get a user"""
         return cast(
             User,
             await self._client._call(
-                _users_retrieve.asyncio_detailed, id=id, accept_language=accept_language
+                _users_retrieve.asyncio_detailed,
+                id=id,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
     async def get_with_response(
-        self, id: UUID, *, accept_language: str | Unset = UNSET
+        self,
+        id: UUID,
+        *,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[User]:
         """Get a user; include response metadata."""
         return cast(
             ApiResponse[User],
             await self._client._call_with_response(
-                _users_retrieve.asyncio_detailed, id=id, accept_language=accept_language
+                _users_retrieve.asyncio_detailed,
+                id=id,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -599,6 +687,7 @@ class AsyncUsersResource:
         search: str | Unset = UNSET,
         username: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> PaginatedUserList:
         """List users in the current account"""
         return cast(
@@ -614,6 +703,7 @@ class AsyncUsersResource:
                 search=search,
                 username=username,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -629,6 +719,7 @@ class AsyncUsersResource:
         search: str | Unset = UNSET,
         username: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[PaginatedUserList]:
         """List users in the current account; include response metadata."""
         return cast(
@@ -644,6 +735,7 @@ class AsyncUsersResource:
                 search=search,
                 username=username,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -658,6 +750,7 @@ class AsyncUsersResource:
         ordering: str | Unset = UNSET,
         username: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> PaginatedOrderList:
         """List a sub-user's orders"""
         return cast(
@@ -672,6 +765,7 @@ class AsyncUsersResource:
                 ordering=ordering,
                 username=username,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -686,6 +780,7 @@ class AsyncUsersResource:
         ordering: str | Unset = UNSET,
         username: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[PaginatedOrderList]:
         """List a sub-user's orders; include response metadata."""
         return cast(
@@ -700,6 +795,7 @@ class AsyncUsersResource:
                 ordering=ordering,
                 username=username,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -710,6 +806,7 @@ class AsyncUsersResource:
         body: ResetDataRequest,
         idempotency_key: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> Order:
         """Reset a user's remaining data"""
         return cast(
@@ -721,6 +818,7 @@ class AsyncUsersResource:
                 body=body,
                 idempotency_key=idempotency_key,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -731,6 +829,7 @@ class AsyncUsersResource:
         body: ResetDataRequest,
         idempotency_key: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[Order]:
         """Reset a user's remaining data; include response metadata."""
         return cast(
@@ -742,11 +841,17 @@ class AsyncUsersResource:
                 body=body,
                 idempotency_key=idempotency_key,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
     async def reset_password(
-        self, id: UUID, *, body: UserPasswordResetRequest, accept_language: str | Unset = UNSET
+        self,
+        id: UUID,
+        *,
+        body: UserPasswordResetRequest,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> User:
         """Rotate a sub-user proxy password"""
         return cast(
@@ -756,11 +861,17 @@ class AsyncUsersResource:
                 id=id,
                 body=body,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
     async def reset_password_with_response(
-        self, id: UUID, *, body: UserPasswordResetRequest, accept_language: str | Unset = UNSET
+        self,
+        id: UUID,
+        *,
+        body: UserPasswordResetRequest,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[User]:
         """Rotate a sub-user proxy password; include response metadata."""
         return cast(
@@ -770,6 +881,7 @@ class AsyncUsersResource:
                 id=id,
                 body=body,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -780,6 +892,7 @@ class AsyncUsersResource:
         body: SubtractDataRequest,
         idempotency_key: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> Order:
         """Subtract data from a sub-user order"""
         return cast(
@@ -791,6 +904,7 @@ class AsyncUsersResource:
                 body=body,
                 idempotency_key=idempotency_key,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -801,6 +915,7 @@ class AsyncUsersResource:
         body: SubtractDataRequest,
         idempotency_key: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[Order]:
         """Subtract data from a sub-user order; include response metadata."""
         return cast(
@@ -812,6 +927,7 @@ class AsyncUsersResource:
                 body=body,
                 idempotency_key=idempotency_key,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -822,6 +938,7 @@ class AsyncUsersResource:
         body: PatchedUserUpdateRequest | Unset = UNSET,
         if_match: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> User:
         """Update a user"""
         return cast(
@@ -832,6 +949,7 @@ class AsyncUsersResource:
                 body=body,
                 if_match=if_match,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -842,6 +960,7 @@ class AsyncUsersResource:
         body: PatchedUserUpdateRequest | Unset = UNSET,
         if_match: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[User]:
         """Update a user; include response metadata."""
         return cast(
@@ -852,5 +971,6 @@ class AsyncUsersResource:
                 body=body,
                 if_match=if_match,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )

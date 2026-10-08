@@ -20,6 +20,45 @@ from proxyrequest_sdk.models import (
 BASE_URL = "https://api.proxyrequest.com/api/v1"
 
 
+def test_impersonation_is_scoped_to_each_call_on_one_client() -> None:
+    headers: list[str | None] = []
+    reseller_id = UUID("6cc40c2e-4618-45dc-afde-fc5cc35c917e")
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        headers.append(request.headers.get("X-Impersonate-User"))
+        return httpx.Response(400, json={"detail": "test"})
+
+    http_client = httpx.Client(base_url=BASE_URL, transport=httpx.MockTransport(handler))
+    client = Client.with_api_key("superuser-key", http_client=http_client)
+    with pytest.raises(ApiError):
+        client.users.list(impersonate_user_id=str(reseller_id))
+    with pytest.raises(ApiError):
+        client.users.list()
+    with pytest.raises(ApiError):
+        client.request("get", "/future", impersonate_user_id=reseller_id)
+
+    assert headers == [str(reseller_id), None, str(reseller_id)]
+
+
+@pytest.mark.asyncio
+async def test_async_impersonation_does_not_leak_to_another_call() -> None:
+    headers: list[str | None] = []
+    reseller_id = UUID("6cc40c2e-4618-45dc-afde-fc5cc35c917e")
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        headers.append(request.headers.get("X-Impersonate-User"))
+        return httpx.Response(400, json={"detail": "test"})
+
+    http_client = httpx.AsyncClient(base_url=BASE_URL, transport=httpx.MockTransport(handler))
+    client = AsyncClient.with_api_key("superuser-key", http_client=http_client)
+    with pytest.raises(ApiError):
+        await client.users.list(impersonate_user_id=str(reseller_id))
+    with pytest.raises(ApiError):
+        await client.users.list()
+
+    assert headers == [str(reseller_id), None]
+
+
 def test_static_api_key_language_and_json_request_are_applied() -> None:
     requests: list[httpx.Request] = []
 

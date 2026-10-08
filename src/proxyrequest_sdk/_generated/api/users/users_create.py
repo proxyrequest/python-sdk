@@ -25,6 +25,7 @@ def _get_kwargs(
     body: UserCreateRequest,
     idempotency_key: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
+    x_impersonate_user: str | Unset = UNSET,
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
     if not isinstance(idempotency_key, Unset):
@@ -32,6 +33,9 @@ def _get_kwargs(
 
     if not isinstance(accept_language, Unset):
         headers["Accept-Language"] = accept_language
+
+    if not isinstance(x_impersonate_user, Unset):
+        headers["X-Impersonate-User"] = x_impersonate_user
 
     _kwargs: dict[str, Any] = {
         "method": "post",
@@ -111,6 +115,7 @@ def sync_detailed(
     body: UserCreateRequest,
     idempotency_key: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
+    x_impersonate_user: str | Unset = UNSET,
 ) -> Response[
     User
     | UsersCreateResponse400
@@ -130,6 +135,7 @@ def sync_detailed(
     Args:
         idempotency_key (str | Unset):
         accept_language (str | Unset):  Defaults to the client language.
+        x_impersonate_user (str | Unset):
         body (UserCreateRequest): Fields accepted when a reseller or administrator creates a
             customer account.
 
@@ -145,6 +151,7 @@ def sync_detailed(
         body=body,
         idempotency_key=idempotency_key,
         accept_language=accept_language,
+        x_impersonate_user=x_impersonate_user,
     )
 
     response = client.get_httpx_client().request(
@@ -160,6 +167,7 @@ def sync(
     body: UserCreateRequest,
     idempotency_key: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
+    x_impersonate_user: str | Unset = UNSET,
 ) -> (
     User
     | UsersCreateResponse400
@@ -180,6 +188,7 @@ def sync(
     Args:
         idempotency_key (str | Unset):
         accept_language (str | Unset):  Defaults to the client language.
+        x_impersonate_user (str | Unset):
         body (UserCreateRequest): Fields accepted when a reseller or administrator creates a
             customer account.
 
@@ -196,6 +205,7 @@ def sync(
         body=body,
         idempotency_key=idempotency_key,
         accept_language=accept_language,
+        x_impersonate_user=x_impersonate_user,
     ).parsed
 
 
@@ -205,6 +215,7 @@ async def asyncio_detailed(
     body: UserCreateRequest,
     idempotency_key: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
+    x_impersonate_user: str | Unset = UNSET,
 ) -> Response[
     User
     | UsersCreateResponse400
@@ -224,6 +235,7 @@ async def asyncio_detailed(
     Args:
         idempotency_key (str | Unset):
         accept_language (str | Unset):  Defaults to the client language.
+        x_impersonate_user (str | Unset):
         body (UserCreateRequest): Fields accepted when a reseller or administrator creates a
             customer account.
 
@@ -239,6 +251,7 @@ async def asyncio_detailed(
         body=body,
         idempotency_key=idempotency_key,
         accept_language=accept_language,
+        x_impersonate_user=x_impersonate_user,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -252,6 +265,7 @@ async def asyncio(
     body: UserCreateRequest,
     idempotency_key: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
+    x_impersonate_user: str | Unset = UNSET,
 ) -> (
     User
     | UsersCreateResponse400
@@ -272,6 +286,7 @@ async def asyncio(
     Args:
         idempotency_key (str | Unset):
         accept_language (str | Unset):  Defaults to the client language.
+        x_impersonate_user (str | Unset):
         body (UserCreateRequest): Fields accepted when a reseller or administrator creates a
             customer account.
 
@@ -289,5 +304,6 @@ async def asyncio(
             body=body,
             idempotency_key=idempotency_key,
             accept_language=accept_language,
+            x_impersonate_user=x_impersonate_user,
         )
     ).parsed

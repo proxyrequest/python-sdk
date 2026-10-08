@@ -23,6 +23,7 @@ class NewsResource:
         ordering: str | Unset = UNSET,
         search: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> PaginatedNewsList:
         """List product announcements"""
         return cast(
@@ -34,6 +35,7 @@ class NewsResource:
                 ordering=ordering,
                 search=search,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -45,6 +47,7 @@ class NewsResource:
         ordering: str | Unset = UNSET,
         search: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[PaginatedNewsList]:
         """List product announcements; include response metadata."""
         return cast(
@@ -56,6 +59,7 @@ class NewsResource:
                 ordering=ordering,
                 search=search,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -72,6 +76,7 @@ class AsyncNewsResource:
         ordering: str | Unset = UNSET,
         search: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> PaginatedNewsList:
         """List product announcements"""
         return cast(
@@ -83,6 +88,7 @@ class AsyncNewsResource:
                 ordering=ordering,
                 search=search,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -94,6 +100,7 @@ class AsyncNewsResource:
         ordering: str | Unset = UNSET,
         search: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[PaginatedNewsList]:
         """List product announcements; include response metadata."""
         return cast(
@@ -105,5 +112,6 @@ class AsyncNewsResource:
                 ordering=ordering,
                 search=search,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )

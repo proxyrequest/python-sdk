@@ -28,6 +28,7 @@ def _get_kwargs(
     body: SubtractDataRequest,
     idempotency_key: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
+    x_impersonate_user: str | Unset = UNSET,
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
     if not isinstance(idempotency_key, Unset):
@@ -35,6 +36,9 @@ def _get_kwargs(
 
     if not isinstance(accept_language, Unset):
         headers["Accept-Language"] = accept_language
+
+    if not isinstance(x_impersonate_user, Unset):
+        headers["X-Impersonate-User"] = x_impersonate_user
 
     _kwargs: dict[str, Any] = {
         "method": "post",
@@ -124,6 +128,7 @@ def sync_detailed(
     body: SubtractDataRequest,
     idempotency_key: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
+    x_impersonate_user: str | Unset = UNSET,
 ) -> Response[
     Order
     | UsersDataSubtractCreateResponse400
@@ -144,6 +149,7 @@ def sync_detailed(
         id (UUID):
         idempotency_key (str | Unset):
         accept_language (str | Unset):  Defaults to the client language.
+        x_impersonate_user (str | Unset):
         body (SubtractDataRequest):
 
     Raises:
@@ -159,6 +165,7 @@ def sync_detailed(
         body=body,
         idempotency_key=idempotency_key,
         accept_language=accept_language,
+        x_impersonate_user=x_impersonate_user,
     )
 
     response = client.get_httpx_client().request(
@@ -175,6 +182,7 @@ def sync(
     body: SubtractDataRequest,
     idempotency_key: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
+    x_impersonate_user: str | Unset = UNSET,
 ) -> (
     Order
     | UsersDataSubtractCreateResponse400
@@ -196,6 +204,7 @@ def sync(
         id (UUID):
         idempotency_key (str | Unset):
         accept_language (str | Unset):  Defaults to the client language.
+        x_impersonate_user (str | Unset):
         body (SubtractDataRequest):
 
     Raises:
@@ -212,6 +221,7 @@ def sync(
         body=body,
         idempotency_key=idempotency_key,
         accept_language=accept_language,
+        x_impersonate_user=x_impersonate_user,
     ).parsed
 
 
@@ -222,6 +232,7 @@ async def asyncio_detailed(
     body: SubtractDataRequest,
     idempotency_key: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
+    x_impersonate_user: str | Unset = UNSET,
 ) -> Response[
     Order
     | UsersDataSubtractCreateResponse400
@@ -242,6 +253,7 @@ async def asyncio_detailed(
         id (UUID):
         idempotency_key (str | Unset):
         accept_language (str | Unset):  Defaults to the client language.
+        x_impersonate_user (str | Unset):
         body (SubtractDataRequest):
 
     Raises:
@@ -257,6 +269,7 @@ async def asyncio_detailed(
         body=body,
         idempotency_key=idempotency_key,
         accept_language=accept_language,
+        x_impersonate_user=x_impersonate_user,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -271,6 +284,7 @@ async def asyncio(
     body: SubtractDataRequest,
     idempotency_key: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
+    x_impersonate_user: str | Unset = UNSET,
 ) -> (
     Order
     | UsersDataSubtractCreateResponse400
@@ -292,6 +306,7 @@ async def asyncio(
         id (UUID):
         idempotency_key (str | Unset):
         accept_language (str | Unset):  Defaults to the client language.
+        x_impersonate_user (str | Unset):
         body (SubtractDataRequest):
 
     Raises:
@@ -309,5 +324,6 @@ async def asyncio(
             body=body,
             idempotency_key=idempotency_key,
             accept_language=accept_language,
+            x_impersonate_user=x_impersonate_user,
         )
     ).parsed

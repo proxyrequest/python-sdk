@@ -27,6 +27,7 @@ class WebhooksResource:
         body: WebhookCreateRequest,
         idempotency_key: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> WebhookCreated:
         """Create a customer webhook"""
         return cast(
@@ -37,6 +38,7 @@ class WebhooksResource:
                 body=body,
                 idempotency_key=idempotency_key,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -46,6 +48,7 @@ class WebhooksResource:
         body: WebhookCreateRequest,
         idempotency_key: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[WebhookCreated]:
         """Create a customer webhook; include response metadata."""
         return cast(
@@ -56,6 +59,7 @@ class WebhooksResource:
                 body=body,
                 idempotency_key=idempotency_key,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -66,6 +70,7 @@ class WebhooksResource:
         idempotency_key: str | Unset = UNSET,
         if_match: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> None:
         """Delete a customer webhook"""
         self._client._call(
@@ -75,6 +80,7 @@ class WebhooksResource:
             idempotency_key=idempotency_key,
             if_match=if_match,
             accept_language=accept_language,
+            x_impersonate_user=impersonate_user_id,
         )
         return None
 
@@ -85,6 +91,7 @@ class WebhooksResource:
         idempotency_key: str | Unset = UNSET,
         if_match: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[None]:
         """Delete a customer webhook; include response metadata."""
         return cast(
@@ -96,26 +103,43 @@ class WebhooksResource:
                 idempotency_key=idempotency_key,
                 if_match=if_match,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
-    def get(self, id: str, *, accept_language: str | Unset = UNSET) -> WebhookList:
+    def get(
+        self,
+        id: str,
+        *,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
+    ) -> WebhookList:
         """Get a customer webhook"""
         return cast(
             WebhookList,
             self._client._call(
-                _webhooks_retrieve.sync_detailed, id=id, accept_language=accept_language
+                _webhooks_retrieve.sync_detailed,
+                id=id,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
     def get_with_response(
-        self, id: str, *, accept_language: str | Unset = UNSET
+        self,
+        id: str,
+        *,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[WebhookList]:
         """Get a customer webhook; include response metadata."""
         return cast(
             ApiResponse[WebhookList],
             self._client._call_with_response(
-                _webhooks_retrieve.sync_detailed, id=id, accept_language=accept_language
+                _webhooks_retrieve.sync_detailed,
+                id=id,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -125,6 +149,7 @@ class WebhooksResource:
         limit: int | Unset = UNSET,
         offset: int | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> PaginatedWebhookList:
         """List customer webhooks"""
         return cast(
@@ -134,6 +159,7 @@ class WebhooksResource:
                 limit=limit,
                 offset=offset,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -143,6 +169,7 @@ class WebhooksResource:
         limit: int | Unset = UNSET,
         offset: int | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[PaginatedWebhookList]:
         """List customer webhooks; include response metadata."""
         return cast(
@@ -152,6 +179,7 @@ class WebhooksResource:
                 limit=limit,
                 offset=offset,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -166,6 +194,7 @@ class AsyncWebhooksResource:
         body: WebhookCreateRequest,
         idempotency_key: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> WebhookCreated:
         """Create a customer webhook"""
         return cast(
@@ -176,6 +205,7 @@ class AsyncWebhooksResource:
                 body=body,
                 idempotency_key=idempotency_key,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -185,6 +215,7 @@ class AsyncWebhooksResource:
         body: WebhookCreateRequest,
         idempotency_key: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[WebhookCreated]:
         """Create a customer webhook; include response metadata."""
         return cast(
@@ -195,6 +226,7 @@ class AsyncWebhooksResource:
                 body=body,
                 idempotency_key=idempotency_key,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -205,6 +237,7 @@ class AsyncWebhooksResource:
         idempotency_key: str | Unset = UNSET,
         if_match: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> None:
         """Delete a customer webhook"""
         await self._client._call(
@@ -214,6 +247,7 @@ class AsyncWebhooksResource:
             idempotency_key=idempotency_key,
             if_match=if_match,
             accept_language=accept_language,
+            x_impersonate_user=impersonate_user_id,
         )
         return None
 
@@ -224,6 +258,7 @@ class AsyncWebhooksResource:
         idempotency_key: str | Unset = UNSET,
         if_match: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[None]:
         """Delete a customer webhook; include response metadata."""
         return cast(
@@ -235,26 +270,43 @@ class AsyncWebhooksResource:
                 idempotency_key=idempotency_key,
                 if_match=if_match,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
-    async def get(self, id: str, *, accept_language: str | Unset = UNSET) -> WebhookList:
+    async def get(
+        self,
+        id: str,
+        *,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
+    ) -> WebhookList:
         """Get a customer webhook"""
         return cast(
             WebhookList,
             await self._client._call(
-                _webhooks_retrieve.asyncio_detailed, id=id, accept_language=accept_language
+                _webhooks_retrieve.asyncio_detailed,
+                id=id,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
     async def get_with_response(
-        self, id: str, *, accept_language: str | Unset = UNSET
+        self,
+        id: str,
+        *,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[WebhookList]:
         """Get a customer webhook; include response metadata."""
         return cast(
             ApiResponse[WebhookList],
             await self._client._call_with_response(
-                _webhooks_retrieve.asyncio_detailed, id=id, accept_language=accept_language
+                _webhooks_retrieve.asyncio_detailed,
+                id=id,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -264,6 +316,7 @@ class AsyncWebhooksResource:
         limit: int | Unset = UNSET,
         offset: int | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> PaginatedWebhookList:
         """List customer webhooks"""
         return cast(
@@ -273,6 +326,7 @@ class AsyncWebhooksResource:
                 limit=limit,
                 offset=offset,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -282,6 +336,7 @@ class AsyncWebhooksResource:
         limit: int | Unset = UNSET,
         offset: int | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[PaginatedWebhookList]:
         """List customer webhooks; include response metadata."""
         return cast(
@@ -291,5 +346,6 @@ class AsyncWebhooksResource:
                 limit=limit,
                 offset=offset,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )

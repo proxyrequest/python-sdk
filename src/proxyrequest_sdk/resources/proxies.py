@@ -17,24 +17,38 @@ class ProxiesResource:
         self._client = client
 
     def generate(
-        self, *, body: GenerateProxyRequest, accept_language: str | Unset = UNSET
+        self,
+        *,
+        body: GenerateProxyRequest,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> GenerateProxyResponse:
         """Generate proxy credentials"""
         return cast(
             GenerateProxyResponse,
             self._client._call(
-                _proxies_generate_create.sync_detailed, body=body, accept_language=accept_language
+                _proxies_generate_create.sync_detailed,
+                body=body,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
     def generate_with_response(
-        self, *, body: GenerateProxyRequest, accept_language: str | Unset = UNSET
+        self,
+        *,
+        body: GenerateProxyRequest,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[GenerateProxyResponse]:
         """Generate proxy credentials; include response metadata."""
         return cast(
             ApiResponse[GenerateProxyResponse],
             self._client._call_with_response(
-                _proxies_generate_create.sync_detailed, body=body, accept_language=accept_language
+                _proxies_generate_create.sync_detailed,
+                body=body,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -44,7 +58,11 @@ class AsyncProxiesResource:
         self._client = client
 
     async def generate(
-        self, *, body: GenerateProxyRequest, accept_language: str | Unset = UNSET
+        self,
+        *,
+        body: GenerateProxyRequest,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> GenerateProxyResponse:
         """Generate proxy credentials"""
         return cast(
@@ -53,11 +71,16 @@ class AsyncProxiesResource:
                 _proxies_generate_create.asyncio_detailed,
                 body=body,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
     async def generate_with_response(
-        self, *, body: GenerateProxyRequest, accept_language: str | Unset = UNSET
+        self,
+        *,
+        body: GenerateProxyRequest,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[GenerateProxyResponse]:
         """Generate proxy credentials; include response metadata."""
         return cast(
@@ -66,5 +89,6 @@ class AsyncProxiesResource:
                 _proxies_generate_create.asyncio_detailed,
                 body=body,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )

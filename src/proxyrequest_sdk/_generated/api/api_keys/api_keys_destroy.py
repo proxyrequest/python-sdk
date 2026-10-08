@@ -24,6 +24,7 @@ def _get_kwargs(
     *,
     idempotency_key: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
+    x_impersonate_user: str | Unset = UNSET,
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
     if not isinstance(idempotency_key, Unset):
@@ -31,6 +32,9 @@ def _get_kwargs(
 
     if not isinstance(accept_language, Unset):
         headers["Accept-Language"] = accept_language
+
+    if not isinstance(x_impersonate_user, Unset):
+        headers["X-Impersonate-User"] = x_impersonate_user
 
     _kwargs: dict[str, Any] = {
         "method": "delete",
@@ -114,6 +118,7 @@ def sync_detailed(
     client: AuthenticatedClient,
     idempotency_key: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
+    x_impersonate_user: str | Unset = UNSET,
 ) -> Response[
     Any
     | ApiKeysDestroyResponse400
@@ -131,6 +136,7 @@ def sync_detailed(
         id (str):
         idempotency_key (str | Unset):
         accept_language (str | Unset):  Defaults to the client language.
+        x_impersonate_user (str | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -144,6 +150,7 @@ def sync_detailed(
         id=id,
         idempotency_key=idempotency_key,
         accept_language=accept_language,
+        x_impersonate_user=x_impersonate_user,
     )
 
     response = client.get_httpx_client().request(
@@ -159,6 +166,7 @@ def sync(
     client: AuthenticatedClient,
     idempotency_key: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
+    x_impersonate_user: str | Unset = UNSET,
 ) -> (
     Any
     | ApiKeysDestroyResponse400
@@ -177,6 +185,7 @@ def sync(
         id (str):
         idempotency_key (str | Unset):
         accept_language (str | Unset):  Defaults to the client language.
+        x_impersonate_user (str | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -191,6 +200,7 @@ def sync(
         client=client,
         idempotency_key=idempotency_key,
         accept_language=accept_language,
+        x_impersonate_user=x_impersonate_user,
     ).parsed
 
 
@@ -200,6 +210,7 @@ async def asyncio_detailed(
     client: AuthenticatedClient,
     idempotency_key: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
+    x_impersonate_user: str | Unset = UNSET,
 ) -> Response[
     Any
     | ApiKeysDestroyResponse400
@@ -217,6 +228,7 @@ async def asyncio_detailed(
         id (str):
         idempotency_key (str | Unset):
         accept_language (str | Unset):  Defaults to the client language.
+        x_impersonate_user (str | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -230,6 +242,7 @@ async def asyncio_detailed(
         id=id,
         idempotency_key=idempotency_key,
         accept_language=accept_language,
+        x_impersonate_user=x_impersonate_user,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -243,6 +256,7 @@ async def asyncio(
     client: AuthenticatedClient,
     idempotency_key: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
+    x_impersonate_user: str | Unset = UNSET,
 ) -> (
     Any
     | ApiKeysDestroyResponse400
@@ -261,6 +275,7 @@ async def asyncio(
         id (str):
         idempotency_key (str | Unset):
         accept_language (str | Unset):  Defaults to the client language.
+        x_impersonate_user (str | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -276,5 +291,6 @@ async def asyncio(
             client=client,
             idempotency_key=idempotency_key,
             accept_language=accept_language,
+            x_impersonate_user=x_impersonate_user,
         )
     ).parsed

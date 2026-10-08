@@ -30,134 +30,218 @@ class AuthorizationResource:
         self._client = client
 
     def login(
-        self, *, body: LoginRequest, accept_language: str | Unset = UNSET
+        self,
+        *,
+        body: LoginRequest,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> TokenPairResponse | OTPChallenge:
         """Sign in with email or username"""
         return cast(
             TokenPairResponse | OTPChallenge,
             self._client._call(
-                _login_create.sync_detailed, body=body, accept_language=accept_language
+                _login_create.sync_detailed,
+                body=body,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
     def login_with_response(
-        self, *, body: LoginRequest, accept_language: str | Unset = UNSET
+        self,
+        *,
+        body: LoginRequest,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[TokenPairResponse | OTPChallenge]:
         """Sign in with email or username; include response metadata."""
         return cast(
             ApiResponse[TokenPairResponse | OTPChallenge],
             self._client._call_with_response(
-                _login_create.sync_detailed, body=body, accept_language=accept_language
+                _login_create.sync_detailed,
+                body=body,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
     def login_with_google(
-        self, *, body: GoogleAuthRequest, accept_language: str | Unset = UNSET
+        self,
+        *,
+        body: GoogleAuthRequest,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> TokenPairResponse | OTPChallenge:
         """Sign in with Google"""
         return cast(
             TokenPairResponse | OTPChallenge,
             self._client._call(
-                _login_google_create.sync_detailed, body=body, accept_language=accept_language
+                _login_google_create.sync_detailed,
+                body=body,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
     def login_with_google_with_response(
-        self, *, body: GoogleAuthRequest, accept_language: str | Unset = UNSET
+        self,
+        *,
+        body: GoogleAuthRequest,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[TokenPairResponse | OTPChallenge]:
         """Sign in with Google; include response metadata."""
         return cast(
             ApiResponse[TokenPairResponse | OTPChallenge],
             self._client._call_with_response(
-                _login_google_create.sync_detailed, body=body, accept_language=accept_language
+                _login_google_create.sync_detailed,
+                body=body,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
     def recover_password(
-        self, *, body: RecoverPasswordRequest, accept_language: str | Unset = UNSET
+        self,
+        *,
+        body: RecoverPasswordRequest,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> PasswordRecoveryResponse:
         """Send a password recovery email"""
         return cast(
             PasswordRecoveryResponse,
             self._client._call(
-                _recover_password_create.sync_detailed, body=body, accept_language=accept_language
+                _recover_password_create.sync_detailed,
+                body=body,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
     def recover_password_with_response(
-        self, *, body: RecoverPasswordRequest, accept_language: str | Unset = UNSET
+        self,
+        *,
+        body: RecoverPasswordRequest,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[PasswordRecoveryResponse]:
         """Send a password recovery email; include response metadata."""
         return cast(
             ApiResponse[PasswordRecoveryResponse],
             self._client._call_with_response(
-                _recover_password_create.sync_detailed, body=body, accept_language=accept_language
+                _recover_password_create.sync_detailed,
+                body=body,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
     def refresh(
-        self, *, body: TokenRefreshRequest, accept_language: str | Unset = UNSET
+        self,
+        *,
+        body: TokenRefreshRequest,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> TokenRefreshResponse:
         """Refresh an access token"""
         return cast(
             TokenRefreshResponse,
             self._client._call(
-                _refresh_create.sync_detailed, body=body, accept_language=accept_language
+                _refresh_create.sync_detailed,
+                body=body,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
     def refresh_with_response(
-        self, *, body: TokenRefreshRequest, accept_language: str | Unset = UNSET
+        self,
+        *,
+        body: TokenRefreshRequest,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[TokenRefreshResponse]:
         """Refresh an access token; include response metadata."""
         return cast(
             ApiResponse[TokenRefreshResponse],
             self._client._call_with_response(
-                _refresh_create.sync_detailed, body=body, accept_language=accept_language
+                _refresh_create.sync_detailed,
+                body=body,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
     def signup(
-        self, *, body: SignUpRequest, accept_language: str | Unset = UNSET
+        self,
+        *,
+        body: SignUpRequest,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> TokenPairResponse:
         """Create a customer account"""
         return cast(
             TokenPairResponse,
             self._client._call(
-                _signup_create.sync_detailed, body=body, accept_language=accept_language
+                _signup_create.sync_detailed,
+                body=body,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
     def signup_with_response(
-        self, *, body: SignUpRequest, accept_language: str | Unset = UNSET
+        self,
+        *,
+        body: SignUpRequest,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[TokenPairResponse]:
         """Create a customer account; include response metadata."""
         return cast(
             ApiResponse[TokenPairResponse],
             self._client._call_with_response(
-                _signup_create.sync_detailed, body=body, accept_language=accept_language
+                _signup_create.sync_detailed,
+                body=body,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
     def verify_otp(
-        self, *, body: VerifyOTPRequest, accept_language: str | Unset = UNSET
+        self,
+        *,
+        body: VerifyOTPRequest,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> TokenPairResponse:
         """Complete two-factor sign-in"""
         return cast(
             TokenPairResponse,
             self._client._call(
-                _login_otp_create.sync_detailed, body=body, accept_language=accept_language
+                _login_otp_create.sync_detailed,
+                body=body,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
     def verify_otp_with_response(
-        self, *, body: VerifyOTPRequest, accept_language: str | Unset = UNSET
+        self,
+        *,
+        body: VerifyOTPRequest,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[TokenPairResponse]:
         """Complete two-factor sign-in; include response metadata."""
         return cast(
             ApiResponse[TokenPairResponse],
             self._client._call_with_response(
-                _login_otp_create.sync_detailed, body=body, accept_language=accept_language
+                _login_otp_create.sync_detailed,
+                body=body,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -167,51 +251,83 @@ class AsyncAuthorizationResource:
         self._client = client
 
     async def login(
-        self, *, body: LoginRequest, accept_language: str | Unset = UNSET
+        self,
+        *,
+        body: LoginRequest,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> TokenPairResponse | OTPChallenge:
         """Sign in with email or username"""
         return cast(
             TokenPairResponse | OTPChallenge,
             await self._client._call(
-                _login_create.asyncio_detailed, body=body, accept_language=accept_language
+                _login_create.asyncio_detailed,
+                body=body,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
     async def login_with_response(
-        self, *, body: LoginRequest, accept_language: str | Unset = UNSET
+        self,
+        *,
+        body: LoginRequest,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[TokenPairResponse | OTPChallenge]:
         """Sign in with email or username; include response metadata."""
         return cast(
             ApiResponse[TokenPairResponse | OTPChallenge],
             await self._client._call_with_response(
-                _login_create.asyncio_detailed, body=body, accept_language=accept_language
+                _login_create.asyncio_detailed,
+                body=body,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
     async def login_with_google(
-        self, *, body: GoogleAuthRequest, accept_language: str | Unset = UNSET
+        self,
+        *,
+        body: GoogleAuthRequest,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> TokenPairResponse | OTPChallenge:
         """Sign in with Google"""
         return cast(
             TokenPairResponse | OTPChallenge,
             await self._client._call(
-                _login_google_create.asyncio_detailed, body=body, accept_language=accept_language
+                _login_google_create.asyncio_detailed,
+                body=body,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
     async def login_with_google_with_response(
-        self, *, body: GoogleAuthRequest, accept_language: str | Unset = UNSET
+        self,
+        *,
+        body: GoogleAuthRequest,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[TokenPairResponse | OTPChallenge]:
         """Sign in with Google; include response metadata."""
         return cast(
             ApiResponse[TokenPairResponse | OTPChallenge],
             await self._client._call_with_response(
-                _login_google_create.asyncio_detailed, body=body, accept_language=accept_language
+                _login_google_create.asyncio_detailed,
+                body=body,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
     async def recover_password(
-        self, *, body: RecoverPasswordRequest, accept_language: str | Unset = UNSET
+        self,
+        *,
+        body: RecoverPasswordRequest,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> PasswordRecoveryResponse:
         """Send a password recovery email"""
         return cast(
@@ -220,11 +336,16 @@ class AsyncAuthorizationResource:
                 _recover_password_create.asyncio_detailed,
                 body=body,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
     async def recover_password_with_response(
-        self, *, body: RecoverPasswordRequest, accept_language: str | Unset = UNSET
+        self,
+        *,
+        body: RecoverPasswordRequest,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[PasswordRecoveryResponse]:
         """Send a password recovery email; include response metadata."""
         return cast(
@@ -233,71 +354,114 @@ class AsyncAuthorizationResource:
                 _recover_password_create.asyncio_detailed,
                 body=body,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
     async def refresh(
-        self, *, body: TokenRefreshRequest, accept_language: str | Unset = UNSET
+        self,
+        *,
+        body: TokenRefreshRequest,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> TokenRefreshResponse:
         """Refresh an access token"""
         return cast(
             TokenRefreshResponse,
             await self._client._call(
-                _refresh_create.asyncio_detailed, body=body, accept_language=accept_language
+                _refresh_create.asyncio_detailed,
+                body=body,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
     async def refresh_with_response(
-        self, *, body: TokenRefreshRequest, accept_language: str | Unset = UNSET
+        self,
+        *,
+        body: TokenRefreshRequest,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[TokenRefreshResponse]:
         """Refresh an access token; include response metadata."""
         return cast(
             ApiResponse[TokenRefreshResponse],
             await self._client._call_with_response(
-                _refresh_create.asyncio_detailed, body=body, accept_language=accept_language
+                _refresh_create.asyncio_detailed,
+                body=body,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
     async def signup(
-        self, *, body: SignUpRequest, accept_language: str | Unset = UNSET
+        self,
+        *,
+        body: SignUpRequest,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> TokenPairResponse:
         """Create a customer account"""
         return cast(
             TokenPairResponse,
             await self._client._call(
-                _signup_create.asyncio_detailed, body=body, accept_language=accept_language
+                _signup_create.asyncio_detailed,
+                body=body,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
     async def signup_with_response(
-        self, *, body: SignUpRequest, accept_language: str | Unset = UNSET
+        self,
+        *,
+        body: SignUpRequest,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[TokenPairResponse]:
         """Create a customer account; include response metadata."""
         return cast(
             ApiResponse[TokenPairResponse],
             await self._client._call_with_response(
-                _signup_create.asyncio_detailed, body=body, accept_language=accept_language
+                _signup_create.asyncio_detailed,
+                body=body,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
     async def verify_otp(
-        self, *, body: VerifyOTPRequest, accept_language: str | Unset = UNSET
+        self,
+        *,
+        body: VerifyOTPRequest,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> TokenPairResponse:
         """Complete two-factor sign-in"""
         return cast(
             TokenPairResponse,
             await self._client._call(
-                _login_otp_create.asyncio_detailed, body=body, accept_language=accept_language
+                _login_otp_create.asyncio_detailed,
+                body=body,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
     async def verify_otp_with_response(
-        self, *, body: VerifyOTPRequest, accept_language: str | Unset = UNSET
+        self,
+        *,
+        body: VerifyOTPRequest,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[TokenPairResponse]:
         """Complete two-factor sign-in; include response metadata."""
         return cast(
             ApiResponse[TokenPairResponse],
             await self._client._call_with_response(
-                _login_otp_create.asyncio_detailed, body=body, accept_language=accept_language
+                _login_otp_create.asyncio_detailed,
+                body=body,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )

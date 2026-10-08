@@ -29,10 +29,14 @@ def _get_kwargs(
     ordering: str | Unset = UNSET,
     type_: CouponsRedeemsListType | Unset = UNSET,
     accept_language: str | Unset = UNSET,
+    x_impersonate_user: str | Unset = UNSET,
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
     if not isinstance(accept_language, Unset):
         headers["Accept-Language"] = accept_language
+
+    if not isinstance(x_impersonate_user, Unset):
+        headers["X-Impersonate-User"] = x_impersonate_user
 
     params: dict[str, Any] = {}
 
@@ -133,6 +137,7 @@ def sync_detailed(
     ordering: str | Unset = UNSET,
     type_: CouponsRedeemsListType | Unset = UNSET,
     accept_language: str | Unset = UNSET,
+    x_impersonate_user: str | Unset = UNSET,
 ) -> Response[
     CouponsRedeemsListResponse400
     | CouponsRedeemsListResponse401
@@ -152,6 +157,7 @@ def sync_detailed(
         ordering (str | Unset):
         type_ (CouponsRedeemsListType | Unset):
         accept_language (str | Unset):  Defaults to the client language.
+        x_impersonate_user (str | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -169,6 +175,7 @@ def sync_detailed(
         ordering=ordering,
         type_=type_,
         accept_language=accept_language,
+        x_impersonate_user=x_impersonate_user,
     )
 
     response = client.get_httpx_client().request(
@@ -188,6 +195,7 @@ def sync(
     ordering: str | Unset = UNSET,
     type_: CouponsRedeemsListType | Unset = UNSET,
     accept_language: str | Unset = UNSET,
+    x_impersonate_user: str | Unset = UNSET,
 ) -> (
     CouponsRedeemsListResponse400
     | CouponsRedeemsListResponse401
@@ -208,6 +216,7 @@ def sync(
         ordering (str | Unset):
         type_ (CouponsRedeemsListType | Unset):
         accept_language (str | Unset):  Defaults to the client language.
+        x_impersonate_user (str | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -226,6 +235,7 @@ def sync(
         ordering=ordering,
         type_=type_,
         accept_language=accept_language,
+        x_impersonate_user=x_impersonate_user,
     ).parsed
 
 
@@ -239,6 +249,7 @@ async def asyncio_detailed(
     ordering: str | Unset = UNSET,
     type_: CouponsRedeemsListType | Unset = UNSET,
     accept_language: str | Unset = UNSET,
+    x_impersonate_user: str | Unset = UNSET,
 ) -> Response[
     CouponsRedeemsListResponse400
     | CouponsRedeemsListResponse401
@@ -258,6 +269,7 @@ async def asyncio_detailed(
         ordering (str | Unset):
         type_ (CouponsRedeemsListType | Unset):
         accept_language (str | Unset):  Defaults to the client language.
+        x_impersonate_user (str | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -275,6 +287,7 @@ async def asyncio_detailed(
         ordering=ordering,
         type_=type_,
         accept_language=accept_language,
+        x_impersonate_user=x_impersonate_user,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -292,6 +305,7 @@ async def asyncio(
     ordering: str | Unset = UNSET,
     type_: CouponsRedeemsListType | Unset = UNSET,
     accept_language: str | Unset = UNSET,
+    x_impersonate_user: str | Unset = UNSET,
 ) -> (
     CouponsRedeemsListResponse400
     | CouponsRedeemsListResponse401
@@ -312,6 +326,7 @@ async def asyncio(
         ordering (str | Unset):
         type_ (CouponsRedeemsListType | Unset):
         accept_language (str | Unset):  Defaults to the client language.
+        x_impersonate_user (str | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -331,5 +346,6 @@ async def asyncio(
             ordering=ordering,
             type_=type_,
             accept_language=accept_language,
+            x_impersonate_user=x_impersonate_user,
         )
     ).parsed
