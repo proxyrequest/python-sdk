@@ -26,6 +26,7 @@ def _get_kwargs(
     body: InvoiceCreateRequest,
     idempotency_key: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
+    x_impersonate_user: str | Unset = UNSET,
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
     if not isinstance(idempotency_key, Unset):
@@ -33,6 +34,9 @@ def _get_kwargs(
 
     if not isinstance(accept_language, Unset):
         headers["Accept-Language"] = accept_language
+
+    if not isinstance(x_impersonate_user, Unset):
+        headers["X-Impersonate-User"] = x_impersonate_user
 
     _kwargs: dict[str, Any] = {
         "method": "post",
@@ -119,6 +123,7 @@ def sync_detailed(
     body: InvoiceCreateRequest,
     idempotency_key: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
+    x_impersonate_user: str | Unset = UNSET,
 ) -> Response[
     Invoice
     | InvoicesCreateResponse400
@@ -153,6 +158,7 @@ def sync_detailed(
     Args:
         idempotency_key (str | Unset):
         accept_language (str | Unset):  Defaults to the client language.
+        x_impersonate_user (str | Unset):
         body (InvoiceCreateRequest):
 
     Raises:
@@ -167,6 +173,7 @@ def sync_detailed(
         body=body,
         idempotency_key=idempotency_key,
         accept_language=accept_language,
+        x_impersonate_user=x_impersonate_user,
     )
 
     response = client.get_httpx_client().request(
@@ -182,6 +189,7 @@ def sync(
     body: InvoiceCreateRequest,
     idempotency_key: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
+    x_impersonate_user: str | Unset = UNSET,
 ) -> (
     Invoice
     | InvoicesCreateResponse400
@@ -217,6 +225,7 @@ def sync(
     Args:
         idempotency_key (str | Unset):
         accept_language (str | Unset):  Defaults to the client language.
+        x_impersonate_user (str | Unset):
         body (InvoiceCreateRequest):
 
     Raises:
@@ -232,6 +241,7 @@ def sync(
         body=body,
         idempotency_key=idempotency_key,
         accept_language=accept_language,
+        x_impersonate_user=x_impersonate_user,
     ).parsed
 
 
@@ -241,6 +251,7 @@ async def asyncio_detailed(
     body: InvoiceCreateRequest,
     idempotency_key: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
+    x_impersonate_user: str | Unset = UNSET,
 ) -> Response[
     Invoice
     | InvoicesCreateResponse400
@@ -275,6 +286,7 @@ async def asyncio_detailed(
     Args:
         idempotency_key (str | Unset):
         accept_language (str | Unset):  Defaults to the client language.
+        x_impersonate_user (str | Unset):
         body (InvoiceCreateRequest):
 
     Raises:
@@ -289,6 +301,7 @@ async def asyncio_detailed(
         body=body,
         idempotency_key=idempotency_key,
         accept_language=accept_language,
+        x_impersonate_user=x_impersonate_user,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -302,6 +315,7 @@ async def asyncio(
     body: InvoiceCreateRequest,
     idempotency_key: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
+    x_impersonate_user: str | Unset = UNSET,
 ) -> (
     Invoice
     | InvoicesCreateResponse400
@@ -337,6 +351,7 @@ async def asyncio(
     Args:
         idempotency_key (str | Unset):
         accept_language (str | Unset):  Defaults to the client language.
+        x_impersonate_user (str | Unset):
         body (InvoiceCreateRequest):
 
     Raises:
@@ -353,5 +368,6 @@ async def asyncio(
             body=body,
             idempotency_key=idempotency_key,
             accept_language=accept_language,
+            x_impersonate_user=x_impersonate_user,
         )
     ).parsed

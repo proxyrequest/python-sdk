@@ -30,10 +30,14 @@ def _get_kwargs(
     search: str | Unset = UNSET,
     username: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
+    x_impersonate_user: str | Unset = UNSET,
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
     if not isinstance(accept_language, Unset):
         headers["Accept-Language"] = accept_language
+
+    if not isinstance(x_impersonate_user, Unset):
+        headers["X-Impersonate-User"] = x_impersonate_user
 
     params: dict[str, Any] = {}
 
@@ -126,6 +130,7 @@ def sync_detailed(
     search: str | Unset = UNSET,
     username: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
+    x_impersonate_user: str | Unset = UNSET,
 ) -> Response[
     PaginatedUserList | UsersListResponse400 | UsersListResponse401 | UsersListResponse403
 ]:
@@ -144,6 +149,7 @@ def sync_detailed(
         search (str | Unset):
         username (str | Unset):
         accept_language (str | Unset):  Defaults to the client language.
+        x_impersonate_user (str | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -163,6 +169,7 @@ def sync_detailed(
         search=search,
         username=username,
         accept_language=accept_language,
+        x_impersonate_user=x_impersonate_user,
     )
 
     response = client.get_httpx_client().request(
@@ -184,6 +191,7 @@ def sync(
     search: str | Unset = UNSET,
     username: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
+    x_impersonate_user: str | Unset = UNSET,
 ) -> PaginatedUserList | UsersListResponse400 | UsersListResponse401 | UsersListResponse403 | None:
     """List users in the current account
 
@@ -200,6 +208,7 @@ def sync(
         search (str | Unset):
         username (str | Unset):
         accept_language (str | Unset):  Defaults to the client language.
+        x_impersonate_user (str | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -220,6 +229,7 @@ def sync(
         search=search,
         username=username,
         accept_language=accept_language,
+        x_impersonate_user=x_impersonate_user,
     ).parsed
 
 
@@ -235,6 +245,7 @@ async def asyncio_detailed(
     search: str | Unset = UNSET,
     username: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
+    x_impersonate_user: str | Unset = UNSET,
 ) -> Response[
     PaginatedUserList | UsersListResponse400 | UsersListResponse401 | UsersListResponse403
 ]:
@@ -253,6 +264,7 @@ async def asyncio_detailed(
         search (str | Unset):
         username (str | Unset):
         accept_language (str | Unset):  Defaults to the client language.
+        x_impersonate_user (str | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -272,6 +284,7 @@ async def asyncio_detailed(
         search=search,
         username=username,
         accept_language=accept_language,
+        x_impersonate_user=x_impersonate_user,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -291,6 +304,7 @@ async def asyncio(
     search: str | Unset = UNSET,
     username: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
+    x_impersonate_user: str | Unset = UNSET,
 ) -> PaginatedUserList | UsersListResponse400 | UsersListResponse401 | UsersListResponse403 | None:
     """List users in the current account
 
@@ -307,6 +321,7 @@ async def asyncio(
         search (str | Unset):
         username (str | Unset):
         accept_language (str | Unset):  Defaults to the client language.
+        x_impersonate_user (str | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -328,5 +343,6 @@ async def asyncio(
             search=search,
             username=username,
             accept_language=accept_language,
+            x_impersonate_user=x_impersonate_user,
         )
     ).parsed

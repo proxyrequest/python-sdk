@@ -20,29 +20,48 @@ class APIKeysResource:
         self._client = client
 
     def create(
-        self, *, body: APIKeyCreateRequest | Unset = UNSET, accept_language: str | Unset = UNSET
+        self,
+        *,
+        body: APIKeyCreateRequest | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> APIKeyCreate:
         """Create an API key"""
         return cast(
             APIKeyCreate,
             self._client._call(
-                _api_keys_create.sync_detailed, body=body, accept_language=accept_language
+                _api_keys_create.sync_detailed,
+                body=body,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
     def create_with_response(
-        self, *, body: APIKeyCreateRequest | Unset = UNSET, accept_language: str | Unset = UNSET
+        self,
+        *,
+        body: APIKeyCreateRequest | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[APIKeyCreate]:
         """Create an API key; include response metadata."""
         return cast(
             ApiResponse[APIKeyCreate],
             self._client._call_with_response(
-                _api_keys_create.sync_detailed, body=body, accept_language=accept_language
+                _api_keys_create.sync_detailed,
+                body=body,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
     def delete(
-        self, id: str, *, idempotency_key: str | Unset = UNSET, accept_language: str | Unset = UNSET
+        self,
+        id: str,
+        *,
+        idempotency_key: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> None:
         """Revoke an API key"""
         self._client._call(
@@ -51,11 +70,17 @@ class APIKeysResource:
             id=id,
             idempotency_key=idempotency_key,
             accept_language=accept_language,
+            x_impersonate_user=impersonate_user_id,
         )
         return None
 
     def delete_with_response(
-        self, id: str, *, idempotency_key: str | Unset = UNSET, accept_language: str | Unset = UNSET
+        self,
+        id: str,
+        *,
+        idempotency_key: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[None]:
         """Revoke an API key; include response metadata."""
         return cast(
@@ -66,6 +91,7 @@ class APIKeysResource:
                 id=id,
                 idempotency_key=idempotency_key,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -75,6 +101,7 @@ class APIKeysResource:
         limit: int | Unset = UNSET,
         offset: int | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> PaginatedAPIKeyList:
         """List API keys"""
         return cast(
@@ -84,6 +111,7 @@ class APIKeysResource:
                 limit=limit,
                 offset=offset,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -93,6 +121,7 @@ class APIKeysResource:
         limit: int | Unset = UNSET,
         offset: int | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[PaginatedAPIKeyList]:
         """List API keys; include response metadata."""
         return cast(
@@ -102,6 +131,7 @@ class APIKeysResource:
                 limit=limit,
                 offset=offset,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -111,29 +141,48 @@ class AsyncAPIKeysResource:
         self._client = client
 
     async def create(
-        self, *, body: APIKeyCreateRequest | Unset = UNSET, accept_language: str | Unset = UNSET
+        self,
+        *,
+        body: APIKeyCreateRequest | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> APIKeyCreate:
         """Create an API key"""
         return cast(
             APIKeyCreate,
             await self._client._call(
-                _api_keys_create.asyncio_detailed, body=body, accept_language=accept_language
+                _api_keys_create.asyncio_detailed,
+                body=body,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
     async def create_with_response(
-        self, *, body: APIKeyCreateRequest | Unset = UNSET, accept_language: str | Unset = UNSET
+        self,
+        *,
+        body: APIKeyCreateRequest | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[APIKeyCreate]:
         """Create an API key; include response metadata."""
         return cast(
             ApiResponse[APIKeyCreate],
             await self._client._call_with_response(
-                _api_keys_create.asyncio_detailed, body=body, accept_language=accept_language
+                _api_keys_create.asyncio_detailed,
+                body=body,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
     async def delete(
-        self, id: str, *, idempotency_key: str | Unset = UNSET, accept_language: str | Unset = UNSET
+        self,
+        id: str,
+        *,
+        idempotency_key: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> None:
         """Revoke an API key"""
         await self._client._call(
@@ -142,11 +191,17 @@ class AsyncAPIKeysResource:
             id=id,
             idempotency_key=idempotency_key,
             accept_language=accept_language,
+            x_impersonate_user=impersonate_user_id,
         )
         return None
 
     async def delete_with_response(
-        self, id: str, *, idempotency_key: str | Unset = UNSET, accept_language: str | Unset = UNSET
+        self,
+        id: str,
+        *,
+        idempotency_key: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[None]:
         """Revoke an API key; include response metadata."""
         return cast(
@@ -157,6 +212,7 @@ class AsyncAPIKeysResource:
                 id=id,
                 idempotency_key=idempotency_key,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -166,6 +222,7 @@ class AsyncAPIKeysResource:
         limit: int | Unset = UNSET,
         offset: int | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> PaginatedAPIKeyList:
         """List API keys"""
         return cast(
@@ -175,6 +232,7 @@ class AsyncAPIKeysResource:
                 limit=limit,
                 offset=offset,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -184,6 +242,7 @@ class AsyncAPIKeysResource:
         limit: int | Unset = UNSET,
         offset: int | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[PaginatedAPIKeyList]:
         """List API keys; include response metadata."""
         return cast(
@@ -193,5 +252,6 @@ class AsyncAPIKeysResource:
                 limit=limit,
                 offset=offset,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )

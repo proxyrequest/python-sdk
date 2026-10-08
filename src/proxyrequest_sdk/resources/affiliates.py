@@ -22,24 +22,28 @@ class AffiliatesResource:
         self._client = client
 
     def get_rewards_overall(
-        self, *, accept_language: str | Unset = UNSET
+        self, *, accept_language: str | Unset = UNSET, impersonate_user_id: str | Unset = UNSET
     ) -> AffiliateStatsResponse:
         """Get affiliate earnings over time"""
         return cast(
             AffiliateStatsResponse,
             self._client._call(
-                _affiliates_rewards_overall_retrieve.sync_detailed, accept_language=accept_language
+                _affiliates_rewards_overall_retrieve.sync_detailed,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
     def get_rewards_overall_with_response(
-        self, *, accept_language: str | Unset = UNSET
+        self, *, accept_language: str | Unset = UNSET, impersonate_user_id: str | Unset = UNSET
     ) -> ApiResponse[AffiliateStatsResponse]:
         """Get affiliate earnings over time; include response metadata."""
         return cast(
             ApiResponse[AffiliateStatsResponse],
             self._client._call_with_response(
-                _affiliates_rewards_overall_retrieve.sync_detailed, accept_language=accept_language
+                _affiliates_rewards_overall_retrieve.sync_detailed,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -49,6 +53,7 @@ class AffiliatesResource:
         limit: int | Unset = UNSET,
         offset: int | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> PaginatedAffiliateList:
         """List referred customers"""
         return cast(
@@ -58,6 +63,7 @@ class AffiliatesResource:
                 limit=limit,
                 offset=offset,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -67,6 +73,7 @@ class AffiliatesResource:
         limit: int | Unset = UNSET,
         offset: int | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[PaginatedAffiliateList]:
         """List referred customers; include response metadata."""
         return cast(
@@ -76,6 +83,7 @@ class AffiliatesResource:
                 limit=limit,
                 offset=offset,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -85,6 +93,7 @@ class AffiliatesResource:
         limit: int | Unset = UNSET,
         offset: int | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> PaginatedAffiliateRewardList:
         """List affiliate reward entries"""
         return cast(
@@ -94,6 +103,7 @@ class AffiliatesResource:
                 limit=limit,
                 offset=offset,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -103,6 +113,7 @@ class AffiliatesResource:
         limit: int | Unset = UNSET,
         offset: int | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[PaginatedAffiliateRewardList]:
         """List affiliate reward entries; include response metadata."""
         return cast(
@@ -112,6 +123,7 @@ class AffiliatesResource:
                 limit=limit,
                 offset=offset,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -121,7 +133,7 @@ class AsyncAffiliatesResource:
         self._client = client
 
     async def get_rewards_overall(
-        self, *, accept_language: str | Unset = UNSET
+        self, *, accept_language: str | Unset = UNSET, impersonate_user_id: str | Unset = UNSET
     ) -> AffiliateStatsResponse:
         """Get affiliate earnings over time"""
         return cast(
@@ -129,11 +141,12 @@ class AsyncAffiliatesResource:
             await self._client._call(
                 _affiliates_rewards_overall_retrieve.asyncio_detailed,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
     async def get_rewards_overall_with_response(
-        self, *, accept_language: str | Unset = UNSET
+        self, *, accept_language: str | Unset = UNSET, impersonate_user_id: str | Unset = UNSET
     ) -> ApiResponse[AffiliateStatsResponse]:
         """Get affiliate earnings over time; include response metadata."""
         return cast(
@@ -141,6 +154,7 @@ class AsyncAffiliatesResource:
             await self._client._call_with_response(
                 _affiliates_rewards_overall_retrieve.asyncio_detailed,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -150,6 +164,7 @@ class AsyncAffiliatesResource:
         limit: int | Unset = UNSET,
         offset: int | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> PaginatedAffiliateList:
         """List referred customers"""
         return cast(
@@ -159,6 +174,7 @@ class AsyncAffiliatesResource:
                 limit=limit,
                 offset=offset,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -168,6 +184,7 @@ class AsyncAffiliatesResource:
         limit: int | Unset = UNSET,
         offset: int | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[PaginatedAffiliateList]:
         """List referred customers; include response metadata."""
         return cast(
@@ -177,6 +194,7 @@ class AsyncAffiliatesResource:
                 limit=limit,
                 offset=offset,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -186,6 +204,7 @@ class AsyncAffiliatesResource:
         limit: int | Unset = UNSET,
         offset: int | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> PaginatedAffiliateRewardList:
         """List affiliate reward entries"""
         return cast(
@@ -195,6 +214,7 @@ class AsyncAffiliatesResource:
                 limit=limit,
                 offset=offset,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -204,6 +224,7 @@ class AsyncAffiliatesResource:
         limit: int | Unset = UNSET,
         offset: int | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[PaginatedAffiliateRewardList]:
         """List affiliate reward entries; include response metadata."""
         return cast(
@@ -213,5 +234,6 @@ class AsyncAffiliatesResource:
                 limit=limit,
                 offset=offset,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )

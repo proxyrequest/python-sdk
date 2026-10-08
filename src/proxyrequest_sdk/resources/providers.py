@@ -23,6 +23,7 @@ class ProvidersResource:
         limit: int | Unset = UNSET,
         offset: int | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> PaginatedProviderDataBalanceList:
         """List provider data balances"""
         return cast(
@@ -32,6 +33,7 @@ class ProvidersResource:
                 limit=limit,
                 offset=offset,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -41,6 +43,7 @@ class ProvidersResource:
         limit: int | Unset = UNSET,
         offset: int | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[PaginatedProviderDataBalanceList]:
         """List provider data balances; include response metadata."""
         return cast(
@@ -50,6 +53,7 @@ class ProvidersResource:
                 limit=limit,
                 offset=offset,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -64,6 +68,7 @@ class AsyncProvidersResource:
         limit: int | Unset = UNSET,
         offset: int | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> PaginatedProviderDataBalanceList:
         """List provider data balances"""
         return cast(
@@ -73,6 +78,7 @@ class AsyncProvidersResource:
                 limit=limit,
                 offset=offset,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -82,6 +88,7 @@ class AsyncProvidersResource:
         limit: int | Unset = UNSET,
         offset: int | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[PaginatedProviderDataBalanceList]:
         """List provider data balances; include response metadata."""
         return cast(
@@ -91,5 +98,6 @@ class AsyncProvidersResource:
                 limit=limit,
                 offset=offset,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )

@@ -39,7 +39,11 @@ class ProfileResource:
         self._client = client
 
     def change_password(
-        self, *, body: ChangePasswordRequest, accept_language: str | Unset = UNSET
+        self,
+        *,
+        body: ChangePasswordRequest,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> MessageResponse:
         """Change the account password"""
         return cast(
@@ -48,11 +52,16 @@ class ProfileResource:
                 _profile_change_password_create.sync_detailed,
                 body=body,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
     def change_password_with_response(
-        self, *, body: ChangePasswordRequest, accept_language: str | Unset = UNSET
+        self,
+        *,
+        body: ChangePasswordRequest,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[MessageResponse]:
         """Change the account password; include response metadata."""
         return cast(
@@ -61,11 +70,16 @@ class ProfileResource:
                 _profile_change_password_create.sync_detailed,
                 body=body,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
     def confirm_two_factor(
-        self, *, body: TwoFactorConfirmRequest, accept_language: str | Unset = UNSET
+        self,
+        *,
+        body: TwoFactorConfirmRequest,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> EnabledResponse:
         """Confirm two-factor authentication"""
         return cast(
@@ -74,11 +88,16 @@ class ProfileResource:
                 _profile_2fa_confirm_create.sync_detailed,
                 body=body,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
     def confirm_two_factor_with_response(
-        self, *, body: TwoFactorConfirmRequest, accept_language: str | Unset = UNSET
+        self,
+        *,
+        body: TwoFactorConfirmRequest,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[EnabledResponse]:
         """Confirm two-factor authentication; include response metadata."""
         return cast(
@@ -87,53 +106,86 @@ class ProfileResource:
                 _profile_2fa_confirm_create.sync_detailed,
                 body=body,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
     def connect_google(
-        self, *, body: GoogleConnectRequestRequest, accept_language: str | Unset = UNSET
+        self,
+        *,
+        body: GoogleConnectRequestRequest,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> list[SocialAccountState]:
         """Connect Google to the signed-in account"""
         return cast(
             list[SocialAccountState],
             self._client._call(
-                _profileConnectGoogle.sync_detailed, body=body, accept_language=accept_language
+                _profileConnectGoogle.sync_detailed,
+                body=body,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
     def connect_google_with_response(
-        self, *, body: GoogleConnectRequestRequest, accept_language: str | Unset = UNSET
+        self,
+        *,
+        body: GoogleConnectRequestRequest,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[builtins.list[SocialAccountState]]:
         """Connect Google to the signed-in account; include response metadata."""
         return cast(
             ApiResponse[builtins.list[SocialAccountState]],
             self._client._call_with_response(
-                _profileConnectGoogle.sync_detailed, body=body, accept_language=accept_language
+                _profileConnectGoogle.sync_detailed,
+                body=body,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
     def delete(
-        self, *, if_match: str | Unset = UNSET, accept_language: str | Unset = UNSET
+        self,
+        *,
+        if_match: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> None:
         """Delete the current account"""
         self._client._call(
-            _profile_destroy.sync_detailed, if_match=if_match, accept_language=accept_language
+            _profile_destroy.sync_detailed,
+            if_match=if_match,
+            accept_language=accept_language,
+            x_impersonate_user=impersonate_user_id,
         )
         return None
 
     def delete_with_response(
-        self, *, if_match: str | Unset = UNSET, accept_language: str | Unset = UNSET
+        self,
+        *,
+        if_match: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[None]:
         """Delete the current account; include response metadata."""
         return cast(
             ApiResponse[None],
             self._client._call_with_response(
-                _profile_destroy.sync_detailed, if_match=if_match, accept_language=accept_language
+                _profile_destroy.sync_detailed,
+                if_match=if_match,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
     def disable_two_factor(
-        self, *, body: TwoFactorDisableRequest, accept_language: str | Unset = UNSET
+        self,
+        *,
+        body: TwoFactorDisableRequest,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> EnabledResponse:
         """Disable two-factor authentication"""
         return cast(
@@ -142,11 +194,16 @@ class ProfileResource:
                 _profile_2fa_disable_create.sync_detailed,
                 body=body,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
     def disable_two_factor_with_response(
-        self, *, body: TwoFactorDisableRequest, accept_language: str | Unset = UNSET
+        self,
+        *,
+        body: TwoFactorDisableRequest,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[EnabledResponse]:
         """Disable two-factor authentication; include response metadata."""
         return cast(
@@ -155,64 +212,85 @@ class ProfileResource:
                 _profile_2fa_disable_create.sync_detailed,
                 body=body,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
-    def get(self, *, accept_language: str | Unset = UNSET) -> User:
+    def get(
+        self, *, accept_language: str | Unset = UNSET, impersonate_user_id: str | Unset = UNSET
+    ) -> User:
         """Get the current profile"""
         return cast(
             User,
-            self._client._call(_profile_retrieve.sync_detailed, accept_language=accept_language),
+            self._client._call(
+                _profile_retrieve.sync_detailed,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
         )
 
-    def get_with_response(self, *, accept_language: str | Unset = UNSET) -> ApiResponse[User]:
+    def get_with_response(
+        self, *, accept_language: str | Unset = UNSET, impersonate_user_id: str | Unset = UNSET
+    ) -> ApiResponse[User]:
         """Get the current profile; include response metadata."""
         return cast(
             ApiResponse[User],
             self._client._call_with_response(
-                _profile_retrieve.sync_detailed, accept_language=accept_language
+                _profile_retrieve.sync_detailed,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
-    def get_two_factor_status(self, *, accept_language: str | Unset = UNSET) -> EnabledResponse:
+    def get_two_factor_status(
+        self, *, accept_language: str | Unset = UNSET, impersonate_user_id: str | Unset = UNSET
+    ) -> EnabledResponse:
         """Get two-factor status"""
         return cast(
             EnabledResponse,
             self._client._call(
-                _profile_2fa_status_retrieve.sync_detailed, accept_language=accept_language
+                _profile_2fa_status_retrieve.sync_detailed,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
     def get_two_factor_status_with_response(
-        self, *, accept_language: str | Unset = UNSET
+        self, *, accept_language: str | Unset = UNSET, impersonate_user_id: str | Unset = UNSET
     ) -> ApiResponse[EnabledResponse]:
         """Get two-factor status; include response metadata."""
         return cast(
             ApiResponse[EnabledResponse],
             self._client._call_with_response(
-                _profile_2fa_status_retrieve.sync_detailed, accept_language=accept_language
+                _profile_2fa_status_retrieve.sync_detailed,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
     def list_social_accounts(
-        self, *, accept_language: str | Unset = UNSET
+        self, *, accept_language: str | Unset = UNSET, impersonate_user_id: str | Unset = UNSET
     ) -> list[SocialAccountState]:
         """List social account connections"""
         return cast(
             list[SocialAccountState],
             self._client._call(
-                _profileSocialAccounts.sync_detailed, accept_language=accept_language
+                _profileSocialAccounts.sync_detailed,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
     def list_social_accounts_with_response(
-        self, *, accept_language: str | Unset = UNSET
+        self, *, accept_language: str | Unset = UNSET, impersonate_user_id: str | Unset = UNSET
     ) -> ApiResponse[builtins.list[SocialAccountState]]:
         """List social account connections; include response metadata."""
         return cast(
             ApiResponse[builtins.list[SocialAccountState]],
             self._client._call_with_response(
-                _profileSocialAccounts.sync_detailed, accept_language=accept_language
+                _profileSocialAccounts.sync_detailed,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -221,12 +299,16 @@ class ProfileResource:
         *,
         body: TwoFactorSetupRequestRequest | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> TwoFactorSetupResponse:
         """Prepare two-factor authentication"""
         return cast(
             TwoFactorSetupResponse,
             self._client._call(
-                _profile_2fa_setup_create.sync_detailed, body=body, accept_language=accept_language
+                _profile_2fa_setup_create.sync_detailed,
+                body=body,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -235,12 +317,16 @@ class ProfileResource:
         *,
         body: TwoFactorSetupRequestRequest | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[TwoFactorSetupResponse]:
         """Prepare two-factor authentication; include response metadata."""
         return cast(
             ApiResponse[TwoFactorSetupResponse],
             self._client._call_with_response(
-                _profile_2fa_setup_create.sync_detailed, body=body, accept_language=accept_language
+                _profile_2fa_setup_create.sync_detailed,
+                body=body,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -250,6 +336,7 @@ class ProfileResource:
         body: PatchedProfileUpdateRequest | Unset = UNSET,
         if_match: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> User:
         """Update the current profile"""
         return cast(
@@ -259,6 +346,7 @@ class ProfileResource:
                 body=body,
                 if_match=if_match,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -268,6 +356,7 @@ class ProfileResource:
         body: PatchedProfileUpdateRequest | Unset = UNSET,
         if_match: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[User]:
         """Update the current profile; include response metadata."""
         return cast(
@@ -277,6 +366,7 @@ class ProfileResource:
                 body=body,
                 if_match=if_match,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -286,7 +376,11 @@ class AsyncProfileResource:
         self._client = client
 
     async def change_password(
-        self, *, body: ChangePasswordRequest, accept_language: str | Unset = UNSET
+        self,
+        *,
+        body: ChangePasswordRequest,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> MessageResponse:
         """Change the account password"""
         return cast(
@@ -295,11 +389,16 @@ class AsyncProfileResource:
                 _profile_change_password_create.asyncio_detailed,
                 body=body,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
     async def change_password_with_response(
-        self, *, body: ChangePasswordRequest, accept_language: str | Unset = UNSET
+        self,
+        *,
+        body: ChangePasswordRequest,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[MessageResponse]:
         """Change the account password; include response metadata."""
         return cast(
@@ -308,11 +407,16 @@ class AsyncProfileResource:
                 _profile_change_password_create.asyncio_detailed,
                 body=body,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
     async def confirm_two_factor(
-        self, *, body: TwoFactorConfirmRequest, accept_language: str | Unset = UNSET
+        self,
+        *,
+        body: TwoFactorConfirmRequest,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> EnabledResponse:
         """Confirm two-factor authentication"""
         return cast(
@@ -321,11 +425,16 @@ class AsyncProfileResource:
                 _profile_2fa_confirm_create.asyncio_detailed,
                 body=body,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
     async def confirm_two_factor_with_response(
-        self, *, body: TwoFactorConfirmRequest, accept_language: str | Unset = UNSET
+        self,
+        *,
+        body: TwoFactorConfirmRequest,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[EnabledResponse]:
         """Confirm two-factor authentication; include response metadata."""
         return cast(
@@ -334,42 +443,68 @@ class AsyncProfileResource:
                 _profile_2fa_confirm_create.asyncio_detailed,
                 body=body,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
     async def connect_google(
-        self, *, body: GoogleConnectRequestRequest, accept_language: str | Unset = UNSET
+        self,
+        *,
+        body: GoogleConnectRequestRequest,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> list[SocialAccountState]:
         """Connect Google to the signed-in account"""
         return cast(
             list[SocialAccountState],
             await self._client._call(
-                _profileConnectGoogle.asyncio_detailed, body=body, accept_language=accept_language
+                _profileConnectGoogle.asyncio_detailed,
+                body=body,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
     async def connect_google_with_response(
-        self, *, body: GoogleConnectRequestRequest, accept_language: str | Unset = UNSET
+        self,
+        *,
+        body: GoogleConnectRequestRequest,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[builtins.list[SocialAccountState]]:
         """Connect Google to the signed-in account; include response metadata."""
         return cast(
             ApiResponse[builtins.list[SocialAccountState]],
             await self._client._call_with_response(
-                _profileConnectGoogle.asyncio_detailed, body=body, accept_language=accept_language
+                _profileConnectGoogle.asyncio_detailed,
+                body=body,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
     async def delete(
-        self, *, if_match: str | Unset = UNSET, accept_language: str | Unset = UNSET
+        self,
+        *,
+        if_match: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> None:
         """Delete the current account"""
         await self._client._call(
-            _profile_destroy.asyncio_detailed, if_match=if_match, accept_language=accept_language
+            _profile_destroy.asyncio_detailed,
+            if_match=if_match,
+            accept_language=accept_language,
+            x_impersonate_user=impersonate_user_id,
         )
         return None
 
     async def delete_with_response(
-        self, *, if_match: str | Unset = UNSET, accept_language: str | Unset = UNSET
+        self,
+        *,
+        if_match: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[None]:
         """Delete the current account; include response metadata."""
         return cast(
@@ -378,11 +513,16 @@ class AsyncProfileResource:
                 _profile_destroy.asyncio_detailed,
                 if_match=if_match,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
     async def disable_two_factor(
-        self, *, body: TwoFactorDisableRequest, accept_language: str | Unset = UNSET
+        self,
+        *,
+        body: TwoFactorDisableRequest,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> EnabledResponse:
         """Disable two-factor authentication"""
         return cast(
@@ -391,11 +531,16 @@ class AsyncProfileResource:
                 _profile_2fa_disable_create.asyncio_detailed,
                 body=body,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
     async def disable_two_factor_with_response(
-        self, *, body: TwoFactorDisableRequest, accept_language: str | Unset = UNSET
+        self,
+        *,
+        body: TwoFactorDisableRequest,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[EnabledResponse]:
         """Disable two-factor authentication; include response metadata."""
         return cast(
@@ -404,68 +549,85 @@ class AsyncProfileResource:
                 _profile_2fa_disable_create.asyncio_detailed,
                 body=body,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
-    async def get(self, *, accept_language: str | Unset = UNSET) -> User:
+    async def get(
+        self, *, accept_language: str | Unset = UNSET, impersonate_user_id: str | Unset = UNSET
+    ) -> User:
         """Get the current profile"""
         return cast(
             User,
             await self._client._call(
-                _profile_retrieve.asyncio_detailed, accept_language=accept_language
+                _profile_retrieve.asyncio_detailed,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
-    async def get_with_response(self, *, accept_language: str | Unset = UNSET) -> ApiResponse[User]:
+    async def get_with_response(
+        self, *, accept_language: str | Unset = UNSET, impersonate_user_id: str | Unset = UNSET
+    ) -> ApiResponse[User]:
         """Get the current profile; include response metadata."""
         return cast(
             ApiResponse[User],
             await self._client._call_with_response(
-                _profile_retrieve.asyncio_detailed, accept_language=accept_language
+                _profile_retrieve.asyncio_detailed,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
     async def get_two_factor_status(
-        self, *, accept_language: str | Unset = UNSET
+        self, *, accept_language: str | Unset = UNSET, impersonate_user_id: str | Unset = UNSET
     ) -> EnabledResponse:
         """Get two-factor status"""
         return cast(
             EnabledResponse,
             await self._client._call(
-                _profile_2fa_status_retrieve.asyncio_detailed, accept_language=accept_language
+                _profile_2fa_status_retrieve.asyncio_detailed,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
     async def get_two_factor_status_with_response(
-        self, *, accept_language: str | Unset = UNSET
+        self, *, accept_language: str | Unset = UNSET, impersonate_user_id: str | Unset = UNSET
     ) -> ApiResponse[EnabledResponse]:
         """Get two-factor status; include response metadata."""
         return cast(
             ApiResponse[EnabledResponse],
             await self._client._call_with_response(
-                _profile_2fa_status_retrieve.asyncio_detailed, accept_language=accept_language
+                _profile_2fa_status_retrieve.asyncio_detailed,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
     async def list_social_accounts(
-        self, *, accept_language: str | Unset = UNSET
+        self, *, accept_language: str | Unset = UNSET, impersonate_user_id: str | Unset = UNSET
     ) -> list[SocialAccountState]:
         """List social account connections"""
         return cast(
             list[SocialAccountState],
             await self._client._call(
-                _profileSocialAccounts.asyncio_detailed, accept_language=accept_language
+                _profileSocialAccounts.asyncio_detailed,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
     async def list_social_accounts_with_response(
-        self, *, accept_language: str | Unset = UNSET
+        self, *, accept_language: str | Unset = UNSET, impersonate_user_id: str | Unset = UNSET
     ) -> ApiResponse[builtins.list[SocialAccountState]]:
         """List social account connections; include response metadata."""
         return cast(
             ApiResponse[builtins.list[SocialAccountState]],
             await self._client._call_with_response(
-                _profileSocialAccounts.asyncio_detailed, accept_language=accept_language
+                _profileSocialAccounts.asyncio_detailed,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -474,6 +636,7 @@ class AsyncProfileResource:
         *,
         body: TwoFactorSetupRequestRequest | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> TwoFactorSetupResponse:
         """Prepare two-factor authentication"""
         return cast(
@@ -482,6 +645,7 @@ class AsyncProfileResource:
                 _profile_2fa_setup_create.asyncio_detailed,
                 body=body,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -490,6 +654,7 @@ class AsyncProfileResource:
         *,
         body: TwoFactorSetupRequestRequest | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[TwoFactorSetupResponse]:
         """Prepare two-factor authentication; include response metadata."""
         return cast(
@@ -498,6 +663,7 @@ class AsyncProfileResource:
                 _profile_2fa_setup_create.asyncio_detailed,
                 body=body,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -507,6 +673,7 @@ class AsyncProfileResource:
         body: PatchedProfileUpdateRequest | Unset = UNSET,
         if_match: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> User:
         """Update the current profile"""
         return cast(
@@ -516,6 +683,7 @@ class AsyncProfileResource:
                 body=body,
                 if_match=if_match,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -525,6 +693,7 @@ class AsyncProfileResource:
         body: PatchedProfileUpdateRequest | Unset = UNSET,
         if_match: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[User]:
         """Update the current profile; include response metadata."""
         return cast(
@@ -534,5 +703,6 @@ class AsyncProfileResource:
                 body=body,
                 if_match=if_match,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )

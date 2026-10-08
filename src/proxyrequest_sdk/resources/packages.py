@@ -34,6 +34,7 @@ class PackagesResource:
         search: str | Unset = UNSET,
         type_: PackagesListType | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> PaginatedPackageList:
         """List available proxy packages"""
         return cast(
@@ -48,6 +49,7 @@ class PackagesResource:
                 search=search,
                 type_=type_,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -62,6 +64,7 @@ class PackagesResource:
         search: str | Unset = UNSET,
         type_: PackagesListType | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[PaginatedPackageList]:
         """List available proxy packages; include response metadata."""
         return cast(
@@ -76,6 +79,7 @@ class PackagesResource:
                 search=search,
                 type_=type_,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -89,6 +93,7 @@ class PackagesResource:
         pricing_unit: PackagesCommissionsListPricingUnit | Unset = UNSET,
         type_: PackagesCommissionsListType | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> PaginatedPackageCommissionList:
         """List affiliate package commissions"""
         return cast(
@@ -102,6 +107,7 @@ class PackagesResource:
                 pricing_unit=pricing_unit,
                 type_=type_,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -115,6 +121,7 @@ class PackagesResource:
         pricing_unit: PackagesCommissionsListPricingUnit | Unset = UNSET,
         type_: PackagesCommissionsListType | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[PaginatedPackageCommissionList]:
         """List affiliate package commissions; include response metadata."""
         return cast(
@@ -128,6 +135,7 @@ class PackagesResource:
                 pricing_unit=pricing_unit,
                 type_=type_,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -147,6 +155,7 @@ class AsyncPackagesResource:
         search: str | Unset = UNSET,
         type_: PackagesListType | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> PaginatedPackageList:
         """List available proxy packages"""
         return cast(
@@ -161,6 +170,7 @@ class AsyncPackagesResource:
                 search=search,
                 type_=type_,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -175,6 +185,7 @@ class AsyncPackagesResource:
         search: str | Unset = UNSET,
         type_: PackagesListType | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[PaginatedPackageList]:
         """List available proxy packages; include response metadata."""
         return cast(
@@ -189,6 +200,7 @@ class AsyncPackagesResource:
                 search=search,
                 type_=type_,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -202,6 +214,7 @@ class AsyncPackagesResource:
         pricing_unit: PackagesCommissionsListPricingUnit | Unset = UNSET,
         type_: PackagesCommissionsListType | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> PaginatedPackageCommissionList:
         """List affiliate package commissions"""
         return cast(
@@ -215,6 +228,7 @@ class AsyncPackagesResource:
                 pricing_unit=pricing_unit,
                 type_=type_,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -228,6 +242,7 @@ class AsyncPackagesResource:
         pricing_unit: PackagesCommissionsListPricingUnit | Unset = UNSET,
         type_: PackagesCommissionsListType | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[PaginatedPackageCommissionList]:
         """List affiliate package commissions; include response metadata."""
         return cast(
@@ -241,5 +256,6 @@ class AsyncPackagesResource:
                 pricing_unit=pricing_unit,
                 type_=type_,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )

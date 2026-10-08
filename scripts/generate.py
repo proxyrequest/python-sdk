@@ -19,6 +19,7 @@ from sdk_schema import sdk_schema
 
 ROOT = Path(__file__).resolve().parents[1]
 HTTP_METHODS = {"get", "post", "put", "patch", "delete"}
+PUBLIC_RENAMES = {"x_impersonate_user": "impersonate_user_id"}
 ERROR_MODEL = re.compile(r"(?:Response|Error)[45]\d\d")
 
 
@@ -357,7 +358,7 @@ def render_resource(
         imports.append(
             f"from .._generated.api.{tag_module} import {endpoint.stem} as _{operation.operation_id}"
         )
-        arguments, names, argument_type_names = public_arguments(endpoint, {})
+        arguments, names, argument_type_names = public_arguments(endpoint, PUBLIC_RENAMES)
         type_names.update(argument_type_names)
         type_names.update(
             node.id
@@ -739,7 +740,7 @@ def generate_reference(
     for operation in operations:
         path, verb, path_item, raw = raw_by_id[operation.operation_id]
         endpoint = find_endpoint(generated, operation.operation_id)
-        arguments, _, _ = public_arguments(endpoint, {})
+        arguments, _, _ = public_arguments(endpoint, PUBLIC_RENAMES)
         display_arguments = arguments.replace("(self, ", "(", 1) if arguments != "(self)" else "()"
         raw_parameters = [
             dereference(parameter, "parameters")

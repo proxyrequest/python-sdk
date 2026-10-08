@@ -35,7 +35,11 @@ class CouponsResource:
         self._client = client
 
     def calculate_price(
-        self, *, body: CouponCalculatePriceRequest, accept_language: str | Unset = UNSET
+        self,
+        *,
+        body: CouponCalculatePriceRequest,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> CouponPriceResponse:
         """Calculate a discounted price"""
         return cast(
@@ -44,11 +48,16 @@ class CouponsResource:
                 _coupons_calculate_price_create.sync_detailed,
                 body=body,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
     def calculate_price_with_response(
-        self, *, body: CouponCalculatePriceRequest, accept_language: str | Unset = UNSET
+        self,
+        *,
+        body: CouponCalculatePriceRequest,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[CouponPriceResponse]:
         """Calculate a discounted price; include response metadata."""
         return cast(
@@ -57,6 +66,7 @@ class CouponsResource:
                 _coupons_calculate_price_create.sync_detailed,
                 body=body,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -66,6 +76,7 @@ class CouponsResource:
         body: CouponCreateRequest,
         idempotency_key: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> Coupon:
         """Create a coupon"""
         return cast(
@@ -76,6 +87,7 @@ class CouponsResource:
                 body=body,
                 idempotency_key=idempotency_key,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -85,6 +97,7 @@ class CouponsResource:
         body: CouponCreateRequest,
         idempotency_key: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[Coupon]:
         """Create a coupon; include response metadata."""
         return cast(
@@ -95,6 +108,7 @@ class CouponsResource:
                 body=body,
                 idempotency_key=idempotency_key,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -105,6 +119,7 @@ class CouponsResource:
         idempotency_key: str | Unset = UNSET,
         if_match: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> None:
         """Delete a coupon"""
         self._client._call(
@@ -114,6 +129,7 @@ class CouponsResource:
             idempotency_key=idempotency_key,
             if_match=if_match,
             accept_language=accept_language,
+            x_impersonate_user=impersonate_user_id,
         )
         return None
 
@@ -124,6 +140,7 @@ class CouponsResource:
         idempotency_key: str | Unset = UNSET,
         if_match: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[None]:
         """Delete a coupon; include response metadata."""
         return cast(
@@ -135,26 +152,43 @@ class CouponsResource:
                 idempotency_key=idempotency_key,
                 if_match=if_match,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
-    def get(self, id: str, *, accept_language: str | Unset = UNSET) -> CouponShort:
+    def get(
+        self,
+        id: str,
+        *,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
+    ) -> CouponShort:
         """Get a coupon"""
         return cast(
             CouponShort,
             self._client._call(
-                _coupons_retrieve.sync_detailed, id=id, accept_language=accept_language
+                _coupons_retrieve.sync_detailed,
+                id=id,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
     def get_with_response(
-        self, id: str, *, accept_language: str | Unset = UNSET
+        self,
+        id: str,
+        *,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[CouponShort]:
         """Get a coupon; include response metadata."""
         return cast(
             ApiResponse[CouponShort],
             self._client._call_with_response(
-                _coupons_retrieve.sync_detailed, id=id, accept_language=accept_language
+                _coupons_retrieve.sync_detailed,
+                id=id,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -168,6 +202,7 @@ class CouponsResource:
         search: str | Unset = UNSET,
         type_: CouponsListType | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> PaginatedCouponShortList:
         """List available coupons"""
         return cast(
@@ -181,6 +216,7 @@ class CouponsResource:
                 search=search,
                 type_=type_,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -194,6 +230,7 @@ class CouponsResource:
         search: str | Unset = UNSET,
         type_: CouponsListType | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[PaginatedCouponShortList]:
         """List available coupons; include response metadata."""
         return cast(
@@ -207,6 +244,7 @@ class CouponsResource:
                 search=search,
                 type_=type_,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -220,6 +258,7 @@ class CouponsResource:
         ordering: str | Unset = UNSET,
         type_: CouponsRedeemsListType | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> PaginatedCouponRedeemList:
         """List coupon redemptions"""
         return cast(
@@ -233,6 +272,7 @@ class CouponsResource:
                 ordering=ordering,
                 type_=type_,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -246,6 +286,7 @@ class CouponsResource:
         ordering: str | Unset = UNSET,
         type_: CouponsRedeemsListType | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[PaginatedCouponRedeemList]:
         """List coupon redemptions; include response metadata."""
         return cast(
@@ -259,6 +300,7 @@ class CouponsResource:
                 ordering=ordering,
                 type_=type_,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -269,6 +311,7 @@ class CouponsResource:
         body: CouponUpdateRequest,
         if_match: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> Coupon:
         """Replace a coupon"""
         return cast(
@@ -279,6 +322,7 @@ class CouponsResource:
                 body=body,
                 if_match=if_match,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -289,6 +333,7 @@ class CouponsResource:
         body: CouponUpdateRequest,
         if_match: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[Coupon]:
         """Replace a coupon; include response metadata."""
         return cast(
@@ -299,6 +344,7 @@ class CouponsResource:
                 body=body,
                 if_match=if_match,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -309,6 +355,7 @@ class CouponsResource:
         body: PatchedCouponUpdateRequest | Unset = UNSET,
         if_match: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> Coupon:
         """Update a coupon"""
         return cast(
@@ -319,6 +366,7 @@ class CouponsResource:
                 body=body,
                 if_match=if_match,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -329,6 +377,7 @@ class CouponsResource:
         body: PatchedCouponUpdateRequest | Unset = UNSET,
         if_match: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[Coupon]:
         """Update a coupon; include response metadata."""
         return cast(
@@ -339,6 +388,7 @@ class CouponsResource:
                 body=body,
                 if_match=if_match,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -348,7 +398,11 @@ class AsyncCouponsResource:
         self._client = client
 
     async def calculate_price(
-        self, *, body: CouponCalculatePriceRequest, accept_language: str | Unset = UNSET
+        self,
+        *,
+        body: CouponCalculatePriceRequest,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> CouponPriceResponse:
         """Calculate a discounted price"""
         return cast(
@@ -357,11 +411,16 @@ class AsyncCouponsResource:
                 _coupons_calculate_price_create.asyncio_detailed,
                 body=body,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
     async def calculate_price_with_response(
-        self, *, body: CouponCalculatePriceRequest, accept_language: str | Unset = UNSET
+        self,
+        *,
+        body: CouponCalculatePriceRequest,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[CouponPriceResponse]:
         """Calculate a discounted price; include response metadata."""
         return cast(
@@ -370,6 +429,7 @@ class AsyncCouponsResource:
                 _coupons_calculate_price_create.asyncio_detailed,
                 body=body,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -379,6 +439,7 @@ class AsyncCouponsResource:
         body: CouponCreateRequest,
         idempotency_key: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> Coupon:
         """Create a coupon"""
         return cast(
@@ -389,6 +450,7 @@ class AsyncCouponsResource:
                 body=body,
                 idempotency_key=idempotency_key,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -398,6 +460,7 @@ class AsyncCouponsResource:
         body: CouponCreateRequest,
         idempotency_key: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[Coupon]:
         """Create a coupon; include response metadata."""
         return cast(
@@ -408,6 +471,7 @@ class AsyncCouponsResource:
                 body=body,
                 idempotency_key=idempotency_key,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -418,6 +482,7 @@ class AsyncCouponsResource:
         idempotency_key: str | Unset = UNSET,
         if_match: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> None:
         """Delete a coupon"""
         await self._client._call(
@@ -427,6 +492,7 @@ class AsyncCouponsResource:
             idempotency_key=idempotency_key,
             if_match=if_match,
             accept_language=accept_language,
+            x_impersonate_user=impersonate_user_id,
         )
         return None
 
@@ -437,6 +503,7 @@ class AsyncCouponsResource:
         idempotency_key: str | Unset = UNSET,
         if_match: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[None]:
         """Delete a coupon; include response metadata."""
         return cast(
@@ -448,26 +515,43 @@ class AsyncCouponsResource:
                 idempotency_key=idempotency_key,
                 if_match=if_match,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
-    async def get(self, id: str, *, accept_language: str | Unset = UNSET) -> CouponShort:
+    async def get(
+        self,
+        id: str,
+        *,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
+    ) -> CouponShort:
         """Get a coupon"""
         return cast(
             CouponShort,
             await self._client._call(
-                _coupons_retrieve.asyncio_detailed, id=id, accept_language=accept_language
+                _coupons_retrieve.asyncio_detailed,
+                id=id,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
     async def get_with_response(
-        self, id: str, *, accept_language: str | Unset = UNSET
+        self,
+        id: str,
+        *,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[CouponShort]:
         """Get a coupon; include response metadata."""
         return cast(
             ApiResponse[CouponShort],
             await self._client._call_with_response(
-                _coupons_retrieve.asyncio_detailed, id=id, accept_language=accept_language
+                _coupons_retrieve.asyncio_detailed,
+                id=id,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -481,6 +565,7 @@ class AsyncCouponsResource:
         search: str | Unset = UNSET,
         type_: CouponsListType | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> PaginatedCouponShortList:
         """List available coupons"""
         return cast(
@@ -494,6 +579,7 @@ class AsyncCouponsResource:
                 search=search,
                 type_=type_,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -507,6 +593,7 @@ class AsyncCouponsResource:
         search: str | Unset = UNSET,
         type_: CouponsListType | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[PaginatedCouponShortList]:
         """List available coupons; include response metadata."""
         return cast(
@@ -520,6 +607,7 @@ class AsyncCouponsResource:
                 search=search,
                 type_=type_,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -533,6 +621,7 @@ class AsyncCouponsResource:
         ordering: str | Unset = UNSET,
         type_: CouponsRedeemsListType | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> PaginatedCouponRedeemList:
         """List coupon redemptions"""
         return cast(
@@ -546,6 +635,7 @@ class AsyncCouponsResource:
                 ordering=ordering,
                 type_=type_,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -559,6 +649,7 @@ class AsyncCouponsResource:
         ordering: str | Unset = UNSET,
         type_: CouponsRedeemsListType | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[PaginatedCouponRedeemList]:
         """List coupon redemptions; include response metadata."""
         return cast(
@@ -572,6 +663,7 @@ class AsyncCouponsResource:
                 ordering=ordering,
                 type_=type_,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -582,6 +674,7 @@ class AsyncCouponsResource:
         body: CouponUpdateRequest,
         if_match: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> Coupon:
         """Replace a coupon"""
         return cast(
@@ -592,6 +685,7 @@ class AsyncCouponsResource:
                 body=body,
                 if_match=if_match,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -602,6 +696,7 @@ class AsyncCouponsResource:
         body: CouponUpdateRequest,
         if_match: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[Coupon]:
         """Replace a coupon; include response metadata."""
         return cast(
@@ -612,6 +707,7 @@ class AsyncCouponsResource:
                 body=body,
                 if_match=if_match,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -622,6 +718,7 @@ class AsyncCouponsResource:
         body: PatchedCouponUpdateRequest | Unset = UNSET,
         if_match: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> Coupon:
         """Update a coupon"""
         return cast(
@@ -632,6 +729,7 @@ class AsyncCouponsResource:
                 body=body,
                 if_match=if_match,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -642,6 +740,7 @@ class AsyncCouponsResource:
         body: PatchedCouponUpdateRequest | Unset = UNSET,
         if_match: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[Coupon]:
         """Update a coupon; include response metadata."""
         return cast(
@@ -652,5 +751,6 @@ class AsyncCouponsResource:
                 body=body,
                 if_match=if_match,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )

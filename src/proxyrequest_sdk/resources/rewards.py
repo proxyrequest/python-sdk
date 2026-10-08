@@ -19,21 +19,37 @@ class RewardsResource:
     def __init__(self, client: Any) -> None:
         self._client = client
 
-    def claim(self, *, body: RewardClaimRequest, accept_language: str | Unset = UNSET) -> None:
+    def claim(
+        self,
+        *,
+        body: RewardClaimRequest,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
+    ) -> None:
         """Claim available rewards"""
         self._client._call(
-            _rewards_claim_create.sync_detailed, body=body, accept_language=accept_language
+            _rewards_claim_create.sync_detailed,
+            body=body,
+            accept_language=accept_language,
+            x_impersonate_user=impersonate_user_id,
         )
         return None
 
     def claim_with_response(
-        self, *, body: RewardClaimRequest, accept_language: str | Unset = UNSET
+        self,
+        *,
+        body: RewardClaimRequest,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[None]:
         """Claim available rewards; include response metadata."""
         return cast(
             ApiResponse[None],
             self._client._call_with_response(
-                _rewards_claim_create.sync_detailed, body=body, accept_language=accept_language
+                _rewards_claim_create.sync_detailed,
+                body=body,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -47,6 +63,7 @@ class RewardsResource:
         user_email: str | Unset = UNSET,
         user_id: UUID | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> PaginatedRewardList:
         """List account rewards"""
         return cast(
@@ -60,6 +77,7 @@ class RewardsResource:
                 user_email=user_email,
                 user_id=user_id,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -73,6 +91,7 @@ class RewardsResource:
         user_email: str | Unset = UNSET,
         user_id: UUID | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[PaginatedRewardList]:
         """List account rewards; include response metadata."""
         return cast(
@@ -86,6 +105,7 @@ class RewardsResource:
                 user_email=user_email,
                 user_id=user_id,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -95,22 +115,36 @@ class AsyncRewardsResource:
         self._client = client
 
     async def claim(
-        self, *, body: RewardClaimRequest, accept_language: str | Unset = UNSET
+        self,
+        *,
+        body: RewardClaimRequest,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> None:
         """Claim available rewards"""
         await self._client._call(
-            _rewards_claim_create.asyncio_detailed, body=body, accept_language=accept_language
+            _rewards_claim_create.asyncio_detailed,
+            body=body,
+            accept_language=accept_language,
+            x_impersonate_user=impersonate_user_id,
         )
         return None
 
     async def claim_with_response(
-        self, *, body: RewardClaimRequest, accept_language: str | Unset = UNSET
+        self,
+        *,
+        body: RewardClaimRequest,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[None]:
         """Claim available rewards; include response metadata."""
         return cast(
             ApiResponse[None],
             await self._client._call_with_response(
-                _rewards_claim_create.asyncio_detailed, body=body, accept_language=accept_language
+                _rewards_claim_create.asyncio_detailed,
+                body=body,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -124,6 +158,7 @@ class AsyncRewardsResource:
         user_email: str | Unset = UNSET,
         user_id: UUID | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> PaginatedRewardList:
         """List account rewards"""
         return cast(
@@ -137,6 +172,7 @@ class AsyncRewardsResource:
                 user_email=user_email,
                 user_id=user_id,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -150,6 +186,7 @@ class AsyncRewardsResource:
         user_email: str | Unset = UNSET,
         user_id: UUID | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[PaginatedRewardList]:
         """List account rewards; include response metadata."""
         return cast(
@@ -163,5 +200,6 @@ class AsyncRewardsResource:
                 user_email=user_email,
                 user_id=user_id,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )

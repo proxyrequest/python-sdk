@@ -27,6 +27,7 @@ def _get_kwargs(
     body: PatchedCouponUpdateRequest | Unset = UNSET,
     if_match: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
+    x_impersonate_user: str | Unset = UNSET,
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
     if not isinstance(if_match, Unset):
@@ -34,6 +35,9 @@ def _get_kwargs(
 
     if not isinstance(accept_language, Unset):
         headers["Accept-Language"] = accept_language
+
+    if not isinstance(x_impersonate_user, Unset):
+        headers["X-Impersonate-User"] = x_impersonate_user
 
     _kwargs: dict[str, Any] = {
         "method": "patch",
@@ -124,6 +128,7 @@ def sync_detailed(
     body: PatchedCouponUpdateRequest | Unset = UNSET,
     if_match: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
+    x_impersonate_user: str | Unset = UNSET,
 ) -> Response[
     Coupon
     | CouponsPartialUpdateResponse400
@@ -140,6 +145,7 @@ def sync_detailed(
         id (str):
         if_match (str | Unset):
         accept_language (str | Unset):  Defaults to the client language.
+        x_impersonate_user (str | Unset):
         body (PatchedCouponUpdateRequest | Unset):
 
     Raises:
@@ -155,6 +161,7 @@ def sync_detailed(
         body=body,
         if_match=if_match,
         accept_language=accept_language,
+        x_impersonate_user=x_impersonate_user,
     )
 
     response = client.get_httpx_client().request(
@@ -171,6 +178,7 @@ def sync(
     body: PatchedCouponUpdateRequest | Unset = UNSET,
     if_match: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
+    x_impersonate_user: str | Unset = UNSET,
 ) -> (
     Coupon
     | CouponsPartialUpdateResponse400
@@ -188,6 +196,7 @@ def sync(
         id (str):
         if_match (str | Unset):
         accept_language (str | Unset):  Defaults to the client language.
+        x_impersonate_user (str | Unset):
         body (PatchedCouponUpdateRequest | Unset):
 
     Raises:
@@ -204,6 +213,7 @@ def sync(
         body=body,
         if_match=if_match,
         accept_language=accept_language,
+        x_impersonate_user=x_impersonate_user,
     ).parsed
 
 
@@ -214,6 +224,7 @@ async def asyncio_detailed(
     body: PatchedCouponUpdateRequest | Unset = UNSET,
     if_match: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
+    x_impersonate_user: str | Unset = UNSET,
 ) -> Response[
     Coupon
     | CouponsPartialUpdateResponse400
@@ -230,6 +241,7 @@ async def asyncio_detailed(
         id (str):
         if_match (str | Unset):
         accept_language (str | Unset):  Defaults to the client language.
+        x_impersonate_user (str | Unset):
         body (PatchedCouponUpdateRequest | Unset):
 
     Raises:
@@ -245,6 +257,7 @@ async def asyncio_detailed(
         body=body,
         if_match=if_match,
         accept_language=accept_language,
+        x_impersonate_user=x_impersonate_user,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -259,6 +272,7 @@ async def asyncio(
     body: PatchedCouponUpdateRequest | Unset = UNSET,
     if_match: str | Unset = UNSET,
     accept_language: str | Unset = UNSET,
+    x_impersonate_user: str | Unset = UNSET,
 ) -> (
     Coupon
     | CouponsPartialUpdateResponse400
@@ -276,6 +290,7 @@ async def asyncio(
         id (str):
         if_match (str | Unset):
         accept_language (str | Unset):  Defaults to the client language.
+        x_impersonate_user (str | Unset):
         body (PatchedCouponUpdateRequest | Unset):
 
     Raises:
@@ -293,5 +308,6 @@ async def asyncio(
             body=body,
             if_match=if_match,
             accept_language=accept_language,
+            x_impersonate_user=x_impersonate_user,
         )
     ).parsed

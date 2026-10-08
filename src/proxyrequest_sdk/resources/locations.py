@@ -43,6 +43,7 @@ class LocationsResource:
         include_asns: bool | Unset = UNSET,
         package_id: UUID,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> City:
         """Get a city"""
         return cast(
@@ -53,6 +54,7 @@ class LocationsResource:
                 include_asns=include_asns,
                 package_id=package_id,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -63,6 +65,7 @@ class LocationsResource:
         include_asns: bool | Unset = UNSET,
         package_id: UUID,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[City]:
         """Get a city; include response metadata."""
         return cast(
@@ -73,11 +76,17 @@ class LocationsResource:
                 include_asns=include_asns,
                 package_id=package_id,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
     def get_continent(
-        self, id: str, *, package_id: UUID, accept_language: str | Unset = UNSET
+        self,
+        id: str,
+        *,
+        package_id: UUID,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> Continent:
         """Get a continent"""
         return cast(
@@ -87,11 +96,17 @@ class LocationsResource:
                 id=id,
                 package_id=package_id,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
     def get_continent_with_response(
-        self, id: str, *, package_id: UUID, accept_language: str | Unset = UNSET
+        self,
+        id: str,
+        *,
+        package_id: UUID,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[Continent]:
         """Get a continent; include response metadata."""
         return cast(
@@ -101,6 +116,7 @@ class LocationsResource:
                 id=id,
                 package_id=package_id,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -111,6 +127,7 @@ class LocationsResource:
         include_asns: bool | Unset = UNSET,
         package_id: UUID,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> Country:
         """Get a country"""
         return cast(
@@ -121,6 +138,7 @@ class LocationsResource:
                 include_asns=include_asns,
                 package_id=package_id,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -131,6 +149,7 @@ class LocationsResource:
         include_asns: bool | Unset = UNSET,
         package_id: UUID,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[Country]:
         """Get a country; include response metadata."""
         return cast(
@@ -141,6 +160,7 @@ class LocationsResource:
                 include_asns=include_asns,
                 package_id=package_id,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -151,6 +171,7 @@ class LocationsResource:
         include_asns: bool | Unset = UNSET,
         package_id: UUID,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> Region:
         """Get a region"""
         return cast(
@@ -161,6 +182,7 @@ class LocationsResource:
                 include_asns=include_asns,
                 package_id=package_id,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -171,6 +193,7 @@ class LocationsResource:
         include_asns: bool | Unset = UNSET,
         package_id: UUID,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[Region]:
         """Get a region; include response metadata."""
         return cast(
@@ -181,6 +204,7 @@ class LocationsResource:
                 include_asns=include_asns,
                 package_id=package_id,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -198,6 +222,7 @@ class LocationsResource:
         package_id: UUID,
         search: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> PaginatedLocationASNRecordList:
         """List available autonomous systems"""
         return cast(
@@ -215,6 +240,7 @@ class LocationsResource:
                 package_id=package_id,
                 search=search,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -232,6 +258,7 @@ class LocationsResource:
         package_id: UUID,
         search: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[PaginatedLocationASNRecordList]:
         """List available autonomous systems; include response metadata."""
         return cast(
@@ -249,6 +276,7 @@ class LocationsResource:
                 package_id=package_id,
                 search=search,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -266,6 +294,7 @@ class LocationsResource:
         region_code: str | Unset = UNSET,
         search: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> PaginatedCityList:
         """List available cities"""
         return cast(
@@ -283,6 +312,7 @@ class LocationsResource:
                 region_code=region_code,
                 search=search,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -300,6 +330,7 @@ class LocationsResource:
         region_code: str | Unset = UNSET,
         search: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[PaginatedCityList]:
         """List available cities; include response metadata."""
         return cast(
@@ -317,6 +348,7 @@ class LocationsResource:
                 region_code=region_code,
                 search=search,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -331,6 +363,7 @@ class LocationsResource:
         package_id: UUID,
         search: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> PaginatedContinentList:
         """List available continents"""
         return cast(
@@ -345,6 +378,7 @@ class LocationsResource:
                 package_id=package_id,
                 search=search,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -359,6 +393,7 @@ class LocationsResource:
         package_id: UUID,
         search: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[PaginatedContinentList]:
         """List available continents; include response metadata."""
         return cast(
@@ -373,6 +408,7 @@ class LocationsResource:
                 package_id=package_id,
                 search=search,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -388,6 +424,7 @@ class LocationsResource:
         package_id: UUID,
         search: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> PaginatedCountryList:
         """List available countries"""
         return cast(
@@ -403,6 +440,7 @@ class LocationsResource:
                 package_id=package_id,
                 search=search,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -418,6 +456,7 @@ class LocationsResource:
         package_id: UUID,
         search: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[PaginatedCountryList]:
         """List available countries; include response metadata."""
         return cast(
@@ -433,6 +472,7 @@ class LocationsResource:
                 package_id=package_id,
                 search=search,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -448,6 +488,7 @@ class LocationsResource:
         package_id: UUID,
         search: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> PaginatedISPList:
         """List available internet service providers"""
         return cast(
@@ -463,6 +504,7 @@ class LocationsResource:
                 package_id=package_id,
                 search=search,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -478,6 +520,7 @@ class LocationsResource:
         package_id: UUID,
         search: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[PaginatedISPList]:
         """List available internet service providers; include response metadata."""
         return cast(
@@ -493,6 +536,7 @@ class LocationsResource:
                 package_id=package_id,
                 search=search,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -509,6 +553,7 @@ class LocationsResource:
         package_id: UUID,
         search: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> PaginatedRegionList:
         """List available regions"""
         return cast(
@@ -525,6 +570,7 @@ class LocationsResource:
                 package_id=package_id,
                 search=search,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -541,6 +587,7 @@ class LocationsResource:
         package_id: UUID,
         search: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[PaginatedRegionList]:
         """List available regions; include response metadata."""
         return cast(
@@ -557,6 +604,7 @@ class LocationsResource:
                 package_id=package_id,
                 search=search,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -572,6 +620,7 @@ class AsyncLocationsResource:
         include_asns: bool | Unset = UNSET,
         package_id: UUID,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> City:
         """Get a city"""
         return cast(
@@ -582,6 +631,7 @@ class AsyncLocationsResource:
                 include_asns=include_asns,
                 package_id=package_id,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -592,6 +642,7 @@ class AsyncLocationsResource:
         include_asns: bool | Unset = UNSET,
         package_id: UUID,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[City]:
         """Get a city; include response metadata."""
         return cast(
@@ -602,11 +653,17 @@ class AsyncLocationsResource:
                 include_asns=include_asns,
                 package_id=package_id,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
     async def get_continent(
-        self, id: str, *, package_id: UUID, accept_language: str | Unset = UNSET
+        self,
+        id: str,
+        *,
+        package_id: UUID,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> Continent:
         """Get a continent"""
         return cast(
@@ -616,11 +673,17 @@ class AsyncLocationsResource:
                 id=id,
                 package_id=package_id,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
     async def get_continent_with_response(
-        self, id: str, *, package_id: UUID, accept_language: str | Unset = UNSET
+        self,
+        id: str,
+        *,
+        package_id: UUID,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[Continent]:
         """Get a continent; include response metadata."""
         return cast(
@@ -630,6 +693,7 @@ class AsyncLocationsResource:
                 id=id,
                 package_id=package_id,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -640,6 +704,7 @@ class AsyncLocationsResource:
         include_asns: bool | Unset = UNSET,
         package_id: UUID,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> Country:
         """Get a country"""
         return cast(
@@ -650,6 +715,7 @@ class AsyncLocationsResource:
                 include_asns=include_asns,
                 package_id=package_id,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -660,6 +726,7 @@ class AsyncLocationsResource:
         include_asns: bool | Unset = UNSET,
         package_id: UUID,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[Country]:
         """Get a country; include response metadata."""
         return cast(
@@ -670,6 +737,7 @@ class AsyncLocationsResource:
                 include_asns=include_asns,
                 package_id=package_id,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -680,6 +748,7 @@ class AsyncLocationsResource:
         include_asns: bool | Unset = UNSET,
         package_id: UUID,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> Region:
         """Get a region"""
         return cast(
@@ -690,6 +759,7 @@ class AsyncLocationsResource:
                 include_asns=include_asns,
                 package_id=package_id,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -700,6 +770,7 @@ class AsyncLocationsResource:
         include_asns: bool | Unset = UNSET,
         package_id: UUID,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[Region]:
         """Get a region; include response metadata."""
         return cast(
@@ -710,6 +781,7 @@ class AsyncLocationsResource:
                 include_asns=include_asns,
                 package_id=package_id,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -727,6 +799,7 @@ class AsyncLocationsResource:
         package_id: UUID,
         search: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> PaginatedLocationASNRecordList:
         """List available autonomous systems"""
         return cast(
@@ -744,6 +817,7 @@ class AsyncLocationsResource:
                 package_id=package_id,
                 search=search,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -761,6 +835,7 @@ class AsyncLocationsResource:
         package_id: UUID,
         search: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[PaginatedLocationASNRecordList]:
         """List available autonomous systems; include response metadata."""
         return cast(
@@ -778,6 +853,7 @@ class AsyncLocationsResource:
                 package_id=package_id,
                 search=search,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -795,6 +871,7 @@ class AsyncLocationsResource:
         region_code: str | Unset = UNSET,
         search: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> PaginatedCityList:
         """List available cities"""
         return cast(
@@ -812,6 +889,7 @@ class AsyncLocationsResource:
                 region_code=region_code,
                 search=search,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -829,6 +907,7 @@ class AsyncLocationsResource:
         region_code: str | Unset = UNSET,
         search: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[PaginatedCityList]:
         """List available cities; include response metadata."""
         return cast(
@@ -846,6 +925,7 @@ class AsyncLocationsResource:
                 region_code=region_code,
                 search=search,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -860,6 +940,7 @@ class AsyncLocationsResource:
         package_id: UUID,
         search: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> PaginatedContinentList:
         """List available continents"""
         return cast(
@@ -874,6 +955,7 @@ class AsyncLocationsResource:
                 package_id=package_id,
                 search=search,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -888,6 +970,7 @@ class AsyncLocationsResource:
         package_id: UUID,
         search: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[PaginatedContinentList]:
         """List available continents; include response metadata."""
         return cast(
@@ -902,6 +985,7 @@ class AsyncLocationsResource:
                 package_id=package_id,
                 search=search,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -917,6 +1001,7 @@ class AsyncLocationsResource:
         package_id: UUID,
         search: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> PaginatedCountryList:
         """List available countries"""
         return cast(
@@ -932,6 +1017,7 @@ class AsyncLocationsResource:
                 package_id=package_id,
                 search=search,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -947,6 +1033,7 @@ class AsyncLocationsResource:
         package_id: UUID,
         search: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[PaginatedCountryList]:
         """List available countries; include response metadata."""
         return cast(
@@ -962,6 +1049,7 @@ class AsyncLocationsResource:
                 package_id=package_id,
                 search=search,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -977,6 +1065,7 @@ class AsyncLocationsResource:
         package_id: UUID,
         search: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> PaginatedISPList:
         """List available internet service providers"""
         return cast(
@@ -992,6 +1081,7 @@ class AsyncLocationsResource:
                 package_id=package_id,
                 search=search,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -1007,6 +1097,7 @@ class AsyncLocationsResource:
         package_id: UUID,
         search: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[PaginatedISPList]:
         """List available internet service providers; include response metadata."""
         return cast(
@@ -1022,6 +1113,7 @@ class AsyncLocationsResource:
                 package_id=package_id,
                 search=search,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -1038,6 +1130,7 @@ class AsyncLocationsResource:
         package_id: UUID,
         search: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> PaginatedRegionList:
         """List available regions"""
         return cast(
@@ -1054,6 +1147,7 @@ class AsyncLocationsResource:
                 package_id=package_id,
                 search=search,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
 
@@ -1070,6 +1164,7 @@ class AsyncLocationsResource:
         package_id: UUID,
         search: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[PaginatedRegionList]:
         """List available regions; include response metadata."""
         return cast(
@@ -1086,5 +1181,6 @@ class AsyncLocationsResource:
                 package_id=package_id,
                 search=search,
                 accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
             ),
         )
