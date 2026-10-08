@@ -4,6 +4,12 @@ All notable changes to the ProxyRequest Python SDK are documented here.
 
 ## Unreleased
 
+## 4.4.0 (2026-10-08)
+
+- Add optional `impersonate_user_id` to every synchronous and asynchronous resource operation, plus raw requests. The `X-Impersonate-User` header is scoped to each call, so the same client can mix ordinary and impersonated requests.
+- Accept a string or UUID and reject blank IDs before sending the request. Existing calls keep their behavior and argument order.
+- Regenerate typed methods and reference documentation from the pinned public API contract.
+
 ## 4.3.0 (2026-10-07)
 
 - Add `include_geo` to synchronous and asynchronous `locations.list_asns()`. Set it to `True` to request country, region, and city scopes in each ASN's `geo` list; the API returns an empty list by default.
