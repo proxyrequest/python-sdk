@@ -1,6 +1,12 @@
 name: Publish to PyPI
 
 on:
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: Tag with locally tested release assets
+        required: true
+        type: string
   release:
     types: [published]
 
@@ -9,6 +15,7 @@ permissions:
 
 jobs:
   publish:
+    if: github.event_name == 'release' && !contains(github.event.release.body, '[local-artifacts]')
     name: Build and publish
     runs-on: ubuntu-latest
     environment:
@@ -38,6 +45,25 @@ jobs:
           path: dist/
           if-no-files-found: error
       - name: Publish distribution
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          packages-dir: dist/
+          print-hash: true
+
+  publish-local-artifacts:
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    environment: pypi
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: Download locally tested release artifacts
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ inputs.release_tag }}
+        run: gh release download "$RELEASE_TAG" --repo "$GITHUB_REPOSITORY" --pattern '*' --dir dist
+      - name: Publish locally tested distributions
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           packages-dir: dist/

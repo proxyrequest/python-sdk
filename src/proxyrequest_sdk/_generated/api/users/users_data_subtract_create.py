@@ -137,13 +137,14 @@ def sync_detailed(
     | UsersDataSubtractCreateResponse404
     | UsersDataSubtractCreateResponse409
 ]:
-    """Subtract data from a sub-user order
+    """Subtract data from a managed user order
 
-     Subtracts data from the assigned quota of a managed virtual child order in integer bytes for
-    package_id. Both fields are required. This is not a refund or a transfer back into the parent's
-    ledger, and does not erase data_spent. The amount cannot exceed the total assigned data; reducing
-    the quota below usage can stop the child's access. An independently purchased order is not managed
-    through this allocation endpoint. Use Idempotency-Key for safe retries.
+     Superusers may remove available unexpired data from independent customers without changing usage or
+    money. Subtracts integer bytes from a managed sub-user for package_id. Both fields are required. An
+    independently funded order returns only its available, unexpired traffic to the parent, preserving
+    expiration dates; the amount cannot exceed that remaining balance. For a virtual child order, this
+    only reduces assigned quota and does not credit the shared parent pool. Neither operation erases
+    usage: it does not erase data_spent. Use Idempotency-Key for safe retries.
 
     Args:
         id (UUID):
@@ -192,13 +193,14 @@ def sync(
     | UsersDataSubtractCreateResponse409
     | None
 ):
-    """Subtract data from a sub-user order
+    """Subtract data from a managed user order
 
-     Subtracts data from the assigned quota of a managed virtual child order in integer bytes for
-    package_id. Both fields are required. This is not a refund or a transfer back into the parent's
-    ledger, and does not erase data_spent. The amount cannot exceed the total assigned data; reducing
-    the quota below usage can stop the child's access. An independently purchased order is not managed
-    through this allocation endpoint. Use Idempotency-Key for safe retries.
+     Superusers may remove available unexpired data from independent customers without changing usage or
+    money. Subtracts integer bytes from a managed sub-user for package_id. Both fields are required. An
+    independently funded order returns only its available, unexpired traffic to the parent, preserving
+    expiration dates; the amount cannot exceed that remaining balance. For a virtual child order, this
+    only reduces assigned quota and does not credit the shared parent pool. Neither operation erases
+    usage: it does not erase data_spent. Use Idempotency-Key for safe retries.
 
     Args:
         id (UUID):
@@ -241,13 +243,14 @@ async def asyncio_detailed(
     | UsersDataSubtractCreateResponse404
     | UsersDataSubtractCreateResponse409
 ]:
-    """Subtract data from a sub-user order
+    """Subtract data from a managed user order
 
-     Subtracts data from the assigned quota of a managed virtual child order in integer bytes for
-    package_id. Both fields are required. This is not a refund or a transfer back into the parent's
-    ledger, and does not erase data_spent. The amount cannot exceed the total assigned data; reducing
-    the quota below usage can stop the child's access. An independently purchased order is not managed
-    through this allocation endpoint. Use Idempotency-Key for safe retries.
+     Superusers may remove available unexpired data from independent customers without changing usage or
+    money. Subtracts integer bytes from a managed sub-user for package_id. Both fields are required. An
+    independently funded order returns only its available, unexpired traffic to the parent, preserving
+    expiration dates; the amount cannot exceed that remaining balance. For a virtual child order, this
+    only reduces assigned quota and does not credit the shared parent pool. Neither operation erases
+    usage: it does not erase data_spent. Use Idempotency-Key for safe retries.
 
     Args:
         id (UUID):
@@ -294,13 +297,14 @@ async def asyncio(
     | UsersDataSubtractCreateResponse409
     | None
 ):
-    """Subtract data from a sub-user order
+    """Subtract data from a managed user order
 
-     Subtracts data from the assigned quota of a managed virtual child order in integer bytes for
-    package_id. Both fields are required. This is not a refund or a transfer back into the parent's
-    ledger, and does not erase data_spent. The amount cannot exceed the total assigned data; reducing
-    the quota below usage can stop the child's access. An independently purchased order is not managed
-    through this allocation endpoint. Use Idempotency-Key for safe retries.
+     Superusers may remove available unexpired data from independent customers without changing usage or
+    money. Subtracts integer bytes from a managed sub-user for package_id. Both fields are required. An
+    independently funded order returns only its available, unexpired traffic to the parent, preserving
+    expiration dates; the amount cannot exceed that remaining balance. For a virtual child order, this
+    only reduces assigned quota and does not credit the shared parent pool. Neither operation erases
+    usage: it does not erase data_spent. Use Idempotency-Key for safe retries.
 
     Args:
         id (UUID):
