@@ -43,7 +43,7 @@ class UsersResource:
         accept_language: str | Unset = UNSET,
         impersonate_user_id: str | Unset = UNSET,
     ) -> Order:
-        """Add data to a sub-user order"""
+        """Add data to a managed user order"""
         return cast(
             Order,
             self._client._call(
@@ -66,7 +66,7 @@ class UsersResource:
         accept_language: str | Unset = UNSET,
         impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[Order]:
-        """Add data to a sub-user order; include response metadata."""
+        """Add data to a managed user order; include response metadata."""
         return cast(
             ApiResponse[Order],
             self._client._call_with_response(
@@ -421,7 +421,7 @@ class UsersResource:
         accept_language: str | Unset = UNSET,
         impersonate_user_id: str | Unset = UNSET,
     ) -> Order:
-        """Subtract data from a sub-user order"""
+        """Subtract data from a managed user order"""
         return cast(
             Order,
             self._client._call(
@@ -444,7 +444,7 @@ class UsersResource:
         accept_language: str | Unset = UNSET,
         impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[Order]:
-        """Subtract data from a sub-user order; include response metadata."""
+        """Subtract data from a managed user order; include response metadata."""
         return cast(
             ApiResponse[Order],
             self._client._call_with_response(
@@ -516,7 +516,7 @@ class AsyncUsersResource:
         accept_language: str | Unset = UNSET,
         impersonate_user_id: str | Unset = UNSET,
     ) -> Order:
-        """Add data to a sub-user order"""
+        """Add data to a managed user order"""
         return cast(
             Order,
             await self._client._call(
@@ -539,7 +539,7 @@ class AsyncUsersResource:
         accept_language: str | Unset = UNSET,
         impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[Order]:
-        """Add data to a sub-user order; include response metadata."""
+        """Add data to a managed user order; include response metadata."""
         return cast(
             ApiResponse[Order],
             await self._client._call_with_response(
@@ -894,7 +894,7 @@ class AsyncUsersResource:
         accept_language: str | Unset = UNSET,
         impersonate_user_id: str | Unset = UNSET,
     ) -> Order:
-        """Subtract data from a sub-user order"""
+        """Subtract data from a managed user order"""
         return cast(
             Order,
             await self._client._call(
@@ -917,7 +917,7 @@ class AsyncUsersResource:
         accept_language: str | Unset = UNSET,
         impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[Order]:
-        """Subtract data from a sub-user order; include response metadata."""
+        """Subtract data from a managed user order; include response metadata."""
         return cast(
             ApiResponse[Order],
             await self._client._call_with_response(

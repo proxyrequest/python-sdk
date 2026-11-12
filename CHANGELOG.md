@@ -4,6 +4,12 @@ All notable changes to the ProxyRequest Python SDK are documented here.
 
 ## Unreleased
 
+
+## 4.4.1 (2026-11-12)
+
+- Document administrative traffic grants and debits for independent customers through the existing add/subtract methods. This capability requires the corresponding PapaProxy API update.
+- Refresh the bundled contract documentation while preserving request fields, response types and existing method signatures.
+
 ## 4.4.0 (2026-10-08)
 
 - Add optional `impersonate_user_id` to every synchronous and asynchronous resource operation, plus raw requests. The `X-Impersonate-User` header is scoped to each call, so the same client can mix ordinary and impersonated requests.

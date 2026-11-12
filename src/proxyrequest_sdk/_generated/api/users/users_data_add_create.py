@@ -137,14 +137,16 @@ def sync_detailed(
     | UsersDataAddCreateResponse404
     | UsersDataAddCreateResponse409
 ]:
-    """Add data to a sub-user order
+    """Add data to a managed user order
 
-     Adds data integer bytes to a managed sub-user's virtual quota for package_id and returns the updated
-    order. Both fields are required. The caller must own a root order for this package and the target
-    sub-user. Creates the child order if absent; an existing independently purchased order cannot be
-    converted by this operation. The allocation does not reserve or debit the parent's ledger, and may
-    exceed its remaining data. Actual traffic needs both personal quota and a usable parent pool. Use
-    Idempotency-Key to avoid granting the same quota twice.
+     Superusers may grant data to independent customers, creating a missing finite residential order
+    without an invoice. Adds integer bytes to a managed sub-user for package_id. Both fields are
+    required. The caller must own a root order for this package and the target sub-user. For a new
+    order, is_reseller=false transfers available traffic from the parent into independent child ledgers,
+    preserving each expiration date. Insufficient parent traffic is rejected atomically. For
+    is_reseller=true, the virtual quota does not reserve parent traffic and may exceed the parent's
+    remaining pool; usage still requires that pool. Existing orders keep their accounting model after
+    role changes. Use Idempotency-Key for safe retries.
 
     Args:
         id (UUID):
@@ -193,14 +195,16 @@ def sync(
     | UsersDataAddCreateResponse409
     | None
 ):
-    """Add data to a sub-user order
+    """Add data to a managed user order
 
-     Adds data integer bytes to a managed sub-user's virtual quota for package_id and returns the updated
-    order. Both fields are required. The caller must own a root order for this package and the target
-    sub-user. Creates the child order if absent; an existing independently purchased order cannot be
-    converted by this operation. The allocation does not reserve or debit the parent's ledger, and may
-    exceed its remaining data. Actual traffic needs both personal quota and a usable parent pool. Use
-    Idempotency-Key to avoid granting the same quota twice.
+     Superusers may grant data to independent customers, creating a missing finite residential order
+    without an invoice. Adds integer bytes to a managed sub-user for package_id. Both fields are
+    required. The caller must own a root order for this package and the target sub-user. For a new
+    order, is_reseller=false transfers available traffic from the parent into independent child ledgers,
+    preserving each expiration date. Insufficient parent traffic is rejected atomically. For
+    is_reseller=true, the virtual quota does not reserve parent traffic and may exceed the parent's
+    remaining pool; usage still requires that pool. Existing orders keep their accounting model after
+    role changes. Use Idempotency-Key for safe retries.
 
     Args:
         id (UUID):
@@ -243,14 +247,16 @@ async def asyncio_detailed(
     | UsersDataAddCreateResponse404
     | UsersDataAddCreateResponse409
 ]:
-    """Add data to a sub-user order
+    """Add data to a managed user order
 
-     Adds data integer bytes to a managed sub-user's virtual quota for package_id and returns the updated
-    order. Both fields are required. The caller must own a root order for this package and the target
-    sub-user. Creates the child order if absent; an existing independently purchased order cannot be
-    converted by this operation. The allocation does not reserve or debit the parent's ledger, and may
-    exceed its remaining data. Actual traffic needs both personal quota and a usable parent pool. Use
-    Idempotency-Key to avoid granting the same quota twice.
+     Superusers may grant data to independent customers, creating a missing finite residential order
+    without an invoice. Adds integer bytes to a managed sub-user for package_id. Both fields are
+    required. The caller must own a root order for this package and the target sub-user. For a new
+    order, is_reseller=false transfers available traffic from the parent into independent child ledgers,
+    preserving each expiration date. Insufficient parent traffic is rejected atomically. For
+    is_reseller=true, the virtual quota does not reserve parent traffic and may exceed the parent's
+    remaining pool; usage still requires that pool. Existing orders keep their accounting model after
+    role changes. Use Idempotency-Key for safe retries.
 
     Args:
         id (UUID):
@@ -297,14 +303,16 @@ async def asyncio(
     | UsersDataAddCreateResponse409
     | None
 ):
-    """Add data to a sub-user order
+    """Add data to a managed user order
 
-     Adds data integer bytes to a managed sub-user's virtual quota for package_id and returns the updated
-    order. Both fields are required. The caller must own a root order for this package and the target
-    sub-user. Creates the child order if absent; an existing independently purchased order cannot be
-    converted by this operation. The allocation does not reserve or debit the parent's ledger, and may
-    exceed its remaining data. Actual traffic needs both personal quota and a usable parent pool. Use
-    Idempotency-Key to avoid granting the same quota twice.
+     Superusers may grant data to independent customers, creating a missing finite residential order
+    without an invoice. Adds integer bytes to a managed sub-user for package_id. Both fields are
+    required. The caller must own a root order for this package and the target sub-user. For a new
+    order, is_reseller=false transfers available traffic from the parent into independent child ledgers,
+    preserving each expiration date. Insufficient parent traffic is rejected atomically. For
+    is_reseller=true, the virtual quota does not reserve parent traffic and may exceed the parent's
+    remaining pool; usage still requires that pool. Existing orders keep their accounting model after
+    role changes. Use Idempotency-Key for safe retries.
 
     Args:
         id (UUID):
