@@ -4,7 +4,7 @@
     "id": "python",
     "label": "Python",
     "language": "Python",
-    "version": "4.4.1",
+    "version": "4.4.2",
     "package": "proxyrequest-sdk",
     "runtime": "Python 3.11 or later",
     "install": "python -m pip install proxyrequest-sdk",
