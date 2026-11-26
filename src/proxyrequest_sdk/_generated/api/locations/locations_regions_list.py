@@ -13,6 +13,7 @@ from ... import errors
 from ...models.locations_regions_list_response_400 import LocationsRegionsListResponse400
 from ...models.locations_regions_list_response_401 import LocationsRegionsListResponse401
 from ...models.locations_regions_list_response_403 import LocationsRegionsListResponse403
+from ...models.locations_regions_list_response_503 import LocationsRegionsListResponse503
 from ...models.paginated_region_list import PaginatedRegionList
 from ...types import UNSET, Unset
 from typing import cast
@@ -25,6 +26,8 @@ def _get_kwargs(
     country_code: str | Unset = UNSET,
     include_asns: bool | Unset = UNSET,
     limit: int | Unset = UNSET,
+    max_count: int | Unset = UNSET,
+    min_count: int | Unset = UNSET,
     name: str | Unset = UNSET,
     offset: int | Unset = UNSET,
     ordering: str | Unset = UNSET,
@@ -49,6 +52,10 @@ def _get_kwargs(
     params["include_asns"] = include_asns
 
     params["limit"] = limit
+
+    params["max_count"] = max_count
+
+    params["min_count"] = min_count
 
     params["name"] = name
 
@@ -79,6 +86,7 @@ def _parse_response(
     LocationsRegionsListResponse400
     | LocationsRegionsListResponse401
     | LocationsRegionsListResponse403
+    | LocationsRegionsListResponse503
     | PaginatedRegionList
     | None
 ):
@@ -102,6 +110,11 @@ def _parse_response(
 
         return response_403
 
+    if response.status_code == 503:
+        response_503 = LocationsRegionsListResponse503.from_dict(response.json())
+
+        return response_503
+
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     else:
@@ -114,6 +127,7 @@ def _build_response(
     LocationsRegionsListResponse400
     | LocationsRegionsListResponse401
     | LocationsRegionsListResponse403
+    | LocationsRegionsListResponse503
     | PaginatedRegionList
 ]:
     parsed = parse_response(_parse_response, client=client, response=response)
@@ -132,6 +146,8 @@ def sync_detailed(
     country_code: str | Unset = UNSET,
     include_asns: bool | Unset = UNSET,
     limit: int | Unset = UNSET,
+    max_count: int | Unset = UNSET,
+    min_count: int | Unset = UNSET,
     name: str | Unset = UNSET,
     offset: int | Unset = UNSET,
     ordering: str | Unset = UNSET,
@@ -143,6 +159,7 @@ def sync_detailed(
     LocationsRegionsListResponse400
     | LocationsRegionsListResponse401
     | LocationsRegionsListResponse403
+    | LocationsRegionsListResponse503
     | PaginatedRegionList
 ]:
     """List available regions
@@ -157,6 +174,8 @@ def sync_detailed(
         country_code (str | Unset):
         include_asns (bool | Unset):  Default: False.
         limit (int | Unset):
+        max_count (int | Unset):
+        min_count (int | Unset):
         name (str | Unset):
         offset (int | Unset):
         ordering (str | Unset):
@@ -170,7 +189,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[LocationsRegionsListResponse400 | LocationsRegionsListResponse401 | LocationsRegionsListResponse403 | PaginatedRegionList]
+        Response[LocationsRegionsListResponse400 | LocationsRegionsListResponse401 | LocationsRegionsListResponse403 | LocationsRegionsListResponse503 | PaginatedRegionList]
     """
 
     kwargs = _get_kwargs(
@@ -178,6 +197,8 @@ def sync_detailed(
         country_code=country_code,
         include_asns=include_asns,
         limit=limit,
+        max_count=max_count,
+        min_count=min_count,
         name=name,
         offset=offset,
         ordering=ordering,
@@ -201,6 +222,8 @@ def sync(
     country_code: str | Unset = UNSET,
     include_asns: bool | Unset = UNSET,
     limit: int | Unset = UNSET,
+    max_count: int | Unset = UNSET,
+    min_count: int | Unset = UNSET,
     name: str | Unset = UNSET,
     offset: int | Unset = UNSET,
     ordering: str | Unset = UNSET,
@@ -212,6 +235,7 @@ def sync(
     LocationsRegionsListResponse400
     | LocationsRegionsListResponse401
     | LocationsRegionsListResponse403
+    | LocationsRegionsListResponse503
     | PaginatedRegionList
     | None
 ):
@@ -227,6 +251,8 @@ def sync(
         country_code (str | Unset):
         include_asns (bool | Unset):  Default: False.
         limit (int | Unset):
+        max_count (int | Unset):
+        min_count (int | Unset):
         name (str | Unset):
         offset (int | Unset):
         ordering (str | Unset):
@@ -240,7 +266,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        LocationsRegionsListResponse400 | LocationsRegionsListResponse401 | LocationsRegionsListResponse403 | PaginatedRegionList
+        LocationsRegionsListResponse400 | LocationsRegionsListResponse401 | LocationsRegionsListResponse403 | LocationsRegionsListResponse503 | PaginatedRegionList
     """
 
     return sync_detailed(
@@ -249,6 +275,8 @@ def sync(
         country_code=country_code,
         include_asns=include_asns,
         limit=limit,
+        max_count=max_count,
+        min_count=min_count,
         name=name,
         offset=offset,
         ordering=ordering,
@@ -266,6 +294,8 @@ async def asyncio_detailed(
     country_code: str | Unset = UNSET,
     include_asns: bool | Unset = UNSET,
     limit: int | Unset = UNSET,
+    max_count: int | Unset = UNSET,
+    min_count: int | Unset = UNSET,
     name: str | Unset = UNSET,
     offset: int | Unset = UNSET,
     ordering: str | Unset = UNSET,
@@ -277,6 +307,7 @@ async def asyncio_detailed(
     LocationsRegionsListResponse400
     | LocationsRegionsListResponse401
     | LocationsRegionsListResponse403
+    | LocationsRegionsListResponse503
     | PaginatedRegionList
 ]:
     """List available regions
@@ -291,6 +322,8 @@ async def asyncio_detailed(
         country_code (str | Unset):
         include_asns (bool | Unset):  Default: False.
         limit (int | Unset):
+        max_count (int | Unset):
+        min_count (int | Unset):
         name (str | Unset):
         offset (int | Unset):
         ordering (str | Unset):
@@ -304,7 +337,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[LocationsRegionsListResponse400 | LocationsRegionsListResponse401 | LocationsRegionsListResponse403 | PaginatedRegionList]
+        Response[LocationsRegionsListResponse400 | LocationsRegionsListResponse401 | LocationsRegionsListResponse403 | LocationsRegionsListResponse503 | PaginatedRegionList]
     """
 
     kwargs = _get_kwargs(
@@ -312,6 +345,8 @@ async def asyncio_detailed(
         country_code=country_code,
         include_asns=include_asns,
         limit=limit,
+        max_count=max_count,
+        min_count=min_count,
         name=name,
         offset=offset,
         ordering=ordering,
@@ -333,6 +368,8 @@ async def asyncio(
     country_code: str | Unset = UNSET,
     include_asns: bool | Unset = UNSET,
     limit: int | Unset = UNSET,
+    max_count: int | Unset = UNSET,
+    min_count: int | Unset = UNSET,
     name: str | Unset = UNSET,
     offset: int | Unset = UNSET,
     ordering: str | Unset = UNSET,
@@ -344,6 +381,7 @@ async def asyncio(
     LocationsRegionsListResponse400
     | LocationsRegionsListResponse401
     | LocationsRegionsListResponse403
+    | LocationsRegionsListResponse503
     | PaginatedRegionList
     | None
 ):
@@ -359,6 +397,8 @@ async def asyncio(
         country_code (str | Unset):
         include_asns (bool | Unset):  Default: False.
         limit (int | Unset):
+        max_count (int | Unset):
+        min_count (int | Unset):
         name (str | Unset):
         offset (int | Unset):
         ordering (str | Unset):
@@ -372,7 +412,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        LocationsRegionsListResponse400 | LocationsRegionsListResponse401 | LocationsRegionsListResponse403 | PaginatedRegionList
+        LocationsRegionsListResponse400 | LocationsRegionsListResponse401 | LocationsRegionsListResponse403 | LocationsRegionsListResponse503 | PaginatedRegionList
     """
 
     return (
@@ -382,6 +422,8 @@ async def asyncio(
             country_code=country_code,
             include_asns=include_asns,
             limit=limit,
+            max_count=max_count,
+            min_count=min_count,
             name=name,
             offset=offset,
             ordering=ordering,

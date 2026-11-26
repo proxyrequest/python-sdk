@@ -5,26 +5,162 @@ from typing import Any, cast
 
 from ..files import FileDownload
 from ..response import ApiResponse
+from .._generated.models.auto_renewal_settings_request import AutoRenewalSettingsRequest
+from .._generated.models.auto_renewal_status import AutoRenewalStatus
+from .._generated.models.availability_response import AvailabilityResponse
+from .._generated.models.catalog_page import CatalogPage
+from .._generated.models.checkout_quote import CheckoutQuote
+from .._generated.models.intent_request import IntentRequest
+from .._generated.models.invoice import Invoice
 from .._generated.models.order import Order
 from .._generated.models.order_detailed import OrderDetailed
+from .._generated.models.orders_availability_retrieve_allocation_mode import (
+    OrdersAvailabilityRetrieveAllocationMode,
+)
+from .._generated.models.orders_availability_retrieve_network_class import (
+    OrdersAvailabilityRetrieveNetworkClass,
+)
 from .._generated.models.orders_list_package_type import OrdersListPackageType
 from .._generated.models.paginated_order_list import PaginatedOrderList
 from .._generated.models.patched_order_auto_renewal_request import PatchedOrderAutoRenewalRequest
+from .._generated.models.products import Products
+from .._generated.models.proxy_password_reset_request_request import (
+    ProxyPasswordResetRequestRequest,
+)
 from .._generated.models.proxy_password_reset_response import ProxyPasswordResetResponse
+from .._generated.models.purchase_mutation_request import PurchaseMutationRequest
+from .._generated.models.purchase_response import PurchaseResponse
+from .._generated.models.renewal_quote import RenewalQuote
+from .._generated.models.renewal_request_request import RenewalRequestRequest
+from .._generated.models.renewal_selection_request import RenewalSelectionRequest
+from .._generated.models.rental_detail import RentalDetail
+from .._generated.models.rental_quote import RentalQuote
+from .._generated.models.replacement_page import ReplacementPage
+from .._generated.models.replacement_request_request import ReplacementRequestRequest
+from .._generated.models.replacement_response import ReplacementResponse
+from .._generated.models.reservation_cancellation import ReservationCancellation
 from .._generated.models.reset_password_request import ResetPasswordRequest
+from .._generated.models.static_checkout_request import StaticCheckoutRequest
 from .._generated.types import UNSET
 from uuid import UUID
 from .._generated.types import Unset
+from .._generated.models.usage_closure_response import UsageClosureResponse
+from .._generated.api.orders import (
+    orders_cancel_reservation_create as _orders_cancel_reservation_create,
+)
+from .._generated.api.orders import orders_checkout_create as _orders_checkout_create
 from .._generated.api.orders import orders_destroy as _orders_destroy
 from .._generated.api.orders import orders_retrieve as _orders_retrieve
+from .._generated.api.orders import orders_availability_retrieve as _orders_availability_retrieve
+from .._generated.api.orders import orders_auto_renewal_retrieve as _orders_auto_renewal_retrieve
+from .._generated.api.orders import orders_rental_retrieve as _orders_rental_retrieve
 from .._generated.api.orders import orders_list as _orders_list
+from .._generated.api.orders import orders_catalog_retrieve as _orders_catalog_retrieve
+from .._generated.api.orders import orders_products_retrieve as _orders_products_retrieve
+from .._generated.api.orders import (
+    orders_replacement_requests_retrieve as _orders_replacement_requests_retrieve,
+)
+from .._generated.api.orders import orders_checkout_quote_create as _orders_checkout_quote_create
+from .._generated.api.orders import orders_purchase_quote_create as _orders_purchase_quote_create
+from .._generated.api.orders import orders_renew_quote_create as _orders_renew_quote_create
+from .._generated.api.orders import orders_renew_create as _orders_renew_create
+from .._generated.api.orders import (
+    orders_replacement_requests_create as _orders_replacement_requests_create,
+)
+from .._generated.api.orders import orders_purchase_create as _orders_purchase_create
 from .._generated.api.orders import reset_password_create as _reset_password_create
+from .._generated.api.orders import (
+    orders_proxy_password_reset_create as _orders_proxy_password_reset_create,
+)
+from .._generated.api.orders import orders_auto_renewal_update as _orders_auto_renewal_update
 from .._generated.api.orders import orders_partial_update as _orders_partial_update
 
 
 class OrdersResource:
     def __init__(self, client: Any) -> None:
         self._client = client
+
+    def cancel_reservation(
+        self,
+        id: UUID,
+        *,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
+    ) -> ReservationCancellation:
+        """Cancel an unissued reservation"""
+        return cast(
+            ReservationCancellation,
+            self._client._call(
+                _orders_cancel_reservation_create.sync_detailed,
+                id=id,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
+        )
+
+    def cancel_reservation_with_response(
+        self,
+        id: UUID,
+        *,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
+    ) -> ApiResponse[ReservationCancellation]:
+        """Cancel an unissued reservation; include response metadata."""
+        return cast(
+            ApiResponse[ReservationCancellation],
+            self._client._call_with_response(
+                _orders_cancel_reservation_create.sync_detailed,
+                id=id,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
+        )
+
+    def checkout(
+        self,
+        id: UUID,
+        *,
+        body: StaticCheckoutRequest,
+        idempotency_key: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
+    ) -> Invoice:
+        """Check out a rental reservation"""
+        return cast(
+            Invoice,
+            self._client._call(
+                _orders_checkout_create.sync_detailed,
+                _idempotent=True,
+                id=id,
+                body=body,
+                idempotency_key=idempotency_key,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
+        )
+
+    def checkout_with_response(
+        self,
+        id: UUID,
+        *,
+        body: StaticCheckoutRequest,
+        idempotency_key: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
+    ) -> ApiResponse[Invoice]:
+        """Check out a rental reservation; include response metadata."""
+        return cast(
+            ApiResponse[Invoice],
+            self._client._call_with_response(
+                _orders_checkout_create.sync_detailed,
+                _idempotent=True,
+                id=id,
+                body=body,
+                idempotency_key=idempotency_key,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
+        )
 
     def delete(
         self,
@@ -34,18 +170,20 @@ class OrdersResource:
         if_match: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
         impersonate_user_id: str | Unset = UNSET,
-    ) -> None:
+    ) -> UsageClosureResponse | None:
         """Delete a sub-user order"""
-        self._client._call(
-            _orders_destroy.sync_detailed,
-            _idempotent=True,
-            id=id,
-            idempotency_key=idempotency_key,
-            if_match=if_match,
-            accept_language=accept_language,
-            x_impersonate_user=impersonate_user_id,
+        return cast(
+            UsageClosureResponse | None,
+            self._client._call(
+                _orders_destroy.sync_detailed,
+                _idempotent=True,
+                id=id,
+                idempotency_key=idempotency_key,
+                if_match=if_match,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
         )
-        return None
 
     def delete_with_response(
         self,
@@ -55,10 +193,10 @@ class OrdersResource:
         if_match: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
         impersonate_user_id: str | Unset = UNSET,
-    ) -> ApiResponse[None]:
+    ) -> ApiResponse[UsageClosureResponse | None]:
         """Delete a sub-user order; include response metadata."""
         return cast(
-            ApiResponse[None],
+            ApiResponse[UsageClosureResponse | None],
             self._client._call_with_response(
                 _orders_destroy.sync_detailed,
                 _idempotent=True,
@@ -101,6 +239,150 @@ class OrdersResource:
             self._client._call_with_response(
                 _orders_retrieve.sync_detailed,
                 id=id,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
+        )
+
+    def get_availability(
+        self,
+        *,
+        allocation_mode: OrdersAvailabilityRetrieveAllocationMode | Unset = UNSET,
+        city_id: UUID | Unset = UNSET,
+        country_code: str | Unset = UNSET,
+        network_class: OrdersAvailabilityRetrieveNetworkClass | Unset = UNSET,
+        operator: str | Unset = UNSET,
+        package_id: UUID | Unset = UNSET,
+        region_id: UUID | Unset = UNSET,
+        term_id: UUID | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
+    ) -> AvailabilityResponse:
+        """Available static rental locations"""
+        return cast(
+            AvailabilityResponse,
+            self._client._call(
+                _orders_availability_retrieve.sync_detailed,
+                allocation_mode=allocation_mode,
+                city_id=city_id,
+                country_code=country_code,
+                network_class=network_class,
+                operator=operator,
+                package_id=package_id,
+                region_id=region_id,
+                term_id=term_id,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
+        )
+
+    def get_availability_with_response(
+        self,
+        *,
+        allocation_mode: OrdersAvailabilityRetrieveAllocationMode | Unset = UNSET,
+        city_id: UUID | Unset = UNSET,
+        country_code: str | Unset = UNSET,
+        network_class: OrdersAvailabilityRetrieveNetworkClass | Unset = UNSET,
+        operator: str | Unset = UNSET,
+        package_id: UUID | Unset = UNSET,
+        region_id: UUID | Unset = UNSET,
+        term_id: UUID | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
+    ) -> ApiResponse[AvailabilityResponse]:
+        """Available static rental locations; include response metadata."""
+        return cast(
+            ApiResponse[AvailabilityResponse],
+            self._client._call_with_response(
+                _orders_availability_retrieve.sync_detailed,
+                allocation_mode=allocation_mode,
+                city_id=city_id,
+                country_code=country_code,
+                network_class=network_class,
+                operator=operator,
+                package_id=package_id,
+                region_id=region_id,
+                term_id=term_id,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
+        )
+
+    def get_calendar_renewal(
+        self,
+        id: UUID,
+        *,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
+    ) -> AutoRenewalStatus:
+        """Read static calendar renewal settings"""
+        return cast(
+            AutoRenewalStatus,
+            self._client._call(
+                _orders_auto_renewal_retrieve.sync_detailed,
+                id=id,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
+        )
+
+    def get_calendar_renewal_with_response(
+        self,
+        id: UUID,
+        *,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
+    ) -> ApiResponse[AutoRenewalStatus]:
+        """Read static calendar renewal settings; include response metadata."""
+        return cast(
+            ApiResponse[AutoRenewalStatus],
+            self._client._call_with_response(
+                _orders_auto_renewal_retrieve.sync_detailed,
+                id=id,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
+        )
+
+    def get_rental(
+        self,
+        id: UUID,
+        *,
+        limit: int | Unset = UNSET,
+        offset: int | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
+    ) -> RentalDetail:
+        """Read order rental"""
+        return cast(
+            RentalDetail,
+            self._client._call(
+                _orders_rental_retrieve.sync_detailed,
+                id=id,
+                limit=limit,
+                offset=offset,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
+        )
+
+    def get_rental_with_response(
+        self,
+        id: UUID,
+        *,
+        limit: int | Unset = UNSET,
+        offset: int | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
+    ) -> ApiResponse[RentalDetail]:
+        """Read order rental; include response metadata."""
+        return cast(
+            ApiResponse[RentalDetail],
+            self._client._call_with_response(
+                _orders_rental_retrieve.sync_detailed,
+                id=id,
+                limit=limit,
+                offset=offset,
                 accept_language=accept_language,
                 x_impersonate_user=impersonate_user_id,
             ),
@@ -174,14 +456,374 @@ class OrdersResource:
             ),
         )
 
+    def list_catalog(
+        self,
+        *,
+        limit: int | Unset = UNSET,
+        offset: int | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
+    ) -> CatalogPage:
+        """List static rental offers"""
+        return cast(
+            CatalogPage,
+            self._client._call(
+                _orders_catalog_retrieve.sync_detailed,
+                limit=limit,
+                offset=offset,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
+        )
+
+    def list_catalog_with_response(
+        self,
+        *,
+        limit: int | Unset = UNSET,
+        offset: int | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
+    ) -> ApiResponse[CatalogPage]:
+        """List static rental offers; include response metadata."""
+        return cast(
+            ApiResponse[CatalogPage],
+            self._client._call_with_response(
+                _orders_catalog_retrieve.sync_detailed,
+                limit=limit,
+                offset=offset,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
+        )
+
+    def list_products(
+        self, *, accept_language: str | Unset = UNSET, impersonate_user_id: str | Unset = UNSET
+    ) -> Products:
+        """Available proxy products"""
+        return cast(
+            Products,
+            self._client._call(
+                _orders_products_retrieve.sync_detailed,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
+        )
+
+    def list_products_with_response(
+        self, *, accept_language: str | Unset = UNSET, impersonate_user_id: str | Unset = UNSET
+    ) -> ApiResponse[Products]:
+        """Available proxy products; include response metadata."""
+        return cast(
+            ApiResponse[Products],
+            self._client._call_with_response(
+                _orders_products_retrieve.sync_detailed,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
+        )
+
+    def list_replacements(
+        self,
+        id: UUID,
+        *,
+        limit: int | Unset = UNSET,
+        offset: int | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
+    ) -> ReplacementPage:
+        """List order replacement requests"""
+        return cast(
+            ReplacementPage,
+            self._client._call(
+                _orders_replacement_requests_retrieve.sync_detailed,
+                id=id,
+                limit=limit,
+                offset=offset,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
+        )
+
+    def list_replacements_with_response(
+        self,
+        id: UUID,
+        *,
+        limit: int | Unset = UNSET,
+        offset: int | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
+    ) -> ApiResponse[ReplacementPage]:
+        """List order replacement requests; include response metadata."""
+        return cast(
+            ApiResponse[ReplacementPage],
+            self._client._call_with_response(
+                _orders_replacement_requests_retrieve.sync_detailed,
+                id=id,
+                limit=limit,
+                offset=offset,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
+        )
+
+    def quote_checkout(
+        self,
+        id: UUID,
+        *,
+        body: StaticCheckoutRequest,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
+    ) -> CheckoutQuote:
+        """Quote order checkout"""
+        return cast(
+            CheckoutQuote,
+            self._client._call(
+                _orders_checkout_quote_create.sync_detailed,
+                id=id,
+                body=body,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
+        )
+
+    def quote_checkout_with_response(
+        self,
+        id: UUID,
+        *,
+        body: StaticCheckoutRequest,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
+    ) -> ApiResponse[CheckoutQuote]:
+        """Quote order checkout; include response metadata."""
+        return cast(
+            ApiResponse[CheckoutQuote],
+            self._client._call_with_response(
+                _orders_checkout_quote_create.sync_detailed,
+                id=id,
+                body=body,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
+        )
+
+    def quote_purchase(
+        self,
+        *,
+        body: IntentRequest | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
+    ) -> RentalQuote:
+        """Quote a static rental selection"""
+        return cast(
+            RentalQuote,
+            self._client._call(
+                _orders_purchase_quote_create.sync_detailed,
+                body=body,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
+        )
+
+    def quote_purchase_with_response(
+        self,
+        *,
+        body: IntentRequest | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
+    ) -> ApiResponse[RentalQuote]:
+        """Quote a static rental selection; include response metadata."""
+        return cast(
+            ApiResponse[RentalQuote],
+            self._client._call_with_response(
+                _orders_purchase_quote_create.sync_detailed,
+                body=body,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
+        )
+
+    def quote_renewal(
+        self,
+        id: UUID,
+        *,
+        body: RenewalSelectionRequest,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
+    ) -> RenewalQuote:
+        """Quote order renewal"""
+        return cast(
+            RenewalQuote,
+            self._client._call(
+                _orders_renew_quote_create.sync_detailed,
+                id=id,
+                body=body,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
+        )
+
+    def quote_renewal_with_response(
+        self,
+        id: UUID,
+        *,
+        body: RenewalSelectionRequest,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
+    ) -> ApiResponse[RenewalQuote]:
+        """Quote order renewal; include response metadata."""
+        return cast(
+            ApiResponse[RenewalQuote],
+            self._client._call_with_response(
+                _orders_renew_quote_create.sync_detailed,
+                id=id,
+                body=body,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
+        )
+
+    def renew(
+        self,
+        id: UUID,
+        *,
+        body: RenewalRequestRequest,
+        idempotency_key: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
+    ) -> Invoice:
+        """Renew an order"""
+        return cast(
+            Invoice,
+            self._client._call(
+                _orders_renew_create.sync_detailed,
+                _idempotent=True,
+                id=id,
+                body=body,
+                idempotency_key=idempotency_key,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
+        )
+
+    def renew_with_response(
+        self,
+        id: UUID,
+        *,
+        body: RenewalRequestRequest,
+        idempotency_key: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
+    ) -> ApiResponse[Invoice]:
+        """Renew an order; include response metadata."""
+        return cast(
+            ApiResponse[Invoice],
+            self._client._call_with_response(
+                _orders_renew_create.sync_detailed,
+                _idempotent=True,
+                id=id,
+                body=body,
+                idempotency_key=idempotency_key,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
+        )
+
+    def request_replacement(
+        self,
+        id: UUID,
+        *,
+        body: ReplacementRequestRequest,
+        idempotency_key: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
+    ) -> ReplacementResponse:
+        """Request an IP replacement"""
+        return cast(
+            ReplacementResponse,
+            self._client._call(
+                _orders_replacement_requests_create.sync_detailed,
+                _idempotent=True,
+                id=id,
+                body=body,
+                idempotency_key=idempotency_key,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
+        )
+
+    def request_replacement_with_response(
+        self,
+        id: UUID,
+        *,
+        body: ReplacementRequestRequest,
+        idempotency_key: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
+    ) -> ApiResponse[ReplacementResponse]:
+        """Request an IP replacement; include response metadata."""
+        return cast(
+            ApiResponse[ReplacementResponse],
+            self._client._call_with_response(
+                _orders_replacement_requests_create.sync_detailed,
+                _idempotent=True,
+                id=id,
+                body=body,
+                idempotency_key=idempotency_key,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
+        )
+
+    def reserve(
+        self,
+        *,
+        body: PurchaseMutationRequest | Unset = UNSET,
+        idempotency_key: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
+    ) -> PurchaseResponse:
+        """Reserve a new Order"""
+        return cast(
+            PurchaseResponse,
+            self._client._call(
+                _orders_purchase_create.sync_detailed,
+                _idempotent=True,
+                body=body,
+                idempotency_key=idempotency_key,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
+        )
+
+    def reserve_with_response(
+        self,
+        *,
+        body: PurchaseMutationRequest | Unset = UNSET,
+        idempotency_key: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
+    ) -> ApiResponse[PurchaseResponse]:
+        """Reserve a new Order; include response metadata."""
+        return cast(
+            ApiResponse[PurchaseResponse],
+            self._client._call_with_response(
+                _orders_purchase_create.sync_detailed,
+                _idempotent=True,
+                body=body,
+                idempotency_key=idempotency_key,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
+        )
+
     def reset_password(
         self,
         *,
-        body: ResetPasswordRequest,
+        body: ProxyPasswordResetRequestRequest | ResetPasswordRequest | Unset = UNSET,
         accept_language: str | Unset = UNSET,
         impersonate_user_id: str | Unset = UNSET,
     ) -> ProxyPasswordResetResponse:
-        """Reset an order's proxy password"""
+        """Confirm an account password reset or rotate an order's proxy password"""
         return cast(
             ProxyPasswordResetResponse,
             self._client._call(
@@ -195,15 +837,91 @@ class OrdersResource:
     def reset_password_with_response(
         self,
         *,
-        body: ResetPasswordRequest,
+        body: ProxyPasswordResetRequestRequest | ResetPasswordRequest | Unset = UNSET,
         accept_language: str | Unset = UNSET,
         impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[ProxyPasswordResetResponse]:
-        """Reset an order's proxy password; include response metadata."""
+        """Confirm an account password reset or rotate an order's proxy password; include response metadata."""
         return cast(
             ApiResponse[ProxyPasswordResetResponse],
             self._client._call_with_response(
                 _reset_password_create.sync_detailed,
+                body=body,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
+        )
+
+    def reset_proxy_password(
+        self,
+        id: UUID,
+        *,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
+    ) -> ProxyPasswordResetResponse:
+        """Rotate the password for a static rental order"""
+        return cast(
+            ProxyPasswordResetResponse,
+            self._client._call(
+                _orders_proxy_password_reset_create.sync_detailed,
+                id=id,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
+        )
+
+    def reset_proxy_password_with_response(
+        self,
+        id: UUID,
+        *,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
+    ) -> ApiResponse[ProxyPasswordResetResponse]:
+        """Rotate the password for a static rental order; include response metadata."""
+        return cast(
+            ApiResponse[ProxyPasswordResetResponse],
+            self._client._call_with_response(
+                _orders_proxy_password_reset_create.sync_detailed,
+                id=id,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
+        )
+
+    def set_calendar_renewal(
+        self,
+        id: UUID,
+        *,
+        body: AutoRenewalSettingsRequest,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
+    ) -> AutoRenewalStatus:
+        """Set static calendar renewal settings"""
+        return cast(
+            AutoRenewalStatus,
+            self._client._call(
+                _orders_auto_renewal_update.sync_detailed,
+                id=id,
+                body=body,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
+        )
+
+    def set_calendar_renewal_with_response(
+        self,
+        id: UUID,
+        *,
+        body: AutoRenewalSettingsRequest,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
+    ) -> ApiResponse[AutoRenewalStatus]:
+        """Set static calendar renewal settings; include response metadata."""
+        return cast(
+            ApiResponse[AutoRenewalStatus],
+            self._client._call_with_response(
+                _orders_auto_renewal_update.sync_detailed,
+                id=id,
                 body=body,
                 accept_language=accept_language,
                 x_impersonate_user=impersonate_user_id,
@@ -259,6 +977,88 @@ class AsyncOrdersResource:
     def __init__(self, client: Any) -> None:
         self._client = client
 
+    async def cancel_reservation(
+        self,
+        id: UUID,
+        *,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
+    ) -> ReservationCancellation:
+        """Cancel an unissued reservation"""
+        return cast(
+            ReservationCancellation,
+            await self._client._call(
+                _orders_cancel_reservation_create.asyncio_detailed,
+                id=id,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
+        )
+
+    async def cancel_reservation_with_response(
+        self,
+        id: UUID,
+        *,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
+    ) -> ApiResponse[ReservationCancellation]:
+        """Cancel an unissued reservation; include response metadata."""
+        return cast(
+            ApiResponse[ReservationCancellation],
+            await self._client._call_with_response(
+                _orders_cancel_reservation_create.asyncio_detailed,
+                id=id,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
+        )
+
+    async def checkout(
+        self,
+        id: UUID,
+        *,
+        body: StaticCheckoutRequest,
+        idempotency_key: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
+    ) -> Invoice:
+        """Check out a rental reservation"""
+        return cast(
+            Invoice,
+            await self._client._call(
+                _orders_checkout_create.asyncio_detailed,
+                _idempotent=True,
+                id=id,
+                body=body,
+                idempotency_key=idempotency_key,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
+        )
+
+    async def checkout_with_response(
+        self,
+        id: UUID,
+        *,
+        body: StaticCheckoutRequest,
+        idempotency_key: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
+    ) -> ApiResponse[Invoice]:
+        """Check out a rental reservation; include response metadata."""
+        return cast(
+            ApiResponse[Invoice],
+            await self._client._call_with_response(
+                _orders_checkout_create.asyncio_detailed,
+                _idempotent=True,
+                id=id,
+                body=body,
+                idempotency_key=idempotency_key,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
+        )
+
     async def delete(
         self,
         id: str,
@@ -267,18 +1067,20 @@ class AsyncOrdersResource:
         if_match: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
         impersonate_user_id: str | Unset = UNSET,
-    ) -> None:
+    ) -> UsageClosureResponse | None:
         """Delete a sub-user order"""
-        await self._client._call(
-            _orders_destroy.asyncio_detailed,
-            _idempotent=True,
-            id=id,
-            idempotency_key=idempotency_key,
-            if_match=if_match,
-            accept_language=accept_language,
-            x_impersonate_user=impersonate_user_id,
+        return cast(
+            UsageClosureResponse | None,
+            await self._client._call(
+                _orders_destroy.asyncio_detailed,
+                _idempotent=True,
+                id=id,
+                idempotency_key=idempotency_key,
+                if_match=if_match,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
         )
-        return None
 
     async def delete_with_response(
         self,
@@ -288,10 +1090,10 @@ class AsyncOrdersResource:
         if_match: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
         impersonate_user_id: str | Unset = UNSET,
-    ) -> ApiResponse[None]:
+    ) -> ApiResponse[UsageClosureResponse | None]:
         """Delete a sub-user order; include response metadata."""
         return cast(
-            ApiResponse[None],
+            ApiResponse[UsageClosureResponse | None],
             await self._client._call_with_response(
                 _orders_destroy.asyncio_detailed,
                 _idempotent=True,
@@ -334,6 +1136,150 @@ class AsyncOrdersResource:
             await self._client._call_with_response(
                 _orders_retrieve.asyncio_detailed,
                 id=id,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
+        )
+
+    async def get_availability(
+        self,
+        *,
+        allocation_mode: OrdersAvailabilityRetrieveAllocationMode | Unset = UNSET,
+        city_id: UUID | Unset = UNSET,
+        country_code: str | Unset = UNSET,
+        network_class: OrdersAvailabilityRetrieveNetworkClass | Unset = UNSET,
+        operator: str | Unset = UNSET,
+        package_id: UUID | Unset = UNSET,
+        region_id: UUID | Unset = UNSET,
+        term_id: UUID | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
+    ) -> AvailabilityResponse:
+        """Available static rental locations"""
+        return cast(
+            AvailabilityResponse,
+            await self._client._call(
+                _orders_availability_retrieve.asyncio_detailed,
+                allocation_mode=allocation_mode,
+                city_id=city_id,
+                country_code=country_code,
+                network_class=network_class,
+                operator=operator,
+                package_id=package_id,
+                region_id=region_id,
+                term_id=term_id,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
+        )
+
+    async def get_availability_with_response(
+        self,
+        *,
+        allocation_mode: OrdersAvailabilityRetrieveAllocationMode | Unset = UNSET,
+        city_id: UUID | Unset = UNSET,
+        country_code: str | Unset = UNSET,
+        network_class: OrdersAvailabilityRetrieveNetworkClass | Unset = UNSET,
+        operator: str | Unset = UNSET,
+        package_id: UUID | Unset = UNSET,
+        region_id: UUID | Unset = UNSET,
+        term_id: UUID | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
+    ) -> ApiResponse[AvailabilityResponse]:
+        """Available static rental locations; include response metadata."""
+        return cast(
+            ApiResponse[AvailabilityResponse],
+            await self._client._call_with_response(
+                _orders_availability_retrieve.asyncio_detailed,
+                allocation_mode=allocation_mode,
+                city_id=city_id,
+                country_code=country_code,
+                network_class=network_class,
+                operator=operator,
+                package_id=package_id,
+                region_id=region_id,
+                term_id=term_id,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
+        )
+
+    async def get_calendar_renewal(
+        self,
+        id: UUID,
+        *,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
+    ) -> AutoRenewalStatus:
+        """Read static calendar renewal settings"""
+        return cast(
+            AutoRenewalStatus,
+            await self._client._call(
+                _orders_auto_renewal_retrieve.asyncio_detailed,
+                id=id,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
+        )
+
+    async def get_calendar_renewal_with_response(
+        self,
+        id: UUID,
+        *,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
+    ) -> ApiResponse[AutoRenewalStatus]:
+        """Read static calendar renewal settings; include response metadata."""
+        return cast(
+            ApiResponse[AutoRenewalStatus],
+            await self._client._call_with_response(
+                _orders_auto_renewal_retrieve.asyncio_detailed,
+                id=id,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
+        )
+
+    async def get_rental(
+        self,
+        id: UUID,
+        *,
+        limit: int | Unset = UNSET,
+        offset: int | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
+    ) -> RentalDetail:
+        """Read order rental"""
+        return cast(
+            RentalDetail,
+            await self._client._call(
+                _orders_rental_retrieve.asyncio_detailed,
+                id=id,
+                limit=limit,
+                offset=offset,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
+        )
+
+    async def get_rental_with_response(
+        self,
+        id: UUID,
+        *,
+        limit: int | Unset = UNSET,
+        offset: int | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
+    ) -> ApiResponse[RentalDetail]:
+        """Read order rental; include response metadata."""
+        return cast(
+            ApiResponse[RentalDetail],
+            await self._client._call_with_response(
+                _orders_rental_retrieve.asyncio_detailed,
+                id=id,
+                limit=limit,
+                offset=offset,
                 accept_language=accept_language,
                 x_impersonate_user=impersonate_user_id,
             ),
@@ -407,14 +1353,374 @@ class AsyncOrdersResource:
             ),
         )
 
+    async def list_catalog(
+        self,
+        *,
+        limit: int | Unset = UNSET,
+        offset: int | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
+    ) -> CatalogPage:
+        """List static rental offers"""
+        return cast(
+            CatalogPage,
+            await self._client._call(
+                _orders_catalog_retrieve.asyncio_detailed,
+                limit=limit,
+                offset=offset,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
+        )
+
+    async def list_catalog_with_response(
+        self,
+        *,
+        limit: int | Unset = UNSET,
+        offset: int | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
+    ) -> ApiResponse[CatalogPage]:
+        """List static rental offers; include response metadata."""
+        return cast(
+            ApiResponse[CatalogPage],
+            await self._client._call_with_response(
+                _orders_catalog_retrieve.asyncio_detailed,
+                limit=limit,
+                offset=offset,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
+        )
+
+    async def list_products(
+        self, *, accept_language: str | Unset = UNSET, impersonate_user_id: str | Unset = UNSET
+    ) -> Products:
+        """Available proxy products"""
+        return cast(
+            Products,
+            await self._client._call(
+                _orders_products_retrieve.asyncio_detailed,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
+        )
+
+    async def list_products_with_response(
+        self, *, accept_language: str | Unset = UNSET, impersonate_user_id: str | Unset = UNSET
+    ) -> ApiResponse[Products]:
+        """Available proxy products; include response metadata."""
+        return cast(
+            ApiResponse[Products],
+            await self._client._call_with_response(
+                _orders_products_retrieve.asyncio_detailed,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
+        )
+
+    async def list_replacements(
+        self,
+        id: UUID,
+        *,
+        limit: int | Unset = UNSET,
+        offset: int | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
+    ) -> ReplacementPage:
+        """List order replacement requests"""
+        return cast(
+            ReplacementPage,
+            await self._client._call(
+                _orders_replacement_requests_retrieve.asyncio_detailed,
+                id=id,
+                limit=limit,
+                offset=offset,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
+        )
+
+    async def list_replacements_with_response(
+        self,
+        id: UUID,
+        *,
+        limit: int | Unset = UNSET,
+        offset: int | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
+    ) -> ApiResponse[ReplacementPage]:
+        """List order replacement requests; include response metadata."""
+        return cast(
+            ApiResponse[ReplacementPage],
+            await self._client._call_with_response(
+                _orders_replacement_requests_retrieve.asyncio_detailed,
+                id=id,
+                limit=limit,
+                offset=offset,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
+        )
+
+    async def quote_checkout(
+        self,
+        id: UUID,
+        *,
+        body: StaticCheckoutRequest,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
+    ) -> CheckoutQuote:
+        """Quote order checkout"""
+        return cast(
+            CheckoutQuote,
+            await self._client._call(
+                _orders_checkout_quote_create.asyncio_detailed,
+                id=id,
+                body=body,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
+        )
+
+    async def quote_checkout_with_response(
+        self,
+        id: UUID,
+        *,
+        body: StaticCheckoutRequest,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
+    ) -> ApiResponse[CheckoutQuote]:
+        """Quote order checkout; include response metadata."""
+        return cast(
+            ApiResponse[CheckoutQuote],
+            await self._client._call_with_response(
+                _orders_checkout_quote_create.asyncio_detailed,
+                id=id,
+                body=body,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
+        )
+
+    async def quote_purchase(
+        self,
+        *,
+        body: IntentRequest | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
+    ) -> RentalQuote:
+        """Quote a static rental selection"""
+        return cast(
+            RentalQuote,
+            await self._client._call(
+                _orders_purchase_quote_create.asyncio_detailed,
+                body=body,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
+        )
+
+    async def quote_purchase_with_response(
+        self,
+        *,
+        body: IntentRequest | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
+    ) -> ApiResponse[RentalQuote]:
+        """Quote a static rental selection; include response metadata."""
+        return cast(
+            ApiResponse[RentalQuote],
+            await self._client._call_with_response(
+                _orders_purchase_quote_create.asyncio_detailed,
+                body=body,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
+        )
+
+    async def quote_renewal(
+        self,
+        id: UUID,
+        *,
+        body: RenewalSelectionRequest,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
+    ) -> RenewalQuote:
+        """Quote order renewal"""
+        return cast(
+            RenewalQuote,
+            await self._client._call(
+                _orders_renew_quote_create.asyncio_detailed,
+                id=id,
+                body=body,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
+        )
+
+    async def quote_renewal_with_response(
+        self,
+        id: UUID,
+        *,
+        body: RenewalSelectionRequest,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
+    ) -> ApiResponse[RenewalQuote]:
+        """Quote order renewal; include response metadata."""
+        return cast(
+            ApiResponse[RenewalQuote],
+            await self._client._call_with_response(
+                _orders_renew_quote_create.asyncio_detailed,
+                id=id,
+                body=body,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
+        )
+
+    async def renew(
+        self,
+        id: UUID,
+        *,
+        body: RenewalRequestRequest,
+        idempotency_key: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
+    ) -> Invoice:
+        """Renew an order"""
+        return cast(
+            Invoice,
+            await self._client._call(
+                _orders_renew_create.asyncio_detailed,
+                _idempotent=True,
+                id=id,
+                body=body,
+                idempotency_key=idempotency_key,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
+        )
+
+    async def renew_with_response(
+        self,
+        id: UUID,
+        *,
+        body: RenewalRequestRequest,
+        idempotency_key: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
+    ) -> ApiResponse[Invoice]:
+        """Renew an order; include response metadata."""
+        return cast(
+            ApiResponse[Invoice],
+            await self._client._call_with_response(
+                _orders_renew_create.asyncio_detailed,
+                _idempotent=True,
+                id=id,
+                body=body,
+                idempotency_key=idempotency_key,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
+        )
+
+    async def request_replacement(
+        self,
+        id: UUID,
+        *,
+        body: ReplacementRequestRequest,
+        idempotency_key: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
+    ) -> ReplacementResponse:
+        """Request an IP replacement"""
+        return cast(
+            ReplacementResponse,
+            await self._client._call(
+                _orders_replacement_requests_create.asyncio_detailed,
+                _idempotent=True,
+                id=id,
+                body=body,
+                idempotency_key=idempotency_key,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
+        )
+
+    async def request_replacement_with_response(
+        self,
+        id: UUID,
+        *,
+        body: ReplacementRequestRequest,
+        idempotency_key: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
+    ) -> ApiResponse[ReplacementResponse]:
+        """Request an IP replacement; include response metadata."""
+        return cast(
+            ApiResponse[ReplacementResponse],
+            await self._client._call_with_response(
+                _orders_replacement_requests_create.asyncio_detailed,
+                _idempotent=True,
+                id=id,
+                body=body,
+                idempotency_key=idempotency_key,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
+        )
+
+    async def reserve(
+        self,
+        *,
+        body: PurchaseMutationRequest | Unset = UNSET,
+        idempotency_key: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
+    ) -> PurchaseResponse:
+        """Reserve a new Order"""
+        return cast(
+            PurchaseResponse,
+            await self._client._call(
+                _orders_purchase_create.asyncio_detailed,
+                _idempotent=True,
+                body=body,
+                idempotency_key=idempotency_key,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
+        )
+
+    async def reserve_with_response(
+        self,
+        *,
+        body: PurchaseMutationRequest | Unset = UNSET,
+        idempotency_key: str | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
+    ) -> ApiResponse[PurchaseResponse]:
+        """Reserve a new Order; include response metadata."""
+        return cast(
+            ApiResponse[PurchaseResponse],
+            await self._client._call_with_response(
+                _orders_purchase_create.asyncio_detailed,
+                _idempotent=True,
+                body=body,
+                idempotency_key=idempotency_key,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
+        )
+
     async def reset_password(
         self,
         *,
-        body: ResetPasswordRequest,
+        body: ProxyPasswordResetRequestRequest | ResetPasswordRequest | Unset = UNSET,
         accept_language: str | Unset = UNSET,
         impersonate_user_id: str | Unset = UNSET,
     ) -> ProxyPasswordResetResponse:
-        """Reset an order's proxy password"""
+        """Confirm an account password reset or rotate an order's proxy password"""
         return cast(
             ProxyPasswordResetResponse,
             await self._client._call(
@@ -428,15 +1734,91 @@ class AsyncOrdersResource:
     async def reset_password_with_response(
         self,
         *,
-        body: ResetPasswordRequest,
+        body: ProxyPasswordResetRequestRequest | ResetPasswordRequest | Unset = UNSET,
         accept_language: str | Unset = UNSET,
         impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[ProxyPasswordResetResponse]:
-        """Reset an order's proxy password; include response metadata."""
+        """Confirm an account password reset or rotate an order's proxy password; include response metadata."""
         return cast(
             ApiResponse[ProxyPasswordResetResponse],
             await self._client._call_with_response(
                 _reset_password_create.asyncio_detailed,
+                body=body,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
+        )
+
+    async def reset_proxy_password(
+        self,
+        id: UUID,
+        *,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
+    ) -> ProxyPasswordResetResponse:
+        """Rotate the password for a static rental order"""
+        return cast(
+            ProxyPasswordResetResponse,
+            await self._client._call(
+                _orders_proxy_password_reset_create.asyncio_detailed,
+                id=id,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
+        )
+
+    async def reset_proxy_password_with_response(
+        self,
+        id: UUID,
+        *,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
+    ) -> ApiResponse[ProxyPasswordResetResponse]:
+        """Rotate the password for a static rental order; include response metadata."""
+        return cast(
+            ApiResponse[ProxyPasswordResetResponse],
+            await self._client._call_with_response(
+                _orders_proxy_password_reset_create.asyncio_detailed,
+                id=id,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
+        )
+
+    async def set_calendar_renewal(
+        self,
+        id: UUID,
+        *,
+        body: AutoRenewalSettingsRequest,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
+    ) -> AutoRenewalStatus:
+        """Set static calendar renewal settings"""
+        return cast(
+            AutoRenewalStatus,
+            await self._client._call(
+                _orders_auto_renewal_update.asyncio_detailed,
+                id=id,
+                body=body,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
+        )
+
+    async def set_calendar_renewal_with_response(
+        self,
+        id: UUID,
+        *,
+        body: AutoRenewalSettingsRequest,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
+    ) -> ApiResponse[AutoRenewalStatus]:
+        """Set static calendar renewal settings; include response metadata."""
+        return cast(
+            ApiResponse[AutoRenewalStatus],
+            await self._client._call_with_response(
+                _orders_auto_renewal_update.asyncio_detailed,
+                id=id,
                 body=body,
                 accept_language=accept_language,
                 x_impersonate_user=impersonate_user_id,

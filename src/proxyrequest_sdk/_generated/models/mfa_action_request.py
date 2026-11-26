@@ -1,0 +1,83 @@
+from __future__ import annotations
+
+from collections.abc import Mapping
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+
+from attrs import define as _attrs_define
+from attrs import field as _attrs_field
+
+from ..types import UNSET, Unset
+
+from ..types import UNSET, Unset
+
+
+T = TypeVar("T", bound="MFAActionRequest")
+
+
+@_attrs_define
+class MFAActionRequest:
+    password: str | Unset = UNSET
+    credential: str | Unset = UNSET
+    code: str | Unset = UNSET
+    confirmed: bool | Unset = UNSET
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+
+    def to_dict(self) -> dict[str, Any]:
+        password = self.password
+
+        credential = self.credential
+
+        code = self.code
+
+        confirmed = self.confirmed
+
+        field_dict: dict[str, Any] = {}
+        field_dict.update(self.additional_properties)
+        field_dict.update({})
+        if password is not UNSET:
+            field_dict["password"] = password
+        if credential is not UNSET:
+            field_dict["credential"] = credential
+        if code is not UNSET:
+            field_dict["code"] = code
+        if confirmed is not UNSET:
+            field_dict["confirmed"] = confirmed
+
+        return field_dict
+
+    @classmethod
+    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+        d = dict(src_dict)
+        password = d.pop("password", UNSET)
+
+        credential = d.pop("credential", UNSET)
+
+        code = d.pop("code", UNSET)
+
+        confirmed = d.pop("confirmed", UNSET)
+
+        mfa_action_request = cls(
+            password=password,
+            credential=credential,
+            code=code,
+            confirmed=confirmed,
+        )
+
+        mfa_action_request.additional_properties = d
+        return mfa_action_request
+
+    @property
+    def additional_keys(self) -> list[str]:
+        return list(self.additional_properties.keys())
+
+    def __getitem__(self, key: str) -> Any:
+        return self.additional_properties[key]
+
+    def __setitem__(self, key: str, value: Any) -> None:
+        self.additional_properties[key] = value
+
+    def __delitem__(self, key: str) -> None:
+        del self.additional_properties[key]
+
+    def __contains__(self, key: str) -> bool:
+        return key in self.additional_properties

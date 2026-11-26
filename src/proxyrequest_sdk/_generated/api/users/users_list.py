@@ -136,8 +136,8 @@ def sync_detailed(
 ]:
     """List users in the current account
 
-     Returns users visible to the caller. Resellers see their sub-users, regular customers see only
-    themselves, and administrators can see all users.
+     Returns users visible to the caller. Resellers see their sub-users, regular customers see themselves
+    and their direct sub-users, and administrators can see all users.
 
     Args:
         email (str | Unset):
@@ -195,8 +195,8 @@ def sync(
 ) -> PaginatedUserList | UsersListResponse400 | UsersListResponse401 | UsersListResponse403 | None:
     """List users in the current account
 
-     Returns users visible to the caller. Resellers see their sub-users, regular customers see only
-    themselves, and administrators can see all users.
+     Returns users visible to the caller. Resellers see their sub-users, regular customers see themselves
+    and their direct sub-users, and administrators can see all users.
 
     Args:
         email (str | Unset):
@@ -251,8 +251,8 @@ async def asyncio_detailed(
 ]:
     """List users in the current account
 
-     Returns users visible to the caller. Resellers see their sub-users, regular customers see only
-    themselves, and administrators can see all users.
+     Returns users visible to the caller. Resellers see their sub-users, regular customers see themselves
+    and their direct sub-users, and administrators can see all users.
 
     Args:
         email (str | Unset):
@@ -308,8 +308,8 @@ async def asyncio(
 ) -> PaginatedUserList | UsersListResponse400 | UsersListResponse401 | UsersListResponse403 | None:
     """List users in the current account
 
-     Returns users visible to the caller. Resellers see their sub-users, regular customers see only
-    themselves, and administrators can see all users.
+     Returns users visible to the caller. Resellers see their sub-users, regular customers see themselves
+    and their direct sub-users, and administrators can see all users.
 
     Args:
         email (str | Unset):

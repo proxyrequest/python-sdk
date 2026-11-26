@@ -10,6 +10,7 @@ from ...client import AuthenticatedClient, Client
 from ...types import Response, UNSET
 from ... import errors
 
+from ...models.usage_closure_response import UsageClosureResponse
 from ...models.users_destroy_response_400 import UsersDestroyResponse400
 from ...models.users_destroy_response_401 import UsersDestroyResponse401
 from ...models.users_destroy_response_403 import UsersDestroyResponse403
@@ -57,6 +58,7 @@ def _parse_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
 ) -> (
     Any
+    | UsageClosureResponse
     | UsersDestroyResponse400
     | UsersDestroyResponse401
     | UsersDestroyResponse403
@@ -65,6 +67,11 @@ def _parse_response(
     | UsersDestroyResponse412
     | None
 ):
+    if response.status_code == 202:
+        response_202 = UsageClosureResponse.from_dict(response.json())
+
+        return response_202
+
     if response.status_code == 204:
         response_204 = cast(Any, None)
         return response_204
@@ -109,6 +116,7 @@ def _build_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
 ) -> Response[
     Any
+    | UsageClosureResponse
     | UsersDestroyResponse400
     | UsersDestroyResponse401
     | UsersDestroyResponse403
@@ -135,6 +143,7 @@ def sync_detailed(
     x_impersonate_user: str | Unset = UNSET,
 ) -> Response[
     Any
+    | UsageClosureResponse
     | UsersDestroyResponse400
     | UsersDestroyResponse401
     | UsersDestroyResponse403
@@ -144,7 +153,8 @@ def sync_detailed(
 ]:
     """Delete a user
 
-     Deletes a user that the authenticated account is allowed to manage.
+     Deletes a user that the authenticated account is allowed to manage. An account with outstanding
+    proxy accounting returns 202 and is disabled immediately.
 
     Args:
         id (UUID):
@@ -158,7 +168,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Any | UsersDestroyResponse400 | UsersDestroyResponse401 | UsersDestroyResponse403 | UsersDestroyResponse404 | UsersDestroyResponse409 | UsersDestroyResponse412]
+        Response[Any | UsageClosureResponse | UsersDestroyResponse400 | UsersDestroyResponse401 | UsersDestroyResponse403 | UsersDestroyResponse404 | UsersDestroyResponse409 | UsersDestroyResponse412]
     """
 
     kwargs = _get_kwargs(
@@ -186,6 +196,7 @@ def sync(
     x_impersonate_user: str | Unset = UNSET,
 ) -> (
     Any
+    | UsageClosureResponse
     | UsersDestroyResponse400
     | UsersDestroyResponse401
     | UsersDestroyResponse403
@@ -196,7 +207,8 @@ def sync(
 ):
     """Delete a user
 
-     Deletes a user that the authenticated account is allowed to manage.
+     Deletes a user that the authenticated account is allowed to manage. An account with outstanding
+    proxy accounting returns 202 and is disabled immediately.
 
     Args:
         id (UUID):
@@ -210,7 +222,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Any | UsersDestroyResponse400 | UsersDestroyResponse401 | UsersDestroyResponse403 | UsersDestroyResponse404 | UsersDestroyResponse409 | UsersDestroyResponse412
+        Any | UsageClosureResponse | UsersDestroyResponse400 | UsersDestroyResponse401 | UsersDestroyResponse403 | UsersDestroyResponse404 | UsersDestroyResponse409 | UsersDestroyResponse412
     """
 
     return sync_detailed(
@@ -233,6 +245,7 @@ async def asyncio_detailed(
     x_impersonate_user: str | Unset = UNSET,
 ) -> Response[
     Any
+    | UsageClosureResponse
     | UsersDestroyResponse400
     | UsersDestroyResponse401
     | UsersDestroyResponse403
@@ -242,7 +255,8 @@ async def asyncio_detailed(
 ]:
     """Delete a user
 
-     Deletes a user that the authenticated account is allowed to manage.
+     Deletes a user that the authenticated account is allowed to manage. An account with outstanding
+    proxy accounting returns 202 and is disabled immediately.
 
     Args:
         id (UUID):
@@ -256,7 +270,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Any | UsersDestroyResponse400 | UsersDestroyResponse401 | UsersDestroyResponse403 | UsersDestroyResponse404 | UsersDestroyResponse409 | UsersDestroyResponse412]
+        Response[Any | UsageClosureResponse | UsersDestroyResponse400 | UsersDestroyResponse401 | UsersDestroyResponse403 | UsersDestroyResponse404 | UsersDestroyResponse409 | UsersDestroyResponse412]
     """
 
     kwargs = _get_kwargs(
@@ -282,6 +296,7 @@ async def asyncio(
     x_impersonate_user: str | Unset = UNSET,
 ) -> (
     Any
+    | UsageClosureResponse
     | UsersDestroyResponse400
     | UsersDestroyResponse401
     | UsersDestroyResponse403
@@ -292,7 +307,8 @@ async def asyncio(
 ):
     """Delete a user
 
-     Deletes a user that the authenticated account is allowed to manage.
+     Deletes a user that the authenticated account is allowed to manage. An account with outstanding
+    proxy accounting returns 202 and is disabled immediately.
 
     Args:
         id (UUID):
@@ -306,7 +322,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Any | UsersDestroyResponse400 | UsersDestroyResponse401 | UsersDestroyResponse403 | UsersDestroyResponse404 | UsersDestroyResponse409 | UsersDestroyResponse412
+        Any | UsageClosureResponse | UsersDestroyResponse400 | UsersDestroyResponse401 | UsersDestroyResponse403 | UsersDestroyResponse404 | UsersDestroyResponse409 | UsersDestroyResponse412
     """
 
     return (

@@ -1,5 +1,5 @@
 {
-  "description": "SDK 2.0 response compatibility only. The canonical public schema remains unchanged.",
+  "description": "Compatibility projection for existing Python SDK models. The canonical public schema remains unchanged.",
   "schemas": {
     "InvoiceShort": {
       "type": "object",
@@ -436,6 +436,286 @@
           "description": "Package whose proxy password should be rotated. Required only when package-based authentication is enabled."
         }
       }
+    },
+    "EnabledResponse": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "enabled"
+      ]
+    },
+    "ProviderEnum": {
+      "enum": [
+        "discord",
+        "google",
+        "meta",
+        "twitter"
+      ],
+      "type": "string",
+      "description": "* `discord` - discord * `google` - google * `meta` - meta * `twitter` - twitter"
+    },
+    "TwoFactorConfirmRequest": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "minLength": 6,
+          "maxLength": 8
+        }
+      },
+      "required": [
+        "code"
+      ]
+    },
+    "TwoFactorDisableRequest": {
+      "type": "object",
+      "properties": {
+        "password": {
+          "type": "string",
+          "writeOnly": true,
+          "minLength": 1
+        },
+        "credential": {
+          "type": "string",
+          "writeOnly": true,
+          "minLength": 1
+        },
+        "code": {
+          "type": "string",
+          "minLength": 6,
+          "maxLength": 8
+        }
+      },
+      "required": [
+        "code"
+      ]
+    },
+    "TwoFactorSetupRequestRequest": {
+      "type": "object",
+      "properties": {
+        "password": {
+          "type": "string",
+          "writeOnly": true,
+          "minLength": 1
+        },
+        "credential": {
+          "type": "string",
+          "writeOnly": true,
+          "minLength": 1
+        },
+        "code": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^[0-9]{6}$"
+        }
+      }
+    },
+    "TwoFactorSetupResponse": {
+      "type": "object",
+      "properties": {
+        "secret": {
+          "type": "string"
+        },
+        "otpauth_url": {
+          "type": "string"
+        },
+        "qr_png_base64": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "otpauth_url",
+        "secret"
+      ]
+    },
+    "VerifyOTPRequest": {
+      "type": "object",
+      "properties": {
+        "challenge": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "code": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^[0-9]{6}$"
+        }
+      },
+      "required": [
+        "challenge",
+        "code"
+      ]
+    },
+    "City": {
+      "required": [
+        "asns",
+        "code",
+        "country",
+        "isps",
+        "name",
+        "region"
+      ]
+    },
+    "Country": {
+      "required": [
+        "asns",
+        "code",
+        "isps",
+        "name"
+      ]
+    },
+    "ISP": {
+      "required": [
+        "code",
+        "name"
+      ]
+    },
+    "Invoice": {
+      "required": [
+        "country",
+        "coupon",
+        "created",
+        "fx_effective_rate",
+        "fx_market_rate",
+        "fx_markup_percent",
+        "fx_quoted_at",
+        "package",
+        "payment_amount",
+        "payment_currency",
+        "updated",
+        "user_id"
+      ]
+    },
+    "LocationASNRecord": {
+      "required": [
+        "code",
+        "country_codes",
+        "geo",
+        "name"
+      ]
+    },
+    "LocationCodeName": {
+      "required": [
+        "code",
+        "name"
+      ]
+    },
+    "LocationCountrySummary": {
+      "required": [
+        "code",
+        "name"
+      ]
+    },
+    "LocationRegionSummary": {
+      "required": [
+        "code",
+        "name"
+      ]
+    },
+    "Order": {
+      "required": [
+        "created",
+        "data_remaining",
+        "data_spent",
+        "data_updated",
+        "is_auto_renewal",
+        "ledgers",
+        "package",
+        "updated"
+      ]
+    },
+    "OrderDetailed": {
+      "required": [
+        "data_remaining",
+        "data_spent",
+        "data_updated",
+        "is_auto_renewal",
+        "ledgers",
+        "package",
+        "user_id"
+      ]
+    },
+    "Package": {
+      "required": [
+        "alias",
+        "billing_cycle",
+        "billing_model",
+        "features",
+        "name",
+        "price_requires_configuration",
+        "targeting_options"
+      ]
+    },
+    "PackageShort": {
+      "required": [
+        "alias",
+        "name",
+        "targeting_options"
+      ]
+    },
+    "Region": {
+      "required": [
+        "asns",
+        "code",
+        "country",
+        "isps",
+        "name"
+      ]
+    },
+    "ResetPasswordRequest": {
+      "type": "object",
+      "properties": {
+        "order_id": {
+          "type": "string",
+          "format": "uuid"
+        }
+      },
+      "required": [
+        "order_id"
+      ]
+    },
+    "TargetingOptions": {
+      "required": [
+        "asn",
+        "city",
+        "continent",
+        "country",
+        "isp",
+        "location",
+        "location_format",
+        "os",
+        "os_android",
+        "os_combined",
+        "os_ios",
+        "os_linux",
+        "os_macos",
+        "os_split_char",
+        "os_windows",
+        "package",
+        "pool",
+        "region",
+        "session",
+        "session_mode_tag",
+        "session_ttl",
+        "session_ttl_format",
+        "split_char",
+        "username",
+        "value_char"
+      ]
+    },
+    "ProtocolEnum": {
+      "enum": [
+        "http",
+        "socks5",
+        "auto"
+      ],
+      "type": "string",
+      "description": "* `http` - http * `socks5` - socks5 * `auto` - auto"
     }
   }
 }

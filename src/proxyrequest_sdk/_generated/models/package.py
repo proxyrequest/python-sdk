@@ -16,6 +16,7 @@ from ..types import UNSET, Unset
 from typing import cast
 
 if TYPE_CHECKING:
+    from ..models.bandwidth_plan import BandwidthPlan
     from ..models.package_billing_model import PackageBillingModel
     from ..models.targeting_options import TargetingOptions
 
@@ -60,9 +61,10 @@ class Package:
     description: str | Unset = UNSET
     """ Customer-facing description shown on the package listing page. """
     pricing: PricingEnum | Unset = UNSET
-    """ * `fixed` - Fixed * `range` - Range """
+    """ * `fixed` - Fixed * `range` - Range * `bandwidth` - Bandwidth """
     pricing_unit: PricingUnitEnum | Unset = UNSET
     """ * `data` - Data * `proxy` - Proxy """
+    bandwidth_plans: list[BandwidthPlan] | Unset = UNSET
     is_unlimited_data: bool | Unset = UNSET
     """ When enabled, users on this package have no data cap. The proxy will not enforce any bandwidth limit. """
     billing_unlimited: int | Unset = UNSET
@@ -75,6 +77,7 @@ class Package:
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
+        from ..models.bandwidth_plan import BandwidthPlan
         from ..models.package_billing_model import PackageBillingModel
         from ..models.targeting_options import TargetingOptions
 
@@ -119,6 +122,13 @@ class Package:
         pricing_unit: str | Unset = UNSET
         if not isinstance(self.pricing_unit, Unset):
             pricing_unit = self.pricing_unit.value
+
+        bandwidth_plans: list[dict[str, Any]] | Unset = UNSET
+        if not isinstance(self.bandwidth_plans, Unset):
+            bandwidth_plans = []
+            for bandwidth_plans_item_data in self.bandwidth_plans:
+                bandwidth_plans_item = bandwidth_plans_item_data.to_dict()
+                bandwidth_plans.append(bandwidth_plans_item)
 
         is_unlimited_data = self.is_unlimited_data
 
@@ -165,6 +175,8 @@ class Package:
             field_dict["pricing"] = pricing
         if pricing_unit is not UNSET:
             field_dict["pricing_unit"] = pricing_unit
+        if bandwidth_plans is not UNSET:
+            field_dict["bandwidth_plans"] = bandwidth_plans
         if is_unlimited_data is not UNSET:
             field_dict["is_unlimited_data"] = is_unlimited_data
         if billing_unlimited is not UNSET:
@@ -178,6 +190,7 @@ class Package:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+        from ..models.bandwidth_plan import BandwidthPlan
         from ..models.package_billing_model import PackageBillingModel
         from ..models.targeting_options import TargetingOptions
 
@@ -233,6 +246,15 @@ class Package:
         else:
             pricing_unit = PricingUnitEnum(_pricing_unit)
 
+        _bandwidth_plans = d.pop("bandwidth_plans", UNSET)
+        bandwidth_plans: list[BandwidthPlan] | Unset = UNSET
+        if _bandwidth_plans is not UNSET:
+            bandwidth_plans = []
+            for bandwidth_plans_item_data in _bandwidth_plans:
+                bandwidth_plans_item = BandwidthPlan.from_dict(bandwidth_plans_item_data)
+
+                bandwidth_plans.append(bandwidth_plans_item)
+
         is_unlimited_data = d.pop("is_unlimited_data", UNSET)
 
         billing_unlimited = d.pop("billing_unlimited", UNSET)
@@ -265,6 +287,7 @@ class Package:
             description=description,
             pricing=pricing,
             pricing_unit=pricing_unit,
+            bandwidth_plans=bandwidth_plans,
             is_unlimited_data=is_unlimited_data,
             billing_unlimited=billing_unlimited,
             commission_rate=commission_rate,

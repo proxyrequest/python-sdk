@@ -29,6 +29,8 @@ class Country:
     """ The asns field is always present and defaults to an empty array. Pass include_asns=true to include available
     autonomous system numbers. This option does not affect the standalone /locations/asn endpoint or the compact
     proxy-node response format. """
+    count: int | Unset = UNSET
+    """ Node count in Rust search mode. """
     id: str | Unset = UNSET
     original_name: str | Unset = UNSET
     """ Native-language name of the country as it appears in the source data. Deutschland Français """
@@ -51,6 +53,8 @@ class Country:
             asns_item = asns_item_data.to_dict()
             asns.append(asns_item)
 
+        count = self.count
+
         id = self.id
 
         original_name = self.original_name
@@ -65,6 +69,8 @@ class Country:
                 "asns": asns,
             }
         )
+        if count is not UNSET:
+            field_dict["count"] = count
         if id is not UNSET:
             field_dict["id"] = id
         if original_name is not UNSET:
@@ -95,6 +101,8 @@ class Country:
 
             asns.append(asns_item)
 
+        count = d.pop("count", UNSET)
+
         id = d.pop("id", UNSET)
 
         original_name = d.pop("original_name", UNSET)
@@ -104,6 +112,7 @@ class Country:
             name=name,
             isps=isps,
             asns=asns,
+            count=count,
             id=id,
             original_name=original_name,
         )

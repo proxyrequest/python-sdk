@@ -13,6 +13,7 @@ from ... import errors
 from ...models.locations_continents_list_response_400 import LocationsContinentsListResponse400
 from ...models.locations_continents_list_response_401 import LocationsContinentsListResponse401
 from ...models.locations_continents_list_response_403 import LocationsContinentsListResponse403
+from ...models.locations_continents_list_response_503 import LocationsContinentsListResponse503
 from ...models.paginated_continent_list import PaginatedContinentList
 from ...types import UNSET, Unset
 from typing import cast
@@ -73,6 +74,7 @@ def _parse_response(
     LocationsContinentsListResponse400
     | LocationsContinentsListResponse401
     | LocationsContinentsListResponse403
+    | LocationsContinentsListResponse503
     | PaginatedContinentList
     | None
 ):
@@ -96,6 +98,11 @@ def _parse_response(
 
         return response_403
 
+    if response.status_code == 503:
+        response_503 = LocationsContinentsListResponse503.from_dict(response.json())
+
+        return response_503
+
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     else:
@@ -108,6 +115,7 @@ def _build_response(
     LocationsContinentsListResponse400
     | LocationsContinentsListResponse401
     | LocationsContinentsListResponse403
+    | LocationsContinentsListResponse503
     | PaginatedContinentList
 ]:
     parsed = parse_response(_parse_response, client=client, response=response)
@@ -135,6 +143,7 @@ def sync_detailed(
     LocationsContinentsListResponse400
     | LocationsContinentsListResponse401
     | LocationsContinentsListResponse403
+    | LocationsContinentsListResponse503
     | PaginatedContinentList
 ]:
     """List available continents
@@ -158,7 +167,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[LocationsContinentsListResponse400 | LocationsContinentsListResponse401 | LocationsContinentsListResponse403 | PaginatedContinentList]
+        Response[LocationsContinentsListResponse400 | LocationsContinentsListResponse401 | LocationsContinentsListResponse403 | LocationsContinentsListResponse503 | PaginatedContinentList]
     """
 
     kwargs = _get_kwargs(
@@ -196,6 +205,7 @@ def sync(
     LocationsContinentsListResponse400
     | LocationsContinentsListResponse401
     | LocationsContinentsListResponse403
+    | LocationsContinentsListResponse503
     | PaginatedContinentList
     | None
 ):
@@ -220,7 +230,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        LocationsContinentsListResponse400 | LocationsContinentsListResponse401 | LocationsContinentsListResponse403 | PaginatedContinentList
+        LocationsContinentsListResponse400 | LocationsContinentsListResponse401 | LocationsContinentsListResponse403 | LocationsContinentsListResponse503 | PaginatedContinentList
     """
 
     return sync_detailed(
@@ -253,6 +263,7 @@ async def asyncio_detailed(
     LocationsContinentsListResponse400
     | LocationsContinentsListResponse401
     | LocationsContinentsListResponse403
+    | LocationsContinentsListResponse503
     | PaginatedContinentList
 ]:
     """List available continents
@@ -276,7 +287,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[LocationsContinentsListResponse400 | LocationsContinentsListResponse401 | LocationsContinentsListResponse403 | PaginatedContinentList]
+        Response[LocationsContinentsListResponse400 | LocationsContinentsListResponse401 | LocationsContinentsListResponse403 | LocationsContinentsListResponse503 | PaginatedContinentList]
     """
 
     kwargs = _get_kwargs(
@@ -312,6 +323,7 @@ async def asyncio(
     LocationsContinentsListResponse400
     | LocationsContinentsListResponse401
     | LocationsContinentsListResponse403
+    | LocationsContinentsListResponse503
     | PaginatedContinentList
     | None
 ):
@@ -336,7 +348,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        LocationsContinentsListResponse400 | LocationsContinentsListResponse401 | LocationsContinentsListResponse403 | PaginatedContinentList
+        LocationsContinentsListResponse400 | LocationsContinentsListResponse401 | LocationsContinentsListResponse403 | LocationsContinentsListResponse503 | PaginatedContinentList
     """
 
     return (

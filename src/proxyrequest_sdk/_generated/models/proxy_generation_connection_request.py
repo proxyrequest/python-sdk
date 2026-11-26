@@ -8,7 +8,7 @@ from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-from ..models.protocol_enum import ProtocolEnum
+from ..models.proxy_generation_connection_protocol_enum import ProxyGenerationConnectionProtocolEnum
 from ..types import UNSET, Unset
 
 
@@ -17,7 +17,9 @@ T = TypeVar("T", bound="ProxyGenerationConnectionRequest")
 
 @_attrs_define
 class ProxyGenerationConnectionRequest:
-    protocol: ProtocolEnum | Unset = ProtocolEnum.HTTP
+    protocol: ProxyGenerationConnectionProtocolEnum | Unset = (
+        ProxyGenerationConnectionProtocolEnum.HTTP
+    )
     """ * `http` - http * `socks5` - socks5 * `auto` - auto """
     host: str | Unset = UNSET
     """ Gateway host. Leave empty to choose one available gateway for the entire request. """
@@ -56,11 +58,11 @@ class ProxyGenerationConnectionRequest:
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
         _protocol = d.pop("protocol", UNSET)
-        protocol: ProtocolEnum | Unset
+        protocol: ProxyGenerationConnectionProtocolEnum | Unset
         if isinstance(_protocol, Unset):
             protocol = UNSET
         else:
-            protocol = ProtocolEnum(_protocol)
+            protocol = ProxyGenerationConnectionProtocolEnum(_protocol)
 
         host = d.pop("host", UNSET)
 

@@ -50,14 +50,15 @@ class InvoiceShort:
     price_total: int | Unset = UNSET
     """ The total price of the invoice, including any discounts. Must be at least 1 cent. """
     gateway: InvoiceGatewayEnum | Unset = UNSET
-    """ * `coinbase` - Coinbase * `cryptomus` - Cryptomus * `stripe` - Stripe * `coingate` - Coingate * `wallet` -
-    Wallet * `manual` - Manual * `whitepay` - Whitepay * `wayforpay` - WayForPay * `usegateway` - UseGateway *
-    `binance` - Binance Pay * `anymoney` - Any.Money * `coinpayments` - CoinPayments * `checkoutcom` - Checkout.com
-    * `nowpayments` - NOWPayments * `btcpay` - BTCPay Server * `braintree` - Braintree * `monobank` - monobank *
-    `liqpay` - LiqPay * `iyzico` - iyzico * `paytr` - PayTR * `payu` - PayU * `tpay` - Tpay * `przelewy24` -
-    Przelewy24 * `gopay` - GoPay * `comgate` - Comgate * `monei` - MONEI * `redsys` - Redsys * `payplug` - PayPlug *
-    `mollie` - Mollie * `unzer` - Unzer * `payone` - PAYONE * `nexi_xpay` - Nexi XPay * `halyk_epay` - Halyk ePay *
-    `kaspi_pay` - Kaspi Pay * `vipps_mobilepay` - Vipps MobilePay * `paytrail` - Paytrail """
+    """ * `revolut` - Revolut * `paypal` - PayPal * `coinbase` - Coinbase * `cryptomus` - Cryptomus * `stripe` -
+    Stripe * `coingate` - Coingate * `wallet` - Wallet * `manual` - Manual * `whitepay` - Whitepay * `wayforpay` -
+    WayForPay * `usegateway` - UseGateway * `binance` - Binance Pay * `anymoney` - Any.Money * `coinpayments` -
+    CoinPayments * `checkoutcom` - Checkout.com * `nowpayments` - NOWPayments * `btcpay` - BTCPay Server *
+    `braintree` - Braintree * `monobank` - monobank * `liqpay` - LiqPay * `iyzico` - iyzico * `paytr` - PayTR *
+    `payu` - PayU * `tpay` - Tpay * `przelewy24` - Przelewy24 * `gopay` - GoPay * `comgate` - Comgate * `monei` -
+    MONEI * `redsys` - Redsys * `payplug` - PayPlug * `mollie` - Mollie * `unzer` - Unzer * `payone` - PAYONE *
+    `nexi_xpay` - Nexi XPay * `halyk_epay` - Halyk ePay * `kaspi_pay` - Kaspi Pay * `vipps_mobilepay` - Vipps
+    MobilePay * `paytrail` - Paytrail """
     currency: str | Unset = UNSET
     """ ISO 4217 currency captured when the invoice is created. """
     provider_checkout_id: str | Unset = UNSET

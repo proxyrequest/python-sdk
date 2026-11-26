@@ -18,6 +18,8 @@ T = TypeVar("T", bound="LocationRegionSummary")
 class LocationRegionSummary:
     code: str
     name: str
+    count: int | Unset = UNSET
+    """ Node count in Rust search mode; unknown quantities are zero. """
     original_name: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -25,6 +27,8 @@ class LocationRegionSummary:
         code = self.code
 
         name = self.name
+
+        count = self.count
 
         original_name = self.original_name
 
@@ -36,6 +40,8 @@ class LocationRegionSummary:
                 "name": name,
             }
         )
+        if count is not UNSET:
+            field_dict["count"] = count
         if original_name is not UNSET:
             field_dict["original_name"] = original_name
 
@@ -48,11 +54,14 @@ class LocationRegionSummary:
 
         name = d.pop("name")
 
+        count = d.pop("count", UNSET)
+
         original_name = d.pop("original_name", UNSET)
 
         location_region_summary = cls(
             code=code,
             name=name,
+            count=count,
             original_name=original_name,
         )
 

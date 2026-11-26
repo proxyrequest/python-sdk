@@ -9,12 +9,16 @@ from .._generated.models.add_data_request import AddDataRequest
 from .._generated.models.order import Order
 from .._generated.models.paginated_order_list import PaginatedOrderList
 from .._generated.models.paginated_user_list import PaginatedUserList
+from .._generated.models.patched_user_package_connection_limit_request import (
+    PatchedUserPackageConnectionLimitRequest,
+)
 from .._generated.models.patched_user_update_request import PatchedUserUpdateRequest
 from .._generated.models.reset_data_request import ResetDataRequest
 from .._generated.models.subtract_data_request import SubtractDataRequest
 from .._generated.types import UNSET
 from uuid import UUID
 from .._generated.types import Unset
+from .._generated.models.usage_closure_response import UsageClosureResponse
 from .._generated.models.user import User
 from .._generated.models.user_create_request import UserCreateRequest
 from .._generated.models.user_password_reset_request import UserPasswordResetRequest
@@ -26,6 +30,9 @@ from .._generated.api.users import users_list as _users_list
 from .._generated.api.users import users_orders_list as _users_orders_list
 from .._generated.api.users import users_data_reset_create as _users_data_reset_create
 from .._generated.api.users import users_password_create as _users_password_create
+from .._generated.api.users import (
+    users_package_connection_limit_update as _users_package_connection_limit_update,
+)
 from .._generated.api.users import users_data_subtract_create as _users_data_subtract_create
 from .._generated.api.users import users_partial_update as _users_partial_update
 
@@ -130,18 +137,20 @@ class UsersResource:
         if_match: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
         impersonate_user_id: str | Unset = UNSET,
-    ) -> None:
+    ) -> UsageClosureResponse | None:
         """Delete a user"""
-        self._client._call(
-            _users_destroy.sync_detailed,
-            _idempotent=True,
-            id=id,
-            idempotency_key=idempotency_key,
-            if_match=if_match,
-            accept_language=accept_language,
-            x_impersonate_user=impersonate_user_id,
+        return cast(
+            UsageClosureResponse | None,
+            self._client._call(
+                _users_destroy.sync_detailed,
+                _idempotent=True,
+                id=id,
+                idempotency_key=idempotency_key,
+                if_match=if_match,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
         )
-        return None
 
     def delete_with_response(
         self,
@@ -151,10 +160,10 @@ class UsersResource:
         if_match: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
         impersonate_user_id: str | Unset = UNSET,
-    ) -> ApiResponse[None]:
+    ) -> ApiResponse[UsageClosureResponse | None]:
         """Delete a user; include response metadata."""
         return cast(
-            ApiResponse[None],
+            ApiResponse[UsageClosureResponse | None],
             self._client._call_with_response(
                 _users_destroy.sync_detailed,
                 _idempotent=True,
@@ -412,6 +421,46 @@ class UsersResource:
             ),
         )
 
+    def set_connection_limit(
+        self,
+        id: UUID,
+        *,
+        body: PatchedUserPackageConnectionLimitRequest | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
+    ) -> Order:
+        """Set a managed user's package connection limit"""
+        return cast(
+            Order,
+            self._client._call(
+                _users_package_connection_limit_update.sync_detailed,
+                id=id,
+                body=body,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
+        )
+
+    def set_connection_limit_with_response(
+        self,
+        id: UUID,
+        *,
+        body: PatchedUserPackageConnectionLimitRequest | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
+    ) -> ApiResponse[Order]:
+        """Set a managed user's package connection limit; include response metadata."""
+        return cast(
+            ApiResponse[Order],
+            self._client._call_with_response(
+                _users_package_connection_limit_update.sync_detailed,
+                id=id,
+                body=body,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
+        )
+
     def subtract_data(
         self,
         id: UUID,
@@ -603,18 +652,20 @@ class AsyncUsersResource:
         if_match: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
         impersonate_user_id: str | Unset = UNSET,
-    ) -> None:
+    ) -> UsageClosureResponse | None:
         """Delete a user"""
-        await self._client._call(
-            _users_destroy.asyncio_detailed,
-            _idempotent=True,
-            id=id,
-            idempotency_key=idempotency_key,
-            if_match=if_match,
-            accept_language=accept_language,
-            x_impersonate_user=impersonate_user_id,
+        return cast(
+            UsageClosureResponse | None,
+            await self._client._call(
+                _users_destroy.asyncio_detailed,
+                _idempotent=True,
+                id=id,
+                idempotency_key=idempotency_key,
+                if_match=if_match,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
         )
-        return None
 
     async def delete_with_response(
         self,
@@ -624,10 +675,10 @@ class AsyncUsersResource:
         if_match: str | Unset = UNSET,
         accept_language: str | Unset = UNSET,
         impersonate_user_id: str | Unset = UNSET,
-    ) -> ApiResponse[None]:
+    ) -> ApiResponse[UsageClosureResponse | None]:
         """Delete a user; include response metadata."""
         return cast(
-            ApiResponse[None],
+            ApiResponse[UsageClosureResponse | None],
             await self._client._call_with_response(
                 _users_destroy.asyncio_detailed,
                 _idempotent=True,
@@ -878,6 +929,46 @@ class AsyncUsersResource:
             ApiResponse[User],
             await self._client._call_with_response(
                 _users_password_create.asyncio_detailed,
+                id=id,
+                body=body,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
+        )
+
+    async def set_connection_limit(
+        self,
+        id: UUID,
+        *,
+        body: PatchedUserPackageConnectionLimitRequest | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
+    ) -> Order:
+        """Set a managed user's package connection limit"""
+        return cast(
+            Order,
+            await self._client._call(
+                _users_package_connection_limit_update.asyncio_detailed,
+                id=id,
+                body=body,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
+        )
+
+    async def set_connection_limit_with_response(
+        self,
+        id: UUID,
+        *,
+        body: PatchedUserPackageConnectionLimitRequest | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
+    ) -> ApiResponse[Order]:
+        """Set a managed user's package connection limit; include response metadata."""
+        return cast(
+            ApiResponse[Order],
+            await self._client._call_with_response(
+                _users_package_connection_limit_update.asyncio_detailed,
                 id=id,
                 body=body,
                 accept_language=accept_language,

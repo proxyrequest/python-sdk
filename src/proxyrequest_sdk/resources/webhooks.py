@@ -6,6 +6,10 @@ from typing import Any, cast
 from ..files import FileDownload
 from ..response import ApiResponse
 from .._generated.models.paginated_webhook_list import PaginatedWebhookList
+from .._generated.models.patched_static_webhook_subscription_request import (
+    PatchedStaticWebhookSubscriptionRequest,
+)
+from .._generated.models.static_webhook_subscription import StaticWebhookSubscription
 from .._generated.types import UNSET
 from .._generated.types import Unset
 from .._generated.models.webhook_create_request import WebhookCreateRequest
@@ -14,7 +18,13 @@ from .._generated.models.webhook_list import WebhookList
 from .._generated.api.webhooks import webhooks_create as _webhooks_create
 from .._generated.api.webhooks import webhooks_destroy as _webhooks_destroy
 from .._generated.api.webhooks import webhooks_retrieve as _webhooks_retrieve
+from .._generated.api.webhooks import (
+    webhooks_static_events_retrieve as _webhooks_static_events_retrieve,
+)
 from .._generated.api.webhooks import webhooks_list as _webhooks_list
+from .._generated.api.webhooks import (
+    webhooks_static_events_partial_update as _webhooks_static_events_partial_update,
+)
 
 
 class WebhooksResource:
@@ -143,6 +153,42 @@ class WebhooksResource:
             ),
         )
 
+    def get_static_events(
+        self,
+        id: str,
+        *,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
+    ) -> StaticWebhookSubscription:
+        """Read static rental event subscriptions"""
+        return cast(
+            StaticWebhookSubscription,
+            self._client._call(
+                _webhooks_static_events_retrieve.sync_detailed,
+                id=id,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
+        )
+
+    def get_static_events_with_response(
+        self,
+        id: str,
+        *,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
+    ) -> ApiResponse[StaticWebhookSubscription]:
+        """Read static rental event subscriptions; include response metadata."""
+        return cast(
+            ApiResponse[StaticWebhookSubscription],
+            self._client._call_with_response(
+                _webhooks_static_events_retrieve.sync_detailed,
+                id=id,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
+        )
+
     def list(
         self,
         *,
@@ -178,6 +224,46 @@ class WebhooksResource:
                 _webhooks_list.sync_detailed,
                 limit=limit,
                 offset=offset,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
+        )
+
+    def set_static_events(
+        self,
+        id: str,
+        *,
+        body: PatchedStaticWebhookSubscriptionRequest | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
+    ) -> StaticWebhookSubscription:
+        """Replace static rental event subscriptions"""
+        return cast(
+            StaticWebhookSubscription,
+            self._client._call(
+                _webhooks_static_events_partial_update.sync_detailed,
+                id=id,
+                body=body,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
+        )
+
+    def set_static_events_with_response(
+        self,
+        id: str,
+        *,
+        body: PatchedStaticWebhookSubscriptionRequest | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
+    ) -> ApiResponse[StaticWebhookSubscription]:
+        """Replace static rental event subscriptions; include response metadata."""
+        return cast(
+            ApiResponse[StaticWebhookSubscription],
+            self._client._call_with_response(
+                _webhooks_static_events_partial_update.sync_detailed,
+                id=id,
+                body=body,
                 accept_language=accept_language,
                 x_impersonate_user=impersonate_user_id,
             ),
@@ -310,6 +396,42 @@ class AsyncWebhooksResource:
             ),
         )
 
+    async def get_static_events(
+        self,
+        id: str,
+        *,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
+    ) -> StaticWebhookSubscription:
+        """Read static rental event subscriptions"""
+        return cast(
+            StaticWebhookSubscription,
+            await self._client._call(
+                _webhooks_static_events_retrieve.asyncio_detailed,
+                id=id,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
+        )
+
+    async def get_static_events_with_response(
+        self,
+        id: str,
+        *,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
+    ) -> ApiResponse[StaticWebhookSubscription]:
+        """Read static rental event subscriptions; include response metadata."""
+        return cast(
+            ApiResponse[StaticWebhookSubscription],
+            await self._client._call_with_response(
+                _webhooks_static_events_retrieve.asyncio_detailed,
+                id=id,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
+        )
+
     async def list(
         self,
         *,
@@ -345,6 +467,46 @@ class AsyncWebhooksResource:
                 _webhooks_list.asyncio_detailed,
                 limit=limit,
                 offset=offset,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
+        )
+
+    async def set_static_events(
+        self,
+        id: str,
+        *,
+        body: PatchedStaticWebhookSubscriptionRequest | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
+    ) -> StaticWebhookSubscription:
+        """Replace static rental event subscriptions"""
+        return cast(
+            StaticWebhookSubscription,
+            await self._client._call(
+                _webhooks_static_events_partial_update.asyncio_detailed,
+                id=id,
+                body=body,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
+        )
+
+    async def set_static_events_with_response(
+        self,
+        id: str,
+        *,
+        body: PatchedStaticWebhookSubscriptionRequest | Unset = UNSET,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
+    ) -> ApiResponse[StaticWebhookSubscription]:
+        """Replace static rental event subscriptions; include response metadata."""
+        return cast(
+            ApiResponse[StaticWebhookSubscription],
+            await self._client._call_with_response(
+                _webhooks_static_events_partial_update.asyncio_detailed,
+                id=id,
+                body=body,
                 accept_language=accept_language,
                 x_impersonate_user=impersonate_user_id,
             ),

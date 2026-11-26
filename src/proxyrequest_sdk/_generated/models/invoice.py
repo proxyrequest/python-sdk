@@ -18,6 +18,7 @@ from uuid import UUID
 import datetime
 
 if TYPE_CHECKING:
+    from ..models.bandwidth_purchase import BandwidthPurchase
     from ..models.country import Country
     from ..models.coupon_short import CouponShort
     from ..models.package_short import PackageShort
@@ -41,6 +42,9 @@ class Invoice:
     updated: datetime.datetime
     created: datetime.datetime
     id: str | Unset = UNSET
+    bandwidth_purchase: BandwidthPurchase | None | Unset = UNSET
+    rental_kind: str | Unset = UNSET
+    rental_status: str | Unset = UNSET
     type_: InvoiceTypeEnum | Unset = UNSET
     """ * `static` - Static * `residential` - Residential * `balance` - Balance """
     is_one_time: bool | Unset = UNSET
@@ -64,15 +68,16 @@ class Invoice:
     """ The balance to top up for the user. Must be zero or positive. """
     price_total: int | Unset = UNSET
     """ The total price of the invoice, including any discounts. Must be at least 1 cent. """
-    gateway: InvoiceGatewayEnum | Unset = UNSET
-    """ * `coinbase` - Coinbase * `cryptomus` - Cryptomus * `stripe` - Stripe * `coingate` - Coingate * `wallet` -
-    Wallet * `manual` - Manual * `whitepay` - Whitepay * `wayforpay` - WayForPay * `usegateway` - UseGateway *
-    `binance` - Binance Pay * `anymoney` - Any.Money * `coinpayments` - CoinPayments * `checkoutcom` - Checkout.com
-    * `nowpayments` - NOWPayments * `btcpay` - BTCPay Server * `braintree` - Braintree * `monobank` - monobank *
-    `liqpay` - LiqPay * `iyzico` - iyzico * `paytr` - PayTR * `payu` - PayU * `tpay` - Tpay * `przelewy24` -
-    Przelewy24 * `gopay` - GoPay * `comgate` - Comgate * `monei` - MONEI * `redsys` - Redsys * `payplug` - PayPlug *
-    `mollie` - Mollie * `unzer` - Unzer * `payone` - PAYONE * `nexi_xpay` - Nexi XPay * `halyk_epay` - Halyk ePay *
-    `kaspi_pay` - Kaspi Pay * `vipps_mobilepay` - Vipps MobilePay * `paytrail` - Paytrail """
+    gateway: InvoiceGatewayEnum | Unset = InvoiceGatewayEnum.STRIPE
+    """ * `revolut` - Revolut * `paypal` - PayPal * `coinbase` - Coinbase * `cryptomus` - Cryptomus * `stripe` -
+    Stripe * `coingate` - Coingate * `wallet` - Wallet * `manual` - Manual * `whitepay` - Whitepay * `wayforpay` -
+    WayForPay * `usegateway` - UseGateway * `binance` - Binance Pay * `anymoney` - Any.Money * `coinpayments` -
+    CoinPayments * `checkoutcom` - Checkout.com * `nowpayments` - NOWPayments * `btcpay` - BTCPay Server *
+    `braintree` - Braintree * `monobank` - monobank * `liqpay` - LiqPay * `iyzico` - iyzico * `paytr` - PayTR *
+    `payu` - PayU * `tpay` - Tpay * `przelewy24` - Przelewy24 * `gopay` - GoPay * `comgate` - Comgate * `monei` -
+    MONEI * `redsys` - Redsys * `payplug` - PayPlug * `mollie` - Mollie * `unzer` - Unzer * `payone` - PAYONE *
+    `nexi_xpay` - Nexi XPay * `halyk_epay` - Halyk ePay * `kaspi_pay` - Kaspi Pay * `vipps_mobilepay` - Vipps
+    MobilePay * `paytrail` - Paytrail """
     payment_url: str | Unset = UNSET
     """ The URL for making the payment. Optional field with a maximum length of 500 characters. """
     currency: str | Unset = UNSET
@@ -93,9 +98,11 @@ class Invoice:
     company_vat_number: str | Unset = UNSET
     paid: datetime.datetime | None | Unset = UNSET
     """ The date and time when the invoice was paid. """
+    rental_order: None | str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
+        from ..models.bandwidth_purchase import BandwidthPurchase
         from ..models.country import Country
         from ..models.coupon_short import CouponShort
         from ..models.package_short import PackageShort
@@ -141,6 +148,18 @@ class Invoice:
         created = self.created.isoformat()
 
         id = self.id
+
+        bandwidth_purchase: dict[str, Any] | None | Unset
+        if isinstance(self.bandwidth_purchase, Unset):
+            bandwidth_purchase = UNSET
+        elif isinstance(self.bandwidth_purchase, BandwidthPurchase):
+            bandwidth_purchase = self.bandwidth_purchase.to_dict()
+        else:
+            bandwidth_purchase = self.bandwidth_purchase
+
+        rental_kind = self.rental_kind
+
+        rental_status = self.rental_status
 
         type_: str | Unset = UNSET
         if not isinstance(self.type_, Unset):
@@ -206,6 +225,12 @@ class Invoice:
         else:
             paid = self.paid
 
+        rental_order: None | str | Unset
+        if isinstance(self.rental_order, Unset):
+            rental_order = UNSET
+        else:
+            rental_order = self.rental_order
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
@@ -226,6 +251,12 @@ class Invoice:
         )
         if id is not UNSET:
             field_dict["id"] = id
+        if bandwidth_purchase is not UNSET:
+            field_dict["bandwidth_purchase"] = bandwidth_purchase
+        if rental_kind is not UNSET:
+            field_dict["rental_kind"] = rental_kind
+        if rental_status is not UNSET:
+            field_dict["rental_status"] = rental_status
         if type_ is not UNSET:
             field_dict["type"] = type_
         if is_one_time is not UNSET:
@@ -276,11 +307,14 @@ class Invoice:
             field_dict["company_vat_number"] = company_vat_number
         if paid is not UNSET:
             field_dict["paid"] = paid
+        if rental_order is not UNSET:
+            field_dict["rental_order"] = rental_order
 
         return field_dict
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+        from ..models.bandwidth_purchase import BandwidthPurchase
         from ..models.country import Country
         from ..models.coupon_short import CouponShort
         from ..models.package_short import PackageShort
@@ -364,6 +398,27 @@ class Invoice:
         created = datetime.datetime.fromisoformat(d.pop("created"))
 
         id = d.pop("id", UNSET)
+
+        def _parse_bandwidth_purchase(data: object) -> BandwidthPurchase | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                bandwidth_purchase_type_1 = BandwidthPurchase.from_dict(data)
+
+                return bandwidth_purchase_type_1
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(BandwidthPurchase | None | Unset, data)
+
+        bandwidth_purchase = _parse_bandwidth_purchase(d.pop("bandwidth_purchase", UNSET))
+
+        rental_kind = d.pop("rental_kind", UNSET)
+
+        rental_status = d.pop("rental_status", UNSET)
 
         _type_ = d.pop("type", UNSET)
         type_: InvoiceTypeEnum | Unset
@@ -450,6 +505,15 @@ class Invoice:
 
         paid = _parse_paid(d.pop("paid", UNSET))
 
+        def _parse_rental_order(data: object) -> None | str | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(None | str | Unset, data)
+
+        rental_order = _parse_rental_order(d.pop("rental_order", UNSET))
+
         invoice = cls(
             package=package,
             country=country,
@@ -464,6 +528,9 @@ class Invoice:
             updated=updated,
             created=created,
             id=id,
+            bandwidth_purchase=bandwidth_purchase,
+            rental_kind=rental_kind,
+            rental_status=rental_status,
             type_=type_,
             is_one_time=is_one_time,
             is_payout=is_payout,
@@ -489,6 +556,7 @@ class Invoice:
             company_registration_number=company_registration_number,
             company_vat_number=company_vat_number,
             paid=paid,
+            rental_order=rental_order,
         )
 
         invoice.additional_properties = d

@@ -8,6 +8,26 @@ from typing import Any
 
 EXCLUDED_OPERATIONS = frozenset({"sessions_destroy", "sessions_list"})
 HTTP_METHODS = {"get", "post", "put", "patch", "delete", "head", "options", "trace"}
+MFA_COMPATIBILITY = {
+    "login_otp_create": ("VerifyOTPRequest", "TokenPairResponse"),
+    "profile_2fa_confirm_create": ("TwoFactorConfirmRequest", "EnabledResponse"),
+    "profile_2fa_disable_create": ("TwoFactorDisableRequest", "EnabledResponse"),
+    "profile_2fa_setup_create": ("TwoFactorSetupRequestRequest", "TwoFactorSetupResponse"),
+    "profile_2fa_status_retrieve": (None, "EnabledResponse"),
+}
+
+
+def apply_mfa_compatibility(operation: dict[str, Any], operation_id: str) -> None:
+    request, response = MFA_COMPATIBILITY[operation_id]
+    if operation_id == "login_otp_create":
+        operation["tags"] = ["Authorization"]
+    if request is not None:
+        operation["requestBody"]["content"]["application/json"]["schema"] = {
+            "$ref": f"#/components/schemas/{request}"
+        }
+    operation["responses"]["200"]["content"]["application/json"]["schema"] = {
+        "$ref": f"#/components/schemas/{response}"
+    }
 
 
 def sdk_schema(source: dict[str, Any]) -> dict[str, Any]:
@@ -49,6 +69,10 @@ def sdk_schema(source: dict[str, Any]) -> dict[str, Any]:
             if not operation_id or operation_id in seen:
                 raise ValueError(f"Missing or duplicate operationId: {operation_id}")
             seen.add(operation_id)
+            if operation.get("tags") == ["MFA"]:
+                operation["tags"] = ["Profile"]
+            if operation_id in MFA_COMPATIBILITY:
+                apply_mfa_compatibility(operation, operation_id)
             if operation_id in EXCLUDED_OPERATIONS:
                 del item[method]
                 continue
@@ -87,6 +111,12 @@ def sdk_schema(source: dict[str, Any]) -> dict[str, Any]:
                 for field in current.get("required", [])
                 if field in legacy.get("required", [])
             ]
+    for name in ("EnabledResponse", "TwoFactorSetupResponse"):
+        if "MFAResponse" in schemas:
+            schemas[name]["properties"] = {
+                **schemas["MFAResponse"]["properties"],
+                **schemas[name]["properties"],
+            }
     for name in list(schemas):
         if re.match(r"^Sessions?(List|Delete|Destroy)", name):
             del schemas[name]

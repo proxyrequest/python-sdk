@@ -33,6 +33,8 @@ class City:
     """ The asns field is always present and defaults to an empty array. Pass include_asns=true to include available
     autonomous system numbers. This option does not affect the standalone /locations/asn endpoint or the compact
     proxy-node response format. """
+    count: int | Unset = UNSET
+    """ Node count in Rust search mode. """
     id: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -59,6 +61,8 @@ class City:
             asns_item = asns_item_data.to_dict()
             asns.append(asns_item)
 
+        count = self.count
+
         id = self.id
 
         field_dict: dict[str, Any] = {}
@@ -73,6 +77,8 @@ class City:
                 "asns": asns,
             }
         )
+        if count is not UNSET:
+            field_dict["count"] = count
         if id is not UNSET:
             field_dict["id"] = id
 
@@ -107,6 +113,8 @@ class City:
 
             asns.append(asns_item)
 
+        count = d.pop("count", UNSET)
+
         id = d.pop("id", UNSET)
 
         city = cls(
@@ -116,6 +124,7 @@ class City:
             region=region,
             isps=isps,
             asns=asns,
+            count=count,
             id=id,
         )
 

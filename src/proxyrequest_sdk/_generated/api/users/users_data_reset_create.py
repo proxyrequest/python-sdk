@@ -141,10 +141,11 @@ def sync_detailed(
 
      Atomically resets remaining data to zero for package_id, including zero or negative balances. Supply
     package_id only; data is not accepted. System administrators may reset any user; other accounts may
-    reset only their direct children. Purchased root orders have their ledger balances cleared; virtual
-    child orders have their quota set to usage without changing the parent's pool. Usage history and
-    invoices are preserved. Unlimited packages are rejected. Use Idempotency-Key for safe retries so a
-    repeated request cannot clear a subsequent top-up.
+    reset only their direct children. Independently funded sub-user orders first return their unspent,
+    unexpired traffic to the parent with the same deadlines. Top-level purchased orders have their
+    ledger balances cleared; virtual child orders have their quota set to usage without changing the
+    parent's pool. Usage history and invoices are preserved. Unlimited packages are rejected. Use
+    Idempotency-Key for safe retries so a repeated request cannot clear a subsequent top-up.
 
     Args:
         id (UUID):
@@ -197,10 +198,11 @@ def sync(
 
      Atomically resets remaining data to zero for package_id, including zero or negative balances. Supply
     package_id only; data is not accepted. System administrators may reset any user; other accounts may
-    reset only their direct children. Purchased root orders have their ledger balances cleared; virtual
-    child orders have their quota set to usage without changing the parent's pool. Usage history and
-    invoices are preserved. Unlimited packages are rejected. Use Idempotency-Key for safe retries so a
-    repeated request cannot clear a subsequent top-up.
+    reset only their direct children. Independently funded sub-user orders first return their unspent,
+    unexpired traffic to the parent with the same deadlines. Top-level purchased orders have their
+    ledger balances cleared; virtual child orders have their quota set to usage without changing the
+    parent's pool. Usage history and invoices are preserved. Unlimited packages are rejected. Use
+    Idempotency-Key for safe retries so a repeated request cannot clear a subsequent top-up.
 
     Args:
         id (UUID):
@@ -247,10 +249,11 @@ async def asyncio_detailed(
 
      Atomically resets remaining data to zero for package_id, including zero or negative balances. Supply
     package_id only; data is not accepted. System administrators may reset any user; other accounts may
-    reset only their direct children. Purchased root orders have their ledger balances cleared; virtual
-    child orders have their quota set to usage without changing the parent's pool. Usage history and
-    invoices are preserved. Unlimited packages are rejected. Use Idempotency-Key for safe retries so a
-    repeated request cannot clear a subsequent top-up.
+    reset only their direct children. Independently funded sub-user orders first return their unspent,
+    unexpired traffic to the parent with the same deadlines. Top-level purchased orders have their
+    ledger balances cleared; virtual child orders have their quota set to usage without changing the
+    parent's pool. Usage history and invoices are preserved. Unlimited packages are rejected. Use
+    Idempotency-Key for safe retries so a repeated request cannot clear a subsequent top-up.
 
     Args:
         id (UUID):
@@ -301,10 +304,11 @@ async def asyncio(
 
      Atomically resets remaining data to zero for package_id, including zero or negative balances. Supply
     package_id only; data is not accepted. System administrators may reset any user; other accounts may
-    reset only their direct children. Purchased root orders have their ledger balances cleared; virtual
-    child orders have their quota set to usage without changing the parent's pool. Usage history and
-    invoices are preserved. Unlimited packages are rejected. Use Idempotency-Key for safe retries so a
-    repeated request cannot clear a subsequent top-up.
+    reset only their direct children. Independently funded sub-user orders first return their unspent,
+    unexpired traffic to the parent with the same deadlines. Top-level purchased orders have their
+    ledger balances cleared; virtual child orders have their quota set to usage without changing the
+    parent's pool. Usage history and invoices are preserved. Unlimited packages are rejected. Use
+    Idempotency-Key for safe retries so a repeated request cannot clear a subsequent top-up.
 
     Args:
         id (UUID):

@@ -8,6 +8,8 @@ from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+
 
 T = TypeVar("T", bound="ISP")
 
@@ -19,12 +21,16 @@ class ISP:
     comcast att deutsche_telekom """
     name: str
     """ Full display name of the Internet Service Provider. Comcast Cable Communications AT&T Services """
+    count: int | Unset = UNSET
+    """ Node count in Rust search mode. """
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         code = self.code
 
         name = self.name
+
+        count = self.count
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -34,6 +40,8 @@ class ISP:
                 "name": name,
             }
         )
+        if count is not UNSET:
+            field_dict["count"] = count
 
         return field_dict
 
@@ -44,9 +52,12 @@ class ISP:
 
         name = d.pop("name")
 
+        count = d.pop("count", UNSET)
+
         isp = cls(
             code=code,
             name=name,
+            count=count,
         )
 
         isp.additional_properties = d

@@ -37,6 +37,12 @@ class Order:
     updated: datetime.datetime
     created: datetime.datetime
     id: str | Unset = UNSET
+    connection_limit: int | Unset = UNSET
+    speed_limit: int | Unset = UNSET
+    """ Bandwidth cap in Mbit/s applied across all connections for a user on this package. Set to 0 for unlimited.
+    """
+    fulfillment_kind: str | Unset = UNSET
+    rental_status: None | str | Unset = UNSET
     auto_renewal_percentage: int | Unset = UNSET
     """ When this percentage of the data allowance has been consumed, the order is automatically renewed if the user
     has sufficient balance. Set to 0 to disable auto-renewal. 80 → renew when 80% of data is used """
@@ -57,6 +63,8 @@ class Order:
     """ Amount of data added to this order in bytes during the most recent top-up. """
     latest_data_top_up_date: datetime.datetime | None | Unset = UNSET
     """ Timestamp of the most recent data top-up, set when an invoice is fulfilled. """
+    expires: datetime.datetime | None | Unset = UNSET
+    """ Date and time when this order expires and access is revoked. Leave blank for orders that do not expire. """
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -83,6 +91,18 @@ class Order:
         created = self.created.isoformat()
 
         id = self.id
+
+        connection_limit = self.connection_limit
+
+        speed_limit = self.speed_limit
+
+        fulfillment_kind = self.fulfillment_kind
+
+        rental_status: None | str | Unset
+        if isinstance(self.rental_status, Unset):
+            rental_status = UNSET
+        else:
+            rental_status = self.rental_status
 
         auto_renewal_percentage = self.auto_renewal_percentage
 
@@ -114,6 +134,14 @@ class Order:
         else:
             latest_data_top_up_date = self.latest_data_top_up_date
 
+        expires: None | str | Unset
+        if isinstance(self.expires, Unset):
+            expires = UNSET
+        elif isinstance(self.expires, datetime.datetime):
+            expires = self.expires.isoformat()
+        else:
+            expires = self.expires
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
@@ -130,6 +158,14 @@ class Order:
         )
         if id is not UNSET:
             field_dict["id"] = id
+        if connection_limit is not UNSET:
+            field_dict["connection_limit"] = connection_limit
+        if speed_limit is not UNSET:
+            field_dict["speed_limit"] = speed_limit
+        if fulfillment_kind is not UNSET:
+            field_dict["fulfillment_kind"] = fulfillment_kind
+        if rental_status is not UNSET:
+            field_dict["rental_status"] = rental_status
         if auto_renewal_percentage is not UNSET:
             field_dict["auto_renewal_percentage"] = auto_renewal_percentage
         if auto_renewal_data is not UNSET:
@@ -146,6 +182,8 @@ class Order:
             field_dict["latest_data_top_up"] = latest_data_top_up
         if latest_data_top_up_date is not UNSET:
             field_dict["latest_data_top_up_date"] = latest_data_top_up_date
+        if expires is not UNSET:
+            field_dict["expires"] = expires
 
         return field_dict
 
@@ -177,6 +215,21 @@ class Order:
         created = datetime.datetime.fromisoformat(d.pop("created"))
 
         id = d.pop("id", UNSET)
+
+        connection_limit = d.pop("connection_limit", UNSET)
+
+        speed_limit = d.pop("speed_limit", UNSET)
+
+        fulfillment_kind = d.pop("fulfillment_kind", UNSET)
+
+        def _parse_rental_status(data: object) -> None | str | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(None | str | Unset, data)
+
+        rental_status = _parse_rental_status(d.pop("rental_status", UNSET))
 
         auto_renewal_percentage = d.pop("auto_renewal_percentage", UNSET)
 
@@ -226,6 +279,23 @@ class Order:
             d.pop("latest_data_top_up_date", UNSET)
         )
 
+        def _parse_expires(data: object) -> datetime.datetime | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, str):
+                    raise TypeError()
+                expires_type_0 = datetime.datetime.fromisoformat(data)
+
+                return expires_type_0
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(datetime.datetime | None | Unset, data)
+
+        expires = _parse_expires(d.pop("expires", UNSET))
+
         order = cls(
             is_auto_renewal=is_auto_renewal,
             package=package,
@@ -236,6 +306,10 @@ class Order:
             updated=updated,
             created=created,
             id=id,
+            connection_limit=connection_limit,
+            speed_limit=speed_limit,
+            fulfillment_kind=fulfillment_kind,
+            rental_status=rental_status,
             auto_renewal_percentage=auto_renewal_percentage,
             auto_renewal_data=auto_renewal_data,
             proxy_password=proxy_password,
@@ -244,6 +318,7 @@ class Order:
             data=data,
             latest_data_top_up=latest_data_top_up,
             latest_data_top_up_date=latest_data_top_up_date,
+            expires=expires,
         )
 
         order.additional_properties = d

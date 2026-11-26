@@ -8,19 +8,22 @@ from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..models.otp_challenge_status_enum import OTPChallengeStatusEnum
+
 
 T = TypeVar("T", bound="OTPChallenge")
 
 
 @_attrs_define
 class OTPChallenge:
-    status: str
+    status: OTPChallengeStatusEnum
+    """ * `otp_required` - otp_required """
     challenge: str
     expires_in: int
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        status = self.status
+        status = self.status.value
 
         challenge = self.challenge
 
@@ -41,7 +44,7 @@ class OTPChallenge:
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
-        status = d.pop("status")
+        status = OTPChallengeStatusEnum(d.pop("status"))
 
         challenge = d.pop("challenge")
 

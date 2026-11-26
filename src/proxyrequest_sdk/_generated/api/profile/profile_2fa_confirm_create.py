@@ -11,9 +11,7 @@ from ...types import Response, UNSET
 from ... import errors
 
 from ...models.enabled_response import EnabledResponse
-from ...models.profile_2_fa_confirm_create_response_400 import Profile2FaConfirmCreateResponse400
-from ...models.profile_2_fa_confirm_create_response_401 import Profile2FaConfirmCreateResponse401
-from ...models.profile_2_fa_confirm_create_response_403 import Profile2FaConfirmCreateResponse403
+from ...models.mfa_error import MFAError
 from ...models.two_factor_confirm_request import TwoFactorConfirmRequest
 from ...types import UNSET, Unset
 from typing import cast
@@ -21,7 +19,7 @@ from typing import cast
 
 def _get_kwargs(
     *,
-    body: TwoFactorConfirmRequest,
+    body: TwoFactorConfirmRequest | Unset = UNSET,
     accept_language: str | Unset = UNSET,
     x_impersonate_user: str | Unset = UNSET,
 ) -> dict[str, Any]:
@@ -37,7 +35,8 @@ def _get_kwargs(
         "url": "/profile/2fa/confirm",
     }
 
-    _kwargs["json"] = body.to_dict()
+    if not isinstance(body, Unset):
+        _kwargs["json"] = body.to_dict()
 
     headers["Content-Type"] = "application/json"
 
@@ -47,32 +46,36 @@ def _get_kwargs(
 
 def _parse_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> (
-    EnabledResponse
-    | Profile2FaConfirmCreateResponse400
-    | Profile2FaConfirmCreateResponse401
-    | Profile2FaConfirmCreateResponse403
-    | None
-):
+) -> EnabledResponse | MFAError | None:
     if response.status_code == 200:
         response_200 = EnabledResponse.from_dict(response.json())
 
         return response_200
 
     if response.status_code == 400:
-        response_400 = Profile2FaConfirmCreateResponse400.from_dict(response.json())
+        response_400 = MFAError.from_dict(response.json())
 
         return response_400
 
     if response.status_code == 401:
-        response_401 = Profile2FaConfirmCreateResponse401.from_dict(response.json())
+        response_401 = MFAError.from_dict(response.json())
 
         return response_401
 
     if response.status_code == 403:
-        response_403 = Profile2FaConfirmCreateResponse403.from_dict(response.json())
+        response_403 = MFAError.from_dict(response.json())
 
         return response_403
+
+    if response.status_code == 429:
+        response_429 = MFAError.from_dict(response.json())
+
+        return response_429
+
+    if response.status_code == 503:
+        response_503 = MFAError.from_dict(response.json())
+
+        return response_503
 
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
@@ -82,12 +85,7 @@ def _parse_response(
 
 def _build_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[
-    EnabledResponse
-    | Profile2FaConfirmCreateResponse400
-    | Profile2FaConfirmCreateResponse401
-    | Profile2FaConfirmCreateResponse403
-]:
+) -> Response[EnabledResponse | MFAError]:
     parsed = parse_response(_parse_response, client=client, response=response)
     return Response(
         status_code=HTTPStatus(response.status_code),
@@ -100,30 +98,26 @@ def _build_response(
 def sync_detailed(
     *,
     client: AuthenticatedClient,
-    body: TwoFactorConfirmRequest,
+    body: TwoFactorConfirmRequest | Unset = UNSET,
     accept_language: str | Unset = UNSET,
     x_impersonate_user: str | Unset = UNSET,
-) -> Response[
-    EnabledResponse
-    | Profile2FaConfirmCreateResponse400
-    | Profile2FaConfirmCreateResponse401
-    | Profile2FaConfirmCreateResponse403
-]:
-    """Confirm two-factor authentication
+) -> Response[EnabledResponse | MFAError]:
+    """Manage two-factor authentication
 
-     Activates the pending authenticator after verifying its code and revokes previous JWTs.
+     Prepare or confirm an authenticator, disable it, or replace recovery codes. Changes revoke previous
+    authentication proofs. Setup returns an SVG QR code and recovery codes are returned once.
 
     Args:
         accept_language (str | Unset):  Defaults to the client language.
         x_impersonate_user (str | Unset):
-        body (TwoFactorConfirmRequest):
+        body (TwoFactorConfirmRequest | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[EnabledResponse | Profile2FaConfirmCreateResponse400 | Profile2FaConfirmCreateResponse401 | Profile2FaConfirmCreateResponse403]
+        Response[EnabledResponse | MFAError]
     """
 
     kwargs = _get_kwargs(
@@ -142,31 +136,26 @@ def sync_detailed(
 def sync(
     *,
     client: AuthenticatedClient,
-    body: TwoFactorConfirmRequest,
+    body: TwoFactorConfirmRequest | Unset = UNSET,
     accept_language: str | Unset = UNSET,
     x_impersonate_user: str | Unset = UNSET,
-) -> (
-    EnabledResponse
-    | Profile2FaConfirmCreateResponse400
-    | Profile2FaConfirmCreateResponse401
-    | Profile2FaConfirmCreateResponse403
-    | None
-):
-    """Confirm two-factor authentication
+) -> EnabledResponse | MFAError | None:
+    """Manage two-factor authentication
 
-     Activates the pending authenticator after verifying its code and revokes previous JWTs.
+     Prepare or confirm an authenticator, disable it, or replace recovery codes. Changes revoke previous
+    authentication proofs. Setup returns an SVG QR code and recovery codes are returned once.
 
     Args:
         accept_language (str | Unset):  Defaults to the client language.
         x_impersonate_user (str | Unset):
-        body (TwoFactorConfirmRequest):
+        body (TwoFactorConfirmRequest | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        EnabledResponse | Profile2FaConfirmCreateResponse400 | Profile2FaConfirmCreateResponse401 | Profile2FaConfirmCreateResponse403
+        EnabledResponse | MFAError
     """
 
     return sync_detailed(
@@ -180,30 +169,26 @@ def sync(
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
-    body: TwoFactorConfirmRequest,
+    body: TwoFactorConfirmRequest | Unset = UNSET,
     accept_language: str | Unset = UNSET,
     x_impersonate_user: str | Unset = UNSET,
-) -> Response[
-    EnabledResponse
-    | Profile2FaConfirmCreateResponse400
-    | Profile2FaConfirmCreateResponse401
-    | Profile2FaConfirmCreateResponse403
-]:
-    """Confirm two-factor authentication
+) -> Response[EnabledResponse | MFAError]:
+    """Manage two-factor authentication
 
-     Activates the pending authenticator after verifying its code and revokes previous JWTs.
+     Prepare or confirm an authenticator, disable it, or replace recovery codes. Changes revoke previous
+    authentication proofs. Setup returns an SVG QR code and recovery codes are returned once.
 
     Args:
         accept_language (str | Unset):  Defaults to the client language.
         x_impersonate_user (str | Unset):
-        body (TwoFactorConfirmRequest):
+        body (TwoFactorConfirmRequest | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[EnabledResponse | Profile2FaConfirmCreateResponse400 | Profile2FaConfirmCreateResponse401 | Profile2FaConfirmCreateResponse403]
+        Response[EnabledResponse | MFAError]
     """
 
     kwargs = _get_kwargs(
@@ -220,31 +205,26 @@ async def asyncio_detailed(
 async def asyncio(
     *,
     client: AuthenticatedClient,
-    body: TwoFactorConfirmRequest,
+    body: TwoFactorConfirmRequest | Unset = UNSET,
     accept_language: str | Unset = UNSET,
     x_impersonate_user: str | Unset = UNSET,
-) -> (
-    EnabledResponse
-    | Profile2FaConfirmCreateResponse400
-    | Profile2FaConfirmCreateResponse401
-    | Profile2FaConfirmCreateResponse403
-    | None
-):
-    """Confirm two-factor authentication
+) -> EnabledResponse | MFAError | None:
+    """Manage two-factor authentication
 
-     Activates the pending authenticator after verifying its code and revokes previous JWTs.
+     Prepare or confirm an authenticator, disable it, or replace recovery codes. Changes revoke previous
+    authentication proofs. Setup returns an SVG QR code and recovery codes are returned once.
 
     Args:
         accept_language (str | Unset):  Defaults to the client language.
         x_impersonate_user (str | Unset):
-        body (TwoFactorConfirmRequest):
+        body (TwoFactorConfirmRequest | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        EnabledResponse | Profile2FaConfirmCreateResponse400 | Profile2FaConfirmCreateResponse401 | Profile2FaConfirmCreateResponse403
+        EnabledResponse | MFAError
     """
 
     return (

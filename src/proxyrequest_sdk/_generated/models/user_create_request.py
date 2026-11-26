@@ -24,7 +24,7 @@ class UserCreateRequest:
     """Fields accepted when a reseller or administrator creates a customer account."""
 
     username: str
-    """ Unique username for the account. Must be 4-128 characters. """
+    """ Unique username for the account. Must be 3-128 characters. """
     password: str
     """ Account password. Must be 8-128 characters long. """
     email: str | Unset = UNSET
@@ -55,12 +55,16 @@ class UserCreateRequest:
     """ Superuser only: true creates an independent account with no parent. False (default) creates a sub-user under
     the caller. """
     data: int | Unset = UNSET
-    """ Initial integer-byte data amount. With package_id, a normal sub-user receives a virtual quota from the
-    caller's existing root order; is_top_level=true provisions a separate paid purchase. Omit both data and
-    package_id to create identity without package access. """
+    """ Initial integer-byte data amount. With package_id, a normal sub-user receives traffic from the caller's root
+    order: ordinary callers transfer available balance, while resellers grant a virtual quota; is_top_level=true
+    provisions a separate paid purchase. Omit both data and package_id to create identity without package access.
+    """
     package_id: UUID | Unset = UNSET
     """ ProxyRequest package UUID to assign to the user. Headless integrations resolve it from their local product
     mapping. """
+    package_connection_limit: int | Unset = UNSET
+    """ Connection limit for the initially assigned sub-user package only. Use -1 for package settings. Requires
+    package_id and positive data; cannot be combined with connection_limit or is_top_level=true. """
     meta: UserCreateRequestMeta | Unset = UNSET
     """ Additional metadata for the user. Maximum 50 fields. """
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
@@ -108,6 +112,8 @@ class UserCreateRequest:
         if not isinstance(self.package_id, Unset):
             package_id = str(self.package_id)
 
+        package_connection_limit = self.package_connection_limit
+
         meta: dict[str, Any] | Unset = UNSET
         if not isinstance(self.meta, Unset):
             meta = self.meta.to_dict()
@@ -150,6 +156,8 @@ class UserCreateRequest:
             field_dict["data"] = data
         if package_id is not UNSET:
             field_dict["package_id"] = package_id
+        if package_connection_limit is not UNSET:
+            field_dict["package_connection_limit"] = package_connection_limit
         if meta is not UNSET:
             field_dict["meta"] = meta
 
@@ -199,6 +207,8 @@ class UserCreateRequest:
         else:
             package_id = UUID(_package_id)
 
+        package_connection_limit = d.pop("package_connection_limit", UNSET)
+
         _meta = d.pop("meta", UNSET)
         meta: UserCreateRequestMeta | Unset
         if isinstance(_meta, Unset):
@@ -224,6 +234,7 @@ class UserCreateRequest:
             is_top_level=is_top_level,
             data=data,
             package_id=package_id,
+            package_connection_limit=package_connection_limit,
             meta=meta,
         )
 

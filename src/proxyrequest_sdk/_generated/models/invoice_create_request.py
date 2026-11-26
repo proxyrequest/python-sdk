@@ -11,7 +11,11 @@ from ..types import UNSET, Unset
 from ..models.invoice_create_request_gateway_enum import InvoiceCreateRequestGatewayEnum
 from ..models.invoice_create_request_status_enum import InvoiceCreateRequestStatusEnum
 from ..types import UNSET, Unset
+from typing import cast
 from uuid import UUID
+
+if TYPE_CHECKING:
+    from ..models.invoice_create_request_payer_details import InvoiceCreateRequestPayerDetails
 
 
 T = TypeVar("T", bound="InvoiceCreateRequest")
@@ -20,15 +24,24 @@ T = TypeVar("T", bound="InvoiceCreateRequest")
 @_attrs_define
 class InvoiceCreateRequest:
     gateway: InvoiceCreateRequestGatewayEnum
-    """ * `crypto` - crypto * `credit_card` - credit_card * `wallet` - wallet * `manual` - manual * `stripe` -
-    stripe * `coinbase` - coinbase * `cryptomus` - cryptomus * `coingate` - coingate * `whitepay` - whitepay *
-    `wayforpay` - wayforpay * `usegateway` - usegateway * `binance` - binance * `anymoney` - anymoney *
-    `coinpayments` - coinpayments * `checkoutcom` - checkoutcom * `nowpayments` - nowpayments * `btcpay` - btcpay *
-    `braintree` - braintree * `monobank` - monobank * `liqpay` - liqpay * `iyzico` - iyzico * `paytr` - paytr *
-    `payu` - payu * `tpay` - tpay * `przelewy24` - przelewy24 * `gopay` - gopay * `comgate` - comgate * `monei` -
-    monei * `redsys` - redsys * `payplug` - payplug * `mollie` - mollie * `unzer` - unzer * `payone` - payone *
-    `nexi_xpay` - nexi_xpay * `halyk_epay` - halyk_epay * `kaspi_pay` - kaspi_pay * `vipps_mobilepay` -
-    vipps_mobilepay * `paytrail` - paytrail """
+    """ * `revolut` - revolut * `paypal` - paypal * `coinbase` - coinbase * `cryptomus` - cryptomus * `stripe` -
+    stripe * `coingate` - coingate * `wallet` - wallet * `manual` - manual * `whitepay` - whitepay * `wayforpay` -
+    wayforpay * `usegateway` - usegateway * `binance` - binance * `anymoney` - anymoney * `coinpayments` -
+    coinpayments * `checkoutcom` - checkoutcom * `nowpayments` - nowpayments * `btcpay` - btcpay * `braintree` -
+    braintree * `monobank` - monobank * `liqpay` - liqpay * `iyzico` - iyzico * `paytr` - paytr * `payu` - payu *
+    `tpay` - tpay * `przelewy24` - przelewy24 * `gopay` - gopay * `comgate` - comgate * `monei` - monei * `redsys` -
+    redsys * `payplug` - payplug * `mollie` - mollie * `unzer` - unzer * `payone` - payone * `nexi_xpay` - nexi_xpay
+    * `halyk_epay` - halyk_epay * `kaspi_pay` - kaspi_pay * `vipps_mobilepay` - vipps_mobilepay * `paytrail` -
+    paytrail * `crypto` - crypto * `credit_card` - credit_card """
+    payer_details: InvoiceCreateRequestPayerDetails | Unset = UNSET
+    """ Regional payer data: first_name, last_name, identity_number, address, city, country, phone. Required keys
+    depend on the provider. """
+    pricing_plan_id: UUID | Unset = UNSET
+    """ Required for bandwidth pricing: active plan from the package catalogue. Defines Mbps, duration in 24-hour
+    days and price; omit data/amount/quantity/expires. """
+    quote_token: str | Unset = UNSET
+    """ For an active bandwidth upgrade, pass the signed token from POST /invoices/quote/. Valid for 60 seconds and
+    bound to the buyer, plan and current access. Upgrades require wallet payment. """
     package_id: UUID | Unset = UNSET
     """ Package to purchase. Required for package purchases. """
     user_id: UUID | Unset = UNSET
@@ -67,7 +80,19 @@ class InvoiceCreateRequest:
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
+        from ..models.invoice_create_request_payer_details import InvoiceCreateRequestPayerDetails
+
         gateway = self.gateway.value
+
+        payer_details: dict[str, Any] | Unset = UNSET
+        if not isinstance(self.payer_details, Unset):
+            payer_details = self.payer_details.to_dict()
+
+        pricing_plan_id: str | Unset = UNSET
+        if not isinstance(self.pricing_plan_id, Unset):
+            pricing_plan_id = str(self.pricing_plan_id)
+
+        quote_token = self.quote_token
 
         package_id: str | Unset = UNSET
         if not isinstance(self.package_id, Unset):
@@ -114,6 +139,12 @@ class InvoiceCreateRequest:
                 "gateway": gateway,
             }
         )
+        if payer_details is not UNSET:
+            field_dict["payer_details"] = payer_details
+        if pricing_plan_id is not UNSET:
+            field_dict["pricing_plan_id"] = pricing_plan_id
+        if quote_token is not UNSET:
+            field_dict["quote_token"] = quote_token
         if package_id is not UNSET:
             field_dict["package_id"] = package_id
         if user_id is not UNSET:
@@ -151,8 +182,26 @@ class InvoiceCreateRequest:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+        from ..models.invoice_create_request_payer_details import InvoiceCreateRequestPayerDetails
+
         d = dict(src_dict)
         gateway = InvoiceCreateRequestGatewayEnum(d.pop("gateway"))
+
+        _payer_details = d.pop("payer_details", UNSET)
+        payer_details: InvoiceCreateRequestPayerDetails | Unset
+        if isinstance(_payer_details, Unset):
+            payer_details = UNSET
+        else:
+            payer_details = InvoiceCreateRequestPayerDetails.from_dict(_payer_details)
+
+        _pricing_plan_id = d.pop("pricing_plan_id", UNSET)
+        pricing_plan_id: UUID | Unset
+        if isinstance(_pricing_plan_id, Unset):
+            pricing_plan_id = UNSET
+        else:
+            pricing_plan_id = UUID(_pricing_plan_id)
+
+        quote_token = d.pop("quote_token", UNSET)
 
         _package_id = d.pop("package_id", UNSET)
         package_id: UUID | Unset
@@ -203,6 +252,9 @@ class InvoiceCreateRequest:
 
         invoice_create_request = cls(
             gateway=gateway,
+            payer_details=payer_details,
+            pricing_plan_id=pricing_plan_id,
+            quote_token=quote_token,
             package_id=package_id,
             user_id=user_id,
             status=status,

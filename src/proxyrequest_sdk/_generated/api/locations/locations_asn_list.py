@@ -13,6 +13,7 @@ from ... import errors
 from ...models.locations_asn_list_response_400 import LocationsAsnListResponse400
 from ...models.locations_asn_list_response_401 import LocationsAsnListResponse401
 from ...models.locations_asn_list_response_403 import LocationsAsnListResponse403
+from ...models.locations_asn_list_response_503 import LocationsAsnListResponse503
 from ...models.paginated_location_asn_record_list import PaginatedLocationASNRecordList
 from ...types import UNSET, Unset
 from typing import cast
@@ -26,6 +27,8 @@ def _get_kwargs(
     global_: bool | Unset = UNSET,
     include_geo: bool | Unset = False,
     limit: int | Unset = UNSET,
+    max_count: int | Unset = UNSET,
+    min_count: int | Unset = UNSET,
     name: str | Unset = UNSET,
     offset: int | Unset = UNSET,
     ordering: str | Unset = UNSET,
@@ -52,6 +55,10 @@ def _get_kwargs(
     params["include_geo"] = include_geo
 
     params["limit"] = limit
+
+    params["max_count"] = max_count
+
+    params["min_count"] = min_count
 
     params["name"] = name
 
@@ -82,6 +89,7 @@ def _parse_response(
     LocationsAsnListResponse400
     | LocationsAsnListResponse401
     | LocationsAsnListResponse403
+    | LocationsAsnListResponse503
     | PaginatedLocationASNRecordList
     | None
 ):
@@ -105,6 +113,11 @@ def _parse_response(
 
         return response_403
 
+    if response.status_code == 503:
+        response_503 = LocationsAsnListResponse503.from_dict(response.json())
+
+        return response_503
+
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     else:
@@ -117,6 +130,7 @@ def _build_response(
     LocationsAsnListResponse400
     | LocationsAsnListResponse401
     | LocationsAsnListResponse403
+    | LocationsAsnListResponse503
     | PaginatedLocationASNRecordList
 ]:
     parsed = parse_response(_parse_response, client=client, response=response)
@@ -136,6 +150,8 @@ def sync_detailed(
     global_: bool | Unset = UNSET,
     include_geo: bool | Unset = False,
     limit: int | Unset = UNSET,
+    max_count: int | Unset = UNSET,
+    min_count: int | Unset = UNSET,
     name: str | Unset = UNSET,
     offset: int | Unset = UNSET,
     ordering: str | Unset = UNSET,
@@ -147,6 +163,7 @@ def sync_detailed(
     LocationsAsnListResponse400
     | LocationsAsnListResponse401
     | LocationsAsnListResponse403
+    | LocationsAsnListResponse503
     | PaginatedLocationASNRecordList
 ]:
     """List available autonomous systems
@@ -160,6 +177,8 @@ def sync_detailed(
         global_ (bool | Unset):
         include_geo (bool | Unset):  Default: False.
         limit (int | Unset):
+        max_count (int | Unset):
+        min_count (int | Unset):
         name (str | Unset):
         offset (int | Unset):
         ordering (str | Unset):
@@ -173,7 +192,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[LocationsAsnListResponse400 | LocationsAsnListResponse401 | LocationsAsnListResponse403 | PaginatedLocationASNRecordList]
+        Response[LocationsAsnListResponse400 | LocationsAsnListResponse401 | LocationsAsnListResponse403 | LocationsAsnListResponse503 | PaginatedLocationASNRecordList]
     """
 
     kwargs = _get_kwargs(
@@ -182,6 +201,8 @@ def sync_detailed(
         global_=global_,
         include_geo=include_geo,
         limit=limit,
+        max_count=max_count,
+        min_count=min_count,
         name=name,
         offset=offset,
         ordering=ordering,
@@ -206,6 +227,8 @@ def sync(
     global_: bool | Unset = UNSET,
     include_geo: bool | Unset = False,
     limit: int | Unset = UNSET,
+    max_count: int | Unset = UNSET,
+    min_count: int | Unset = UNSET,
     name: str | Unset = UNSET,
     offset: int | Unset = UNSET,
     ordering: str | Unset = UNSET,
@@ -217,6 +240,7 @@ def sync(
     LocationsAsnListResponse400
     | LocationsAsnListResponse401
     | LocationsAsnListResponse403
+    | LocationsAsnListResponse503
     | PaginatedLocationASNRecordList
     | None
 ):
@@ -231,6 +255,8 @@ def sync(
         global_ (bool | Unset):
         include_geo (bool | Unset):  Default: False.
         limit (int | Unset):
+        max_count (int | Unset):
+        min_count (int | Unset):
         name (str | Unset):
         offset (int | Unset):
         ordering (str | Unset):
@@ -244,7 +270,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        LocationsAsnListResponse400 | LocationsAsnListResponse401 | LocationsAsnListResponse403 | PaginatedLocationASNRecordList
+        LocationsAsnListResponse400 | LocationsAsnListResponse401 | LocationsAsnListResponse403 | LocationsAsnListResponse503 | PaginatedLocationASNRecordList
     """
 
     return sync_detailed(
@@ -254,6 +280,8 @@ def sync(
         global_=global_,
         include_geo=include_geo,
         limit=limit,
+        max_count=max_count,
+        min_count=min_count,
         name=name,
         offset=offset,
         ordering=ordering,
@@ -272,6 +300,8 @@ async def asyncio_detailed(
     global_: bool | Unset = UNSET,
     include_geo: bool | Unset = False,
     limit: int | Unset = UNSET,
+    max_count: int | Unset = UNSET,
+    min_count: int | Unset = UNSET,
     name: str | Unset = UNSET,
     offset: int | Unset = UNSET,
     ordering: str | Unset = UNSET,
@@ -283,6 +313,7 @@ async def asyncio_detailed(
     LocationsAsnListResponse400
     | LocationsAsnListResponse401
     | LocationsAsnListResponse403
+    | LocationsAsnListResponse503
     | PaginatedLocationASNRecordList
 ]:
     """List available autonomous systems
@@ -296,6 +327,8 @@ async def asyncio_detailed(
         global_ (bool | Unset):
         include_geo (bool | Unset):  Default: False.
         limit (int | Unset):
+        max_count (int | Unset):
+        min_count (int | Unset):
         name (str | Unset):
         offset (int | Unset):
         ordering (str | Unset):
@@ -309,7 +342,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[LocationsAsnListResponse400 | LocationsAsnListResponse401 | LocationsAsnListResponse403 | PaginatedLocationASNRecordList]
+        Response[LocationsAsnListResponse400 | LocationsAsnListResponse401 | LocationsAsnListResponse403 | LocationsAsnListResponse503 | PaginatedLocationASNRecordList]
     """
 
     kwargs = _get_kwargs(
@@ -318,6 +351,8 @@ async def asyncio_detailed(
         global_=global_,
         include_geo=include_geo,
         limit=limit,
+        max_count=max_count,
+        min_count=min_count,
         name=name,
         offset=offset,
         ordering=ordering,
@@ -340,6 +375,8 @@ async def asyncio(
     global_: bool | Unset = UNSET,
     include_geo: bool | Unset = False,
     limit: int | Unset = UNSET,
+    max_count: int | Unset = UNSET,
+    min_count: int | Unset = UNSET,
     name: str | Unset = UNSET,
     offset: int | Unset = UNSET,
     ordering: str | Unset = UNSET,
@@ -351,6 +388,7 @@ async def asyncio(
     LocationsAsnListResponse400
     | LocationsAsnListResponse401
     | LocationsAsnListResponse403
+    | LocationsAsnListResponse503
     | PaginatedLocationASNRecordList
     | None
 ):
@@ -365,6 +403,8 @@ async def asyncio(
         global_ (bool | Unset):
         include_geo (bool | Unset):  Default: False.
         limit (int | Unset):
+        max_count (int | Unset):
+        min_count (int | Unset):
         name (str | Unset):
         offset (int | Unset):
         ordering (str | Unset):
@@ -378,7 +418,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        LocationsAsnListResponse400 | LocationsAsnListResponse401 | LocationsAsnListResponse403 | PaginatedLocationASNRecordList
+        LocationsAsnListResponse400 | LocationsAsnListResponse401 | LocationsAsnListResponse403 | LocationsAsnListResponse503 | PaginatedLocationASNRecordList
     """
 
     return (
@@ -389,6 +429,8 @@ async def asyncio(
             global_=global_,
             include_geo=include_geo,
             limit=limit,
+            max_count=max_count,
+            min_count=min_count,
             name=name,
             offset=offset,
             ordering=ordering,
