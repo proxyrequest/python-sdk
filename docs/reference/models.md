@@ -136,6 +136,7 @@ Models use snake_case attributes and provide `to_dict()` / `from_dict()` helpers
 - `PaginatedWebhookListList`
 - `PasswordRecoveryResponse`
 - `PasswordResetInputRequest`
+- `PasswordRotationStatusEnum` — * `pending` - pending * `running` - running * `unknown` - unknown * `succeeded` - succeeded * `failed` - failed
 - `PatchedCouponUpdateRequest`
 - `PatchedEndpointUpdateRequest`
 - `PatchedOrderAutoRenewalRequest`

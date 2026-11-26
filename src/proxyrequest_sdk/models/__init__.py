@@ -163,6 +163,7 @@ from .._generated.models.paginated_reward_list import PaginatedRewardList
 from .._generated.models.paginated_user_list import PaginatedUserList
 from .._generated.models.paginated_webhook_list import PaginatedWebhookList
 from .._generated.models.password_recovery_response import PasswordRecoveryResponse
+from .._generated.models.password_rotation_status_enum import PasswordRotationStatusEnum
 from .._generated.models.patched_coupon_update_request import PatchedCouponUpdateRequest
 from .._generated.models.patched_endpoint_update_request import PatchedEndpointUpdateRequest
 from .._generated.models.patched_order_auto_renewal_request import PatchedOrderAutoRenewalRequest
@@ -444,6 +445,7 @@ __all__ = [
     "PaginatedUserList",
     "PaginatedWebhookList",
     "PasswordRecoveryResponse",
+    "PasswordRotationStatusEnum",
     "PatchedCouponUpdateRequest",
     "PatchedEndpointUpdateRequest",
     "PatchedOrderAutoRenewalRequest",

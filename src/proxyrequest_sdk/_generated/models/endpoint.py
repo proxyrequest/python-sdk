@@ -8,6 +8,7 @@ from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..models.password_rotation_status_enum import PasswordRotationStatusEnum
 from ..types import UNSET, Unset
 from typing import cast
 
@@ -31,6 +32,7 @@ class Endpoint:
     id: str | Unset = UNSET
     label: str | Unset = UNSET
     is_active: bool | Unset = UNSET
+    password_rotation_status: None | PasswordRotationStatusEnum | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -63,6 +65,14 @@ class Endpoint:
 
         is_active = self.is_active
 
+        password_rotation_status: None | str | Unset
+        if isinstance(self.password_rotation_status, Unset):
+            password_rotation_status = UNSET
+        elif isinstance(self.password_rotation_status, PasswordRotationStatusEnum):
+            password_rotation_status = self.password_rotation_status.value
+        else:
+            password_rotation_status = self.password_rotation_status
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
@@ -81,6 +91,8 @@ class Endpoint:
             field_dict["label"] = label
         if is_active is not UNSET:
             field_dict["is_active"] = is_active
+        if password_rotation_status is not UNSET:
+            field_dict["password_rotation_status"] = password_rotation_status
 
         return field_dict
 
@@ -124,6 +136,27 @@ class Endpoint:
 
         is_active = d.pop("is_active", UNSET)
 
+        def _parse_password_rotation_status(
+            data: object,
+        ) -> None | PasswordRotationStatusEnum | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, str):
+                    raise TypeError()
+                password_rotation_status_type_0 = PasswordRotationStatusEnum(data)
+
+                return password_rotation_status_type_0
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(None | PasswordRotationStatusEnum | Unset, data)
+
+        password_rotation_status = _parse_password_rotation_status(
+            d.pop("password_rotation_status", UNSET)
+        )
+
         endpoint = cls(
             order_id=order_id,
             allowed_ips=allowed_ips,
@@ -134,6 +167,7 @@ class Endpoint:
             id=id,
             label=label,
             is_active=is_active,
+            password_rotation_status=password_rotation_status,
         )
 
         endpoint.additional_properties = d

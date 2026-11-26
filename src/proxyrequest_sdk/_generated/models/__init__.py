@@ -479,6 +479,7 @@ from .paginated_reward_list import PaginatedRewardList
 from .paginated_user_list import PaginatedUserList
 from .paginated_webhook_list import PaginatedWebhookList
 from .password_recovery_response import PasswordRecoveryResponse
+from .password_rotation_status_enum import PasswordRotationStatusEnum
 from .patched_coupon_update_request import PatchedCouponUpdateRequest
 from .patched_endpoint_update_request import PatchedEndpointUpdateRequest
 from .patched_order_auto_renewal_request import PatchedOrderAutoRenewalRequest
@@ -1221,6 +1222,7 @@ __all__ = (
     "PaginatedUserList",
     "PaginatedWebhookList",
     "PasswordRecoveryResponse",
+    "PasswordRotationStatusEnum",
     "PatchedCouponUpdateRequest",
     "PatchedEndpointUpdateRequest",
     "PatchedOrderAutoRenewalRequest",

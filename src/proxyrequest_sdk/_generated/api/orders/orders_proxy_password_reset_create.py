@@ -31,6 +31,7 @@ from uuid import UUID
 def _get_kwargs(
     id: UUID,
     *,
+    endpoint_id: UUID | Unset = UNSET,
     accept_language: str | Unset = UNSET,
     x_impersonate_user: str | Unset = UNSET,
 ) -> dict[str, Any]:
@@ -41,11 +42,21 @@ def _get_kwargs(
     if not isinstance(x_impersonate_user, Unset):
         headers["X-Impersonate-User"] = x_impersonate_user
 
+    params: dict[str, Any] = {}
+
+    json_endpoint_id: str | Unset = UNSET
+    if not isinstance(endpoint_id, Unset):
+        json_endpoint_id = str(endpoint_id)
+    params["endpoint_id"] = json_endpoint_id
+
+    params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
+
     _kwargs: dict[str, Any] = {
         "method": "post",
         "url": "/orders/{id}/proxy-password/reset".format(
             id=quote(str(id), safe=""),
         ),
+        "params": params,
     }
 
     _kwargs["headers"] = headers
@@ -66,6 +77,11 @@ def _parse_response(
         response_200 = ProxyPasswordResetResponse.from_dict(response.json())
 
         return response_200
+
+    if response.status_code == 202:
+        response_202 = ProxyPasswordResetResponse.from_dict(response.json())
+
+        return response_202
 
     if response.status_code == 400:
         response_400 = OrdersProxyPasswordResetCreateResponse400.from_dict(response.json())
@@ -115,6 +131,7 @@ def sync_detailed(
     id: UUID,
     *,
     client: AuthenticatedClient,
+    endpoint_id: UUID | Unset = UNSET,
     accept_language: str | Unset = UNSET,
     x_impersonate_user: str | Unset = UNSET,
 ) -> Response[
@@ -126,11 +143,13 @@ def sync_detailed(
 ]:
     """Rotate the password for a static rental order
 
-     Rotate the password for an owned static rental order. Read the rental again to obtain the new
-    credentials.
+     Rotate all supported credentials in the order, or select the shared credential group of one
+    endpoint. Supplier resets return 202. Poll the endpoint password_rotation_status and read the new
+    credentials after success.
 
     Args:
         id (UUID):
+        endpoint_id (UUID | Unset):
         accept_language (str | Unset):  Defaults to the client language.
         x_impersonate_user (str | Unset):
 
@@ -144,6 +163,7 @@ def sync_detailed(
 
     kwargs = _get_kwargs(
         id=id,
+        endpoint_id=endpoint_id,
         accept_language=accept_language,
         x_impersonate_user=x_impersonate_user,
     )
@@ -159,6 +179,7 @@ def sync(
     id: UUID,
     *,
     client: AuthenticatedClient,
+    endpoint_id: UUID | Unset = UNSET,
     accept_language: str | Unset = UNSET,
     x_impersonate_user: str | Unset = UNSET,
 ) -> (
@@ -171,11 +192,13 @@ def sync(
 ):
     """Rotate the password for a static rental order
 
-     Rotate the password for an owned static rental order. Read the rental again to obtain the new
-    credentials.
+     Rotate all supported credentials in the order, or select the shared credential group of one
+    endpoint. Supplier resets return 202. Poll the endpoint password_rotation_status and read the new
+    credentials after success.
 
     Args:
         id (UUID):
+        endpoint_id (UUID | Unset):
         accept_language (str | Unset):  Defaults to the client language.
         x_impersonate_user (str | Unset):
 
@@ -190,6 +213,7 @@ def sync(
     return sync_detailed(
         id=id,
         client=client,
+        endpoint_id=endpoint_id,
         accept_language=accept_language,
         x_impersonate_user=x_impersonate_user,
     ).parsed
@@ -199,6 +223,7 @@ async def asyncio_detailed(
     id: UUID,
     *,
     client: AuthenticatedClient,
+    endpoint_id: UUID | Unset = UNSET,
     accept_language: str | Unset = UNSET,
     x_impersonate_user: str | Unset = UNSET,
 ) -> Response[
@@ -210,11 +235,13 @@ async def asyncio_detailed(
 ]:
     """Rotate the password for a static rental order
 
-     Rotate the password for an owned static rental order. Read the rental again to obtain the new
-    credentials.
+     Rotate all supported credentials in the order, or select the shared credential group of one
+    endpoint. Supplier resets return 202. Poll the endpoint password_rotation_status and read the new
+    credentials after success.
 
     Args:
         id (UUID):
+        endpoint_id (UUID | Unset):
         accept_language (str | Unset):  Defaults to the client language.
         x_impersonate_user (str | Unset):
 
@@ -228,6 +255,7 @@ async def asyncio_detailed(
 
     kwargs = _get_kwargs(
         id=id,
+        endpoint_id=endpoint_id,
         accept_language=accept_language,
         x_impersonate_user=x_impersonate_user,
     )
@@ -241,6 +269,7 @@ async def asyncio(
     id: UUID,
     *,
     client: AuthenticatedClient,
+    endpoint_id: UUID | Unset = UNSET,
     accept_language: str | Unset = UNSET,
     x_impersonate_user: str | Unset = UNSET,
 ) -> (
@@ -253,11 +282,13 @@ async def asyncio(
 ):
     """Rotate the password for a static rental order
 
-     Rotate the password for an owned static rental order. Read the rental again to obtain the new
-    credentials.
+     Rotate all supported credentials in the order, or select the shared credential group of one
+    endpoint. Supplier resets return 202. Poll the endpoint password_rotation_status and read the new
+    credentials after success.
 
     Args:
         id (UUID):
+        endpoint_id (UUID | Unset):
         accept_language (str | Unset):  Defaults to the client language.
         x_impersonate_user (str | Unset):
 
@@ -273,6 +304,7 @@ async def asyncio(
         await asyncio_detailed(
             id=id,
             client=client,
+            endpoint_id=endpoint_id,
             accept_language=accept_language,
             x_impersonate_user=x_impersonate_user,
         )

@@ -107,3 +107,21 @@ operation before sending another payment.
 
 The same methods are available on `AsyncClient`. For example,
 `await client.orders.get_rental(order_id)` returns the same `RentalDetail`.
+
+## Rotate proxy credentials
+
+Use `client.orders.reset_proxy_password(order_id)` for an order-wide reset.
+To rotate the credentials shared by one endpoint group, pass its endpoint ID.
+Check the selected endpoint's `capabilities["rotate_password"]` before submitting.
+
+```python
+rotation = client.orders.reset_proxy_password_with_response(order_id, endpoint_id=endpoint_id)
+if rotation.status_code == 202:
+    # Read this endpoint with bounded backoff until the rotation settles.
+    endpoint = client.static_proxies.get_endpoint(endpoint_id)
+```
+
+A 200 response completes the rotation immediately. After a 202, check
+`password_rotation_status` on the selected endpoint before refreshing the
+credentials for every member of its group. An unsupported provider returns
+`ApiError.code == "unsupported_operation"`.

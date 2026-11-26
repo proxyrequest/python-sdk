@@ -189,3 +189,44 @@ async def test_static_rental_read_export_and_renew(asynchronous: bool) -> None:
         assert requests[1].url.params["protocol"] == "socks5"
         assert requests[4].headers["Idempotency-Key"] == "renew"
         assert json.loads(requests[4].content)["endpoint_ids"] == [str(ENDPOINT)]
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize("asynchronous", [False, True])
+async def test_password_rotation_preserves_order_reset_and_can_target_a_group(
+    asynchronous: bool,
+) -> None:
+    responses = [
+        httpx.Response(200, json={"message": "Password reset successfully.", "success": True}),
+        httpx.Response(202, json={"message": "Password rotation queued.", "success": True}),
+        httpx.Response(
+            200,
+            json={
+                "id": str(ENDPOINT),
+                "order_id": str(ORDER),
+                "allowed_ips": [],
+                "periods": [],
+                "connections": [],
+                "max_bandwidth_mbps": None,
+                "capabilities": {"rotate_password": True},
+                "password_rotation_status": "succeeded",
+            },
+        ),
+        httpx.Response(400, json={"code": "unsupported_operation", "detail": "Unavailable."}),
+    ]
+    async with mocked_client(asynchronous, responses) as (client, requests):
+        immediate = await result(client.orders.reset_proxy_password(ORDER))
+        assert immediate.success
+        queued = await result(
+            client.orders.reset_proxy_password_with_response(ORDER, endpoint_id=ENDPOINT)
+        )
+        assert queued.status_code == 202 and queued.data.success
+        endpoint = await result(client.static_proxies.get_endpoint(ENDPOINT))
+        assert endpoint.password_rotation_status == "succeeded"
+        with pytest.raises(ApiError) as captured:
+            await result(client.orders.reset_proxy_password(ORDER, endpoint_id=ENDPOINT))
+        assert captured.value.code == "unsupported_operation"
+        assert [r.method for r in requests] == ["POST", "POST", "GET", "POST"]
+        assert all(not r.content for r in requests)
+        assert "endpoint_id" not in requests[0].url.params
+        assert requests[1].url.params["endpoint_id"] == str(ENDPOINT)

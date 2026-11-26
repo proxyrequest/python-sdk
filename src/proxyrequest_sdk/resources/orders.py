@@ -856,6 +856,7 @@ class OrdersResource:
         self,
         id: UUID,
         *,
+        endpoint_id: UUID | Unset = UNSET,
         accept_language: str | Unset = UNSET,
         impersonate_user_id: str | Unset = UNSET,
     ) -> ProxyPasswordResetResponse:
@@ -865,6 +866,7 @@ class OrdersResource:
             self._client._call(
                 _orders_proxy_password_reset_create.sync_detailed,
                 id=id,
+                endpoint_id=endpoint_id,
                 accept_language=accept_language,
                 x_impersonate_user=impersonate_user_id,
             ),
@@ -874,6 +876,7 @@ class OrdersResource:
         self,
         id: UUID,
         *,
+        endpoint_id: UUID | Unset = UNSET,
         accept_language: str | Unset = UNSET,
         impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[ProxyPasswordResetResponse]:
@@ -883,6 +886,7 @@ class OrdersResource:
             self._client._call_with_response(
                 _orders_proxy_password_reset_create.sync_detailed,
                 id=id,
+                endpoint_id=endpoint_id,
                 accept_language=accept_language,
                 x_impersonate_user=impersonate_user_id,
             ),
@@ -1753,6 +1757,7 @@ class AsyncOrdersResource:
         self,
         id: UUID,
         *,
+        endpoint_id: UUID | Unset = UNSET,
         accept_language: str | Unset = UNSET,
         impersonate_user_id: str | Unset = UNSET,
     ) -> ProxyPasswordResetResponse:
@@ -1762,6 +1767,7 @@ class AsyncOrdersResource:
             await self._client._call(
                 _orders_proxy_password_reset_create.asyncio_detailed,
                 id=id,
+                endpoint_id=endpoint_id,
                 accept_language=accept_language,
                 x_impersonate_user=impersonate_user_id,
             ),
@@ -1771,6 +1777,7 @@ class AsyncOrdersResource:
         self,
         id: UUID,
         *,
+        endpoint_id: UUID | Unset = UNSET,
         accept_language: str | Unset = UNSET,
         impersonate_user_id: str | Unset = UNSET,
     ) -> ApiResponse[ProxyPasswordResetResponse]:
@@ -1780,6 +1787,7 @@ class AsyncOrdersResource:
             await self._client._call_with_response(
                 _orders_proxy_password_reset_create.asyncio_detailed,
                 id=id,
+                endpoint_id=endpoint_id,
                 accept_language=accept_language,
                 x_impersonate_user=impersonate_user_id,
             ),
