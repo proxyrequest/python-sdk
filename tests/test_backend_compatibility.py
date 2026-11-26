@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import inspect
 import json
-from collections.abc import AsyncIterator
+from collections.abc import AsyncIterator, Sequence
 from contextlib import asynccontextmanager
 from datetime import datetime, timedelta
 from pathlib import Path
@@ -42,13 +42,17 @@ TOKENS = {"token": "synthetic-access", "refresh": "synthetic-refresh"}
 
 @asynccontextmanager
 async def mocked_client(
-    asynchronous: bool, responses: list[httpx.Response]
+    asynchronous: bool, responses: Sequence[httpx.Response | httpx.HTTPError]
 ) -> AsyncIterator[tuple[Any, list[httpx.Request]]]:
     requests: list[httpx.Request] = []
+    remaining = iter(responses)
 
     def handler(request: httpx.Request) -> httpx.Response:
         requests.append(request)
-        return responses.pop(0)
+        response = next(remaining)
+        if isinstance(response, httpx.HTTPError):
+            raise response
+        return response
 
     if asynchronous:
         async with (

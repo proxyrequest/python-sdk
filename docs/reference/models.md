@@ -10,7 +10,20 @@ Models use snake_case attributes and provide `to_dict()` / `from_dict()` helpers
 - `AffiliateReward`
 - `AffiliateStatsPoint`
 - `AffiliateStatsResponse`
+- `AllocationModeEnum` — * `dedicated` - dedicated * `shared` - shared
+- `AutoRenewalSettingsRequest`
+- `AutoRenewalStatus`
+- `AvailabilityResponse`
+- `BandwidthPlan`
+- `BandwidthPurchase`
+- `BlankEnum`
+- `CartLine`
+- `CartLineRequest`
+- `CatalogOffer`
+- `CatalogPage`
 - `ChangePasswordRequest`
+- `ChannelEnum` — * `public_api` - Public API * `admin_panel` - Admin panel * `unknown` - Unknown
+- `CheckoutQuote`
 - `CheckoutStatusEnum` — * `not_required` - Not required * `initializing` - Initializing * `ready` - Ready * `failed` - Failed
 - `City`
 - `CommissionTypeEnum` — * `flexible` - Flexible * `percentage` - Percentage * `fixed` - Fixed
@@ -27,10 +40,16 @@ Models use snake_case attributes and provide `to_dict()` / `from_dict()` helpers
 - `CouponStats`
 - `CouponTypeEnum` — * `free_data` - Free Data * `monetary` - Money * `percentage` - Percentage
 - `CouponUpdateRequest`
+- `CredentialModeEnum` — * `shared` - shared * `per_endpoint` - per_endpoint
+- `CryptoCurrencyEnum` — * `btc` - btc * `eth` - eth * `usdt` - usdt
 - `DataLedger` — A purchased data bucket, not a complete transaction history. Finite purchases with an expiration have separate buckets. Compatible non-expiring top-ups and unlimited packages may reuse an existing bucket.
 - `DomainRecord`
 - `DomainsResponse`
+- `DurationKindEnum` — * `hours` - hours * `calendar_months` - calendar_months
 - `EnabledResponse`
+- `Endpoint`
+- `EndpointPage`
+- `EnvironmentEnum` — * `production` - production * `staging` - staging
 - `FeedRecord`
 - `FeedResponse`
 - `FreshnessEnum` — * `fresh` - fresh * `stale` - stale * `unavailable` - unavailable
@@ -40,29 +59,52 @@ Models use snake_case attributes and provide `to_dict()` / `from_dict()` helpers
 - `GoogleAuthRequest` — Enhanced Google OAuth authentication with comprehensive security validation and user management.
 - `GoogleConnectRequestRequest`
 - `ISP`
+- `IdEnum` — * `residential` - residential * `isp` - isp * `datacenter` - datacenter * `mobile` - mobile
+- `IntegrationKey`
+- `IntegrationKeyCreated`
+- `IntegrationKeyRequestRequest`
+- `IntentRequest`
 - `Invoice`
-- `InvoiceCreateRequestGatewayEnum` — * `crypto` - crypto * `credit_card` - credit_card * `wallet` - wallet * `manual` - manual * `stripe` - stripe * `coinbase` - coinbase * `cryptomus` - cryptomus * `coingate` - coingate * `whitepay` - whitepay * `wayforpay` - wayforpay * `usegateway` - usegateway * `binance` - binance * `anymoney` - anymoney * `coinpayments` - coinpayments * `checkoutcom` - checkoutcom * `nowpayments` - nowpayments * `btcpay` - btcpay * `braintree` - braintree * `monobank` - monobank * `liqpay` - liqpay * `iyzico` - iyzico * `paytr` - paytr * `payu` - payu * `tpay` - tpay * `przelewy24` - przelewy24 * `gopay` - gopay * `comgate` - comgate * `monei` - monei * `redsys` - redsys * `payplug` - payplug * `mollie` - mollie * `unzer` - unzer * `payone` - payone * `nexi_xpay` - nexi_xpay * `halyk_epay` - halyk_epay * `kaspi_pay` - kaspi_pay * `vipps_mobilepay` - vipps_mobilepay * `paytrail` - paytrail
+- `InvoiceCreateRequestGatewayEnum` — * `revolut` - revolut * `paypal` - paypal * `coinbase` - coinbase * `cryptomus` - cryptomus * `stripe` - stripe * `coingate` - coingate * `wallet` - wallet * `manual` - manual * `whitepay` - whitepay * `wayforpay` - wayforpay * `usegateway` - usegateway * `binance` - binance * `anymoney` - anymoney * `coinpayments` - coinpayments * `checkoutcom` - checkoutcom * `nowpayments` - nowpayments * `btcpay` - btcpay * `braintree` - braintree * `monobank` - monobank * `liqpay` - liqpay * `iyzico` - iyzico * `paytr` - paytr * `payu` - payu * `tpay` - tpay * `przelewy24` - przelewy24 * `gopay` - gopay * `comgate` - comgate * `monei` - monei * `redsys` - redsys * `payplug` - payplug * `mollie` - mollie * `unzer` - unzer * `payone` - payone * `nexi_xpay` - nexi_xpay * `halyk_epay` - halyk_epay * `kaspi_pay` - kaspi_pay * `vipps_mobilepay` - vipps_mobilepay * `paytrail` - paytrail * `crypto` - crypto * `credit_card` - credit_card
 - `InvoiceCreateRequestRequest`
 - `InvoiceCreateRequestStatusEnum` — * `pending` - pending * `paid` - paid
-- `InvoiceGatewayEnum` — * `coinbase` - Coinbase * `cryptomus` - Cryptomus * `stripe` - Stripe * `coingate` - Coingate * `wallet` - Wallet * `manual` - Manual * `whitepay` - Whitepay * `wayforpay` - WayForPay * `usegateway` - UseGateway * `binance` - Binance Pay * `anymoney` - Any.Money * `coinpayments` - CoinPayments * `checkoutcom` - Checkout.com * `nowpayments` - NOWPayments * `btcpay` - BTCPay Server * `braintree` - Braintree * `monobank` - monobank * `liqpay` - LiqPay * `iyzico` - iyzico * `paytr` - PayTR * `payu` - PayU * `tpay` - Tpay * `przelewy24` - Przelewy24 * `gopay` - GoPay * `comgate` - Comgate * `monei` - MONEI * `redsys` - Redsys * `payplug` - PayPlug * `mollie` - Mollie * `unzer` - Unzer * `payone` - PAYONE * `nexi_xpay` - Nexi XPay * `halyk_epay` - Halyk ePay * `kaspi_pay` - Kaspi Pay * `vipps_mobilepay` - Vipps MobilePay * `paytrail` - Paytrail
+- `InvoiceGatewayEnum` — * `revolut` - Revolut * `paypal` - PayPal * `coinbase` - Coinbase * `cryptomus` - Cryptomus * `stripe` - Stripe * `coingate` - Coingate * `wallet` - Wallet * `manual` - Manual * `whitepay` - Whitepay * `wayforpay` - WayForPay * `usegateway` - UseGateway * `binance` - Binance Pay * `anymoney` - Any.Money * `coinpayments` - CoinPayments * `checkoutcom` - Checkout.com * `nowpayments` - NOWPayments * `btcpay` - BTCPay Server * `braintree` - Braintree * `monobank` - monobank * `liqpay` - LiqPay * `iyzico` - iyzico * `paytr` - PayTR * `payu` - PayU * `tpay` - Tpay * `przelewy24` - Przelewy24 * `gopay` - GoPay * `comgate` - Comgate * `monei` - MONEI * `redsys` - Redsys * `payplug` - PayPlug * `mollie` - Mollie * `unzer` - Unzer * `payone` - PAYONE * `nexi_xpay` - Nexi XPay * `halyk_epay` - Halyk ePay * `kaspi_pay` - Kaspi Pay * `vipps_mobilepay` - Vipps MobilePay * `paytrail` - Paytrail
+- `InvoicePurchaseQuoteRequestRequest`
 - `InvoiceRead` — Full invoice in package-based deployments; short invoice otherwise. Invoice creation always returns the full Invoice representation.
 - `InvoiceShort`
 - `InvoiceStatusEnum` — * `pending` - Pending * `paid` - Paid * `unpaid` - Unpaid * `error` - Error
 - `InvoiceTypeEnum` — * `static` - Static * `residential` - Residential * `balance` - Balance
+- `KindEnum` — * `purchase` - purchase * `renewal` - renewal
+- `KycProviderEnum` — * `sumsub` - sumsub * `stripe` - stripe * `veriff` - veriff * `idenfy` - idenfy * `jumio` - jumio * `trulioo` - trulioo
 - `LanguageEnum` — * `en` - EN * `de` - DE * `fr` - FR * `it` - IT * `ru` - RU
+- `LastErrorEnum` — * `insufficient_balance` - insufficient_balance * `term_unavailable` - term_unavailable * `payment_unavailable` - payment_unavailable
 - `LevelEnum` — * `standard` - Standard * `silver` - Silver * `gold` - Gold * `diamond` - Diamond
 - `LocationASNGeoItem`
 - `LocationASNRecord`
 - `LocationCodeName`
 - `LocationCountrySummary`
+- `LocationOption`
 - `LocationRegionSummary`
+- `LocationSelection`
+- `LocationSelectionRequest`
 - `LogRecord`
+- `LoginHistory`
 - `LoginRequestRequest`
 - `LogsResponse`
+- `MFAActionRequest`
+- `MFAError`
+- `MFAResponse`
+- `MFATokenPair`
 - `MessageResponse`
+- `MethodEnum` — * `password` - Password * `google` - Google * `registration` - Registration * `unknown` - Unknown
+- `ModeEnum` — * `grouped` - grouped * `individual` - individual
+- `NetworkClassEnum` — * `isp` - isp * `dc` - dc
+- `NetworkMetadata`
 - `News`
 - `NullEnum`
 - `OTPChallenge`
+- `OTPChallengeStatusEnum` — * `otp_required` - otp_required
+- `OTPVerifyRequest`
 - `Order`
 - `OrderDetailed`
 - `OverallPoint`
@@ -81,41 +123,82 @@ Models use snake_case attributes and provide `to_dict()` / `from_dict()` helpers
 - `PaginatedISPList`
 - `PaginatedInvoiceReadList`
 - `PaginatedLocationASNRecordList`
+- `PaginatedLoginHistoryList`
 - `PaginatedNewsList`
 - `PaginatedOrderList`
 - `PaginatedPackageCommissionList`
 - `PaginatedPackageList`
+- `PaginatedPostalList`
 - `PaginatedProviderDataBalanceList`
 - `PaginatedRegionList`
 - `PaginatedRewardList`
 - `PaginatedUserList`
 - `PaginatedWebhookListList`
 - `PasswordRecoveryResponse`
+- `PasswordResetInputRequest`
+- `PasswordRotationStatusEnum` — * `pending` - pending * `running` - running * `unknown` - unknown * `succeeded` - succeeded * `failed` - failed
 - `PatchedCouponUpdateRequest`
+- `PatchedEndpointUpdateRequest`
 - `PatchedOrderAutoRenewalRequest`
 - `PatchedProfileUpdateRequest` — for updating user profile information with comprehensive validation. Handles personal profile data, company information, security settings, and password changes. All fields are optional, but at least one field must be provided for the update to be valid. Includes validation for domain patterns with support for wildcards (*.example.com) and subdomains.
+- `PatchedStaticWebhookSubscriptionRequest`
 - `PatchedTelegramConnectionUpdateRequest`
+- `PatchedUserPackageConnectionLimitRequest`
 - `PatchedUserUpdateRequest` — Optional fields accepted when updating part of an existing customer account.
 - `PaymentGateway`
 - `PaymentLinkResponse`
-- `PricingEnum` — * `fixed` - Fixed * `range` - Range
+- `Period`
+- `Postal`
+- `PostalPlace`
+- `PricingEnum` — * `fixed` - Fixed * `range` - Range * `bandwidth` - Bandwidth
 - `PricingUnitEnum` — * `data` - Data * `proxy` - Proxy
+- `Products`
+- `ProductsEnum` — * `residential` - residential * `static` - static
 - `ProtocolEnum` — * `http` - http * `socks5` - socks5 * `auto` - auto
 - `ProviderBalanceCheckpoint`
 - `ProviderDataBalance`
 - `ProviderEnum` — * `discord` - discord * `google` - google * `meta` - meta * `twitter` - twitter
+- `ProxyGenerationConnectionProtocolEnum` — * `http` - http * `socks5` - socks5 * `auto` - auto
 - `ProxyGenerationConnectionRequest`
 - `ProxyGenerationSessionRequest`
 - `ProxyGenerationTargetingRequest`
+- `ProxyPasswordResetRequestRequest`
 - `ProxyPasswordResetResponse`
 - `ProxyTypeEnum` — * `static` - Static * `residential` - Residential
+- `PurchaseGroup`
+- `PurchaseMutationRequest`
+- `PurchaseQuoteResponse`
+- `PurchaseResponse`
+- `ReasonEnum` — * `not_working` - not_working * `slow_speed` - slow_speed * `blocked` - blocked * `other` - other
 - `RecoverPasswordRequest` — Password recovery with enhanced security and comprehensive error handling.
 - `Region`
+- `RenewalCheckoutRequest` — Invoice transport validation with an explicitly composed application command.
+- `RenewalQuote`
+- `RenewalRequestRequest`
+- `RenewalSelectionRequest`
+- `RentalDetail`
+- `RentalDetailEndpoint`
+- `RentalDetailGroup`
+- `RentalDetailInvoice`
+- `RentalDetailTerm`
+- `RentalGateway`
+- `RentalGatewayProtocolEnum` — * `http` - http * `socks5` - socks5
+- `RentalQuote`
+- `RentalTermOption`
+- `ReplacementItem`
+- `ReplacementItemStateEnum` — * `pending` - pending * `needs_manual` - needs_manual * `provisioning` - provisioning * `completed` - completed * `ineligible` - ineligible * `rejected` - rejected
+- `ReplacementPage`
+- `ReplacementRequestRequest`
+- `ReplacementResponse`
+- `ReservationCancellation`
 - `ResetDataRequest`
-- `ResetPasswordRequest`
+- `ResetPasswordRequest` — Password reset confirmation with enhanced security validation.
 - `Reward`
 - `RewardClaimRequestRequest`
 - `RewardStatusEnum` — * `pending` - Pending * `paid` - Paid * `review` - Review * `cancelled` - Cancelled
+- `ScopesEnum` — * `read` - read * `credentials` - credentials * `manage` - manage * `billing` - billing
+- `SessionInputRequest`
+- `SessionOutput`
 - `SettingsCrypto`
 - `SettingsGateway`
 - `SettingsReferral`
@@ -123,10 +206,26 @@ Models use snake_case attributes and provide `to_dict()` / `from_dict()` helpers
 - `SeverityEnum` — * `warning` - warning * `danger` - danger
 - `SignUpRequest` — Comprehensive user registration with enhanced validation, security measures, and referral/affiliate code handling.
 - `SocialAccountState`
+- `SocialAccountStateProviderEnum` — * `discord` - discord * `google` - google * `meta` - meta * `twitter` - twitter
+- `StaticASN`
+- `StaticCancellationStatusEnum` — * `expired` - expired
+- `StaticCheckoutRequest` — Invoice transport validation with an explicitly composed application command.
+- `StaticConnection`
+- `StaticConnectionStateEnum` — * `active` - active * `held` - held * `provisioning` - provisioning
+- `StaticEventsEnum` — * `static.rental.fulfillment_finished` - static.rental.fulfillment_finished * `static.endpoint.replaced` - static.endpoint.replaced * `static.endpoint.expired` - static.endpoint.expired * `static.rental.refunded` - static.rental.refunded * `static.rental.auto_renewal_failed` - static.rental.auto_renewal_failed
+- `StaticMutationError`
+- `StaticPurchasePage`
+- `StaticRentalInvoiceStatusEnum` — * `pending` - Pending * `paid` - Paid * `unpaid` - Unpaid * `error` - Error * `cancelled` - cancelled * `failed` - failed
+- `StaticRentalStatusEnum` — * `reserved` - reserved * `provisioning` - provisioning * `fulfilled` - fulfilled * `expired` - expired * `paid_unfulfilled` - paid_unfulfilled * `partially_fulfilled` - partially_fulfilled * `partially_refunded` - partially_refunded * `refunded` - refunded
+- `StaticReplacementStatusEnum` — * `pending` - pending * `rejected` - rejected * `needs_manual` - needs_manual * `processing` - processing * `ineligible` - ineligible * `partial` - partial * `completed` - completed
+- `StaticWebhookSubscription`
+- `Status`
+- `StatusStatusEnum` — * `not_started` - not_started * `pending` - pending * `requires_input` - requires_input * `verified` - verified * `rejected` - rejected * `revoked` - revoked
 - `SubtractDataRequest`
 - `TargetingOptions`
 - `TelegramConnectionResponse`
 - `TelegramLinkResponse`
+- `Throughput`
 - `TokenPairResponse`
 - `TokenRefreshRequestRequest`
 - `TokenRefreshResponse`
@@ -136,6 +235,8 @@ Models use snake_case attributes and provide `to_dict()` / `from_dict()` helpers
 - `TwoFactorDisableRequest`
 - `TwoFactorSetupRequestRequest`
 - `TwoFactorSetupResponse`
+- `UsageClosureResponse`
+- `UsageClosureResponseStatusEnum` — * `closing` - closing
 - `User` — Customer account with contact details, security settings, package data, referral information, and managed sub-users visible to the caller.
 - `UserCreateRequest` — Fields accepted when a reseller or administrator creates a customer account.
 - `UserCurrency`

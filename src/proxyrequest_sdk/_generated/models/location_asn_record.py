@@ -8,6 +8,7 @@ from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
 from typing import cast
 
 if TYPE_CHECKING:
@@ -23,6 +24,8 @@ class LocationASNRecord:
     name: str
     country_codes: list[str]
     geo: list[LocationASNGeoItem]
+    count: int | Unset = UNSET
+    """ Node count in Rust search mode; unknown quantities are zero. """
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -39,6 +42,8 @@ class LocationASNRecord:
             geo_item = geo_item_data.to_dict()
             geo.append(geo_item)
 
+        count = self.count
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
@@ -49,6 +54,8 @@ class LocationASNRecord:
                 "geo": geo,
             }
         )
+        if count is not UNSET:
+            field_dict["count"] = count
 
         return field_dict
 
@@ -70,11 +77,14 @@ class LocationASNRecord:
 
             geo.append(geo_item)
 
+        count = d.pop("count", UNSET)
+
         location_asn_record = cls(
             code=code,
             name=name,
             country_codes=country_codes,
             geo=geo,
+            count=count,
         )
 
         location_asn_record.additional_properties = d

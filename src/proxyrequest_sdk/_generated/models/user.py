@@ -32,7 +32,7 @@ class User:
 
     id: UUID
     username: str
-    """ Value must contain only letters, numbers, and underscores. It must not start or end with an underscore. """
+    """ At least 3 characters. Spaces and control characters are not allowed. """
     email: str
     date_joined: datetime.datetime
     date_joined_ts: int
@@ -93,6 +93,7 @@ class User:
     orders: list[Order] | Unset = UNSET
     """ The user's package orders, including inactive orders. Each order contains its own data allowance, usage,
     ledgers, and proxy credentials. An empty list means the user has no orders. """
+    kyc_passed: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -220,6 +221,8 @@ class User:
                 orders_item = orders_item_data.to_dict()
                 orders.append(orders_item)
 
+        kyc_passed = self.kyc_passed
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
@@ -295,6 +298,8 @@ class User:
             field_dict["proxy_password_reset"] = proxy_password_reset
         if orders is not UNSET:
             field_dict["orders"] = orders
+        if kyc_passed is not UNSET:
+            field_dict["kyc_passed"] = kyc_passed
 
         return field_dict
 
@@ -459,6 +464,8 @@ class User:
 
                 orders.append(orders_item)
 
+        kyc_passed = d.pop("kyc_passed", UNSET)
+
         user = cls(
             id=id,
             username=username,
@@ -503,6 +510,7 @@ class User:
             proxy_password=proxy_password,
             proxy_password_reset=proxy_password_reset,
             orders=orders,
+            kyc_passed=kyc_passed,
         )
 
         user.additional_properties = d

@@ -8,6 +8,8 @@ from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+
 
 T = TypeVar("T", bound="LocationCodeName")
 
@@ -16,12 +18,16 @@ T = TypeVar("T", bound="LocationCodeName")
 class LocationCodeName:
     code: str
     name: str
+    count: int | Unset = UNSET
+    """ Node count in Rust search mode; unknown quantities are zero. """
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         code = self.code
 
         name = self.name
+
+        count = self.count
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -31,6 +37,8 @@ class LocationCodeName:
                 "name": name,
             }
         )
+        if count is not UNSET:
+            field_dict["count"] = count
 
         return field_dict
 
@@ -41,9 +49,12 @@ class LocationCodeName:
 
         name = d.pop("name")
 
+        count = d.pop("count", UNSET)
+
         location_code_name = cls(
             code=code,
             name=name,
+            count=count,
         )
 
         location_code_name.additional_properties = d

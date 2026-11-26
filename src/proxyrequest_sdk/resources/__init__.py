@@ -11,6 +11,8 @@ from .coupons import CouponsResource
 from .coupons import AsyncCouponsResource
 from .invoices import InvoicesResource
 from .invoices import AsyncInvoicesResource
+from .kyc import KYCResource
+from .kyc import AsyncKYCResource
 from .locations import LocationsResource
 from .locations import AsyncLocationsResource
 from .news import NewsResource
@@ -29,6 +31,8 @@ from .rewards import RewardsResource
 from .rewards import AsyncRewardsResource
 from .settings import SettingsResource
 from .settings import AsyncSettingsResource
+from .static_proxies import StaticProxiesResource
+from .static_proxies import AsyncStaticProxiesResource
 from .telegram import TelegramDashboardResource
 from .telegram import AsyncTelegramDashboardResource
 from .users import UsersResource
@@ -49,6 +53,8 @@ __all__ = [
     "AsyncCouponsResource",
     "InvoicesResource",
     "AsyncInvoicesResource",
+    "KYCResource",
+    "AsyncKYCResource",
     "LocationsResource",
     "AsyncLocationsResource",
     "NewsResource",
@@ -67,6 +73,8 @@ __all__ = [
     "AsyncRewardsResource",
     "SettingsResource",
     "AsyncSettingsResource",
+    "StaticProxiesResource",
+    "AsyncStaticProxiesResource",
     "TelegramDashboardResource",
     "AsyncTelegramDashboardResource",
     "UsersResource",

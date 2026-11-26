@@ -11,6 +11,7 @@ class PricingEnum(str, Enum):
         member._value_ = value
         return member
 
+    BANDWIDTH = "bandwidth"
     FIXED = "fixed"
     RANGE = "range"
 

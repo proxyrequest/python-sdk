@@ -32,6 +32,8 @@ class Region:
     """ The asns field is always present and defaults to an empty array. Pass include_asns=true to include available
     autonomous system numbers. This option does not affect the standalone /locations/asn endpoint or the compact
     proxy-node response format. """
+    count: int | Unset = UNSET
+    """ Node count in Rust search mode. """
     id: str | Unset = UNSET
     iso31662: str | Unset = UNSET
     """ ISO 3166-2 subdivision code for this region. US-CA FR-IDF """
@@ -59,6 +61,8 @@ class Region:
             asns_item = asns_item_data.to_dict()
             asns.append(asns_item)
 
+        count = self.count
+
         id = self.id
 
         iso31662 = self.iso31662
@@ -76,6 +80,8 @@ class Region:
                 "asns": asns,
             }
         )
+        if count is not UNSET:
+            field_dict["count"] = count
         if id is not UNSET:
             field_dict["id"] = id
         if iso31662 is not UNSET:
@@ -111,6 +117,8 @@ class Region:
 
             asns.append(asns_item)
 
+        count = d.pop("count", UNSET)
+
         id = d.pop("id", UNSET)
 
         iso31662 = d.pop("iso31662", UNSET)
@@ -123,6 +131,7 @@ class Region:
             country=country,
             isps=isps,
             asns=asns,
+            count=count,
             id=id,
             iso31662=iso31662,
             original_name=original_name,

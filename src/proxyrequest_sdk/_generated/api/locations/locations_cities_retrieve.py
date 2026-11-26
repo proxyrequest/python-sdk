@@ -15,6 +15,7 @@ from ...models.locations_cities_retrieve_response_400 import LocationsCitiesRetr
 from ...models.locations_cities_retrieve_response_401 import LocationsCitiesRetrieveResponse401
 from ...models.locations_cities_retrieve_response_403 import LocationsCitiesRetrieveResponse403
 from ...models.locations_cities_retrieve_response_404 import LocationsCitiesRetrieveResponse404
+from ...models.locations_cities_retrieve_response_503 import LocationsCitiesRetrieveResponse503
 from ...types import UNSET, Unset
 from typing import cast
 from uuid import UUID
@@ -24,6 +25,8 @@ def _get_kwargs(
     id: str,
     *,
     include_asns: bool | Unset = UNSET,
+    max_count: int | Unset = UNSET,
+    min_count: int | Unset = UNSET,
     package_id: UUID,
     accept_language: str | Unset = UNSET,
     x_impersonate_user: str | Unset = UNSET,
@@ -38,6 +41,10 @@ def _get_kwargs(
     params: dict[str, Any] = {}
 
     params["include_asns"] = include_asns
+
+    params["max_count"] = max_count
+
+    params["min_count"] = min_count
 
     json_package_id = str(package_id)
     params["package_id"] = json_package_id
@@ -64,6 +71,7 @@ def _parse_response(
     | LocationsCitiesRetrieveResponse401
     | LocationsCitiesRetrieveResponse403
     | LocationsCitiesRetrieveResponse404
+    | LocationsCitiesRetrieveResponse503
     | None
 ):
     if response.status_code == 200:
@@ -91,6 +99,11 @@ def _parse_response(
 
         return response_404
 
+    if response.status_code == 503:
+        response_503 = LocationsCitiesRetrieveResponse503.from_dict(response.json())
+
+        return response_503
+
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     else:
@@ -105,6 +118,7 @@ def _build_response(
     | LocationsCitiesRetrieveResponse401
     | LocationsCitiesRetrieveResponse403
     | LocationsCitiesRetrieveResponse404
+    | LocationsCitiesRetrieveResponse503
 ]:
     parsed = parse_response(_parse_response, client=client, response=response)
     return Response(
@@ -120,6 +134,8 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
     include_asns: bool | Unset = UNSET,
+    max_count: int | Unset = UNSET,
+    min_count: int | Unset = UNSET,
     package_id: UUID,
     accept_language: str | Unset = UNSET,
     x_impersonate_user: str | Unset = UNSET,
@@ -129,6 +145,7 @@ def sync_detailed(
     | LocationsCitiesRetrieveResponse401
     | LocationsCitiesRetrieveResponse403
     | LocationsCitiesRetrieveResponse404
+    | LocationsCitiesRetrieveResponse503
 ]:
     """Get a city
 
@@ -140,6 +157,8 @@ def sync_detailed(
     Args:
         id (str):
         include_asns (bool | Unset):  Default: False.
+        max_count (int | Unset):
+        min_count (int | Unset):
         package_id (UUID):
         accept_language (str | Unset):  Defaults to the client language.
         x_impersonate_user (str | Unset):
@@ -149,12 +168,14 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[City | LocationsCitiesRetrieveResponse400 | LocationsCitiesRetrieveResponse401 | LocationsCitiesRetrieveResponse403 | LocationsCitiesRetrieveResponse404]
+        Response[City | LocationsCitiesRetrieveResponse400 | LocationsCitiesRetrieveResponse401 | LocationsCitiesRetrieveResponse403 | LocationsCitiesRetrieveResponse404 | LocationsCitiesRetrieveResponse503]
     """
 
     kwargs = _get_kwargs(
         id=id,
         include_asns=include_asns,
+        max_count=max_count,
+        min_count=min_count,
         package_id=package_id,
         accept_language=accept_language,
         x_impersonate_user=x_impersonate_user,
@@ -172,6 +193,8 @@ def sync(
     *,
     client: AuthenticatedClient,
     include_asns: bool | Unset = UNSET,
+    max_count: int | Unset = UNSET,
+    min_count: int | Unset = UNSET,
     package_id: UUID,
     accept_language: str | Unset = UNSET,
     x_impersonate_user: str | Unset = UNSET,
@@ -181,6 +204,7 @@ def sync(
     | LocationsCitiesRetrieveResponse401
     | LocationsCitiesRetrieveResponse403
     | LocationsCitiesRetrieveResponse404
+    | LocationsCitiesRetrieveResponse503
     | None
 ):
     """Get a city
@@ -193,6 +217,8 @@ def sync(
     Args:
         id (str):
         include_asns (bool | Unset):  Default: False.
+        max_count (int | Unset):
+        min_count (int | Unset):
         package_id (UUID):
         accept_language (str | Unset):  Defaults to the client language.
         x_impersonate_user (str | Unset):
@@ -202,13 +228,15 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        City | LocationsCitiesRetrieveResponse400 | LocationsCitiesRetrieveResponse401 | LocationsCitiesRetrieveResponse403 | LocationsCitiesRetrieveResponse404
+        City | LocationsCitiesRetrieveResponse400 | LocationsCitiesRetrieveResponse401 | LocationsCitiesRetrieveResponse403 | LocationsCitiesRetrieveResponse404 | LocationsCitiesRetrieveResponse503
     """
 
     return sync_detailed(
         id=id,
         client=client,
         include_asns=include_asns,
+        max_count=max_count,
+        min_count=min_count,
         package_id=package_id,
         accept_language=accept_language,
         x_impersonate_user=x_impersonate_user,
@@ -220,6 +248,8 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
     include_asns: bool | Unset = UNSET,
+    max_count: int | Unset = UNSET,
+    min_count: int | Unset = UNSET,
     package_id: UUID,
     accept_language: str | Unset = UNSET,
     x_impersonate_user: str | Unset = UNSET,
@@ -229,6 +259,7 @@ async def asyncio_detailed(
     | LocationsCitiesRetrieveResponse401
     | LocationsCitiesRetrieveResponse403
     | LocationsCitiesRetrieveResponse404
+    | LocationsCitiesRetrieveResponse503
 ]:
     """Get a city
 
@@ -240,6 +271,8 @@ async def asyncio_detailed(
     Args:
         id (str):
         include_asns (bool | Unset):  Default: False.
+        max_count (int | Unset):
+        min_count (int | Unset):
         package_id (UUID):
         accept_language (str | Unset):  Defaults to the client language.
         x_impersonate_user (str | Unset):
@@ -249,12 +282,14 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[City | LocationsCitiesRetrieveResponse400 | LocationsCitiesRetrieveResponse401 | LocationsCitiesRetrieveResponse403 | LocationsCitiesRetrieveResponse404]
+        Response[City | LocationsCitiesRetrieveResponse400 | LocationsCitiesRetrieveResponse401 | LocationsCitiesRetrieveResponse403 | LocationsCitiesRetrieveResponse404 | LocationsCitiesRetrieveResponse503]
     """
 
     kwargs = _get_kwargs(
         id=id,
         include_asns=include_asns,
+        max_count=max_count,
+        min_count=min_count,
         package_id=package_id,
         accept_language=accept_language,
         x_impersonate_user=x_impersonate_user,
@@ -270,6 +305,8 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
     include_asns: bool | Unset = UNSET,
+    max_count: int | Unset = UNSET,
+    min_count: int | Unset = UNSET,
     package_id: UUID,
     accept_language: str | Unset = UNSET,
     x_impersonate_user: str | Unset = UNSET,
@@ -279,6 +316,7 @@ async def asyncio(
     | LocationsCitiesRetrieveResponse401
     | LocationsCitiesRetrieveResponse403
     | LocationsCitiesRetrieveResponse404
+    | LocationsCitiesRetrieveResponse503
     | None
 ):
     """Get a city
@@ -291,6 +329,8 @@ async def asyncio(
     Args:
         id (str):
         include_asns (bool | Unset):  Default: False.
+        max_count (int | Unset):
+        min_count (int | Unset):
         package_id (UUID):
         accept_language (str | Unset):  Defaults to the client language.
         x_impersonate_user (str | Unset):
@@ -300,7 +340,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        City | LocationsCitiesRetrieveResponse400 | LocationsCitiesRetrieveResponse401 | LocationsCitiesRetrieveResponse403 | LocationsCitiesRetrieveResponse404
+        City | LocationsCitiesRetrieveResponse400 | LocationsCitiesRetrieveResponse401 | LocationsCitiesRetrieveResponse403 | LocationsCitiesRetrieveResponse404 | LocationsCitiesRetrieveResponse503
     """
 
     return (
@@ -308,6 +348,8 @@ async def asyncio(
             id=id,
             client=client,
             include_asns=include_asns,
+            max_count=max_count,
+            min_count=min_count,
             package_id=package_id,
             accept_language=accept_language,
             x_impersonate_user=x_impersonate_user,

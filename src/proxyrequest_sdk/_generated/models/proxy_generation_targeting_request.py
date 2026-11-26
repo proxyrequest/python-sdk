@@ -24,6 +24,8 @@ class ProxyGenerationTargetingRequest:
     """ Target region or state code. """
     city: str | Unset = UNSET
     """ Target city code. """
+    zip_: str | Unset = UNSET
+    """ Postal code; requires a concrete country. Leading zeros are preserved. """
     pool: str | Unset = UNSET
     """ Proxy pool identifier. """
     asn: int | Unset = UNSET
@@ -44,6 +46,8 @@ class ProxyGenerationTargetingRequest:
 
         city = self.city
 
+        zip_ = self.zip_
+
         pool = self.pool
 
         asn = self.asn
@@ -63,6 +67,8 @@ class ProxyGenerationTargetingRequest:
             field_dict["region"] = region
         if city is not UNSET:
             field_dict["city"] = city
+        if zip_ is not UNSET:
+            field_dict["zip"] = zip_
         if pool is not UNSET:
             field_dict["pool"] = pool
         if asn is not UNSET:
@@ -85,6 +91,8 @@ class ProxyGenerationTargetingRequest:
 
         city = d.pop("city", UNSET)
 
+        zip_ = d.pop("zip", UNSET)
+
         pool = d.pop("pool", UNSET)
 
         asn = d.pop("asn", UNSET)
@@ -98,6 +106,7 @@ class ProxyGenerationTargetingRequest:
             country=country,
             region=region,
             city=city,
+            zip_=zip_,
             pool=pool,
             asn=asn,
             isp=isp,

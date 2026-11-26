@@ -19,8 +19,8 @@ class AddDataRequest:
     package_id: UUID
     """ Package for which the caller owns a root order. """
     data: int
-    """ Positive integer bytes to add to the child's assigned quota. Does not reserve parent data; may exceed the
-    parent's remaining pool. """
+    """ Positive integer bytes. Independent child orders receive traffic debited from the parent. Reseller virtual
+    quotas do not reserve parent data and may exceed the parent's remaining pool. """
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

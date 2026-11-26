@@ -23,6 +23,9 @@ from ...models.locations_continents_retrieve_response_403 import (
 from ...models.locations_continents_retrieve_response_404 import (
     LocationsContinentsRetrieveResponse404,
 )
+from ...models.locations_continents_retrieve_response_503 import (
+    LocationsContinentsRetrieveResponse503,
+)
 from ...types import UNSET, Unset
 from typing import cast
 from uuid import UUID
@@ -69,6 +72,7 @@ def _parse_response(
     | LocationsContinentsRetrieveResponse401
     | LocationsContinentsRetrieveResponse403
     | LocationsContinentsRetrieveResponse404
+    | LocationsContinentsRetrieveResponse503
     | None
 ):
     if response.status_code == 200:
@@ -96,6 +100,11 @@ def _parse_response(
 
         return response_404
 
+    if response.status_code == 503:
+        response_503 = LocationsContinentsRetrieveResponse503.from_dict(response.json())
+
+        return response_503
+
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     else:
@@ -110,6 +119,7 @@ def _build_response(
     | LocationsContinentsRetrieveResponse401
     | LocationsContinentsRetrieveResponse403
     | LocationsContinentsRetrieveResponse404
+    | LocationsContinentsRetrieveResponse503
 ]:
     parsed = parse_response(_parse_response, client=client, response=response)
     return Response(
@@ -133,6 +143,7 @@ def sync_detailed(
     | LocationsContinentsRetrieveResponse401
     | LocationsContinentsRetrieveResponse403
     | LocationsContinentsRetrieveResponse404
+    | LocationsContinentsRetrieveResponse503
 ]:
     """Get a continent
 
@@ -149,7 +160,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Continent | LocationsContinentsRetrieveResponse400 | LocationsContinentsRetrieveResponse401 | LocationsContinentsRetrieveResponse403 | LocationsContinentsRetrieveResponse404]
+        Response[Continent | LocationsContinentsRetrieveResponse400 | LocationsContinentsRetrieveResponse401 | LocationsContinentsRetrieveResponse403 | LocationsContinentsRetrieveResponse404 | LocationsContinentsRetrieveResponse503]
     """
 
     kwargs = _get_kwargs(
@@ -179,6 +190,7 @@ def sync(
     | LocationsContinentsRetrieveResponse401
     | LocationsContinentsRetrieveResponse403
     | LocationsContinentsRetrieveResponse404
+    | LocationsContinentsRetrieveResponse503
     | None
 ):
     """Get a continent
@@ -196,7 +208,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Continent | LocationsContinentsRetrieveResponse400 | LocationsContinentsRetrieveResponse401 | LocationsContinentsRetrieveResponse403 | LocationsContinentsRetrieveResponse404
+        Continent | LocationsContinentsRetrieveResponse400 | LocationsContinentsRetrieveResponse401 | LocationsContinentsRetrieveResponse403 | LocationsContinentsRetrieveResponse404 | LocationsContinentsRetrieveResponse503
     """
 
     return sync_detailed(
@@ -221,6 +233,7 @@ async def asyncio_detailed(
     | LocationsContinentsRetrieveResponse401
     | LocationsContinentsRetrieveResponse403
     | LocationsContinentsRetrieveResponse404
+    | LocationsContinentsRetrieveResponse503
 ]:
     """Get a continent
 
@@ -237,7 +250,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Continent | LocationsContinentsRetrieveResponse400 | LocationsContinentsRetrieveResponse401 | LocationsContinentsRetrieveResponse403 | LocationsContinentsRetrieveResponse404]
+        Response[Continent | LocationsContinentsRetrieveResponse400 | LocationsContinentsRetrieveResponse401 | LocationsContinentsRetrieveResponse403 | LocationsContinentsRetrieveResponse404 | LocationsContinentsRetrieveResponse503]
     """
 
     kwargs = _get_kwargs(
@@ -265,6 +278,7 @@ async def asyncio(
     | LocationsContinentsRetrieveResponse401
     | LocationsContinentsRetrieveResponse403
     | LocationsContinentsRetrieveResponse404
+    | LocationsContinentsRetrieveResponse503
     | None
 ):
     """Get a continent
@@ -282,7 +296,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Continent | LocationsContinentsRetrieveResponse400 | LocationsContinentsRetrieveResponse401 | LocationsContinentsRetrieveResponse403 | LocationsContinentsRetrieveResponse404
+        Continent | LocationsContinentsRetrieveResponse400 | LocationsContinentsRetrieveResponse401 | LocationsContinentsRetrieveResponse403 | LocationsContinentsRetrieveResponse404 | LocationsContinentsRetrieveResponse503
     """
 
     return (

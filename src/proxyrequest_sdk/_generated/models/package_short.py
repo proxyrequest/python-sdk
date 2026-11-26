@@ -30,6 +30,7 @@ class PackageShort:
     id: str | Unset = UNSET
     is_unlimited_data: bool | Unset = UNSET
     """ When enabled, users on this package have no data cap. The proxy will not enforce any bandwidth limit. """
+    connection_limit: int | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -45,6 +46,8 @@ class PackageShort:
 
         is_unlimited_data = self.is_unlimited_data
 
+        connection_limit = self.connection_limit
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
@@ -58,6 +61,8 @@ class PackageShort:
             field_dict["id"] = id
         if is_unlimited_data is not UNSET:
             field_dict["is_unlimited_data"] = is_unlimited_data
+        if connection_limit is not UNSET:
+            field_dict["connection_limit"] = connection_limit
 
         return field_dict
 
@@ -76,12 +81,15 @@ class PackageShort:
 
         is_unlimited_data = d.pop("is_unlimited_data", UNSET)
 
+        connection_limit = d.pop("connection_limit", UNSET)
+
         package_short = cls(
             name=name,
             alias=alias,
             targeting_options=targeting_options,
             id=id,
             is_unlimited_data=is_unlimited_data,
+            connection_limit=connection_limit,
         )
 
         package_short.additional_properties = d

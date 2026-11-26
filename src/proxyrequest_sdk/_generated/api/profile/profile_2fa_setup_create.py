@@ -10,9 +10,7 @@ from ...client import AuthenticatedClient, Client
 from ...types import Response, UNSET
 from ... import errors
 
-from ...models.profile_2_fa_setup_create_response_400 import Profile2FaSetupCreateResponse400
-from ...models.profile_2_fa_setup_create_response_401 import Profile2FaSetupCreateResponse401
-from ...models.profile_2_fa_setup_create_response_403 import Profile2FaSetupCreateResponse403
+from ...models.mfa_error import MFAError
 from ...models.two_factor_setup_request_request import TwoFactorSetupRequestRequest
 from ...models.two_factor_setup_response import TwoFactorSetupResponse
 from ...types import UNSET, Unset
@@ -48,32 +46,36 @@ def _get_kwargs(
 
 def _parse_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> (
-    Profile2FaSetupCreateResponse400
-    | Profile2FaSetupCreateResponse401
-    | Profile2FaSetupCreateResponse403
-    | TwoFactorSetupResponse
-    | None
-):
+) -> MFAError | TwoFactorSetupResponse | None:
     if response.status_code == 200:
         response_200 = TwoFactorSetupResponse.from_dict(response.json())
 
         return response_200
 
     if response.status_code == 400:
-        response_400 = Profile2FaSetupCreateResponse400.from_dict(response.json())
+        response_400 = MFAError.from_dict(response.json())
 
         return response_400
 
     if response.status_code == 401:
-        response_401 = Profile2FaSetupCreateResponse401.from_dict(response.json())
+        response_401 = MFAError.from_dict(response.json())
 
         return response_401
 
     if response.status_code == 403:
-        response_403 = Profile2FaSetupCreateResponse403.from_dict(response.json())
+        response_403 = MFAError.from_dict(response.json())
 
         return response_403
+
+    if response.status_code == 429:
+        response_429 = MFAError.from_dict(response.json())
+
+        return response_429
+
+    if response.status_code == 503:
+        response_503 = MFAError.from_dict(response.json())
+
+        return response_503
 
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
@@ -83,12 +85,7 @@ def _parse_response(
 
 def _build_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[
-    Profile2FaSetupCreateResponse400
-    | Profile2FaSetupCreateResponse401
-    | Profile2FaSetupCreateResponse403
-    | TwoFactorSetupResponse
-]:
+) -> Response[MFAError | TwoFactorSetupResponse]:
     parsed = parse_response(_parse_response, client=client, response=response)
     return Response(
         status_code=HTTPStatus(response.status_code),
@@ -104,15 +101,11 @@ def sync_detailed(
     body: TwoFactorSetupRequestRequest | Unset = UNSET,
     accept_language: str | Unset = UNSET,
     x_impersonate_user: str | Unset = UNSET,
-) -> Response[
-    Profile2FaSetupCreateResponse400
-    | Profile2FaSetupCreateResponse401
-    | Profile2FaSetupCreateResponse403
-    | TwoFactorSetupResponse
-]:
-    """Prepare two-factor authentication
+) -> Response[MFAError | TwoFactorSetupResponse]:
+    """Manage two-factor authentication
 
-     Confirms the primary factor and prepares a pending secret without disabling current protection.
+     Prepare or confirm an authenticator, disable it, or replace recovery codes. Changes revoke previous
+    authentication proofs. Setup returns an SVG QR code and recovery codes are returned once.
 
     Args:
         accept_language (str | Unset):  Defaults to the client language.
@@ -124,7 +117,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Profile2FaSetupCreateResponse400 | Profile2FaSetupCreateResponse401 | Profile2FaSetupCreateResponse403 | TwoFactorSetupResponse]
+        Response[MFAError | TwoFactorSetupResponse]
     """
 
     kwargs = _get_kwargs(
@@ -146,16 +139,11 @@ def sync(
     body: TwoFactorSetupRequestRequest | Unset = UNSET,
     accept_language: str | Unset = UNSET,
     x_impersonate_user: str | Unset = UNSET,
-) -> (
-    Profile2FaSetupCreateResponse400
-    | Profile2FaSetupCreateResponse401
-    | Profile2FaSetupCreateResponse403
-    | TwoFactorSetupResponse
-    | None
-):
-    """Prepare two-factor authentication
+) -> MFAError | TwoFactorSetupResponse | None:
+    """Manage two-factor authentication
 
-     Confirms the primary factor and prepares a pending secret without disabling current protection.
+     Prepare or confirm an authenticator, disable it, or replace recovery codes. Changes revoke previous
+    authentication proofs. Setup returns an SVG QR code and recovery codes are returned once.
 
     Args:
         accept_language (str | Unset):  Defaults to the client language.
@@ -167,7 +155,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Profile2FaSetupCreateResponse400 | Profile2FaSetupCreateResponse401 | Profile2FaSetupCreateResponse403 | TwoFactorSetupResponse
+        MFAError | TwoFactorSetupResponse
     """
 
     return sync_detailed(
@@ -184,15 +172,11 @@ async def asyncio_detailed(
     body: TwoFactorSetupRequestRequest | Unset = UNSET,
     accept_language: str | Unset = UNSET,
     x_impersonate_user: str | Unset = UNSET,
-) -> Response[
-    Profile2FaSetupCreateResponse400
-    | Profile2FaSetupCreateResponse401
-    | Profile2FaSetupCreateResponse403
-    | TwoFactorSetupResponse
-]:
-    """Prepare two-factor authentication
+) -> Response[MFAError | TwoFactorSetupResponse]:
+    """Manage two-factor authentication
 
-     Confirms the primary factor and prepares a pending secret without disabling current protection.
+     Prepare or confirm an authenticator, disable it, or replace recovery codes. Changes revoke previous
+    authentication proofs. Setup returns an SVG QR code and recovery codes are returned once.
 
     Args:
         accept_language (str | Unset):  Defaults to the client language.
@@ -204,7 +188,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Profile2FaSetupCreateResponse400 | Profile2FaSetupCreateResponse401 | Profile2FaSetupCreateResponse403 | TwoFactorSetupResponse]
+        Response[MFAError | TwoFactorSetupResponse]
     """
 
     kwargs = _get_kwargs(
@@ -224,16 +208,11 @@ async def asyncio(
     body: TwoFactorSetupRequestRequest | Unset = UNSET,
     accept_language: str | Unset = UNSET,
     x_impersonate_user: str | Unset = UNSET,
-) -> (
-    Profile2FaSetupCreateResponse400
-    | Profile2FaSetupCreateResponse401
-    | Profile2FaSetupCreateResponse403
-    | TwoFactorSetupResponse
-    | None
-):
-    """Prepare two-factor authentication
+) -> MFAError | TwoFactorSetupResponse | None:
+    """Manage two-factor authentication
 
-     Confirms the primary factor and prepares a pending secret without disabling current protection.
+     Prepare or confirm an authenticator, disable it, or replace recovery codes. Changes revoke previous
+    authentication proofs. Setup returns an SVG QR code and recovery codes are returned once.
 
     Args:
         accept_language (str | Unset):  Defaults to the client language.
@@ -245,7 +224,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Profile2FaSetupCreateResponse400 | Profile2FaSetupCreateResponse401 | Profile2FaSetupCreateResponse403 | TwoFactorSetupResponse
+        MFAError | TwoFactorSetupResponse
     """
 
     return (

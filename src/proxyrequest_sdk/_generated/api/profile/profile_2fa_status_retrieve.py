@@ -102,9 +102,9 @@ def sync_detailed(
     | Profile2FaStatusRetrieveResponse401
     | Profile2FaStatusRetrieveResponse403
 ]:
-    """Get two-factor status
+    """Get two-factor authentication status
 
-     Returns whether TOTP two-factor authentication is enabled for the authenticated account.
+     Return the current factor state, primary-factor availability and remaining recovery-code count.
 
     Args:
         accept_language (str | Unset):  Defaults to the client language.
@@ -142,9 +142,9 @@ def sync(
     | Profile2FaStatusRetrieveResponse403
     | None
 ):
-    """Get two-factor status
+    """Get two-factor authentication status
 
-     Returns whether TOTP two-factor authentication is enabled for the authenticated account.
+     Return the current factor state, primary-factor availability and remaining recovery-code count.
 
     Args:
         accept_language (str | Unset):  Defaults to the client language.
@@ -176,9 +176,9 @@ async def asyncio_detailed(
     | Profile2FaStatusRetrieveResponse401
     | Profile2FaStatusRetrieveResponse403
 ]:
-    """Get two-factor status
+    """Get two-factor authentication status
 
-     Returns whether TOTP two-factor authentication is enabled for the authenticated account.
+     Return the current factor state, primary-factor availability and remaining recovery-code count.
 
     Args:
         accept_language (str | Unset):  Defaults to the client language.
@@ -214,9 +214,9 @@ async def asyncio(
     | Profile2FaStatusRetrieveResponse403
     | None
 ):
-    """Get two-factor status
+    """Get two-factor authentication status
 
-     Returns whether TOTP two-factor authentication is enabled for the authenticated account.
+     Return the current factor state, primary-factor availability and remaining recovery-code count.
 
     Args:
         accept_language (str | Unset):  Defaults to the client language.

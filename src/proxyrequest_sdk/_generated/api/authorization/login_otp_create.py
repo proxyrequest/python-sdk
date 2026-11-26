@@ -10,7 +10,7 @@ from ...client import AuthenticatedClient, Client
 from ...types import Response, UNSET
 from ... import errors
 
-from ...models.login_otp_create_response_400 import LoginOtpCreateResponse400
+from ...models.mfa_error import MFAError
 from ...models.token_pair_response import TokenPairResponse
 from ...models.verify_otp_request import VerifyOTPRequest
 from ...types import UNSET, Unset
@@ -45,16 +45,31 @@ def _get_kwargs(
 
 def _parse_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> LoginOtpCreateResponse400 | TokenPairResponse | None:
+) -> MFAError | TokenPairResponse | None:
     if response.status_code == 200:
         response_200 = TokenPairResponse.from_dict(response.json())
 
         return response_200
 
     if response.status_code == 400:
-        response_400 = LoginOtpCreateResponse400.from_dict(response.json())
+        response_400 = MFAError.from_dict(response.json())
 
         return response_400
+
+    if response.status_code == 401:
+        response_401 = MFAError.from_dict(response.json())
+
+        return response_401
+
+    if response.status_code == 429:
+        response_429 = MFAError.from_dict(response.json())
+
+        return response_429
+
+    if response.status_code == 503:
+        response_503 = MFAError.from_dict(response.json())
+
+        return response_503
 
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
@@ -64,7 +79,7 @@ def _parse_response(
 
 def _build_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[LoginOtpCreateResponse400 | TokenPairResponse]:
+) -> Response[MFAError | TokenPairResponse]:
     parsed = parse_response(_parse_response, client=client, response=response)
     return Response(
         status_code=HTTPStatus(response.status_code),
@@ -80,10 +95,11 @@ def sync_detailed(
     body: VerifyOTPRequest,
     accept_language: str | Unset = UNSET,
     x_impersonate_user: str | Unset = UNSET,
-) -> Response[LoginOtpCreateResponse400 | TokenPairResponse]:
+) -> Response[MFAError | TokenPairResponse]:
     """Complete two-factor sign-in
 
-     Exchanges a single-use sign-in challenge and authenticator code for account tokens.
+     Exchange a single-use sign-in challenge and authenticator or recovery code for access and refresh
+    tokens.
 
     Args:
         accept_language (str | Unset):  Defaults to the client language.
@@ -95,7 +111,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[LoginOtpCreateResponse400 | TokenPairResponse]
+        Response[MFAError | TokenPairResponse]
     """
 
     kwargs = _get_kwargs(
@@ -117,10 +133,11 @@ def sync(
     body: VerifyOTPRequest,
     accept_language: str | Unset = UNSET,
     x_impersonate_user: str | Unset = UNSET,
-) -> LoginOtpCreateResponse400 | TokenPairResponse | None:
+) -> MFAError | TokenPairResponse | None:
     """Complete two-factor sign-in
 
-     Exchanges a single-use sign-in challenge and authenticator code for account tokens.
+     Exchange a single-use sign-in challenge and authenticator or recovery code for access and refresh
+    tokens.
 
     Args:
         accept_language (str | Unset):  Defaults to the client language.
@@ -132,7 +149,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        LoginOtpCreateResponse400 | TokenPairResponse
+        MFAError | TokenPairResponse
     """
 
     return sync_detailed(
@@ -149,10 +166,11 @@ async def asyncio_detailed(
     body: VerifyOTPRequest,
     accept_language: str | Unset = UNSET,
     x_impersonate_user: str | Unset = UNSET,
-) -> Response[LoginOtpCreateResponse400 | TokenPairResponse]:
+) -> Response[MFAError | TokenPairResponse]:
     """Complete two-factor sign-in
 
-     Exchanges a single-use sign-in challenge and authenticator code for account tokens.
+     Exchange a single-use sign-in challenge and authenticator or recovery code for access and refresh
+    tokens.
 
     Args:
         accept_language (str | Unset):  Defaults to the client language.
@@ -164,7 +182,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[LoginOtpCreateResponse400 | TokenPairResponse]
+        Response[MFAError | TokenPairResponse]
     """
 
     kwargs = _get_kwargs(
@@ -184,10 +202,11 @@ async def asyncio(
     body: VerifyOTPRequest,
     accept_language: str | Unset = UNSET,
     x_impersonate_user: str | Unset = UNSET,
-) -> LoginOtpCreateResponse400 | TokenPairResponse | None:
+) -> MFAError | TokenPairResponse | None:
     """Complete two-factor sign-in
 
-     Exchanges a single-use sign-in challenge and authenticator code for account tokens.
+     Exchange a single-use sign-in challenge and authenticator or recovery code for access and refresh
+    tokens.
 
     Args:
         accept_language (str | Unset):  Defaults to the client language.
@@ -199,7 +218,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        LoginOtpCreateResponse400 | TokenPairResponse
+        MFAError | TokenPairResponse
     """
 
     return (

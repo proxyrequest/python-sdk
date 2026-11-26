@@ -8,7 +8,7 @@ from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-from ..models.provider_enum import ProviderEnum
+from ..models.social_account_state_provider_enum import SocialAccountStateProviderEnum
 
 
 T = TypeVar("T", bound="SocialAccountState")
@@ -16,7 +16,7 @@ T = TypeVar("T", bound="SocialAccountState")
 
 @_attrs_define
 class SocialAccountState:
-    provider: ProviderEnum
+    provider: SocialAccountStateProviderEnum
     """ * `discord` - discord * `google` - google * `meta` - meta * `twitter` - twitter """
     linked: bool
     can_unlink: bool
@@ -48,7 +48,7 @@ class SocialAccountState:
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
-        provider = ProviderEnum(d.pop("provider"))
+        provider = SocialAccountStateProviderEnum(d.pop("provider"))
 
         linked = d.pop("linked")
 

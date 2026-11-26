@@ -63,6 +63,14 @@ All methods exist on both `Client` and `AsyncClient`; async calls must be awaite
 | `get()` | `GET /invoices/{id}` | `Invoice | InvoiceShort` |
 | `get_payment_link()` | `GET /invoices/{id}/pay` | `PaymentLinkResponse` |
 | `list()` | `GET /invoices` | `PaginatedInvoiceReadList` |
+| `quote()` | `POST /invoices/quote` | `PurchaseQuoteResponse` |
+
+## `kyc`
+
+| Method | HTTP endpoint | Returns |
+| --- | --- | --- |
+| `create_session()` | `POST /kyc/sessions/` | `SessionOutput` |
+| `get_status()` | `GET /kyc/` | `Status` |
 
 ## `locations`
 
@@ -72,12 +80,14 @@ All methods exist on both `Client` and `AsyncClient`; async calls must be awaite
 | `get_continent()` | `GET /locations/continents/{id}` | `Continent` |
 | `get_country()` | `GET /locations/countries/{id}` | `Country` |
 | `get_region()` | `GET /locations/regions/{id}` | `Region` |
+| `get_zipcode()` | `GET /locations/zipcodes/{id}` | `Postal` |
 | `list_asns()` | `GET /locations/asn` | `PaginatedLocationASNRecordList` |
 | `list_cities()` | `GET /locations/cities` | `PaginatedCityList` |
 | `list_continents()` | `GET /locations/continents` | `PaginatedContinentList` |
 | `list_countries()` | `GET /locations/countries` | `PaginatedCountryList` |
 | `list_isps()` | `GET /locations/isps` | `PaginatedISPList` |
 | `list_regions()` | `GET /locations/regions` | `PaginatedRegionList` |
+| `list_zipcodes()` | `GET /locations/zipcodes` | `PaginatedPostalList` |
 
 ## `news`
 
@@ -89,10 +99,26 @@ All methods exist on both `Client` and `AsyncClient`; async calls must be awaite
 
 | Method | HTTP endpoint | Returns |
 | --- | --- | --- |
-| `delete()` | `DELETE /orders/{id}` | `None` |
+| `cancel_reservation()` | `POST /orders/{id}/cancel-reservation` | `ReservationCancellation` |
+| `checkout()` | `POST /orders/{id}/checkout` | `Invoice` |
+| `delete()` | `DELETE /orders/{id}` | `UsageClosureResponse | None` |
 | `get()` | `GET /orders/{id}` | `OrderDetailed` |
+| `get_availability()` | `GET /orders/availability` | `AvailabilityResponse` |
+| `get_calendar_renewal()` | `GET /orders/{id}/auto-renewal` | `AutoRenewalStatus` |
+| `get_rental()` | `GET /orders/{id}/rental` | `RentalDetail` |
 | `list()` | `GET /orders` | `PaginatedOrderList` |
+| `list_catalog()` | `GET /orders/catalog` | `CatalogPage` |
+| `list_products()` | `GET /orders/products` | `Products` |
+| `list_replacements()` | `GET /orders/{id}/replacement-requests` | `ReplacementPage` |
+| `quote_checkout()` | `POST /orders/{id}/checkout/quote` | `CheckoutQuote` |
+| `quote_purchase()` | `POST /orders/purchase/quote` | `RentalQuote` |
+| `quote_renewal()` | `POST /orders/{id}/renew/quote` | `RenewalQuote` |
+| `renew()` | `POST /orders/{id}/renew` | `Invoice` |
+| `request_replacement()` | `POST /orders/{id}/replacement-requests` | `ReplacementResponse` |
+| `reserve()` | `POST /orders/purchase` | `PurchaseResponse` |
 | `reset_password()` | `POST /reset-password` | `ProxyPasswordResetResponse` |
+| `reset_proxy_password()` | `POST /orders/{id}/proxy-password/reset` | `ProxyPasswordResetResponse` |
+| `set_calendar_renewal()` | `PUT /orders/{id}/auto-renewal` | `AutoRenewalStatus` |
 | `update_auto_renewal()` | `PATCH /orders/{id}` | `Order` |
 
 ## `packages`
@@ -109,11 +135,13 @@ All methods exist on both `Client` and `AsyncClient`; async calls must be awaite
 | `change_password()` | `POST /profile/change-password` | `MessageResponse` |
 | `confirm_two_factor()` | `POST /profile/2fa/confirm` | `EnabledResponse` |
 | `connect_google()` | `POST /profile/social-accounts/google` | `list[SocialAccountState]` |
-| `delete()` | `DELETE /profile` | `None` |
+| `delete()` | `DELETE /profile` | `UsageClosureResponse | None` |
 | `disable_two_factor()` | `POST /profile/2fa/disable` | `EnabledResponse` |
 | `get()` | `GET /profile` | `User` |
 | `get_two_factor_status()` | `GET /profile/2fa/status` | `EnabledResponse` |
+| `list_login_history()` | `GET /profile/login-history` | `PaginatedLoginHistoryList` |
 | `list_social_accounts()` | `GET /profile/social-accounts` | `list[SocialAccountState]` |
+| `regenerate_two_factor_codes()` | `POST /profile/2fa/regenerate` | `MFAResponse` |
 | `setup_two_factor()` | `POST /profile/2fa/setup` | `TwoFactorSetupResponse` |
 | `update()` | `PATCH /profile` | `User` |
 
@@ -142,6 +170,25 @@ All methods exist on both `Client` and `AsyncClient`; async calls must be awaite
 | --- | --- | --- |
 | `get()` | `GET /settings` | `SettingsResponse` |
 
+## `static_proxies`
+
+| Method | HTTP endpoint | Returns |
+| --- | --- | --- |
+| `checkout()` | `POST /static/purchases/{id}/checkout` | `Invoice` |
+| `create_integration_key()` | `POST /static/integration-keys` | `IntegrationKeyCreated` |
+| `export_urls()` | `GET /static/export` | `str` |
+| `get_endpoint()` | `GET /static/endpoints/{id}` | `Endpoint` |
+| `get_purchase()` | `GET /static/purchases/{id}` | `PurchaseResponse` |
+| `get_throughput()` | `GET /static/endpoints/{id}/throughput` | `Throughput` |
+| `list_catalog()` | `GET /static/catalog` | `CatalogPage` |
+| `list_endpoints()` | `GET /static/endpoints` | `EndpointPage` |
+| `list_integration_keys()` | `GET /static/integration-keys` | `list[IntegrationKey]` |
+| `list_purchases()` | `GET /static/purchases` | `StaticPurchasePage` |
+| `quote_offer()` | `GET /static/quotes/{offer_id}` | `RentalQuote` |
+| `reserve()` | `POST /static/purchases` | `PurchaseResponse` |
+| `revoke_integration_key()` | `DELETE /static/integration-keys/{id}` | `None` |
+| `update_endpoint()` | `PATCH /static/endpoints/{id}` | `Endpoint` |
+
 ## `telegram`
 
 | Method | HTTP endpoint | Returns |
@@ -157,12 +204,13 @@ All methods exist on both `Client` and `AsyncClient`; async calls must be awaite
 | --- | --- | --- |
 | `add_data()` | `POST /users/{id}/data/add` | `Order` |
 | `create()` | `POST /users` | `User` |
-| `delete()` | `DELETE /users/{id}` | `None` |
+| `delete()` | `DELETE /users/{id}` | `UsageClosureResponse | None` |
 | `get()` | `GET /users/{id}` | `User` |
 | `list()` | `GET /users` | `PaginatedUserList` |
 | `list_orders()` | `GET /users/{id}/orders` | `PaginatedOrderList` |
 | `reset_data()` | `POST /users/{id}/data/reset` | `Order` |
 | `reset_password()` | `POST /users/{id}/password` | `User` |
+| `set_connection_limit()` | `PATCH /users/{id}/connection-limit` | `Order` |
 | `subtract_data()` | `POST /users/{id}/data/subtract` | `Order` |
 | `update()` | `PATCH /users/{id}` | `User` |
 
@@ -173,4 +221,6 @@ All methods exist on both `Client` and `AsyncClient`; async calls must be awaite
 | `create()` | `POST /webhooks` | `WebhookCreated` |
 | `delete()` | `DELETE /webhooks/{id}` | `None` |
 | `get()` | `GET /webhooks/{id}` | `WebhookList` |
+| `get_static_events()` | `GET /webhooks/{id}/static-events` | `StaticWebhookSubscription` |
 | `list()` | `GET /webhooks` | `PaginatedWebhookList` |
+| `set_static_events()` | `PATCH /webhooks/{id}/static-events` | `StaticWebhookSubscription` |

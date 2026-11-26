@@ -14,6 +14,7 @@ from ...models.profile_destroy_response_400 import ProfileDestroyResponse400
 from ...models.profile_destroy_response_401 import ProfileDestroyResponse401
 from ...models.profile_destroy_response_403 import ProfileDestroyResponse403
 from ...models.profile_destroy_response_412 import ProfileDestroyResponse412
+from ...models.usage_closure_response import UsageClosureResponse
 from ...types import UNSET, Unset
 from typing import cast
 
@@ -51,8 +52,14 @@ def _parse_response(
     | ProfileDestroyResponse401
     | ProfileDestroyResponse403
     | ProfileDestroyResponse412
+    | UsageClosureResponse
     | None
 ):
+    if response.status_code == 202:
+        response_202 = UsageClosureResponse.from_dict(response.json())
+
+        return response_202
+
     if response.status_code == 204:
         response_204 = cast(Any, None)
         return response_204
@@ -91,6 +98,7 @@ def _build_response(
     | ProfileDestroyResponse401
     | ProfileDestroyResponse403
     | ProfileDestroyResponse412
+    | UsageClosureResponse
 ]:
     parsed = parse_response(_parse_response, client=client, response=response)
     return Response(
@@ -113,11 +121,13 @@ def sync_detailed(
     | ProfileDestroyResponse401
     | ProfileDestroyResponse403
     | ProfileDestroyResponse412
+    | UsageClosureResponse
 ]:
     """Delete the current account
 
      Permanently deletes the authenticated customer account. Superusers and reseller sub-accounts cannot
-    delete themselves with this operation.
+    delete themselves with this operation. An account with outstanding proxy accounting returns 202 and
+    is disabled immediately.
 
     Args:
         if_match (str | Unset):
@@ -129,7 +139,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Any | ProfileDestroyResponse400 | ProfileDestroyResponse401 | ProfileDestroyResponse403 | ProfileDestroyResponse412]
+        Response[Any | ProfileDestroyResponse400 | ProfileDestroyResponse401 | ProfileDestroyResponse403 | ProfileDestroyResponse412 | UsageClosureResponse]
     """
 
     kwargs = _get_kwargs(
@@ -157,12 +167,14 @@ def sync(
     | ProfileDestroyResponse401
     | ProfileDestroyResponse403
     | ProfileDestroyResponse412
+    | UsageClosureResponse
     | None
 ):
     """Delete the current account
 
      Permanently deletes the authenticated customer account. Superusers and reseller sub-accounts cannot
-    delete themselves with this operation.
+    delete themselves with this operation. An account with outstanding proxy accounting returns 202 and
+    is disabled immediately.
 
     Args:
         if_match (str | Unset):
@@ -174,7 +186,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Any | ProfileDestroyResponse400 | ProfileDestroyResponse401 | ProfileDestroyResponse403 | ProfileDestroyResponse412
+        Any | ProfileDestroyResponse400 | ProfileDestroyResponse401 | ProfileDestroyResponse403 | ProfileDestroyResponse412 | UsageClosureResponse
     """
 
     return sync_detailed(
@@ -197,11 +209,13 @@ async def asyncio_detailed(
     | ProfileDestroyResponse401
     | ProfileDestroyResponse403
     | ProfileDestroyResponse412
+    | UsageClosureResponse
 ]:
     """Delete the current account
 
      Permanently deletes the authenticated customer account. Superusers and reseller sub-accounts cannot
-    delete themselves with this operation.
+    delete themselves with this operation. An account with outstanding proxy accounting returns 202 and
+    is disabled immediately.
 
     Args:
         if_match (str | Unset):
@@ -213,7 +227,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Any | ProfileDestroyResponse400 | ProfileDestroyResponse401 | ProfileDestroyResponse403 | ProfileDestroyResponse412]
+        Response[Any | ProfileDestroyResponse400 | ProfileDestroyResponse401 | ProfileDestroyResponse403 | ProfileDestroyResponse412 | UsageClosureResponse]
     """
 
     kwargs = _get_kwargs(
@@ -239,12 +253,14 @@ async def asyncio(
     | ProfileDestroyResponse401
     | ProfileDestroyResponse403
     | ProfileDestroyResponse412
+    | UsageClosureResponse
     | None
 ):
     """Delete the current account
 
      Permanently deletes the authenticated customer account. Superusers and reseller sub-accounts cannot
-    delete themselves with this operation.
+    delete themselves with this operation. An account with outstanding proxy accounting returns 202 and
+    is disabled immediately.
 
     Args:
         if_match (str | Unset):
@@ -256,7 +272,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Any | ProfileDestroyResponse400 | ProfileDestroyResponse401 | ProfileDestroyResponse403 | ProfileDestroyResponse412
+        Any | ProfileDestroyResponse400 | ProfileDestroyResponse401 | ProfileDestroyResponse403 | ProfileDestroyResponse412 | UsageClosureResponse
     """
 
     return (

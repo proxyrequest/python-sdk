@@ -7,12 +7,16 @@ from ..files import FileDownload
 from ..response import ApiResponse
 from .._generated.models.invoice import Invoice
 from .._generated.models.invoice_create_request import InvoiceCreateRequest
+from .._generated.models.invoice_purchase_quote_request_request import (
+    InvoicePurchaseQuoteRequestRequest,
+)
 from .._generated.models.invoice_short import InvoiceShort
 from .._generated.models.invoices_list_payment_gateway import InvoicesListPaymentGateway
 from .._generated.models.invoices_list_status import InvoicesListStatus
 from .._generated.models.invoices_list_type import InvoicesListType
 from .._generated.models.paginated_invoice_read_list import PaginatedInvoiceReadList
 from .._generated.models.payment_link_response import PaymentLinkResponse
+from .._generated.models.purchase_quote_response import PurchaseQuoteResponse
 from .._generated.types import UNSET
 from uuid import UUID
 from .._generated.types import Unset
@@ -24,6 +28,7 @@ from .._generated.api.invoices import (
 from .._generated.api.invoices import invoices_retrieve as _invoices_retrieve
 from .._generated.api.invoices import invoices_pay_retrieve as _invoices_pay_retrieve
 from .._generated.api.invoices import invoices_list as _invoices_list
+from .._generated.api.invoices import invoices_quote_create as _invoices_quote_create
 
 
 class InvoicesResource:
@@ -300,6 +305,42 @@ class InvoicesResource:
             ),
         )
 
+    def quote(
+        self,
+        *,
+        body: InvoicePurchaseQuoteRequestRequest,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
+    ) -> PurchaseQuoteResponse:
+        """Quote a purchase without creating an invoice"""
+        return cast(
+            PurchaseQuoteResponse,
+            self._client._call(
+                _invoices_quote_create.sync_detailed,
+                body=body,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
+        )
+
+    def quote_with_response(
+        self,
+        *,
+        body: InvoicePurchaseQuoteRequestRequest,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
+    ) -> ApiResponse[PurchaseQuoteResponse]:
+        """Quote a purchase without creating an invoice; include response metadata."""
+        return cast(
+            ApiResponse[PurchaseQuoteResponse],
+            self._client._call_with_response(
+                _invoices_quote_create.sync_detailed,
+                body=body,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
+        )
+
 
 class AsyncInvoicesResource:
     def __init__(self, client: Any) -> None:
@@ -570,6 +611,42 @@ class AsyncInvoicesResource:
                 type_=type_,
                 user_email=user_email,
                 user_id=user_id,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
+        )
+
+    async def quote(
+        self,
+        *,
+        body: InvoicePurchaseQuoteRequestRequest,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
+    ) -> PurchaseQuoteResponse:
+        """Quote a purchase without creating an invoice"""
+        return cast(
+            PurchaseQuoteResponse,
+            await self._client._call(
+                _invoices_quote_create.asyncio_detailed,
+                body=body,
+                accept_language=accept_language,
+                x_impersonate_user=impersonate_user_id,
+            ),
+        )
+
+    async def quote_with_response(
+        self,
+        *,
+        body: InvoicePurchaseQuoteRequestRequest,
+        accept_language: str | Unset = UNSET,
+        impersonate_user_id: str | Unset = UNSET,
+    ) -> ApiResponse[PurchaseQuoteResponse]:
+        """Quote a purchase without creating an invoice; include response metadata."""
+        return cast(
+            ApiResponse[PurchaseQuoteResponse],
+            await self._client._call_with_response(
+                _invoices_quote_create.asyncio_detailed,
+                body=body,
                 accept_language=accept_language,
                 x_impersonate_user=impersonate_user_id,
             ),

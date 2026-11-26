@@ -14,6 +14,7 @@ from ...models.locations_regions_retrieve_response_400 import LocationsRegionsRe
 from ...models.locations_regions_retrieve_response_401 import LocationsRegionsRetrieveResponse401
 from ...models.locations_regions_retrieve_response_403 import LocationsRegionsRetrieveResponse403
 from ...models.locations_regions_retrieve_response_404 import LocationsRegionsRetrieveResponse404
+from ...models.locations_regions_retrieve_response_503 import LocationsRegionsRetrieveResponse503
 from ...models.region import Region
 from ...types import UNSET, Unset
 from typing import cast
@@ -24,6 +25,8 @@ def _get_kwargs(
     id: str,
     *,
     include_asns: bool | Unset = UNSET,
+    max_count: int | Unset = UNSET,
+    min_count: int | Unset = UNSET,
     package_id: UUID,
     accept_language: str | Unset = UNSET,
     x_impersonate_user: str | Unset = UNSET,
@@ -38,6 +41,10 @@ def _get_kwargs(
     params: dict[str, Any] = {}
 
     params["include_asns"] = include_asns
+
+    params["max_count"] = max_count
+
+    params["min_count"] = min_count
 
     json_package_id = str(package_id)
     params["package_id"] = json_package_id
@@ -63,6 +70,7 @@ def _parse_response(
     | LocationsRegionsRetrieveResponse401
     | LocationsRegionsRetrieveResponse403
     | LocationsRegionsRetrieveResponse404
+    | LocationsRegionsRetrieveResponse503
     | Region
     | None
 ):
@@ -91,6 +99,11 @@ def _parse_response(
 
         return response_404
 
+    if response.status_code == 503:
+        response_503 = LocationsRegionsRetrieveResponse503.from_dict(response.json())
+
+        return response_503
+
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     else:
@@ -104,6 +117,7 @@ def _build_response(
     | LocationsRegionsRetrieveResponse401
     | LocationsRegionsRetrieveResponse403
     | LocationsRegionsRetrieveResponse404
+    | LocationsRegionsRetrieveResponse503
     | Region
 ]:
     parsed = parse_response(_parse_response, client=client, response=response)
@@ -120,6 +134,8 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
     include_asns: bool | Unset = UNSET,
+    max_count: int | Unset = UNSET,
+    min_count: int | Unset = UNSET,
     package_id: UUID,
     accept_language: str | Unset = UNSET,
     x_impersonate_user: str | Unset = UNSET,
@@ -128,6 +144,7 @@ def sync_detailed(
     | LocationsRegionsRetrieveResponse401
     | LocationsRegionsRetrieveResponse403
     | LocationsRegionsRetrieveResponse404
+    | LocationsRegionsRetrieveResponse503
     | Region
 ]:
     """Get a region
@@ -140,6 +157,8 @@ def sync_detailed(
     Args:
         id (str):
         include_asns (bool | Unset):  Default: False.
+        max_count (int | Unset):
+        min_count (int | Unset):
         package_id (UUID):
         accept_language (str | Unset):  Defaults to the client language.
         x_impersonate_user (str | Unset):
@@ -149,12 +168,14 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[LocationsRegionsRetrieveResponse400 | LocationsRegionsRetrieveResponse401 | LocationsRegionsRetrieveResponse403 | LocationsRegionsRetrieveResponse404 | Region]
+        Response[LocationsRegionsRetrieveResponse400 | LocationsRegionsRetrieveResponse401 | LocationsRegionsRetrieveResponse403 | LocationsRegionsRetrieveResponse404 | LocationsRegionsRetrieveResponse503 | Region]
     """
 
     kwargs = _get_kwargs(
         id=id,
         include_asns=include_asns,
+        max_count=max_count,
+        min_count=min_count,
         package_id=package_id,
         accept_language=accept_language,
         x_impersonate_user=x_impersonate_user,
@@ -172,6 +193,8 @@ def sync(
     *,
     client: AuthenticatedClient,
     include_asns: bool | Unset = UNSET,
+    max_count: int | Unset = UNSET,
+    min_count: int | Unset = UNSET,
     package_id: UUID,
     accept_language: str | Unset = UNSET,
     x_impersonate_user: str | Unset = UNSET,
@@ -180,6 +203,7 @@ def sync(
     | LocationsRegionsRetrieveResponse401
     | LocationsRegionsRetrieveResponse403
     | LocationsRegionsRetrieveResponse404
+    | LocationsRegionsRetrieveResponse503
     | Region
     | None
 ):
@@ -193,6 +217,8 @@ def sync(
     Args:
         id (str):
         include_asns (bool | Unset):  Default: False.
+        max_count (int | Unset):
+        min_count (int | Unset):
         package_id (UUID):
         accept_language (str | Unset):  Defaults to the client language.
         x_impersonate_user (str | Unset):
@@ -202,13 +228,15 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        LocationsRegionsRetrieveResponse400 | LocationsRegionsRetrieveResponse401 | LocationsRegionsRetrieveResponse403 | LocationsRegionsRetrieveResponse404 | Region
+        LocationsRegionsRetrieveResponse400 | LocationsRegionsRetrieveResponse401 | LocationsRegionsRetrieveResponse403 | LocationsRegionsRetrieveResponse404 | LocationsRegionsRetrieveResponse503 | Region
     """
 
     return sync_detailed(
         id=id,
         client=client,
         include_asns=include_asns,
+        max_count=max_count,
+        min_count=min_count,
         package_id=package_id,
         accept_language=accept_language,
         x_impersonate_user=x_impersonate_user,
@@ -220,6 +248,8 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
     include_asns: bool | Unset = UNSET,
+    max_count: int | Unset = UNSET,
+    min_count: int | Unset = UNSET,
     package_id: UUID,
     accept_language: str | Unset = UNSET,
     x_impersonate_user: str | Unset = UNSET,
@@ -228,6 +258,7 @@ async def asyncio_detailed(
     | LocationsRegionsRetrieveResponse401
     | LocationsRegionsRetrieveResponse403
     | LocationsRegionsRetrieveResponse404
+    | LocationsRegionsRetrieveResponse503
     | Region
 ]:
     """Get a region
@@ -240,6 +271,8 @@ async def asyncio_detailed(
     Args:
         id (str):
         include_asns (bool | Unset):  Default: False.
+        max_count (int | Unset):
+        min_count (int | Unset):
         package_id (UUID):
         accept_language (str | Unset):  Defaults to the client language.
         x_impersonate_user (str | Unset):
@@ -249,12 +282,14 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[LocationsRegionsRetrieveResponse400 | LocationsRegionsRetrieveResponse401 | LocationsRegionsRetrieveResponse403 | LocationsRegionsRetrieveResponse404 | Region]
+        Response[LocationsRegionsRetrieveResponse400 | LocationsRegionsRetrieveResponse401 | LocationsRegionsRetrieveResponse403 | LocationsRegionsRetrieveResponse404 | LocationsRegionsRetrieveResponse503 | Region]
     """
 
     kwargs = _get_kwargs(
         id=id,
         include_asns=include_asns,
+        max_count=max_count,
+        min_count=min_count,
         package_id=package_id,
         accept_language=accept_language,
         x_impersonate_user=x_impersonate_user,
@@ -270,6 +305,8 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
     include_asns: bool | Unset = UNSET,
+    max_count: int | Unset = UNSET,
+    min_count: int | Unset = UNSET,
     package_id: UUID,
     accept_language: str | Unset = UNSET,
     x_impersonate_user: str | Unset = UNSET,
@@ -278,6 +315,7 @@ async def asyncio(
     | LocationsRegionsRetrieveResponse401
     | LocationsRegionsRetrieveResponse403
     | LocationsRegionsRetrieveResponse404
+    | LocationsRegionsRetrieveResponse503
     | Region
     | None
 ):
@@ -291,6 +329,8 @@ async def asyncio(
     Args:
         id (str):
         include_asns (bool | Unset):  Default: False.
+        max_count (int | Unset):
+        min_count (int | Unset):
         package_id (UUID):
         accept_language (str | Unset):  Defaults to the client language.
         x_impersonate_user (str | Unset):
@@ -300,7 +340,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        LocationsRegionsRetrieveResponse400 | LocationsRegionsRetrieveResponse401 | LocationsRegionsRetrieveResponse403 | LocationsRegionsRetrieveResponse404 | Region
+        LocationsRegionsRetrieveResponse400 | LocationsRegionsRetrieveResponse401 | LocationsRegionsRetrieveResponse403 | LocationsRegionsRetrieveResponse404 | LocationsRegionsRetrieveResponse503 | Region
     """
 
     return (
@@ -308,6 +348,8 @@ async def asyncio(
             id=id,
             client=client,
             include_asns=include_asns,
+            max_count=max_count,
+            min_count=min_count,
             package_id=package_id,
             accept_language=accept_language,
             x_impersonate_user=x_impersonate_user,

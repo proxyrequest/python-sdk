@@ -16,6 +16,7 @@ from ...models.orders_destroy_response_403 import OrdersDestroyResponse403
 from ...models.orders_destroy_response_404 import OrdersDestroyResponse404
 from ...models.orders_destroy_response_409 import OrdersDestroyResponse409
 from ...models.orders_destroy_response_412 import OrdersDestroyResponse412
+from ...models.usage_closure_response import UsageClosureResponse
 from ...types import UNSET, Unset
 from typing import cast
 
@@ -62,8 +63,14 @@ def _parse_response(
     | OrdersDestroyResponse404
     | OrdersDestroyResponse409
     | OrdersDestroyResponse412
+    | UsageClosureResponse
     | None
 ):
+    if response.status_code == 202:
+        response_202 = UsageClosureResponse.from_dict(response.json())
+
+        return response_202
+
     if response.status_code == 204:
         response_204 = cast(Any, None)
         return response_204
@@ -114,6 +121,7 @@ def _build_response(
     | OrdersDestroyResponse404
     | OrdersDestroyResponse409
     | OrdersDestroyResponse412
+    | UsageClosureResponse
 ]:
     parsed = parse_response(_parse_response, client=client, response=response)
     return Response(
@@ -140,13 +148,15 @@ def sync_detailed(
     | OrdersDestroyResponse404
     | OrdersDestroyResponse409
     | OrdersDestroyResponse412
+    | UsageClosureResponse
 ]:
     """Delete a sub-user order
 
      Removes an order in the caller's permitted scope. This is destructive, not a payment refund.
-    Deleting a virtual child order does not credit its quota to the shared ledger. Independently
-    purchased sub-user orders have a legacy parent-order data-counter adjustment; do not treat it as a
-    guaranteed restoration of usable ledger balance.
+    Deleting a virtual child order does not credit its quota to the shared ledger. An independently
+    funded sub-user order returns only its unspent, unexpired traffic to the parent before deletion,
+    preserving each ledger expiration date. A metered order returns 202 while its authorization and
+    remaining usage are being settled.
 
     Args:
         id (str):
@@ -160,7 +170,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Any | OrdersDestroyResponse400 | OrdersDestroyResponse401 | OrdersDestroyResponse403 | OrdersDestroyResponse404 | OrdersDestroyResponse409 | OrdersDestroyResponse412]
+        Response[Any | OrdersDestroyResponse400 | OrdersDestroyResponse401 | OrdersDestroyResponse403 | OrdersDestroyResponse404 | OrdersDestroyResponse409 | OrdersDestroyResponse412 | UsageClosureResponse]
     """
 
     kwargs = _get_kwargs(
@@ -194,14 +204,16 @@ def sync(
     | OrdersDestroyResponse404
     | OrdersDestroyResponse409
     | OrdersDestroyResponse412
+    | UsageClosureResponse
     | None
 ):
     """Delete a sub-user order
 
      Removes an order in the caller's permitted scope. This is destructive, not a payment refund.
-    Deleting a virtual child order does not credit its quota to the shared ledger. Independently
-    purchased sub-user orders have a legacy parent-order data-counter adjustment; do not treat it as a
-    guaranteed restoration of usable ledger balance.
+    Deleting a virtual child order does not credit its quota to the shared ledger. An independently
+    funded sub-user order returns only its unspent, unexpired traffic to the parent before deletion,
+    preserving each ledger expiration date. A metered order returns 202 while its authorization and
+    remaining usage are being settled.
 
     Args:
         id (str):
@@ -215,7 +227,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Any | OrdersDestroyResponse400 | OrdersDestroyResponse401 | OrdersDestroyResponse403 | OrdersDestroyResponse404 | OrdersDestroyResponse409 | OrdersDestroyResponse412
+        Any | OrdersDestroyResponse400 | OrdersDestroyResponse401 | OrdersDestroyResponse403 | OrdersDestroyResponse404 | OrdersDestroyResponse409 | OrdersDestroyResponse412 | UsageClosureResponse
     """
 
     return sync_detailed(
@@ -244,13 +256,15 @@ async def asyncio_detailed(
     | OrdersDestroyResponse404
     | OrdersDestroyResponse409
     | OrdersDestroyResponse412
+    | UsageClosureResponse
 ]:
     """Delete a sub-user order
 
      Removes an order in the caller's permitted scope. This is destructive, not a payment refund.
-    Deleting a virtual child order does not credit its quota to the shared ledger. Independently
-    purchased sub-user orders have a legacy parent-order data-counter adjustment; do not treat it as a
-    guaranteed restoration of usable ledger balance.
+    Deleting a virtual child order does not credit its quota to the shared ledger. An independently
+    funded sub-user order returns only its unspent, unexpired traffic to the parent before deletion,
+    preserving each ledger expiration date. A metered order returns 202 while its authorization and
+    remaining usage are being settled.
 
     Args:
         id (str):
@@ -264,7 +278,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Any | OrdersDestroyResponse400 | OrdersDestroyResponse401 | OrdersDestroyResponse403 | OrdersDestroyResponse404 | OrdersDestroyResponse409 | OrdersDestroyResponse412]
+        Response[Any | OrdersDestroyResponse400 | OrdersDestroyResponse401 | OrdersDestroyResponse403 | OrdersDestroyResponse404 | OrdersDestroyResponse409 | OrdersDestroyResponse412 | UsageClosureResponse]
     """
 
     kwargs = _get_kwargs(
@@ -296,14 +310,16 @@ async def asyncio(
     | OrdersDestroyResponse404
     | OrdersDestroyResponse409
     | OrdersDestroyResponse412
+    | UsageClosureResponse
     | None
 ):
     """Delete a sub-user order
 
      Removes an order in the caller's permitted scope. This is destructive, not a payment refund.
-    Deleting a virtual child order does not credit its quota to the shared ledger. Independently
-    purchased sub-user orders have a legacy parent-order data-counter adjustment; do not treat it as a
-    guaranteed restoration of usable ledger balance.
+    Deleting a virtual child order does not credit its quota to the shared ledger. An independently
+    funded sub-user order returns only its unspent, unexpired traffic to the parent before deletion,
+    preserving each ledger expiration date. A metered order returns 202 while its authorization and
+    remaining usage are being settled.
 
     Args:
         id (str):
@@ -317,7 +333,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Any | OrdersDestroyResponse400 | OrdersDestroyResponse401 | OrdersDestroyResponse403 | OrdersDestroyResponse404 | OrdersDestroyResponse409 | OrdersDestroyResponse412
+        Any | OrdersDestroyResponse400 | OrdersDestroyResponse401 | OrdersDestroyResponse403 | OrdersDestroyResponse404 | OrdersDestroyResponse409 | OrdersDestroyResponse412 | UsageClosureResponse
     """
 
     return (

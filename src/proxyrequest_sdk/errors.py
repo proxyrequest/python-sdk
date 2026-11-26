@@ -35,6 +35,7 @@ class ApiError(ProxyRequestError):
         kind: ErrorKind,
         status_code: int | None = None,
         detail: str | None = None,
+        code: str | None = None,
         field_errors: Mapping[str, list[str]] | None = None,
         request_id: str | None = None,
         retry_after: float | None = None,
@@ -49,6 +50,7 @@ class ApiError(ProxyRequestError):
         self.kind = kind
         self.status_code = status_code
         self.detail = detail
+        self.code = code
         self.field_errors = dict(field_errors or {})
         self.request_id = request_id
         self.retry_after = retry_after
@@ -69,6 +71,7 @@ class ApiError(ProxyRequestError):
         normalized_headers = {str(key): str(value) for key, value in headers.items()}
         payload = _json_payload(content)
         detail = _detail(payload)
+        code = payload.get("code") if isinstance(payload, Mapping) else None
         kind = _kind_for_status(status_code)
         request_id = _header(normalized_headers, "x-request-id", "x-correlation-id")
         retry_after = _float_header(normalized_headers, "retry-after")
@@ -80,6 +83,7 @@ class ApiError(ProxyRequestError):
             kind=kind,
             status_code=status_code,
             detail=detail,
+            code=code if isinstance(code, str) else None,
             field_errors=_field_errors(payload),
             request_id=request_id,
             retry_after=retry_after,
@@ -123,6 +127,7 @@ class ApiError(ProxyRequestError):
             kind=self.kind,
             status_code=self.status_code,
             detail=self.detail,
+            code=self.code,
             field_errors=self.field_errors,
             request_id=self.request_id,
             retry_after=self.retry_after,

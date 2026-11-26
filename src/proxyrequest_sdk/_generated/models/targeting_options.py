@@ -8,6 +8,8 @@ from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+
 
 T = TypeVar("T", bound="TargetingOptions")
 
@@ -39,6 +41,7 @@ class TargetingOptions:
     os_ios: str
     os_macos: str
     os_android: str
+    zip_: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -92,6 +95,8 @@ class TargetingOptions:
 
         os_android = self.os_android
 
+        zip_ = self.zip_
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
@@ -123,6 +128,8 @@ class TargetingOptions:
                 "os_android": os_android,
             }
         )
+        if zip_ is not UNSET:
+            field_dict["zip"] = zip_
 
         return field_dict
 
@@ -179,6 +186,8 @@ class TargetingOptions:
 
         os_android = d.pop("os_android")
 
+        zip_ = d.pop("zip", UNSET)
+
         targeting_options = cls(
             package=package,
             split_char=split_char,
@@ -205,6 +214,7 @@ class TargetingOptions:
             os_ios=os_ios,
             os_macos=os_macos,
             os_android=os_android,
+            zip_=zip_,
         )
 
         targeting_options.additional_properties = d

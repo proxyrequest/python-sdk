@@ -5,9 +5,8 @@
 [![Python](https://img.shields.io/pypi/pyversions/proxyrequest-sdk.svg?cacheSeconds=300)](https://pypi.org/project/proxyrequest-sdk/)
 
 Official synchronous and asynchronous Python client for the
-[ProxyRequest](https://proxyrequest.com/) public API. It covers 81 supported operations
-in the current contract: users, orders, proxy generation, analytics, invoices,
-packages, locations, webhooks, API keys, Telegram integration, and more.
+[ProxyRequest](https://proxyrequest.com/) public API. It covers static rentals, users, orders, proxy generation, analytics,
+invoices, packages, locations, webhooks, API keys, Telegram integration, and more.
 
 See [analytics formats and compatibility](docs/analytics.md) for Unix timestamps,
 reporting windows, and feed identifiers.
@@ -67,13 +66,15 @@ proof that proxy access is active.
 
 | Scenario | Recommended flow |
 | --- | --- |
+| Static ISP or datacenter rental | Read or export active connections, or reserve an offer, settle checkout, and poll fulfillment before connecting. |
 | Built-in customer checkout | Select a package, create an invoice, obtain its payment link, confirm payment and entitlement, then generate proxy credentials. |
 | Reseller-managed customer | Create a sub-user, assign a package and byte limit from an eligible root order, then generate credentials for that user. |
 | Existing headless platform | Keep your own customer and billing records, persist mappings to ProxyRequest users/packages/orders, and provision through the API. |
 
 See [purchase a package with an invoice](https://github.com/proxyrequest/python-sdk/blob/main/docs/guides/purchase-flow.md)
 and [provision a reseller customer](https://github.com/proxyrequest/python-sdk/blob/main/docs/guides/reseller-provisioning.md)
-for complete Python examples.
+for complete Python examples. For fixed addresses, see the
+[static rental guide](docs/guides/static-rentals.md).
 
 ## Installation
 

@@ -64,6 +64,10 @@ def test_every_operation_has_typed_sync_and_async_facades() -> None:
             if operation["operationId"] in {"sessions_list", "sessions_destroy"}:
                 continue
             tag = operation["tags"][0]
+            if operation["operationId"] == "login_otp_create":
+                tag = "Authorization"
+            elif tag == "MFA":
+                tag = "Profile"
             resource = mapping["resources"][tag]
             module = importlib.import_module(f"proxyrequest_sdk.resources.{resource['attribute']}")
             sync_class = getattr(module, resource["class_name"])

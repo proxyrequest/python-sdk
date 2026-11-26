@@ -22,11 +22,15 @@ class CouponsCalculatePriceCreateResponse403:
 
     """
 
+    code: str | Unset = UNSET
+    """ Stable machine-readable error code, when available. """
     detail: str | Unset = UNSET
     non_field_errors: list[str] | Unset = UNSET
     additional_properties: dict[str, list[str] | str] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
+        code = self.code
+
         detail = self.detail
 
         non_field_errors: list[str] | Unset = UNSET
@@ -42,6 +46,8 @@ class CouponsCalculatePriceCreateResponse403:
                 field_dict[prop_name] = prop
 
         field_dict.update({})
+        if code is not UNSET:
+            field_dict["code"] = code
         if detail is not UNSET:
             field_dict["detail"] = detail
         if non_field_errors is not UNSET:
@@ -52,11 +58,14 @@ class CouponsCalculatePriceCreateResponse403:
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
+        code = d.pop("code", UNSET)
+
         detail = d.pop("detail", UNSET)
 
         non_field_errors = cast(list[str], d.pop("non_field_errors", UNSET))
 
         coupons_calculate_price_create_response_403 = cls(
+            code=code,
             detail=detail,
             non_field_errors=non_field_errors,
         )

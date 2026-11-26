@@ -111,7 +111,8 @@ def _prepare_idempotency_key(
     if isinstance(value, Unset):
         if not enabled:
             return None
-        value = str(uuid.uuid4())
+        legacy_key = getattr(kwargs.get("body"), "idempotency_key", UNSET)
+        value = legacy_key if isinstance(legacy_key, str) and legacy_key else str(uuid.uuid4())
         kwargs["idempotency_key"] = value
     return value if isinstance(value, str) and value else None
 
@@ -200,6 +201,8 @@ class Client:
         self.invoices = resources.InvoicesResource(self)
         self.locations = resources.LocationsResource(self)
         self.news = resources.NewsResource(self)
+        self.kyc = resources.KYCResource(self)
+        self.static_proxies = resources.StaticProxiesResource(self)
         self.orders = resources.OrdersResource(self)
         self.packages = resources.PackagesResource(self)
         self.profile = resources.ProfileResource(self)
@@ -396,6 +399,8 @@ class AsyncClient:
         self.invoices = resources.AsyncInvoicesResource(self)
         self.locations = resources.AsyncLocationsResource(self)
         self.news = resources.AsyncNewsResource(self)
+        self.kyc = resources.AsyncKYCResource(self)
+        self.static_proxies = resources.AsyncStaticProxiesResource(self)
         self.orders = resources.AsyncOrdersResource(self)
         self.packages = resources.AsyncPackagesResource(self)
         self.profile = resources.AsyncProfileResource(self)

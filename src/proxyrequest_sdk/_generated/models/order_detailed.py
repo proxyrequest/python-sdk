@@ -37,6 +37,12 @@ class OrderDetailed:
     position is not spending priority. """
     data_updated: datetime.datetime
     id: str | Unset = UNSET
+    connection_limit: int | Unset = UNSET
+    speed_limit: int | Unset = UNSET
+    """ Bandwidth cap in Mbit/s applied across all connections for a user on this package. Set to 0 for unlimited.
+    """
+    fulfillment_kind: str | Unset = UNSET
+    rental_status: None | str | Unset = UNSET
     is_active: bool | Unset = UNSET
     """ When enabled, the customer can actively use proxies on this order. Disable to suspend access without
     deleting the order. """
@@ -86,6 +92,18 @@ class OrderDetailed:
         data_updated = self.data_updated.isoformat()
 
         id = self.id
+
+        connection_limit = self.connection_limit
+
+        speed_limit = self.speed_limit
+
+        fulfillment_kind = self.fulfillment_kind
+
+        rental_status: None | str | Unset
+        if isinstance(self.rental_status, Unset):
+            rental_status = UNSET
+        else:
+            rental_status = self.rental_status
 
         is_active = self.is_active
 
@@ -142,6 +160,14 @@ class OrderDetailed:
         )
         if id is not UNSET:
             field_dict["id"] = id
+        if connection_limit is not UNSET:
+            field_dict["connection_limit"] = connection_limit
+        if speed_limit is not UNSET:
+            field_dict["speed_limit"] = speed_limit
+        if fulfillment_kind is not UNSET:
+            field_dict["fulfillment_kind"] = fulfillment_kind
+        if rental_status is not UNSET:
+            field_dict["rental_status"] = rental_status
         if is_active is not UNSET:
             field_dict["is_active"] = is_active
         if auto_renewal_percentage is not UNSET:
@@ -191,6 +217,21 @@ class OrderDetailed:
         data_updated = datetime.datetime.fromisoformat(d.pop("data_updated"))
 
         id = d.pop("id", UNSET)
+
+        connection_limit = d.pop("connection_limit", UNSET)
+
+        speed_limit = d.pop("speed_limit", UNSET)
+
+        fulfillment_kind = d.pop("fulfillment_kind", UNSET)
+
+        def _parse_rental_status(data: object) -> None | str | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(None | str | Unset, data)
+
+        rental_status = _parse_rental_status(d.pop("rental_status", UNSET))
 
         is_active = d.pop("is_active", UNSET)
 
@@ -268,6 +309,10 @@ class OrderDetailed:
             ledgers=ledgers,
             data_updated=data_updated,
             id=id,
+            connection_limit=connection_limit,
+            speed_limit=speed_limit,
+            fulfillment_kind=fulfillment_kind,
+            rental_status=rental_status,
             is_active=is_active,
             auto_renewal_percentage=auto_renewal_percentage,
             auto_renewal_data=auto_renewal_data,
